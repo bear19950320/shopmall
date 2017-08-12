@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>我的</title>
+		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+	</head>
+
+	<body style="background: #F4F4F4;">
+		<!-- 个人展示    -->
+		<div class="crousel individual" style="margin-top: 0;">
+
+		</div>
+		<!-- 个人的关注   -->
+		<div id="popularity">
+
+			<span id="myMall" style="background: red;color: #FFFFFF;font-size: 15px;padding: 7px 13px;">我的商城</span>
+		</div>
+
+		<div id="bill">
+			<div id="sharCost">
+				<ul>
+					<li style="width:60%;padding-right: 3%;padding-left: 2%;">
+						<ol>
+							<li style="border-bottom:1px solid #F3F3F3;" onclick="window.location.href='getcashinfo.html?name=现金&money='+$('#balanceNum').html()">
+								<!--<img src="../img/hair.png" alt="" />-->
+								<div>
+									<div style="width: 40%;float: left;">
+										<img src="../img/icon/My_Withdrawals@2x.png" style="width:20px;height: 20px;float: left;padding-top: 10px;" />
+										<a href="javascript:;" id="balanceExtract" style="float: left;font-size: 14px;">现金</a>
+									</div>
+									<div style="width: 50%;float: right;margin-top: 8px;">
+										
+										<div id="balanceNum">0.00</div>
+									</div>
+								</div>
+							</li>
+							<li onclick="window.location.href='getcashinfo.html?name=呔金&money='+$('#costNum').html()">
+								<!--<img src="../img/hair.png" alt="" />-->
+								<div>
+									<div style="width: 40%;float: left;">
+										<img src="../img/icon/My_CashEquivalent@2x.png" style="width:20px;height: 20px;float: left;padding-top: 10px;" />
+										<a href="javascript:;" id="costbalanceExtract" style="float: left;line-height: none;font-size: 14px;">呔金</a>
+									</div>
+									<div style="width: 50%;float: right;margin-top: -7px;">
+										<span>&nbsp;</span>
+										<div id="costNum">0.00</div>
+									</div>
+								</div>
+							</li>
+						</ol>
+					</li>
+					<li style="width:34%;border-left:1px solid #F3F3F3;">
+						<a href="connections.html">
+							<div>
+								<span class="bqqo" style="font-size: 16px;display: inline-block;width: 100%;text-align: center;"><img src="../img/icon/My_Share@2x.png" style="width:20px;height: 20px;" /><label>我的分享</label></span>
+								<div id="sharNum"></div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<ul id="orderStatus">
+				<li id="Unpaid">
+					<span>
+						<m>0</m>
+						<img src="../img/icon/My_Unpaid@2x.png" alt="" />
+					</span>
+
+				</li>
+				<li id="Ready">
+					<span>
+						<m>0</m>
+						<img src="../img/icon/My_NotShipped@2x.png" alt="" />
+					</span>
+				</li>
+				<li id="Collect">
+					<span>
+						<m>0</m>
+						<img src="../img/icon/My_NoReceipt@2x.png" alt="" />
+					</span>
+				</li>
+				<li id="CService">
+					<span>
+						<m>0</m>
+						<img src="../img/icon/My_CustomerService@2x.png" alt="" />
+					</span>
+				</li>
+				<li style="text-align: right;" id="orderAll">
+					<span>
+						<img src="../img/icon/My_OrderList@2x.png" alt="" />
+					</span>
+				</li>
+			</ul>
+		</div>
+		<nav></nav>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			if(!localStorage.getItem("cutomerId") || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
+				location.href = "login.html"
+			} else if(localStorage.getItem("loginStatus") == "1") {
+				$("nav").load("../html/nav.html", function() {
+					$("#nav").css("width", $("body").width())
+					$("#homePage").css("padding-bottom", "60px");
+					$("#twoStage").css("padding-bottom", "60px");
+					$("#individual a").css({
+						"color": "#DA251D"
+					});
+					$("#individual img").attr("src", "../img/navImg/individual_click.png");
+				});
+				$("head").load("../html/mate.html", function() {
+					$("title").html("个人中心");
+					$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+				});
+				//   获得个人信息		    
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/customer/getme",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId")
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					success: function(data) {
+						if(data.code == 2001) {
+							alert(data.msg);
+							location.href = "login.html";
+							localStorage.setItem("loginStatus", 0)
+						} else if(data.data.user.loginStatus == "1") {
+							var user = data.data.user;
+							$("#Unpaid").find("m").text(user.obligationNum);
+							$("#Ready").find("m").text(user.toSendTheGoodNum);
+							$("#Collect").find("m").text(user.waitForReceivingNum);
+							$("#CService").find("m").text(user.afterSale)
+							var backgroundImage = "";
+							if(user.backgroundImage == "") {
+								backgroundImage = "../img/meBack.png"
+							} else {
+								backgroundImage = user.backgroundImage
+							}
+							sessionStorage.setItem("invitationCode", user.invitationCode)
+							$(".individual").css({
+								"background": "url(" + backgroundImage + ")no-repeat center center",
+								"background-size": "100% 100%"
+							});
+							$("#balanceNum").text(user.cashMoney);
+							$("#costNum").text(user.replaceMoney);
+							$("#sharNum").text(user.sharePersonNum+"位")
+							if(user.headImage == '') {
+								user.headImage = '../img/LOGO.png'
+							}
+
+							$(".individual").append('<div id="individualTitle"><a href="outLogin.html" id="outLogin" style="float: left;"><img src="../img/icon/My_Setting@2x.png" style="width:20px;height: 20px;padding-left: 10px;" /></a>' + user.address + '</div>' +
+								'<p id="signature">' + user.signature + ' </p>' +
+								'<span id="individualName">' + user.name + '</span>' +
+								'<img id="individualImg" src=' + user.headImage + ' alt="" />');
+							$("#myMall").click(function() {
+								location.href = 'myMall.html?name=' + user.name + "&headImage=" + user.headImage + "&growthValue=" + user.growthValue + "&growthValueUp=" + user.growthValueUp + "&invitationCode=" + user.invitationCode
+							});
+							$("#individualImg").click(function() {
+								location.href = "individualContent.html"
+							});
+						}
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else if(data.status == "400") {
+							location.href = "login.html"
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+			}
+			$("#orderAll").click(function() {
+				sessionStorage.setItem("orderCode", "0");
+				location.href = "order.html"
+			});
+			$("#Unpaid").click(function() {
+				sessionStorage.setItem("orderCode", "100");
+				location.href = "order.html"
+			});
+			$("#Ready").click(function() {
+				sessionStorage.setItem("orderCode", "200");
+				location.href = "order.html"
+			});
+			$("#Collect").click(function() {
+				sessionStorage.setItem("orderCode", "300");
+				location.href = "order.html"
+			});
+			$("#CService").click(function() {
+				sessionStorage.setItem("orderCode", "400");
+				location.href = "order.html"
+			});
+		</script>
+	</body>
+</html>

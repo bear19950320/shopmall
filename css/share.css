@@ -1,0 +1,50 @@
+.laye{
+	display: none;
+	position: fixed;
+	bottom: 0;
+	width:100%;
+	padding: 10px 0;
+	background: #fff;
+}
+.layeTitle{
+	width: 94%;
+	height: 20px;
+	line-height: 20px;
+	font-size: 16px;
+	font-weight: 700;
+	color:#333;
+	padding:10px 3%;
+	border-bottom: 1px solid rgba(204,204,204,.4);
+}
+/* 分享身体   */
+.layeContent{
+	width: 94%;
+	padding:10px 3%;
+	text-align: center;
+}
+.layeContent>a{
+	width:40px;
+	height:40px;
+	margin: 5px;
+	font-size: 40px;
+}
+.layeContent>a>img{
+	width: 100%;
+	height: 100%;
+}
+.layeContent:after{
+	content: "";
+	clear: both;
+	display: block;
+}
+/* 分享 底部  */
+.layeFont{
+	text-align: center;
+}
+.layeFont>.closeLaye{
+	text-align: 16px;
+	font-weight: 500;
+	background: #7d7d7d;
+	width:90%;
+	padding: 10px 15px;
+}

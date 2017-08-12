@@ -1,0 +1,28 @@
+.connect li>img{
+	vertical-align:bottom;
+	height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+.connect li{
+	padding:5px 3% !important;
+}
+.connect li label img{
+	width: 54px;
+	height: 16px;
+}
+.connect li>span>p{
+	line-height: 20px;
+	letter-spacing: 2px;
+}
+.connect li>b{
+	float: right;
+	letter-spacing:2px;
+}
+div{
+	display: none;
+	background: #fff;
+}
+.connect div>ul>li{
+	padding:5px 0 5px 6% !important;
+}

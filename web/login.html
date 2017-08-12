@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta id="head"/>
+	   <style type="text/css">
+	    .bottom	a{
+	   		width: 200px;
+	   		height: 40px;
+	   		margin: 0 auto;
+	   		background: url(../img/logininput.png)no-repeat;
+	   		background-size: 100%;
+	   		display: inline-block;
+	   	}
+	   </style>
+	</head>
+	<body>
+		<div class="bottom" style="width:100%;height: 40%;position: fixed;bottom: 0;text-align: center;">
+		<a href="javascript:;" id="register">
+		<font style="background: url(../img/phone.png)no-repeat;background-size:contain;">注册</font>
+		</a>
+		<a href="javascript:;" id="land">
+		<font style="background: url(../img/pass.png)no-repeat;background-size:contain;">登录</font>
+		</a>
+		</div>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/curr.js"></script>
+		<script src="../js/wxLogin.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript">
+	    	$('body').css({"width":$(window).width(),"height":$(window).height()})
+	    	$("head").load("../html/mate.html",function(){
+			   	$("title").html("登录");
+		    });
+		    $("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">')
+            $(function(){
+            	sessionStorage.setItem("Status","个人");
+            	
+            	isWeiXin();
+            	/* 判断是否登陆  */
+            	$("#register").click(function(){
+	            	location.href="register.html"
+	          	});
+	           	$("#land").click(function(){
+	            	location.href="loginbypassword.html"
+	           	});
+         
+            })
+
+	    </script>
+	</body>
+	
+</html>

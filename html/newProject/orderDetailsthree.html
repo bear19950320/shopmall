@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />		
+		<link rel="stylesheet" type="text/css" href="css/iconfonts.css" />
+		<link rel="stylesheet" type="text/css" href="css/orderCommon.css" />
+		<link rel="stylesheet" type="text/css" href="css/orderDetailsthree.css" />
+		<title>订单详情</title>
+	</head>
+	<body>
+		<div class="pad_div"></div>
+		<section class="section_c1">
+			<p>卖家未发货</p>
+			<p>请耐心等待</p>
+		</section>
+		<div class="line_div"></div>
+		<section class="section_c3">
+			<p class="decript_color name_colo">徐凤年 13575485648</p>
+			<p class="time_color">四川省成都市高新区美年广场T3,16楼</p>
+			<span class="iconfont icon-dingwei youji_car dignwei"></span>
+		</section>
+		<div class="bg_div"></div>
+		<section class="order_section">
+			<ul>
+				
+			</ul>
+		</section>
+		<div class="bg_div ght"></div>
+		<section class="miaos_sec">
+			<div class="miaos_sec_t">
+				<p>订单编号：<span class="orderCode"></span></p>
+				<p>下单日期：<span class="orderTime"></span></p>
+			</div>
+			<div class="miaos_sec_b">
+				<label>支付方式：</label>
+				<label>微信支付</label>
+			</div>
+		</section>
+		<div class="bg_div" style="padding-bottom: 50px;"></div>
+		<footer>
+			<div class="footer_left">
+				<label>合计：</label>
+				<label class="sum">￥</label>
+			</div>
+			
+		</footer>
+		<img src="../../img/ajax-loader.gif" id="ajax" alt="" />
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			let order=GetQueryString("orderId")
+			$.ajax({
+					type: "GET",
+					url: testurl + "/api/order/orderinfo",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						orderId: order
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						$("#ajax").show();	
+					},
+					success: function(data) {
+						var data=data.data.orderinfo;
+						var ware=data.orderWareList;
+						$(".name_colo").text(data.receiveCustomer+"  "+data.receivePhone);
+						$(".time_color").text(data.receiveProvince+data.receiveCity+data.receiveArea+data.receiveAddress)
+					    $(".orderCode").text(data.orderCode);
+					    $(".orderTime").text(data.payTime);
+					    $(".sum").append(data.orderTotal)
+					    var li="";
+					    for(var i=0;i<ware.length;i++){
+					    	li+="<li>"
+					    	li+='<div class="li_header">\
+										<p>'+ware[i].wareSupplierName+'</p>\
+										<span class="iconfont icon-arrow-right"></span>\
+										<label>申请售后</label>\
+									    </div>\
+									<div class="li_mid1">\
+									<img src="'+ware[i].wareImage+'" />\
+									<div class="li_con">\
+										<p>'+ware[i].wareName+'</p>\
+										<div id="'+ware[i].orderWareId+'">\
+											<label>'+ware[i].orderWareSkuitems[0].name+'</label>\
+											<label>'+ware[i].orderWareSkuitems[0].value+'</label>\
+										</div>\
+									</div>\
+									<label class="con_price">￥'+ware[i].warePrice+'</label>\
+									<label class="con_mum">*'+ware[i].wareNum+'</label>\
+								</div>\
+								<div class="line_div"></div>\
+								<div class="li_mid2">\
+									<div class="li_mid2_left">\
+										<label>商品应付金额：</label><br />\
+										<label>快递运费：</label>\
+									</div>\
+									<div class="li_mid2_right">\
+										<label>￥'+ware[0].marketPrice+'</label><br />\
+										<label>'+data.orderFreight+'</label>\
+									</div>\
+								</div>\
+								<div class="line_div"></div>\
+								<div class="li_mid2">\
+									<div class="li_mid2_left">\
+										<label>实付金额：</label>\
+									</div>\
+									<div class="li_mid2_right">\
+										<label>￥'+data.orderTotal+'</label>\
+									</div>\
+								</div>'
+								li+="</li>"
+						
+					    }
+					    $("ul").append(li)
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#ajax").hide();	
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+		</script>
+	</body>
+</html>

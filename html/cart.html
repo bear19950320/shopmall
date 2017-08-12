@@ -1,0 +1,95 @@
+ <script src="../js/jquery.js"></script>
+ <script>
+        $(document).ready(function () {
+            shopCart();
+            
+            //减 最大
+            $(".minus").click(function () {
+                var currNum = $(this).siblings(".number");
+                if (currNum.val() <= 1) {
+                    currNum.val("1");
+                } else {
+                   	  currNum.val(parseInt(currNum.val()) - 1);
+                      $(this).parent().find('.num').html(currNum.val()); 
+                }
+                shopCart();
+            });
+            //加
+            $(".plus").click(function () {
+                var currNum = $(this).siblings(".number");
+                currNum.val(parseInt(currNum.val()) + 1);
+                $(this).parent().find('.num').html(currNum.val());
+                shopCart();
+            });
+            //删除
+            $(".delBtn").click(function () {
+                $(this).parent().remove();
+                shopCart();
+                nullTips();
+            });
+            //购物车是否为空
+            function nullTips() {
+                if ($(".cart dd").length == 0) {
+                    var tipsCont = "<mark style='display:block;background:none;text-align:center;color:grey;'>购物车为空！</mark>"
+                    $(".cart").remove();
+                    $("body").append(tipsCont);
+                }
+            }
+            //计算总价
+            function shopCart() {
+                var sum=money=0;
+                $('.cart dd input').each(function () {
+                    if ($(this).prop('checked')) {
+                        var par = Number($(this).siblings('.goodsInfor').find('strong').html());
+                        var pra = Number($(this).siblings('.goodsInfor').find('.number').val());
+                        console.log(par+"===="+pra)
+                        money= par * pra;
+                        sum+=money;
+                    }
+                });
+                sum=sum.toFixed(2)
+                $('.money').html(sum);
+            }
+            //全选
+            $('input[id="all"]').on('change',function(){
+                if($(this).prop('checked')){
+                    $('.cart dd>input').prop('checked',true);
+                    $('.cart dd>input').css("background","red");
+                }else{
+                    $('.cart dd>input').prop('checked',false);
+                    $('.cart dd>input').css("background","none")
+                }
+                shopCart();
+            });
+            //选择商品
+            $('.cart dd input[type="checkbox"]').on('change',function(){
+                if($('.cart dd input[type="checkbox"]:checked').length<$('.cart dd input[type="checkbox"]').length){
+                    $('input[id="all"]').prop('checked',false);
+                     $('.cart dd>input').css("background","none");
+                }else{
+                    $('input[id="all"]').prop('checked',true);
+                    $('.cart dd>input').css("background","red");
+                }
+                shopCart();
+            })
+            //提交订单
+            $('.enter').click(function(){
+                if($('dd input[type="checkbox"]').length!=0 && $('.cart dd input[type="checkbox"]:checked').length!=0){
+                    window.location='confirm_order.html';
+                }
+            })
+        });
+       
+    </script>
+<link rel="stylesheet" type="text/css" href="../css/left_slip.css"/>
+<!--<script type="text/javascript" src="../js/left_slip.js"></script>-->
+<script type="text/javascript" src="../js/curr.js"></script>
+<dl class="cart">
+    <!--身体-->
+    
+</dl>
+<!--bottom nav-->
+
+
+
+

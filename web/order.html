@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>我的订单</title>
+		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+	</head>
+
+	<body style="background: #F0F3F8;">
+		<ul id="classifyListTitle" class="order" style="width:100%;border-Bottom:1px solid #E7E7E7;z-index:100;background: #fff;position: fixed;top:0;">
+			<li id="orderAll"><span class="selected">全部 </span></li>
+			<li id="Unpaid"><span>待付款</span></li>
+			<li id="Ready"><span>待发货</span></li>
+			<li id="Collect"><span>待收货</span></li>
+			<li id="CService"><span>已完成</span></li>
+		</ul>
+		<ul id="orderUl" style="margin-top: 10px;"></ul>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("head").load("../html/mate.html", function() {
+				$("title").html("我的订单");
+				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+			});
+			var dataCount = 0;
+			$("#classifyListTitle>li").css({
+				"width": "18%",
+				padding: "0",
+				textAlign: "center",
+			});
+			$("#orderUl").empty();
+			order(sessionStorage.getItem("orderCode"))
+			function opsition(id) {
+				$(id).find("span").addClass("selected");
+				$(id).siblings().find("span").removeClass("selected");
+			}
+			if(sessionStorage.getItem("orderCode") == 100) {
+				opsition("#Unpaid")
+			} else if(sessionStorage.getItem("orderCode") == 200) {
+				opsition("#Ready")
+			} else if(sessionStorage.getItem("orderCode") == 300) {
+				opsition("#Collect")
+			} else if(sessionStorage.getItem("orderCode") == 400) {
+				opsition("#CService")
+			} else if(sessionStorage.getItem("orderCode") == 0) {
+				opsition("#orderAll")
+			} 
+			function DelOrder(code) {
+				$.ajax({
+					type: "POST",
+					url: testurl + "/api/order/deleteorder",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						orderId: code
+					},
+					dataType: "json",
+
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					success: function(data) {
+						if(data.code == 10000) {
+							alert("删除订单成功！");
+							location.reload()
+						}
+					}
+				})
+			}
+
+			$(window).scroll(function() {
+				// 当滚动到最底部以上100像素时， 加载新内容
+				if($(document).height() - $(this).scrollTop() - $(this).height() == 0) {
+					order(sessionStorage.getItem("orderCode"))
+				}
+			});
+
+			function order(ord) {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/order/orderlist",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						orderStatus: ord,
+						pageId: dataCount,
+						pageSize: "10"
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						var data = data.data.orderlist;
+						//$("#orderUl").empty();
+						if(typeof data == 'object') {
+							var oProduct, $row, iHeight, iTempHeight;
+							for(var i = 0, l = data.length; i < l; i++) {
+								oProduct = data[i];
+								// 找出当前高度最小的列, 新内容添加到该列
+								iHeight = -1;
+								$("#orderUl li").each(function() {
+									iTempHeight = Number($(this).height());
+									if(iHeight == -1 || iHeight > iTempHeight) {
+										iHeight = iTempHeight;
+										$row = $(this);
+									}
+								});
+								if(data.length != 0) {
+									for(var i = 0; i < data.length; i++) {
+										$("#orderUl").append('<li id="'+ data[i].orderId +'">\
+							      			<div class="storeTitle">\
+							      				<div style="width: 80%;text-align: left;font-size: 14px;">' +data[i].orderWareList[0].wareSupplierName+'</div>\
+							      				<div class="del" style="width: 12%;"><a href="javascript:;" style="float: right;font-size: 14px;line-height: 20px;" class=' + data[i].orderId + ' >删除</a></div>\
+							      			</div>\
+							      		    <ul class="orderContent" id="' + data[i].orderCode + '"></ul>\
+							      		    <div class="orderAlt">\
+							      		       	共' + data[i].orderWareList.length + '件商品，合计' + data[i].orderTotal + '.00(含运费' + data[i].orderFreight + '.00)\
+							      		    </div>\
+							      		    <div class="orderAlt">\
+							      		    	<span class="left" style="float:left;width:60%;overflow: hidden;">备注:<red>' + data[i].orderRemarks + '</red></span> <a href="javascript:;" class="payment" id="'+ data[i].orderId +'"></a>\
+							      		    </div>\
+							      		</li>');
+										for(var j = 0; j < data[i].orderWareList.length; j++) {
+											$("#" + data[i].orderCode).append('<li>\
+					      		    		      <div class="storeWare">\
+								      		    	<img class="wareImg" src="' + data[i].orderWareList[j].wareImage + '" alt="" />\
+								      		    	<div class="wareText">\
+								      		    		<p class="classifyListText left">' + data[i].orderWareList[j].wareName + '</p>\
+								      		    	    <div class="spec left">规格：' + data[i].orderWareList[j].orderWareSkuitems[0].value + '</div>\
+								      		    	</div>\
+								      		    </div>\
+						      		    	</li>');
+										};
+
+										$("." + data[i].orderId).click(function() {
+											DelOrder($(this).attr("class"));
+										});
+										$("#"+data[i].orderId).click(function(){
+											/*跳转到详情*/
+											if(sessionStorage.getItem("orderCode")==200){
+												location.href="../html/newProject/orderDetailsthree.html?orderId="+$(this).attr("id")
+											}else if(sessionStorage.getItem("orderCode")==300){
+												location.href="../html/newProject/orderDetails.html?orderId="+$(this).attr("id")
+											}
+											
+										});
+									};
+
+									if(ord == 100) {
+										$(".payment").text("付款");
+										$(".payment").click(function(event){
+											event.stopPropagation();
+											location.href="./shopCartOrder.html?orderid="+$(this).attr("id")
+										})
+									} else if(ord == 200) {
+										$(".del").empty();
+										$(".payment").text("提醒发货")
+									} else if(ord == 0) {
+										$(".del").empty();
+										$(".payment").text("查看");
+									} else if(ord == 300) {
+										$(".del").empty();
+										$(".payment").text("查看物流")
+									} else if(ord == 400) {
+										$(".payment").text("评论")
+									};
+
+									dataCount++;
+								}
+								//					$row.append($item);
+								$("#orderUl li").fadeIn(1000);
+							}
+						}
+						if($("#orderUl li").length == 0) {
+							$("#orderUl").html("该状态没有订单");
+						};
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+			};
+			$("#orderAll").click(function() {
+				$(this).find("span").addClass("selected");
+				$(this).siblings().find("span").removeClass("selected");
+				dataCount = 0;
+				$("#orderUl").empty();
+				sessionStorage.setItem("orderCode", "0");
+				order(sessionStorage.getItem("orderCode"));
+			});
+			$("#Unpaid").click(function() {
+				$(this).find("span").addClass("selected");
+				$(this).siblings().find("span").removeClass("selected");
+				dataCount = 0;
+				$("#orderUl").empty();
+				sessionStorage.setItem("orderCode", "100");
+				order(sessionStorage.getItem("orderCode"));
+			});
+			$("#Ready").click(function() {
+				$(this).find("span").addClass("selected");
+				$(this).siblings().find("span").removeClass("selected");
+				dataCount = 0;
+				$("#orderUl").empty();
+				sessionStorage.setItem("orderCode", "200");
+				order(sessionStorage.getItem("orderCode"));
+			});
+			$("#Collect").click(function() {
+				$(this).find("span").addClass("selected");
+				$(this).siblings().find("span").removeClass("selected");
+				dataCount = 0;
+				$("#orderUl").empty();
+				sessionStorage.setItem("orderCode", "300");
+				order(sessionStorage.getItem("orderCode"));
+			});
+			$("#CService").click(function() {
+				$(this).find("span").addClass("selected");
+				$(this).siblings().find("span").removeClass("selected");
+				dataCount = 0;
+				$("#orderUl").empty();
+				sessionStorage.setItem("orderCode", "400");
+				order(sessionStorage.getItem("orderCode"));
+			});
+		</script>
+	</body>
+
+</html>

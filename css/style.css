@@ -1,0 +1,205 @@
+a,span,input,{
+	display: inline-block;
+	text-decoration: none;
+	outline: none;
+	border: none;
+	background: none;
+}
+/*cart*/
+.cart{background:white;overflow:hidden;margin:0;padding-top: 5rem;}
+.cart dt{height:2.4rem;line-height:2.4rem;border-bottom:1px #d2d2d2 solid;padding:0 3%;font-size: 1.4rem;}
+.cart dt .edit{float:right;display:block;}
+.cart dd{overflow:hidden;padding:1rem 3%;position:relative;margin:0;box-sizing: border-box;}
+.line-wrapper>.line-scroll-wrapper:last-child{border-bottom: none;}
+.cart dd input[type="checkbox"]{float:left;margin-right:1rem;display:inline-block;border-radius:50%;position: absolute;top: 50%;left: 1rem;transform: translateY(-50%);}
+.cart dd input[type="checkbox"]:checked{float:left;margin-right:1.5rem;display:inline-block;border-radius:50%;position: absolute;top: 50%;left: 1rem;transform: translateY(-50%);background: red !important;padding: 5px;}
+.cart dd .goodsPic{width:12rem;height:12rem;float:left;}
+.cart dd .goodsPic img{height:12rem;}
+.cart dd img{float: left;width: 20%;margin-left: 3rem;margin-top: 3px;}
+.cart dd>input{width:20px;height:20px;vertical-align: middle;}
+.cart dd>.goodsInfor{width: 58%;margin-left: 1%;}
+@media only screen and (min-width: 320px) {
+	.cart dd>.goodsInfor{width: 59% !important;}
+}
+@media only screen and (min-width: 320px) and (max-width: 640px) {
+	.cart dd>.goodsInfor{width: 59% !important;}
+}
+.cart dd .goodsInfor .numberWidget{display:block;float: right;line-height: 24px;margin-right: 18px;border: 1px solid #DDDDDD;border-radius: 2px;}
+.cart dd .goodsInfor .numberWidget input[type="button"]{width:2;height:2;background:none;border:0;color:grey;outline:none;}
+.numcon:after,.line-scroll-wrapper:after,.btmNav>div:after,.btmNav:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.numberWidget{font-size: 1.4rem;}
+.numberWidget>a{display: inline-block;height:20px;width:26px;padding-top: 5px;line-height: 1rem;text-align: center;border-color:#DDDDDD;}
+.numberWidget>a>input{display: inline-block;line-height:18px;	}
+.delBtn{height: 100%;}
+.cart dd .goodsInfor .priceArea strong{color:red;font-size:1.6rem;margin-right:1.5rem;font-weight: 100;}
+.cart dd .goodsInfor .priceArea strong:before{content:"¥";font-size:1.6rem;}
+.cart dd .goodsInfor .priceArea del{color:grey;}
+.cart dd .goodsInfor .priceArea del:before{content:"¥";}
+.cart dd .goodsInfor .numberWidget input[type="text"]{width:20px;text-align:center;background:none;border:none;}
+
+.btmNav{
+	border-top:1px solid #EAEAEA;
+	background: #fff;
+	width: 100%;
+	position: fixed;
+	bottom:60px;
+}
+.btmNav>div{
+	width:45%;
+	padding-right: 5%;
+	height: 60px;
+	line-height: 40px;
+	float: left;
+}
+.btmNav>div>a{
+	border-radius:5px ;
+	display: inline-block;
+	font-size: 14px;
+	margin-top: 10px;
+	line-height: 40px;
+	padding:0px 2px;
+}
+.btmNav>div>ul{
+	width: 100%;
+}
+#allCom{
+	width: 40%;
+	height: 40px;
+	line-height: 40px;
+	padding: 5px 0;
+}
+.btmNav>div>ul>li{
+padding: 10px 0 0 0;
+}
+.goodsInfor{
+	white-space:normal;
+}
+.goodsInfor>p{
+	line-height:20px;
+	padding: 5px 0;
+}
+/* newAddress */
+.addressUl:after,.addressUl>li:after{
+	display: block;
+	clear: both;
+	content: "";
+}
+.addressUl>li{
+	width:96%;
+	padding:5px 2%;
+	border-bottom: 1px solid #D9D9D9;
+}
+.addressTitle {
+	text-align: center;
+	width: 30%;
+	float: left;
+	font-size: 1.5rem;
+	line-height: 2rem;
+	color: #666;
+}
+.addressInput {
+	float: left;
+	width: 68%;
+	height: 2rem;
+	background: #fff;
+}
+.addressInput input:: -webkit-input-placeholder {
+	color:#D9D9D9;
+}
+.addressInput input{
+	color:#000;
+	font-size:1.6rem ;
+	border: none;
+	outline: none;
+	width:100%;
+	height: 100%;
+}
+.addressInput input:focus{
+	color:#000000;
+}
+/*彩包列表*/
+#colorbagNumber>ul:after{
+	display: block;
+	content: "";
+	clear: both;
+}
+#colorbagNumber>ul>li{
+	width: 33%;
+	float: left;
+	text-align: center;
+	
+}
+#colorbagNumber>ul>li>a{
+	color:#fff;
+	text-decoration: none;
+}
+#recommendCenter:after{
+	display: block;
+	clear: both;
+	content: "";
+}
+/*推荐彩包*/
+#recommendCenter{width: 96%;height: 200px; padding:6px 2%;}
+#recommendCenter>ul>li{width: 48%;height: 96%;background: red;float: left;}
+#myColorbag:after,#myColorbagCenter:after{content: "";display: block;clear: both;}
+#myColorbagCenter{width: 96%;padding: 2%;}
+#myColorbagCenter>li{width: 48%;height:250px;margin-top: 10px;background: url(../img/bg@3x.png)no-repeat;background-size:100%;position: relative;}
+#myColorbagCenter>li:nth-of-type(odd){ float: left;}
+#myColorbagCenter>li:nth-of-type(even){float: right;}
+#myColorbagCenter>li>.hair{position: absolute;left: 50%;margin-left: -40px;}
+#myColorbagCenter>li>p{font-size: 2.4rem;color:#fff;line-height: 2.5rem;text-align: center;}
+#distributeCon{display:none;z-index: 99;background: rgba(0,0,0,.2);position: fixed;top:0;overflow: hidden;}
+#distribute{position: relative;background: url(../img/distribute.png)no-repeat center center;background-size:100% 100%;width: 80%;height: 50%;margin: auto;margin-top: 25%;}
+#distribute>img{position: absolute;right: 5px;top:5px;}
+#distribute>ul>li{width: 60%;border: 1px solid #DC2612;font-size: 2rem;/* line-height: 2.8rem; */color: #DC2612;text-align: center;padding: 10px 0;border-radius: 30px;margin: auto;margin-top: 10px;}
+.line-wrapper{
+	border: none !important;
+}
+.supplierTitle{
+	padding-left: 5px !important;
+	box-sizing: border-box;
+}
+@media only screen and (min-width: 320px) {
+	#yuncgoods{
+		width: 60% !important;
+		padding-right: 10px;
+		box-sizing: border-box;
+	}
+	.imgclo{
+		width: 7rem !important;
+		height: 7.5rem !important;
+	}
+	/*#cmb{
+		margin-top: 20px;
+	}*/
+}
+@media only screen and (min-width: 359px) and (max-width: 720px) {
+	#yuncgoods{
+		padding-right: 10px;
+		box-sizing: border-box;
+	}
+	.imgclo{
+		width: 8rem !important;
+		height: 9rem !important;
+	}
+}
+.bmjg>span{
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 15px;
+}
+.bqqo>img,.bqqo>label{
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 16px;
+}
+.bqqo>label{
+	padding-left: 7px;
+}
+.bqqo{
+	margin-top: 15px;
+}

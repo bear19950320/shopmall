@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>现金</title>
+		<link rel="stylesheet" type="text/css" href="../css/common_n.css" />
+		<link rel="stylesheet" type="text/css" href="../css/head_foot.css" />
+		<link rel="stylesheet" type="text/css" href="../css/lunbo.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="../css/curr.css" />
+	    <style type="text/css">
+	    	.crousel{
+	    		background: #FF0000;
+	    	}
+	    	.moneyTitle{
+	    		padding-top:30px;
+	    		padding-left: 10px;
+	    		color:#fff;
+	    		font-size: 14px;
+	    	}
+	    	.money{
+	    		font-size: 30px;
+	    		padding:10px 0 10px 10px ;
+	    		line-height: 40px;
+	    		font-weight: 700;
+	    		color: #fff;
+	    	}
+	    	.moneyBody>li{
+	    		font-size: 16px;
+	    		width: 96%;
+	    		padding: 10px 2%;
+	    		background: #fff;
+	    		border-bottom: 1px solid #ECECEC;
+	    	}
+	    	.moneyBody>li>div{
+	    		line-height: 36px;
+	    		width: 50%;
+	    		float: left;
+	    	}
+	    	.moneyBody>li>div>ul>li{
+	    		font-size: 14px;
+	    		font-weight: 600;
+	    		line-height: 18px;
+	    		text-align: right;
+	    	}
+	    	
+	    </style>
+	</head>  
+	<body style="background: #F0F3F8;">
+         <div class="crousel">
+         	<p class="moneyTitle"></p>
+         	<a href="javascipt:;" class="money"></a>
+         </div>
+         <ul class="moneyBody">
+         	<li style="background: #F7F7F7;">收支明细</li>
+         	
+         </ul>
+        
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			let name = GetQueryString("name");
+			money = GetQueryString("money");
+			$("title").html(name);
+			$(".moneyTitle").text(name+"余额(元)");
+			$(".money").text(money);
+			var Odurl='';
+			if(name=="现金"){
+			  Odurl="/api/customer/getcashinfo";
+			}else if(name=="呔金"){
+			  Odurl="/api/customer/getreplaceinfo";
+			}
+
+				$.ajax({
+					type: "GET",
+					url: testurl + Odurl,
+					dataType: "json",
+					data:{
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					timeout: 1000,
+					beforeSend: function(XMLHttpRequest) {
+						$("#ajax").show();
+					},
+					success: function(data) {
+						if(name=="现金"){
+							var data=data.data.cashInfo
+						}else if(name=="呔金"){
+							var data=data.data.replaceInfo
+						}
+					    
+					    
+					     for(var i=0;i<data.length;i++){
+										     	$(".moneyBody").append('<li>\
+							 		<div>'+data[i].createTime+'</div>\
+							 		<div>\
+							 			<ul>\
+							         		<li class="li">'+data[i].money+'</li>\
+							         		<li>'+data[i].content+'</li>\
+										</ul>\
+							 		</div>\
+							 	</li>');
+							 	if(Number($(".li").eq(i).html())>0){
+							 		$(".li").eq(i).css("color","red");
+							 		$(".li").eq(i).prepend("+")
+							 	}
+					     }
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#ajax").hide();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了！');
+						}
+					}
+				});
+			
+		</script>
+	</body>
+
+</html>

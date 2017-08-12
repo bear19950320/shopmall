@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body style="background: #F0F3F8;">
+		<ul id="set" style="background: #F0F3F8;">
+			<li style="background:#F0F3F8;">
+				<div class="input_body" id="phone">
+
+				</div>
+			</li>
+			<li style="background:#F0F3F8;">
+				<div class="input_body" id="code">
+					
+				</div>
+			</li>
+		</ul>
+        <a href="javascript:;" class="btn" style="display: none;" id="Paydown">下一步</a>
+        <a href="javascript:;" class="btn" style="display: none;" id="Payover">完成</a>
+		<!-- JS -->
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("head").load("../html/mate.html", function() {
+				$("title").html("设置支付密码");
+			});
+			$("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">');
+			if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
+				location.href = "login.html"
+			} else if(localStorage.getItem("loginStatus") == "1") {
+				
+				function pushCode(phone){
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/customer/getcode",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							phone:phone
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+						    if(data.code==10000){
+							   	var Tnum=60;
+								var myTimer=setInterval(daojishi,1000);
+								function daojishi(){
+									Tnum--;
+									//获取并替换提交按钮的value值
+									$("#input_submit").val(Tnum+"s后获取")
+									if(Tnum<1){
+										Tnum=0;
+										$("#input_submit").val("获取验证码")
+										
+										clearInterval(myTimer);
+									}else if( Tnum>=1&&Tnum<=60 ){
+										$("#input_submit").attr("disabled","disabled")
+									}
+								}
+						    }else{
+						    	mask(data.msg)
+						    }
+						}
+					})
+				}
+				function provCode(phone,code){
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/customer/verifysmscode",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							phone:phone,
+							smscode:code
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+						    if(data.code==10000){
+						    	$("#phone,#code").empty();
+						    	$("#phone").append('<input type="tel" name="" id="payPaw" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请输入支付密码" />');
+								$("#code").append('<input type="tel" name="" id="payPaws" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请再次输入支付密码" />');
+						        $("#Payover").show();
+						        $("#Paydown").hide()
+						    }else{
+						    	mask(data.msg)
+						    }
+						}
+					})
+				}
+				function pawCode(phone){
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/customer/paypassword/set",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							paypassword:phone
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+						    if(data.code==10000){
+						    	mask("设置成功");
+						    }else{
+						    	mask(data.msg)
+						    }
+						}
+					})
+				}
+				/*  判断是否有支付密码    */
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/customer/paypassword/has",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId")
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(data.code == 10000) {
+							if(data.data.result == true) {
+								$("#phone").append('<input type="tel" name="" id="payPaw" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请输入支付密码" />')
+								$("#code").append('<input type="tel" name="" id="payPaws" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请再次输入支付密码" />')
+							    $("#Payover").show();
+							    $("#Paydown").hide()
+							}else if(data.data.result == false){
+								$("#phone").append('<select name="">\
+									<option value="0">+86</option>\
+									</select>\
+									<input type="text" class="input_phone" value="" placeholder="请输入电话号码" />\
+									<input id="input_submit" type="submit" value="获取验证码" />');
+								$("#code").append('<input type="tel" name="" id="input_code" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请输入验证码" />')
+							    $("#Paydown").show()
+							}
+						}
+						$("#input_submit").click(function(){
+							if($(".input_phone").val()!=""){
+								pushCode($(".input_phone").val())
+							}else if(!(/^1[34578]\d{9}$/.test($(".input_phone").val()))){
+								mask("请输入有效手机号码");
+							}
+						});
+						$("#Paydown").click(function(){
+							if(!$("#input_code").val()||!$(".input_phone").val()){
+								mask("验证码与手机不能为空")
+							}else{
+								provCode($(".input_phone").val(),$("#input_code").val())
+							}
+						});
+						$("#Payover").click(function(){
+							if($("#payPaw").val()!=$("#payPaws").val()){
+								mask("输入密码不一致,请重新输入")
+							}else{
+								pawCode($("#payPaws").val())
+							}
+						})
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>产品详情页</title>
+		<link rel="stylesheet" type="text/css" href="../css/common_n.css" />
+		<link rel="stylesheet" type="text/css" href="../css/head_foot.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../css/swiper.css" />
+		<style type="text/css">
+			
+			@font-face {font-family: "iconfont";
+			  src: url('../fonts/iconfont.eot?t=1502247665666'); /* IE9*/
+			  src: url('../fonts/iconfont.eot?t=1502247665666#iefix') format('embedded-opentype'), /* IE6-IE8 */
+			  url('../fonts/iconfont.woff?t=1502247665666') format('woff'), /* chrome, firefox */
+			  url('../fonts/iconfont.ttf?t=1502247665666') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+			  url('../fonts/iconfont.svg?t=1502247665666#iconfont') format('svg'); /* iOS 4.1- */
+			}
+			
+			.iconfont {
+			  font-family:"iconfont" !important;
+			  font-size:16px;
+			  font-style:normal;
+			  -webkit-font-smoothing: antialiased;
+			  -moz-osx-font-smoothing: grayscale;
+			}
+			
+			.icon-iconset0338:before { content: "\e6ed"; }
+			
+			.icon-search:before { content: "\e600"; }
+			
+			.icon-xiangzuojiantou:before { content: "\e7c2"; }
+
+
+			
+			/*详情介绍*/
+			
+			#productDetailBox {
+				padding-bottom: 50px;
+				background: #F7F7F7;
+			}
+			
+			#productDetailBox .one,
+			#productDetailBox .two,
+			#productDetailBox .three,
+			#productDetailBox .four {
+				padding-top: 2px;
+				height: 40px;
+				line-height: 40px;
+				margin: 5px 2%;
+				background: #fff;
+				width: 96%;
+				/*margin: 0;*/
+				font-size: 14px;
+				border-bottom: 1px solid #F1F1F1;
+			}
+			
+			#productDetailBox .one ul {
+				height: 30px;
+				background: #fff;
+			}
+			
+			#productDetailBox .one li:nth-of-type(1) {
+				float: left;
+			}
+			
+			.fontColorOne {
+				color: red;
+				font-size: 14px;
+			}
+			
+			.fontColorTwo {
+				color: darkgray;
+			}
+			
+			.fontColorThree {
+				color: gray;
+			}
+			
+			.productSellNum {
+				margin-left: 0.05rem;
+			}
+			
+			.chooseBtn {
+				float: right;
+			}
+			/*购物车*/
+			
+			.buyBox {
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				z-index: 1000;
+				background: #fff;
+				z-index: 999;
+				border-top: 1px solid #F1F1F1;
+				text-align: center;
+			}
+			
+			.buyBox>ul>li:first-child{
+				background: #FF8B4E;
+				color: #FFFFFF;
+				text-align: center;
+				font-size: 14px;
+				margin-left: 7.5%;
+			}
+			.buyBox>ul>li:last-child{
+				color: #FFFFFF;
+				text-align: center;
+				font-size: 14px;
+			}
+			.buyBox li {
+				float: left;
+				width: 40%;
+				border-radius: 20px;
+				margin: 5px 2.5%;
+				text-align: #333333;
+				line-height: 35px;
+			}
+			
+			.buyBox li:nth-of-type(1) {}
+			
+			.buyBox li:nth-of-type(2) {
+				color: #666;
+				background-color: #F7F7F7;
+			}
+			
+			#buy_now {
+				background-color: #DC210D;
+			}
+			/*规格*/
+			
+			.specificationsBox {
+				width: 94%;
+				padding: 0 3%;
+				padding-top: 0.2rem;
+				position: fixed;
+				z-index: 1000;
+				background-color: white;
+				display: none;
+				bottom: -7px !important;
+				z-index: 100;
+			}
+			
+			.specificationsUl li {
+				float: left;
+				width: 18%;
+				margin: 5px 1%;
+			}
+			
+			.specificationsBoxShow {
+				position: relative;
+				top: -60px;
+				margin-bottom: 0.1rem;
+			}
+			
+			.specificationsBoxShow>ul:after,
+			.specificationsBox:after {
+				clear: both;
+				content: "";
+				display: block;
+			}
+			
+			.specificationsBoxShow li {
+				float: left;
+			}
+			
+			.specificationsBoxShow li:nth-of-type(1) {
+				width: 23%;
+				padding: 0;
+				margin: 0;
+			}
+			
+			.specificationsBoxShow li:nth-of-type(3) {
+				padding-top: 50px;
+				width: 7%;
+			}
+			
+			.specificationsBoxShow li:nth-of-type(2) {
+				padding-top: 50px;
+				padding-left: 15%;
+				width: 55%;
+			}
+			
+			.specificationsNum {
+				font-size: 14px;
+			}
+			
+			.specificationsNum ul {
+				float: right;
+			}
+			
+			.specificationsNum li {
+				float: left;
+			}
+			
+			.specificationsMa {
+				margin-bottom: 0.1rem;
+				position: relative;
+				top: -60px;
+			}
+			
+			.specificationsNum ul {
+				width: 40%;
+			}
+			
+			.specificationsNum span {
+				line-height: 0.3rem;
+			}
+			
+			.specificationsNum li {
+				border: 1px solid gainsboro;
+				width: 30%;
+				text-align: center;
+				line-height: 0.3rem;
+			}
+			
+			.specificationsNum li:nth-of-type(1) {
+				border-right: none;
+			}
+			
+			.specificationsNum li:nth-of-type(3) {
+				border-left: none;
+			}
+			
+			.specificationsMa p {
+				margin-bottom: 0.05rem;
+			}
+			
+			.chooseText {
+				margin-right: 0.1rem;
+			}
+			
+			.guigeChoose {
+				text-align: center;
+				border: 1px solid gainsboro;
+				width: auto;
+				padding: 0px 13px;
+				border-radius: 5px;
+				float: left;
+				height: 24px;
+				line-height: 24px;
+				margin: 5px 1.2%;
+				border-radius: 2.05rem;
+				color: #9B9B9B;
+				
+			}
+			/*规格*/
+			
+			.specificationsBoxShow_img {
+				border-radius: 50%;
+				border: 2px solid #fff;
+				width: 105px;
+				height: 105px;
+			}
+			
+			.clear {
+				margin: 5px 0;
+				padding: 5px 0;
+				background: #F7F7F7;
+				font-size: 12px;
+				padding-left: 3%;
+				padding-right: 3%;
+				margin-left: -3%;
+				width: 100%;
+			}
+			
+			#characteristic:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			
+			#characteristic {
+				list-style: none;
+				white-space: nowrap;
+				overflow-x: scroll;
+				vertical-align: middle
+			}
+			
+			#characteristic>li {
+				display: inline-block;
+				padding-left: 5%;
+				margin: 10px 1.5%;
+				height: 16px;
+			}
+			
+			#characteristic>li>span {
+				font-size: 12px;
+				line-height: 16px;
+				margin-left: 3px;
+			}
+			
+			#good_detail img {
+				width: 100%;
+			}
+			
+			#supplierUl {
+				background: #fff;
+			}
+			
+			#supplierUl>li {
+				width: 26%;
+				margin-left: 0;
+				margin-right: 0;
+			}
+			
+			#supplierUl>li>img {
+				width: 100%;
+				height: 95px;
+			}
+			
+			#supplierUl>li>.notes_Title {
+				font-size: 14px;
+				font-weight: normal;
+			}
+			
+			html {
+				font-size: 26.67vw;
+			}
+			
+			.marketPrice {
+				padding: 0 5px;
+				font-size: 12px;
+				color: #9B9B9B;
+			}
+			
+			.marketPrice>del {
+				font-size: 12px;
+				text-decoration: line-through;
+				color: #9B9B9B;
+			}
+			
+			#bonusMoney {
+				font-size: 12px;
+				padding: 3px 4px;
+				border-radius: 4px;
+				border: 1px solid #FF894D;
+				color: #FF894D;
+			}
+			
+			.Activity {
+				display: none;
+				background: url(../img/icon/activityLine.png)no-repeat;
+				background-size: 100% 100%;
+				padding: 4px;
+				color: #fff;
+			}
+			
+			.Activity>span {
+				color: #fff;
+			}
+			.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+				left: 58% !important;
+				text-align: right;
+			}
+			.one{
+				padding: 0 10px;
+				box-sizing: border-box;
+			}
+			#service{
+				padding-left: 5px;
+				padding-right: 10px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				box-sizing: border-box;
+			}
+			.fontColorTwo{
+				font-size: 14px;
+				color: #000000;
+				margin-top: 7px;
+			}
+			.sum{
+				font-size: 14px;
+				color: #9B9B9B;
+			}
+			.fontColorThree {
+				font-size: 14px;
+				color: #9B9B9B;
+			}
+			#notesWare_Title>span,#notesWare_Title>a{
+				font-size: 14px !important;
+			}
+			#notesWare_Title>span>span{
+				font-weight: 100 !important;
+			}
+			.icon-xiangzuojiantou{
+				transform: rotate(180deg);
+				font-size: 12px;
+				display: inline-block;
+				margin-top: -3px;
+				vertical-align: middle;
+			}
+			.notesWare_Content>li{
+				margin: 0;
+				padding: 0;
+				width:45.5%;
+				margin-left: 3%;
+				margin-top: 3%;
+				margin-bottom: 3%;
+				padding: 5px;
+				box-sizing: border-box;
+			}
+			.notesWare_Content>li>img{
+				width: 100%;
+			}
+			.notes_Title{
+				font-size: 14px !important;
+				color: #666666 !important;
+			}
+			.notes_Text{
+				font-size: 12px !important;
+				color: #9B9B9B !important;
+			}
+			.notesOperation>div{
+				width: 78% !important;
+			}
+			span{
+				font-size:14px ;
+			}
+			.notesCon>a{
+				background: #FFFFFF;
+			}
+			.trbv{
+				width: 53px;
+				overflow: hidden;
+				text-align: left;
+				padding-left: 3px;
+				box-sizing: border-box;
+				float: left;
+				margin-top: 7px;
+			}
+			.notesOperation>div>.notesCon>ul>li{
+				line-height: 27px;
+			}
+			.notesWare_Content>li>.notes_Text{
+				padding-top: 0;
+			}
+			.notesWare_Content>li>.notes_Title{
+				padding-bottom: 0;
+			}
+			@media only screen and (min-width: 360px) and (max-width: 540px) {
+				.notesOperation>div{
+					width: 80% !important;
+				}
+			}
+			.notesWare_Title>span{
+				font-size: 14px;
+			}
+			.notesWare{
+				padding: 0 2%;
+			}
+			.notesWare_Content>li{
+				margin-top: 0;
+			}
+			#supplierUl>li{
+				padding: 0;
+			}
+			
+			/*html{
+			//	font-size: calc(100vw/3.75)
+			}*/
+		</style>
+	</head>
+
+	<body style="background: #fff;">
+		<div id="weiXin">
+			<div class="shade_box"></div>
+			<div id="productDetail">
+
+				<!--轮播图-->
+				<div class="banner" style="overflow: hidden;position: relative;">
+					<img src="../img/icon/sold_out.png" class="sold_out" style="position: absolute;top:50%;margin-top:-85px;left: 50%;margin-left: -85px;z-index: 999;display: none;" alt="" />
+					<!--轮播图-->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<!-- Add Arrows -->
+						<!--<div class="swiper-button-next"></div>
+				        <div class="swiper-button-prev"></div>-->
+					</div>
+				</div>
+				<!--加入购物车     立即购买-->
+				<div class="buyBox">
+					<ul>
+						<!--<li style="text-align: left;"><span style="width: 30px;height: 30px;background: url(../img/navImg/news.png) no-repeat;background-size: 100% 100%;"></span></li>-->
+						<li id="toStopCart" class="toStopCart">加入购物车</li>
+						<li id="buy_now" class="buy_now">立即购买</li>
+					</ul>
+				</div>
+
+				<!--选择规格-->
+				<div class="specificationsBox">
+
+					<div class="specificationsBoxShow">
+						<ul>
+							<li><img class="specificationsBoxShow_img" src="#" alt="" /></li>
+							<li class="fontColorOne font_size_three">
+								<ble></ble><span class="fontColorOne price font_size_three">价格</span><br />
+								<span class="font_color_three font_size_two">库存：</span><span class="font_color_three font_size_two inventory_num"></span><br />
+								<span class="font_color_three font_size_two">请选择规格</span>
+							</li>
+							<li class="closeBtn">
+								<i class="fa fa-times font_color_three fontColorOne font_size_one" aria-hidden="true"></i>
+							</li>
+						</ul>
+						<div class="clear">
+
+						</div>
+					</div>
+
+					<div class="specificationsNum specificationsMa">
+						<span class="fontColorTwo font_size_two" id="sum">数量</span>
+						<ul>
+							<li class="fontColorTwo reducNum">-</li>
+							<li class="fontColorTwo buyNumBox">1</li>
+							<li class="fontColorTwo addNum">+</li>
+						</ul>
+						<!--<div class="clear"></div>-->
+					</div>
+					<div id="specifications">
+
+					</div>
+				</div>
+
+				<!--<div class="two" id="activity">
+					<div id="activityMoney">
+						<div class="paicNew">
+							<span>
+								<ble></ble>
+								<b>78</b>.00
+							</span>
+						</div>
+						<div class="paicHot">
+							<div>
+								<del>¥128.00</del>
+								<img src="../img/icon/ShoppingMall_Seckill@2x.png" style="width: 100%;height: 20px;" alt="" />
+							</div>
+						</div>
+					</div>
+					<div id="activityTime">
+						<p>距离结束还有</p>
+						<ul>
+							<li>18</li>
+							<li style="background: none;">:</li>
+							<li>03</li>
+							<li style="background: none;">:</li>
+							<li>12</li>
+						</ul>
+					</div>
+				</div>-->
+				<div id="productDetailBox" style="position: relative;">
+					<!--support-->
+					<div class="one" style="width: 100%;margin: 0;height: auto;">
+						<h4 style="font-size: 16px;font-weight: 100;padding-top: 15px;height: auto !important;"><img src="../img/icon/ShoppingMall_SelfSupport@2x.png" style="width:36px;height: 20px;margin: 0 4px;"/></h4>
+						<p>
+							<ul style="padding-top: 10px;padding-bottom: 10px;">
+								<li class="fontColorOne font_size_three" style="position: relative;">¥<span class="fontColorOne price font_size_three" style="font-size: 24px;"></span ></li>
+								<li style="float:left;"><span class="marketPrice" >¥<del></del></span></li>
+								<li style="float: left;line-height: 30px;">
+									<a href="javascript:;" id="bonusMoney">返</a>
+									<a href="javascript:;" class="Activity"></a>
+								</li>
+								<li class="fontColorTwo" style="font-size: 13px;float: right;">剩余:<span class="fontColorTwo productSellNum" style="font-size: 13px;">数量</span></li>
+							</ul>
+						</p>
+					</div>
+
+					<div style="background: #fff;border-radius: 5px;width: 94%;margin: 10px 3%;">
+						<div class="three" id="service" style="position: relative;margin: 0 auto;background: none;width: 100%;">
+							<ul id="characteristic"></ul>
+
+						</div>
+
+						<div class="three" id="three" style="position: relative;margin: 0 auto;background: none;border-bottom: 0;width: 96%;padding-left: 2%;">
+							<span class="fontColorTwo">已选</span>
+							<span class="fontColorThree chooseText"></span>
+							<span class="fontColorThree chooseText"></span>
+							<svg t="1498876535566" class="icon" style="width:18px;height:20px;position: absolute;right: 0;top:11px !important;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+								<defs>
+									<style type="text/css"></style>
+								</defs>
+								<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+							</svg>
+						</div>
+					</div>
+					<!-- 商品相关的手记 -->
+					<div class="notesWare">
+						<div class="notesWare_Title" id="notesWare_Title">
+							<span>买家分享(<span>0</span>)</span>
+							<a href="javascript:;">更多<span class="iconfont icon-xiangzuojiantou"></span></a>
+						</div>
+						<ul class="commodityList notesWare_Content" id="notesWare_Content">
+
+						</ul>
+					</div>
+
+					<div class="notesWare">
+						<div class="notesWare_Title" id="supplier">
+							<span></span>
+							<a href="javascript:;"><img src="../img/icon/ShoppingMall_GoToTheStore@2x.png" style="width:75px;height: 23px;" alt="" /></a>
+						</div>
+						<ul class="commodityList notesWare_Content" id="supplierUl">
+
+						</ul>
+					</div>
+					<div id="good_detail">
+
+					</div>
+				</div>
+				<div id="serviceD">
+					<div id="wareListTitle" class="serviceTitle"> 服务说明
+						<spa id="serviceClose">X</spa>
+					</div>
+					<ul id="serviceList">
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/swiper.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function GetQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+			var r = location.search.substr(1).match(reg);
+			if(r != null) return unescape(decodeURI(r[2]));
+			return null;
+		}
+		let name = GetQueryString("wareId");
+		route = GetQueryString("route");
+		if(!route) {
+
+		} else {
+			$("body").append('<a href="../index.html" style="width:0.44rem;padding:10px 0;position: fixed;right:0;bottom:100px;background: rgba(0,0,0,.4);text-align: center;vertical-align: middle;"> <img src="../img/gohome.png" style="width:24px;height:20px;" /></a>')
+		}
+		/*  服务显示  */
+		$(".buyBox").css("width", $("body").width())
+		$("#serviceD").hide();
+		$("#service").click(function() {
+			$("#serviceD").fadeIn();
+		});
+		$("#serviceClose").click(function() {
+			$("#serviceD").fadeOut();
+		});
+		$("body").css("width", $(window).width())
+		$("#toStopCart").click(function() {
+
+			function GetJsonData(wareId, skuId, skuitemId) {
+				var json = {
+					"wareId": wareId,
+					"wareNum": $(".buyNumBox").text(),
+					"skuId": skuId,
+					"shopcartSkuitems": [{
+						"skuitemId": skuitemId
+					}]
+				};
+				console.log(json)
+				return json;
+			}
+			if($(this).attr("skuitemId") == " ") {
+				$.ajax({
+					type: "POST",
+					url: testurl + "/api/shopcart/addshopcart",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						if(data.code == 10000) {
+							alert("添加购物车成功")
+						}
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else if(data.status == "400") {
+							alert("未登录!请先登录");
+							location.href = "./login.html"
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				})
+			} else {
+				if($(".guigeChoose").attr("name") == "yes") {
+					//	console.log($(this).attr("skuId")) testurl +
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/shopcart/addshopcart",
+						dataType: "json",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						beforeSend: function(XMLHttpRequest) {
+							loadImg();
+						},
+						success: function(data) {
+							if(data.code == 10000) {
+								alert("添加购物车成功")
+							}
+						},
+						complete: function(XMLHttpRequest, textStatus) {
+							$("#loadImg").remove();
+						},
+						error: function(data) {
+							if(data.status == "404") {
+								alert('请求地址出错！');
+							} else if(data.status == "302") {
+								alert('连接网页出错');
+							} else if(data.status == "timeout") {
+								alert("请求超时!");
+							} else if(data.status == "400") {
+								alert("未登录!请先登录");
+								location.href = "./login.html"
+							} else {
+								alert('服务器出差了~！');
+							}
+						}
+					})
+				}
+			}
+		});
+
+		$("#buy_now").click(function(event) {
+			event.stopPropagation();
+				console.log($(".guigeChoose").eq().attr("name"))
+				sessionStorage.setItem("bodyId", " ");
+				if($(this).attr("type") == 0) {
+					window.location.href = "submit_order.html?wareId=" + $(this).attr('wareid') + "&buyNumBox=" + $(".buyNumBox").text() + "&spceId=" + $(".guigeChoose").attr("id")
+				} else if($(this).attr("type") == 1) {
+					for(var i = 0; i < $(".specificationsUl0 li").length; i++) {
+						if($(".specificationsUl0 .guigeChoose").eq(i).attr("name") == "yes") {
+							sessionStorage.setItem("bodyId", "0");
+							window.location.href = "submit_order.html?wareId=" + $(this).attr('wareid') + "&buyNumBox=" + $(".buyNumBox").text() + "&spceId=" + $(".guigeChoose[name='yes']").attr("id");
+						}
+					}
+	
+				}
+			
+
+		})
+
+		/* 特色服务   */
+		$.ajax({
+			type: "GET",
+			url: testurl + "/api/ware/characteristic",
+			dataType: "json",
+			data: {
+				platform: "2"
+			},
+			xhrFields: {
+				withCredentials: true
+			},
+			beforeSend: function(XMLHttpRequest) {
+				loadImg();
+			},
+			crossDomain: true,
+			async: true,
+			success: function(data) {
+				var data = data.data.characteristicList;
+				for(var i = 0; i < data.length; i++) {
+					$("#characteristic").append('<li id=' + data[i].id + ' style="background:url(' + data[i].icons + ')no-repeat;background-size:contain ;"><span>' + data[i].name + '</span></li>')
+					$('#serviceList').append('<li id=' + data[i].id + '><img src=' + data[i].icons + ' alt="" /> <span>' + data[i].name + '</span></li>')
+				}
+			},
+			complete: function(XMLHttpRequest, textStatus) {
+				$("#loadImg").remove();
+			},
+			error: function(data) {
+				if(data.status == "404") {
+					alert('请求地址出错！');
+				} else if(data.status == "302") {
+					alert('连接网页出错');
+				} else if(data.status == "timeout") {
+					alert("请求超时!");
+				} else {
+					alert('服务器出差了~！');
+				}
+			}
+		})
+
+		$(function() {
+			//获取商品id
+
+			//设置遮罩层的宽高
+			$(".shade_box").width($(window).width()).height($(window).height());
+
+			var wareid = "";
+
+			if(name) {
+				sessionStorage.setItem('TowareId', name);
+			}
+
+			function supplier(supplier) {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/ware/supplierware",
+					dataType: "json",
+					data: {
+						supplierId: supplier,
+						platform: "2",
+						pageId: "0",
+						pageSize: "100"
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						var ware = data.data.supplierWareList;
+						$("#supplier span").text(ware.supplierName);
+						$("#supplier a").attr("id", ware.supplierId);
+						var data = ware.wareVos;
+						for(var i = 0; i < data.length; i++) {
+							$("#supplierUl").append('<li id="' + data[i].wareId + '">\
+					     	                                <img src=' + data[i].imagePath + ' >\
+					     	                                <p class="notes_Title">' + data[i].wareName + '</p>\
+					     	                                <p class="notes_Text" style="color:#FF0000;text-align: center;padding: 5px 0;"> ¥' + data[i].warePrice + '</p>\
+					     	                                </li>');
+							$("#" + data[i].wareId).click(function() {
+								sessionStorage.setItem("TowareId", '')
+								var TowareId = $(this).attr("id");
+								sessionStorage.setItem("TowareId", TowareId);
+								window.location.href = "./detailsdemo.html";
+							});
+						}
+						$("#" + ware.supplierId).click(function() {
+							location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + ware.supplierName + "&id=" + null;
+						});
+						$("img").error(function() {
+							$(this).attr("src", "../img/imgNoload.png")
+						})
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				})
+			}
+			$.ajax({
+				type: "GET",
+				url: testurl + "/api/ware/getselfnotesInfobwareid",
+				dataType: "json",
+				data: {
+					wareId: sessionStorage.getItem("TowareId"),
+					platform: "2"
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				async: true,
+				beforeSend: function(XMLHttpRequest) {
+					loadImg();
+				},
+				success: function(data) {
+					var data = data.data.selfnotesList;
+					$("#notesWare_Title>span>b").text(data.length)
+					if(data.length != 0) {
+						for(var i = 0; i < data.length; i++) {
+							$("#notesWare_Content").append('<li id="' + data[i].selfnotesId + '">\
+						     	                                <img src=' + data[i].imageArray[0] + ' >\
+						     	                                <p class="notes_Title">' + data[i].title + '</p>\
+						     	                                <p class="notes_Text">' + data[i].content + '</p>\
+						     	                                <div class="notesOperation">\
+																<img class="headImg" style="width:28px !important;height: 28px !important;" src=' + data[i].customerHeadImage + ' />\
+																<div class="headcontent" style="height: 25px;">\
+																<div class="notesCon">\
+																<a href="javascript:;" style="width:36px;overflow-x:hidden;">' + data[i].customerName + '</a>\
+																<ul>\
+																<li><span class="' + data[i].selfnotesId + '">\
+																<img src="../img/praise.png" style="width: 28px;height: 20px;"/></span>\
+																<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>\
+																</ul>\
+																</div>\
+																</div>\
+																</div>\
+						     	                                </li>');
+							if($("." + data[i].selfnotesId).siblings("span").attr("class") == 1) {
+								$("." + data[i].selfnotesId).find("img").attr("src", "../img/praise_click.png")
+							}
+							$("." + data[i].selfnotesId).click(function(event) {
+								event.stopPropagation();
+								var num;
+								if($(this).siblings("span").attr("class") == 0) {
+									$(this).siblings("span").attr("class", "1")
+									num = Number($(this).siblings("span").text()) + 1
+									$(this).find("img").attr("src", "../img/praise_click.png")
+								} else if($(this).siblings("span").attr("class") == 1) {
+									$(this).siblings("span").attr("class", "0")
+									num = Number($(this).siblings("span").text()) - 1
+									$(this).find("img").attr("src", "../img/praise.png")
+								}
+								$(this).siblings("span").text(num)
+								$.ajax({
+									type: "POST",
+									url: testurl + "/api/find/imagetextlike",
+									dataType: "json",
+									data: {
+										selfnotesId: $(this).attr("class"),
+										platform: "2",
+									},
+									xhrFields: {
+										withCredentials: true
+									},
+									crossDomain: true,
+									async: true,
+									success: function(data) {
+										if(data.code == 10000) {
+
+										}
+									}
+								});
+							});
+							$("#" + data[i].selfnotesId).click(function() {
+								location.href = "findDetails.html?id=" + $(this).attr("id")
+							});
+						}
+					} else {
+						$("#notesWare_Title").hide();
+					}
+
+				},
+				complete: function(XMLHttpRequest, textStatus) {
+					$("#loadImg").remove();
+				},
+				error: function(data) {
+					if(data.status == "404") {
+						alert('请求地址出错！');
+					} else if(data.status == "302") {
+						alert('连接网页出错');
+					} else if(data.status == "timeout") {
+						alert("请求超时!");
+					} else {
+						alert('服务器出差了~！');
+					}
+				}
+			})
+			//商品详情接口
+			$.ajax({
+				type: "GET",
+				data: {
+					platform: "2",
+					wareId: sessionStorage.getItem("TowareId")
+				},
+				url: testurl + "/api/ware/wareinfo",
+				dataType: "json",
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				async: true,
+				success: function(data) {
+					var ware = data.data.wareInfo;
+					supplier(ware.supplierId)
+
+					//	SpecificationGoods("",ware,"")
+					$("#explains").text(ware.activitymanage.explains)
+					$("#toStopCart,#buy_now").attr("wareId", ware.wareId);
+					$(".productSellNum").text(ware.sales)
+					$(".Activity").attr("type", ware.activitymanage.activityType)
+
+					if(ware.activitymanage.activityType == 1) {
+						$(".Activity").show();
+						$(".Activity").append('满<span>' + ware.activitymanage.fallMoney + '</span>包邮')
+					} else if(ware.activitymanage.activityType == 2) {
+						$(".Activity").show();
+						$(".Activity").append('满<span>' + ware.activitymanage.fallMoney + '</span>返<span>' + ware.activitymanage.returnMoney + '</span>')
+					}
+					var tt = ware.skuList;
+					$(".marketPrice>del").text(ware.marketPrice.toFixed(2))
+					if(ware.skuList[0].skuItemList.length != 0) {
+						for(var j = 0; j < ware.skuList[0].skuItemList.length; j++) {
+							$("#specifications").append('<div class="specificationsMa">' +
+								'<p class="fontColorThree font_size_two">' + ware.skuList[0].skuItemList[j].name + '</p>' +
+								'<ul class="specificationsUl' + j + '">' +
+								'</ul>' +
+								'<div class="clear"></div>' +
+								'</div>');
+						}
+						$("#toStopCart,#buy_now").attr("skuitemId", ware.skuList[0].skuItemList[0].skuItemId);
+						$("#toStopCart,#buy_now").attr("skuId", ware.skuList[0].skuId);
+						$(".inventory_num").text(data.data.wareInfo.sales);
+
+					} else {
+						$("#toStopCart,#buy_now").attr("skuitemId", " ");
+						$("#toStopCart,#buy_now").attr("skuId", ware.skuList[0].skuId);
+						$(".inventory_num").text(data.data.wareInfo.sales);
+					}
+					if(ware.sales == 0) {
+						$("#buy_now,#toStopCart").css({
+							"background":"#F7F7F7",
+							"color": "#D0D0D0"
+						});
+						$(".sold_out").show();
+						$("#buy_now").remove();
+						$("#buy_now,#toStopCart,.toStopCart,.buy_now").click(function() {
+							return false;
+						})
+					}
+					var str = [];
+					var jsons = {};
+					for(var i = 0; i < tt.length; i++) {
+						for(var j = 0; j < tt[i].skuItemList.length; j++) {
+							switch(tt[i].skuItemList[j].name) {
+								case tt[i].skuItemList[j].name:
+									if(!jsons[tt[i].skuItemList[j].value]) {
+										str.push(tt[i].skuItemList[j].value);
+										jsons[tt[i].skuItemList[j].value] = 1;
+										$('.specificationsUl' + j).append('<li id=' + tt[i].skuId + ' class="guigeChoose">' + tt[i].skuItemList[j].value + '</li>')
+									};
+									break;
+							}
+						}
+					}
+
+					if(data.data.wareInfo.image3file == "http://119.23.152.4:80null") {
+						data.data.wareInfo.image3file = "../img/imgNoload.png";
+					}
+					var banner_wareInfo = [];
+					if(data.data.wareInfo.image1file != "") {
+						banner_wareInfo.push(data.data.wareInfo.image1file);
+					}
+					if(data.data.wareInfo.image2file != null) {
+						banner_wareInfo.push(data.data.wareInfo.image2file);
+					}
+					if(data.data.wareInfo.image3file != "") {
+						banner_wareInfo.push(data.data.wareInfo.image3file);
+					}
+					if(data.data.wareInfo.image4file != "") {
+						banner_wareInfo.push(data.data.wareInfo.image4file);
+					}
+					if(data.data.wareInfo.image5file != "") {
+						banner_wareInfo.push(data.data.wareInfo.image5file);
+					}
+					//轮播
+					for(var i = 0; i < banner_wareInfo.length; i++) {
+						$(".swiper-wrapper").append('<img class="swiper-slide" style="height:245px;" src="' + banner_wareInfo[i] + '" />');
+					}
+					$("img").error(function() {
+						$(this).attr("src", "../img/imgNoload.png")
+					})
+					var swiper = new Swiper('.swiper-container', {
+						pagination: '.swiper-pagination',
+						nextButton: '.swiper-button-next',
+						prevButton: '.swiper-button-prev',
+						paginationClickable: true,
+						spaceBetween: 30,
+						centeredSlides: true,
+						autoplay: 2500,
+						autoplayDisableOnInteraction: false
+					});
+					$(".swiper-container-horizontal>.swiper-pagination-bullets").css({
+						width: "40%",
+						left: "60%"
+					})
+					//描述    详情
+					$("#productDetailBox .one h4").addClass("support" + data.data.wareInfo.support);
+					if($(".support" + data.data.wareInfo.support).attr("class") == "support0") {
+						$(".support" + data.data.wareInfo.support).find("img").hide()
+					} else if($(".support" + data.data.wareInfo.support).attr("class") == "support1") {
+						$(".support" + data.data.wareInfo.support).find("img").show()
+					}
+					$("#productDetailBox .one h4").append(data.data.wareInfo.wareName);
+					$(".price").text((data.data.wareInfo.warePrice).toFixed(2));
+					$("#bonusMoney").append(data.data.wareInfo.bonusMoney)
+					$("#good_detail").html(data.data.wareInfo.introduction);
+					//规格选择
+					$(".specificationsBoxShow_img").prop("src", data.data.wareInfo.imagePath);
+
+					$(".guigeChoose").click(function() {
+						$(".specificationsUl").attr("id", "");
+						$(".specificationsUl").attr("name", "yes")
+						$(".specificationsUl").attr("id", $(this).attr("id"))
+						$(this).attr("name", "yes")
+						$(this).css({
+							"background-color": "red",
+							"color": "white"
+						});
+						$(this).siblings().attr("name", "")
+						$(this).siblings().css({
+							"background-color": "#fff",
+							"color": "#333"
+						});
+					})
+
+					//数量增减
+					$(".addNum").click(function() {
+						var buyNum = $(".buyNumBox:eq(0)").text();
+						if(buyNum < data.data.wareInfo.skuList[0].sales) {
+							buyNum = parseInt(buyNum) + 1;
+							$(".buyNumBox:eq(0)").text(buyNum);
+							$(".chooseText:eq(1)").text("数量：" + $(".buyNumBox").text());
+						} else {
+							return false;
+						}
+					})
+					//数量减少
+					$(".reducNum").click(function() {
+						var buyNum = $(".buyNumBox:eq(0)").text();
+						if(buyNum > 1) {
+							buyNum = parseInt(buyNum) - 1;
+							$(".buyNumBox:eq(0)").text(buyNum);
+							$(".chooseText:eq(1)").text("数量：" + $(".buyNumBox:eq(0)").text());
+						} else {
+							return false;
+						}
+					})
+
+					//点击购买或加入购物车    弹出规格选择框
+					$(".toStopCart,.chooseBtn,#three,.buy_now").click(function() {
+						if($("#toStopCart").attr("skuitemid") != " ") {
+							$(this).attr("type", 1)
+							if($(this).text() == "立即购买") {
+								if($(".chooseText").text() != "") {
+									//跳转到订单页面
+									$(".buy_now").wrap("<a></a>");
+									$(".buy_now").parent().prop("href", "submit_order.html?wareId=" + data.data.wareInfo.wareId + "&buyNumBox=" + $(".buyNumBox").text());
+								} else {
+									//执行弹出选择规格的界面
+									$(".shade_box").fadeIn();
+									var guigeT = '';
+									$(".specificationsBox").fadeIn();
+									$(".guigeChoose").click(function() {
+										$(".chooseText:eq(0)").text("规格：" + $(this).text());
+									})
+								}
+							} else {
+								$(".shade_box").fadeIn();
+								var guigeT = '';
+								$(".specificationsBox").fadeIn();
+								$(".guigeChoose").click(function() {
+									$(".chooseText:eq(0)").text("规格：" + $(this).text());
+								})
+							}
+						} else {
+							$(this).attr("type", 0);
+							if($(this).attr("class") == "buy_now") {
+								window.location.href = "submit_order.html?wareId=" + $(this).attr('wareid') + "&buyNumBox=" + $(".buyNumBox").text() + "&spceId=" + $(".guigeChoose").attr("id")
+							}
+							imgNot("img")
+						}
+					})
+
+					//关闭规格选择框
+					$(".closeBtn").click(function() {
+						$(".specificationsBox").fadeOut();
+						$(".shade_box").fadeOut();
+					})
+
+					$('.specificationsBox').css("bottom", $(".buyBox").height())
+
+					for(var i = 0; i < $(".img li").length; i++) {
+						if($(".img li img").eq(i).attr("src") == "/") {
+							$(".img li img").eq(i).attr("src", "../img/imgNoload.png")
+						}
+					}
+
+					//加入购物车     需要登陆状态暂时搁置
+					//					 function GetJsonData() {
+					//			    		var t = [];
+					//			    		var n = "[";
+					//			    		for(i = 0; i < $('.cart dd input[type="checkbox"]:checked').length; i++) {
+					//			    			var n = '';
+					//			    			n += "{'wareId':'" + $('.cart dd input[type="checkbox"]:checked').eq(i).parent().attr("id") + "',"
+					//			    			n += "'wareNum':'" + $('.cart dd input[type="checkbox"]:checked').eq(i).parent().find(".number").val() + "',"
+					//			    			n += "'wareSkuid':'" + $('.cart dd input[type="checkbox"]:checked').eq(i).parent().attr("name") + "'}"
+					//			    			n= eval('(' + n + ')'); 
+					//			    			t.push(n);
+					//			    	    }
+					//						    		//n = n.substr(0,n.length-1);
+					//						    		//n+="]";
+					//			    		var json = {
+					//			    			colorbagType: "0",
+					//			    			colorbagWares: t
+					//			    		};
+					//			    		console.log(json)
+					//			    		return json;
+					//			    	}
+					$("img").error(function() {
+						$(this).attr("src", "../img/imgNoload.png")
+					});
+
+				},
+				error: function() {
+
+				}
+			});
+
+		});
+	</script>
+</html>

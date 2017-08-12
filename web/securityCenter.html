@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta id="head"/>
+	</head>
+	<body style="background: #F0F3F8;">
+	    <ul id="set">
+
+	    	<li onclick="location.href='individualContent.html'" style="height: auto;">登陆密码 <img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="height:12px;float: right;margin-top:5px;"/>
+	    		<p style="font-size: 12px;padding: 5px 5px 0 5px;">建议您定期更改密码以保护账户安全</p>
+	    	</li>
+	    	<li onclick="location.href='security.html'" style="height: auto;">支付密码 <img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="height:12px;float: right;margin-top:5px;"/>
+	    		<p style="font-size: 12px;padding: 5px 5px 0 5px;">修改支付验证密码</p>
+	    	</li>    
+	    </ul>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/curr.js"></script>
+	    <script type="text/javascript">
+	    	$('body').css({"width":$(window).width(),"height":$(window).height()})
+	    	$("head").load("../html/mate.html",function(){
+			   	$("title").html("账户安全");
+		    });
+		    $("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">')
+		  	$(".invitationCode").text(sessionStorage.getItem("invitationCode"))
+            $(function(){
+            	isWeiXin();
+            })
+	    </script>
+	</body>
+	
+</html>

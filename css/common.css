@@ -1,0 +1,22 @@
+html{
+	font-size: 100px;
+	font-family: "微软雅黑";
+}
+
+#weiXin{
+	width: 100%;
+}
+.clear{
+	clear: both;
+}
+			
+h4{
+	font-size: 20px;
+	margin: 0.05rem 0;
+}
+p,span,li{
+	font-size: 16px;
+}
+img{
+	width: 100%;
+}

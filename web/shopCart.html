@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html style="font-size: 10px;">
+
+	<head>
+		<meta charset="utf-8">
+	</head>
+
+	<body style="background: #fff;">
+		<!-- G W -->
+		<div id="cart" style="min-height: 100%;">
+
+		</div>
+		<div class="btmNav">
+			<div style="width:68%">
+				<span style="width:25%;float:left;line-height:60px;padding-left: 5px;box-sizing: border-box;">
+					<input style="display: inline-block;vertical-align: middle;" type="checkbox" id="all" style="margin-left: 10px;" />
+					<span style="display: inline-block;vertical-align: middle;font-size: 14px;">全选</span>
+				</span>
+				<ul style="width:70%;float: right;">
+					<li>
+						<a style="color:#333;font-size: 16px;" class="bomel">合计:
+							<ble style="font-size: 14px !important;"></ble><span class="money" style="color:red;font-size: 14px;">0.00</span></a>
+					</li>
+					<li>
+						<a style="color:#333;" class="nomel">(不含运费)</a>
+						<!--<bles></bles><span class="runMoney" style="">0.00</span>-->
+					</li>
+				</ul>
+
+			</div>
+			<div style="text-align: right;width:26%;padding-right: 0;float: right;">
+				<a href="javascript:;" id="settlement" style="background:red;color:white;width:inherit;text-shadow:none;text-decoration:none;padding: 0 10px;width: 80%;">去结算</a>
+			</div>
+		</div>
+
+		<nav id="nav">
+			<ul>
+				<li onclick="window.location.href='./shopCart.html'">
+					<div style="width:100%;color:#DA251D;">
+						<img src="../img/navImg/news_click.png" width="24" height="24" alt="" />
+					</div>
+					<a href="javascript:;">购物袋</a>
+				</li>
+				<li onclick="window.location.href='./find.html'">
+					<div style="width:100%;">
+						<img src="../img/navImg/find.png" width="24" height="24" alt="" />
+					</div>
+					<a href="javascript:;">发现</a>
+				</li>
+				<li id="mallno" onclick="window.location.href='../index.html'">
+					<div style="width:100%;height: 45px;">
+
+					</div>
+					<a href="javascript:;">商城</a>
+				</li>
+				<li onclick="window.location.href='./cloud.html'">
+					<div style="width:100%;">
+						<img src="../img/navImg/cloud.png" width="24" height="24" alt="" />
+					</div>
+					<a href="javascript:;">云仓</a>
+				</li>
+				<li onclick="window.location.href='./individual.html'">
+					<div style="width:100%;">
+						<img src="../img/navImg/individual.png" width="24" height="24" alt="" />
+					</div>
+					<a href="javascript:;">我的</a>
+				</li>
+			</ul>
+		</nav>
+
+		<script type="text/javascript" src="../js/jquery.js"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			if(!localStorage.getItem("cutomerId") || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
+				location.href = "login.html";
+			} else if(localStorage.getItem("loginStatus") == "1") {
+				$(".btmNav").hide();
+				$("head").load("../html/mate.html", function() {
+					$("title").html("购物袋")
+				});
+				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+
+				$("#cart").load("../html/cart.html", function() {
+					$.ajax({
+						type: "GET",
+						url: testurl + "/api/shopcart/shopcartlist",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId")
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							if(data.code == 2001) {
+								alert(data.msg);
+								$(".btmNav").hide();
+								$(".cart").css({
+									"padding": "0"
+								});
+								localStorage.setItem("loginStatus", "0");
+								localStorage.setItem("cutomerId", " ")
+								location.href = "login.html"
+							} else if(data.code == 10000) {
+								$(".btmNav").show()
+								var shopData = data.data.shopcartlist;
+								//									    $('.line-wrapper').html(st)
+								if(shopData.length != 0) {
+
+									var str = [];
+									var con = [];
+									var jsons = {};
+									var n = -1;
+									for(var i = 0; i < shopData.length; i++) {
+										if(!jsons[shopData[i].ware.supplierName]) {
+											n++;
+											str.push(shopData[i].ware.supplierName, 'name' + n)
+											jsons[shopData[i].ware.supplierName] = n;
+											con[n] = [];
+											con[n].push(shopData[i])
+										} else {
+											con[jsons[shopData[i].ware.supplierName]].push(shopData[i])
+										}
+									}
+               
+									var ster = [];
+									var strname = [];
+									for(var i = 0; i < str.length; i++) {
+										if(i % 2 == 1) {
+											ster.push(str[i])
+										} else {
+											strname.push(str[i])
+										}
+									}
+console.log(con)
+									var st = '';
+									for(var i = 0; i < con.length; i++) {
+										//console.log(str[i])
+
+										$(".cart").append('<div class="line-wrapper" id="' + ster[i] + '"><div class="supplierTitle"><input type="checkbox"  /> <a href="javascript:;" >' + strname[i] + '</a></div></div>');
+
+										for(var j = 0; j < con[i].length; j++) {
+											var supplierHeadImage;
+											if(con[i][j].ware.supplierHeadImage == "") {
+												supplierHeadImage = '../img/LOGO.png'
+											} else {
+												supplierHeadImage = con[i][j].ware.supplierHeadImage
+											}
+											if(con[i][j].shopcartSkuitems.length != 0) {
+												$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
+													'<dd class="line-normal-wrapper">' +
+													'<input type="checkbox" class="checkbox"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=' + con[i][j].shopcartSkuitems[0].skuitemId + '> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
+													'<img src="' + con[i][j].ware.imagePath + '" style="width: 25%;height: 99px;"/>' +
+													'<div class="line-normal-info-wrapper goodsInfor"style="height: 99px;">' +
+													'<p style="font-size:14px;height: 45px;" >' + con[i][j].ware.wareName + '</p>' +
+													'<div style="width: 100%; font-size: 12px;padding: 5px 0 ;" class="' + con[i][j].shopcartId + '">' +
+													'</div>' +
+													'<div class="numcon" style="position: relative;">' +
+													'<div class="priceArea" style="display: block;position: absolute;left: 0;top: 50%;transform: translateY(-50%);">' +
+													'<strong>' + con[i][j].ware.warePrice + '</strong>' +
+													'</div>' +
+													'<img src="../img/icon/My_DeleteAddress@2x.png" id="del' + con[i][j].shopcartId + '" name="' + con[i][j].shopcartId + '" style="width: 20px;height:20px;float: right;margin-right: 10px;" /><div class="numberWidget" style="margin-right: -20px;">' +
+													'<a href="javascript:;" style="width:26px;height:20px;padding-top:5px;border-right:1px solid #DDD;"  id="reduce' + con[i][j].shopcartId + '" class="minus settlement">' +
+													'<input type="button" value="-"  />' +
+													'</a>' +
+													'<span style="display: inline-block;width:20px;text-align: center;"><input type="text" id=' + con[i][j].wareId + ' value="' + con[i][j].wareNum + '" disabled class="number"/></span>' +
+													'<a href="javascript:;" style="width:26px;height:20px;padding-top:5px;border-left:1px solid #DDD;" id="plus' + con[i][j].shopcartId + '" class="plus settlement">' +
+													'<input type="button" value="+" />' +
+													'</a>' +
+													'</div>' +
+													'</div>' +
+													'</div>' +
+													'</dd>' +
+													'<div class="line-btn-delete delBtn">' +
+													'<button id="' + con[i][j].shopcartId + '">删除</button>' +
+													'</div>' + '</div></div>');
+												for(var k = 0; k < con[i][j].shopcartSkuitems.length; k++) {
+													$("." + con[i][j].shopcartId).append('<span class="shopcartSkuitems" skuitemId=' + con[i][j].shopcartSkuitems[k].skuitemId + '>' + con[i][j].shopcartSkuitems[k].name + ':' + con[i][j].shopcartSkuitems[k].value + ',</span>')
+
+												}
+											}else{//' + con[i][j].shopcartSkuitems[0].skuitemId + '
+													$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
+													'<dd class="line-normal-wrapper">' +
+													'<input type="checkbox" class="checkbox"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=" "> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
+													'<img src="' + con[i][j].ware.imagePath + '" style="width: 7rem;height: 7rem;"/>' +
+													'<div class="line-normal-info-wrapper goodsInfor">' +
+													'<p style="font-size:14px;height: 50px;" >' + con[i][j].ware.wareName + '</p>' +
+													'<div style="width: 100%; font-size: 12px;padding: 5px 0 ;" class="' + con[i][j].shopcartId + '">' +
+													'</div>' +
+													'<div class="numcon">' +
+													'<div class="priceArea" style="display: block;">' +
+													'<strong>' + con[i][j].ware.warePrice + '</strong>' +
+													'</div>' +
+													'<img src="../img/icon/My_DeleteAddress@2x.png" id="del' + con[i][j].shopcartId + '" name="' + con[i][j].shopcartId + '" style="width: 20px;height:20px;float: right;margin-right: 10px;" /><div class="numberWidget">' +
+													'<a href="javascript:;" style="width:26px;height:20px;padding-top:5px;border-right:1px solid #DDD;"  id="reduce' + con[i][j].shopcartId + '" class="minus settlement">' +
+													'<input type="button" value="-"  />' +
+													'</a>' +
+													'<span style="display: inline-block;width:20px;text-align: center;"><input type="text" id=' + con[i][j].wareId + ' value="' + con[i][j].wareNum + '" disabled class="number"/></span>' +
+													'<a href="javascript:;" style="width:26px;height:20px;padding-top:5px;border-left:1px solid #DDD;" id="plus' + con[i][j].shopcartId + '" class="plus settlement">' +
+													'<input type="button" value="+" />' +
+													'</a>' +
+													'</div>' +
+													'</div>' +
+													'</div>' +
+													'</dd>' +
+													'<div class="line-btn-delete delBtn">' +
+													'<button id="' + con[i][j].shopcartId + '">删除</button>' +
+													'</div>' + '</div></div>');
+													$("." + con[i][j].shopcartId).append('<span class="shopcartSkuitems" skuitemId="&nbsp;">&nbsp;,</span>')
+//												for(var k = 0; k < con[i][j].shopcartSkuitems.length; k++) {
+//													$("." + con[i][j].shopcartId).append('<span class="shopcartSkuitems" skuitemId=' + con[i][j].shopcartSkuitems[k].skuitemId + '>' + con[i][j].shopcartSkuitems[k].name + ':' + con[i][j].shopcartSkuitems[k].value + ',</span>')
+//
+//												}
+											}
+
+										}
+										$(".cart").css({
+											"padding-bottom": "120px",
+											"padding-top": "0px"
+										})
+										/* 第一个循环  */
+										$(".supplierTitle").css({
+											background: "#F3F4F8",
+											width: $(window).width(),
+											"padding": "10px 0"
+										});
+										/* 删除购物车  */
+										$("#" + shopData[i].shopcartId).click(function() {
+											$.ajax({
+												type: "POST",
+												data: {
+													platform: "2",
+													cutomerId: localStorage.getItem("cutomerId"),
+													shopcartContent: $(this).attr("id")
+												},
+												url: testurl + "/api/shopcart/deleteshopcart",
+												dataType: "json",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												success: function(data) {
+													if(data.code == 10000) {
+														// location.reload()
+													} else if(data.code == 200) {
+
+													}
+												},
+												error: function() {
+
+												}
+											});
+										});
+										$("#del" + shopData[i].shopcartId).click(function() {											
+											$.ajax({
+												type: "POST",
+												data: {
+													platform: "2",
+													cutomerId: localStorage.getItem("cutomerId"),
+													shopcartContent: $(this).attr("name")
+												},
+												url: testurl + "/api/shopcart/deleteshopcart",
+												dataType: "json",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												success: function(data) {
+													if(data.code == 10000) {
+														location.reload()
+													} else if(data.code == 200) {
+
+													}
+												},
+												error: function() {
+
+												}
+											});
+										});
+										/* 结账按钮  */
+										$("#" + ster[i]).find('.supplierTitle>input').click(function() {
+											$("input[id='all']").prop("checked", false);
+											if($(this).prop("checked")) {
+												$(this).parents(".line-wrapper").find("input[class='checkbox']").click();
+												$(this).parents(".line-wrapper").find("input[type='checkbox']").click(function() {
+													if($(this).parents(".line-wrapper").find("input[class='checkbox']:checked").length < $(this).parents(".line-wrapper").find(".line-scroll-wrapper").length) {
+														$(this).parents(".line-wrapper").find(".supplierTitle").find("input").prop("checked", false);
+														$(this).parents(".line-wrapper").find(".supplierTitle").find("input").click(function() {
+															if($(this).parents(".line-wrapper").find("input[class='checkbox']:checked").length < $(this).parents(".line-wrapper").find(".line-scroll-wrapper").length) {
+																$(".money").text("0.00")
+																if($(this).prop("checked")) {
+																	$(this).parents(".line-wrapper").find("input[class='checkbox']").prop("checked", true);
+																} else {
+																	$(this).parents(".line-wrapper").find("input[class='checkbox']").prop("checked", false);
+																}
+															}
+														})
+													} else if($(this).parents(".line-wrapper").find("input[class='checkbox']:checked").length == $(this).parents(".line-wrapper").find(".line-scroll-wrapper").length) {
+														$(this).parents(".line-wrapper").find(".supplierTitle").find("input").prop("checked", true)
+													}
+												})
+											} else {
+												$(this).parents(".line-wrapper").find("input[class='checkbox']").prop("checked", false)
+											}
+										})
+									}
+								} else if(shopData == 0) {
+									$(".btmNav,.cart").hide();
+									$("#cart").append('<div id="notWare" style="background:#fff;text-align: center;width:' + $("body").width() + 'px;height: ' + $("body").height() + 'px;" >\
+									                     <img  src="../img/icon/shoppingover_bag@2x.png" style="width:60px;height: 60px;margin-top: 50%;padding-bottom: 5%;"/>\
+									                     <p>购物袋空空哒~!</p>\
+									                 </div>')
+								}
+								/*购物的计算 与 侧滑删除 */
+								shopNum();
+							}
+							$("img").error(function() {
+								$(this).attr("src", "../img/imgNoload.png")
+							})
+						},
+						error: function(data, error, message) {
+
+						}
+					});
+					/*上面是ajax请求的数据展示出来的*/
+					$("#cart").on("click", ".settlement", function() {
+						updateshopcart();
+					})
+					$("#settlement").click(function() {
+						if($('.cart dd input[type="checkbox"]:checked').length == 0) {
+							mask("请选择一个商品");
+						} else {
+							var shopcart=[]
+							for(i = 0; i < $('.cart dd input[class="checkbox"]:checked').length; i++) {
+								function GetJsonData() {
+										var json = {
+											"wareId": $('.cart dd input[class="checkbox"]:checked').eq(i).attr("id"),
+											"skuitemId": $('.cart dd input[class="checkbox"]:checked').eq(i).attr("skuitemId"),
+											"wareName": $('.cart dd input[class="checkbox"]:checked').eq(i).attr("wareName"),
+											"skuid":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("skuid"),
+											"skuitem":$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".shopcartSkuitems").text(),
+											"wareNum":$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".number").val(),
+											"wareImg":$('.cart dd input[class="checkbox"]:checked').eq(i).siblings("img").attr("src"),
+											"warePart":$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find("strong").text(),
+											"supportName":$('.cart dd input[class="checkbox"]:checked').eq(i).parents(".line-wrapper").find(".supplierTitle a").text(),
+											"supportType":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("support"),
+											"supportImage":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("HeadImage")
+										};
+										console.log(json)
+										return json;
+									}
+//								var shop ='';
+//								/* 商品id */
+//								shop+="wareId:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).attr("id")+"',";
+//								/* 规格id */
+//								shop+= "skuitemId:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).attr("skuitemId")+"',";
+//								/* 规格 */
+//								shop+="wareName:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).attr("wareName")+"',";
+//								/* 规格ID  */
+//								shop+="skuid:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).attr("skuid")+"',";
+//
+//								shop+="skuitem:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".shopcartSkuitems").text()+"',";
+//								/* 数量 */
+//								shop+= "wareNum:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".number").val()+"',";
+//								/* 照片 */
+//								shop+="wareImg:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).siblings("img").attr("src")+"',";
+//
+//								shop+="warePart:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find("strong").text()+"',";
+//
+//								shop+="supportName:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).parents(".line-wrapper").find(".supplierTitle a").text()+"',";
+//								/* 自营与非自营 */
+//								shop+="supportType:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).attr("support")+"',";
+//								/* 供应商头像 */
+//								shop+="supportImage:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).attr("HeadImage")+"'}";
+//							//	console.log(shopcartSkuitemId)
+//								//shop.push(shopcartWareId,shopcartSkuitemId,shopcartWareName,shopcartSkuitems,shopcartWareNum,shopcartWareImg,shopcartPart,shopcartWareSkuid,supp,support,HeadImage)
+//                             // shop=eval("[" + shop + "]")
+//                            shop= eval('(' +shop+ ')'); 
+									
+                               shopcart.push(GetJsonData())
+							}
+							shopcart=JSON.stringify(shopcart) 
+							sessionStorage.setItem("shopcart", shopcart);
+							location.href = "shopCartOrder.html?form=订单";
+						}
+					})
+				})
+			}
+		</script>
+	</body>
+
+</html>
