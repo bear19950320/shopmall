@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>发现</title>
+		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		
+	</head>
+
+	<body style="background: #F4F4F4;overflow-x: hidden;">
+		<div class="crousel">
+			<div class="banner" style="overflow: hidden;">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+					<!-- Add Arrows -->
+					<!--<div class="swiper-button-next"></div>
+			        <div class="swiper-button-prev"></div>-->
+				</div>
+			</div>
+		</div>
+		<ul class="notes">
+
+		</ul>
+		<ul class="Praise">
+
+		</ul>
+		<div class="hot">
+			<div class="hotTitle">猜你喜欢</div>
+			<ul class="commodityList">
+
+			</ul>
+		</div>
+		<div class="selected" style="margin-top: 10px;">
+			<div class="hot">
+				<div class="hotTitle">精选手记</div>
+				<ul class="selectedUl">
+
+				</ul>
+			</div>
+		</div>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("head").load("../html/mate.html", function() {
+				$("title").html("手记");
+				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+			});
+
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			var id = GetQueryString("id")
+			// 精选手记
+			$.ajax({
+				type: "GET",
+				url: testurl + "/api/find/getchoicenessimagetext",
+				dataType: "json",
+				data: {
+					platform: "2",
+					cutomerId: localStorage.getItem("cutomerId"),
+					selfnotesId: id
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				async: true,
+				beforeSend: function(XMLHttpRequest) {
+					loadImg();
+				},
+				success: function(data) {
+					var data = data.data.selfnotesList;
+					for(var i = 0; i < data.length; i++) {
+						$(".selectedUl").append('<li id=' + data[i].selfnotesId + '>' +
+							'<img style="width: 100%;height:180px;" src="http://120.77.101.152:81/imgSrc/2017-07-13/a55a0679-9848-4972-b52e-049bb9d00a6e.jpg" alt="" />' +
+							'<p class="notesTitle">' + data[i].title + '</p>' +
+							'<p class="notesP">' + data[i].content + '</p>' +
+							'<div class="notesOperation">' +
+							'<img class="headImg" src=' + data[i].customerHeadImage + ' />' +
+							'<div class="headcontent">' +
+							'<div class="notesCon">' +
+							'<a href="javascript:;">' + data[i].customerName + '</a>' +
+							'<ul>' +
+							'<li><span class="' + data[i].selfnotesId + '">\
+							<img src="../img/praise.png" style="width: 28px;height: 20px;"/></span>\
+							<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>\
+							</ul>' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'</li>');
+						$("#" + data[i].selfnotesId).click(function() {
+							location.href = "findDetails.html?id=" + $(this).attr("id")
+						});
+					}
+				},
+				complete: function(XMLHttpRequest, textStatus) {
+					$("#loadImg").remove();
+				},
+				error: function(data) {
+					if(data.status == "404") {
+						alert('请求地址出错！');
+					} else if(data.status == "302") {
+						alert('连接网页出错');
+					} else if(data.status == "timeout") {
+						alert("请求超时!");
+					}else if(data.status == "400"){
+						alert("未登录!请先登录");
+						location.href="./login.html"
+					} else {
+						alert('服务器出差了~！');
+					}
+				}
+			})
+
+			// 手记
+			$.ajax({
+				type: "GET",
+				url: testurl + "/api/find/getimagetextinfo",
+				dataType: "json",
+				data: {
+					platform: "2",
+					cutomerId: localStorage.getItem("cutomerId"),
+					selfnotesId: id
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				async: true,
+				beforeSend: function(XMLHttpRequest) {
+					loadImg();
+				},
+				success: function(data) {
+					var data = data.data.selfnotesInfo;
+					for(var i=0;i<data.imageArray.length;i++){
+						$(".swiper-wrapper").append('<img class="swiper-slide"  style="height:200px;" src="' + data.imageArray[i] + '" />');
+					}
+					$(".notes").append('<li id=' + data.selfnotesId + '>' +
+						'<div class="notesOperation">' +
+						'<img src=' + data.customerHeadImage + ' />' +
+						'<div>' +
+						'<div class="notesCon">' +
+						'<a href="javascript:;">' + data.customerName + '</a>' +
+						'<ul>' +
+						'<li style="line-height: 20px;">' +
+						'<span class="' + data.selfnotesId + '">\
+						<img src="../img/praise.png" style="width: 28px;height: 20px;"/></span>\
+						<span id="' + data.praiseNum + '" class="' + data.isPraise + '">' + data.praiseNum + '</span></li>\
+						</ul>' +
+						'</div>' +
+						'<span>' + data.createTime + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="notesText">' +
+						'<p class="notesP">' + data.content + '</p>' +
+						'</div>' +
+						'</li>');
+					if($("." + data.selfnotesId).siblings("span").attr("class") == 1) {
+						$("." + data.selfnotesId).find("img").attr("src", "../img/praise_click.png")
+					}
+					$("." + data.selfnotesId).click(function(event) {
+						event.stopPropagation();
+						var num;
+						if($(this).siblings("span").attr("class") == 0) {
+							$(this).siblings("span").attr("class", "1")
+							num = Number($(this).siblings("span").text()) + 1
+						} else if($(this).siblings("span").attr("class") == 1) {
+							$(this).siblings("span").attr("class", "0")
+							num = Number($(this).siblings("span").text()) - 1
+						}
+						$(this).siblings("span").text(num)
+						$.ajax({
+							type: "POST",
+							url: testurl + "/api/find/imagetextlike",
+							dataType: "json",
+							data: {
+								platform: "2",
+								cutomerId: localStorage.getItem("cutomerId"),
+								selfnotesId: $(this).attr("class")
+							},
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async: true,
+							beforeSend: function(XMLHttpRequest) {
+								loadImg();
+							},
+							success: function(data) {
+								if(data.code == 10000) {
+
+								}
+							},
+							complete: function(XMLHttpRequest, textStatus) {
+								$("#loadImg").remove();
+							},
+							error: function(data) {
+								if(data.status == "404") {
+									alert('请求地址出错！');
+								} else if(data.status == "302") {
+									alert('连接网页出错');
+								} else if(data.status == "timeout") {
+									alert("请求超时!");
+								}else if(data.status == "400"){
+									alert("未登录!请先登录");
+									location.href="./login.html"
+								} else {
+									alert('服务器出差了~！');
+								}
+							}
+						});
+					});
+					if(data.wareVos != "") {
+						for(var i = 0; i < data.wareVos.length; i++) {
+							$(".commodityList").append('<li class=' + data.wareVos[i].wareId + '><img src=' + data.wareVos[i].imagePath + ' alt="" /><div>' + data.wareVos[i].wareName + '</div><p> ¥' + data.wareVos[i].warePrice + '</p></li>')
+						  $("."+ data.wareVos[i].wareId).click(function(){
+						  	sessionStorage.setItem("TowareId", '')
+								var TowareId = $(this).attr("class");
+								sessionStorage.setItem("TowareId", TowareId);
+							    window.location.href = "./detailsdemo.html";
+						  });
+						}
+					}
+					var swiper = new Swiper('.swiper-container', {
+						pagination: '.swiper-pagination',
+						nextButton: '.swiper-button-next',
+						prevButton: '.swiper-button-prev',
+						paginationClickable: true,
+						spaceBetween: 30,
+						centeredSlides: true,
+						autoplay: 5000,
+						autoplayDisableOnInteraction: false
+					});
+				},
+				complete: function(XMLHttpRequest, textStatus) {
+					$("#loadImg").remove();
+				},
+				error: function(data) {
+					if(data.status == "404") {
+						alert('请求地址出错！');
+					} else if(data.status == "302") {
+						alert('连接网页出错');
+					} else if(data.status == "timeout") {
+						alert("请求超时!");
+					}else if(data.status == "400"){
+						alert("未登录!请先登录");
+						location.href="./login.html"
+					} else {
+						alert('服务器出差了~！');
+					}
+				}
+			})
+		</script>
+
+	</body>
+
+</html>

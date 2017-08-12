@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>现金</title>
+		<link rel="stylesheet" type="text/css" href="../css/common_n.css" />
+		<link rel="stylesheet" type="text/css" href="../css/head_foot.css" />
+		<link rel="stylesheet" type="text/css" href="../css/lunbo.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="../css/curr.css" />
+	    <style type="text/css">
+	    	.crousel{
+	    		background: #FF0000;
+	    	}
+	    	.moneyTitle{
+	    		padding-top:30px;
+	    		padding-left: 10px;
+	    		color:#fff;
+	    		font-size: 14px;
+	    	}
+	    	.money{
+	    		font-size: 30px;
+	    		padding:10px 0 10px 10px ;
+	    		line-height: 40px;
+	    		font-weight: 700;
+	    		color: #fff;
+	    	}
+	    	.moneyBody>li{
+	    		font-size: 16px;
+	    		width: 96%;
+	    		padding: 10px 2%;
+	    		background: #fff;
+	    		border-bottom: 1px solid #ECECEC;
+	    	}
+	    	.moneyBody>li>div{
+	    		line-height: 36px;
+	    		width: 50%;
+	    		float: left;
+	    	}
+	    	.moneyBody>li>div>ul>li{
+	    		font-size: 14px;
+	    		font-weight: 600;
+	    		line-height: 18px;
+	    		text-align: right;
+	    	}
+	    	
+	    </style>
+	</head>  
+	<body style="background: #F0F3F8;">
+  
+        <div id="subjectlist"></div>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+	        let numb=GetQueryString("num")
+			    name=GetQueryString("name");
+			    $("title").html(name)
+ 			subjectList(numb)
+	      function subjectList(num) {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/banner/subjectlist",
+					data: {
+						platform: "2",
+						position: "PAGE_MALL_HOME_00"+num
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					success: function(data) {
+						var subjectlist = data.data.subjectlist;
+                        $("#subjectlist").empty();
+						for(var i = 0; i < subjectlist.length; i++) {
+
+							if(subjectlist[i].templet == "0") {
+								/* 模板 1B */
+								$("#subjectlist").append('<div class="special1" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + ' />' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
+										'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+										'<div class="classifyListContent">' +
+										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
+										'<div class="classifyListDetails">' +
+										'<span class="Number" style="position: relative;">¥' + subjectlist[i].choiceWare[j].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返5.8</span></span>' +
+										'<div style="display: block;">库存：' + subjectlist[i].choiceWare[j].sales + '</div>' +
+										'<div class="imgDiv">' +
+										'<img src="img/shareImg.png" width="30" height="24" alt="" />' +
+										'<img src="img/share.png" width="30" id="share' + subjectlist[i].choiceWare[j].wareId + '" height="24" alt="" />' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</li>');
+									var wid = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width();
+									var wids = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width() - 15;
+									var widc = wid - 15;
+									$("#" + subjectlist[i].bannerId + ">li>div").css({
+										"float": "right",
+										"width": widc,
+										"height": $("#" + subjectlist[i].bannerId + ">li>img").height(),
+										"padding-left": "12px"
+									})
+									//								$("#share"+subjectlist[i].choiceWare[j].wareId).click(function(event){
+									//									event.stopPropagation();
+									//									
+									//								})
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										sessionStorage.setItem("TowareId", '')
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html";
+									})
+								}
+							} else if(subjectlist[i].templet == "1") {
+								/* 模板 1B+nP */
+								$("#subjectlist").append('<div class="special1 banner' + subjectlist[i].bannerId + '" id=' + subjectlist[i].templet + '>' +
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
+									'</div>' +
+									'<ul class="commodityList">' +
+									'</ul>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html";
+									})
+								}
+							} else if(subjectlist[i].templet == "2") {
+								/* 模板 T+1B */
+								$("#subjectlist").append('<div class="special3" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="hot">' +
+									'<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + ' >' + subjectlist[i].bannerName + '</div>' +
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
+									'</div>' +
+									'</div>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
+										'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+										'<div class="classifyListContent">' +
+										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
+										'<div class="classifyListDetails">' +
+										'<span class="Number" style="position: relative;">¥' + subjectlist[i].choiceWare[j].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返5.8</span></span>' +
+										'<div style="display: block;">库存：' + subjectlist[i].choiceWare[j].sales + '</div>' +
+										'<div class="imgDiv">' +
+										'<img src="img/shareImg.png" width="30" height="24" alt="" />' +
+										'<img src="img/share.png" width="30" height="24" alt="" />' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</li>');
+									var wid = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width();
+									var wids = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width() - 15;
+									var widc = wid - 15;
+									$("#" + subjectlist[i].bannerId + ">li>div").css({
+										"float": "right",
+										"width": widc,
+										"height": $("#" + subjectlist[i].bannerId + ">li>img").height(),
+										"padding-left": "12px"
+									})
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										sessionStorage.setItem("TowareId", '')
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html";
+									})
+								}
+							} else if(subjectlist[i].templet == "3") {
+								/* 模板 T+1B+nA */
+								$("#subjectlist").append('<div class="special2 banner' + subjectlist[i].bannerId + '" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + '>'
+									//	+'<!-- 旗舰店logo -->'
+									+
+									'<div class="shopImg">' +
+									'</div>'
+									//	+'<!-- 旗舰店名字 -->'
+									+
+									'<div class="shopName">' +
+									'<a href="javascript:;">' + subjectlist[i].bannerName + '</a>' +
+
+									'</div>' +
+									'</div>' +
+									//+'<!-- 旗舰店轮播 -->'
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
+									'</div>' +
+									'<ul class="commodityList">' +
+									'</ul>' +
+									'</div>');
+								console.log(subjectlist[i].choiceWare.length)
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html";
+									})
+								}
+							} else if(subjectlist[i].templet == "4") {
+								/* 模板 T+nA */
+								$("#subjectlist").append('<div class="special3 banner' + subjectlist[i].bannerId + '" >' +
+									'<div class="hot">' +
+									'<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + ' >' + subjectlist[i].bannerName + '</div>' +
+									'<ul class="commodityList">' +
+									'</ul>' +
+									'</div>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html";
+									})
+								}
+							}
+							/*  专题跳转      */
+							$("#subjectlist .crousel").find("img").click(function() {
+								if($(this).attr("type") != "" && $(this).attr("type") != "/") {
+									if($(this).attr("type") == 2) {
+										sessionStorage.setItem("TowareId", "")
+										location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									} else if($(this).attr("type") == 1) {
+										sessionStorage.setItem("wareListId", $(this).attr("id"));
+										location.href = "./fourStage.html"
+									} else if($(this).attr("type") == 0) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
+									} else if($(this).attr("type") == 4) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
+									}
+								}
+							})
+							/* 标题名字跳转   */
+							$("#subjectlist .hotTitle").click(function() {
+								if($(this).attr("type") != "" && $(this).attr("type") != "/") {
+									if($(this).attr("type") == 2) {
+										sessionStorage.setItem("TowareId", "")
+										location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									} else if($(this).attr("type") == 1) {
+										sessionStorage.setItem("wareListId", $(this).attr("id"));
+										location.href = "./fourStage.html"
+									} else if($(this).attr("type") == 0) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
+									} else if($(this).attr("type") == 4) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
+									}
+								}
+							})
+						}
+					}
+				});
+
+			}
+			
+		</script>
+	</body>
+
+</html>

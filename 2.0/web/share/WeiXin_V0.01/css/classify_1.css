@@ -1,0 +1,50 @@
+
+html{
+	font-size: 100px;
+}
+.classify_one_fenlei{
+	display: -webkit-flex;
+	display: flex;
+	flex-direction:row;     /*决定项目的排列方向*/
+	flex-wrap:wrap;    /*一行显示不下的时候不换行      还有另外两个参数*/
+	justify-content:center;   /*设置对齐方式      居中对齐*/
+	align-items:center;   /*在交叉轴上如何对齐*/
+}
+.classify_one_fenlei{
+	padding: 0 0.12rem;
+	background-color: white;
+	padding-top: 0.2rem;
+}
+.classify_one_fenlei_1{
+	width: 25%;
+	font-size: 14px;
+}
+.classify_one_fenlei_1 div{
+	margin: 0 auto;
+	width: 0.7rem;
+	height: 0.7rem;
+	background-color: palegreen;
+}
+.classify_one_fenlei_1 p{
+	width: 100%;
+	text-align: center;
+	padding: 0.05rem 0;
+}
+
+.classify_header{
+	height: 0.86rem;
+	
+}
+.classify_foot{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: red;
+}
+.classify_foot iframe{
+	height: 0.5rem;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}

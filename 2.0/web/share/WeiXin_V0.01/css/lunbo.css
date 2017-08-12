@@ -1,0 +1,68 @@
+
+ *{margin: 0;padding:0; }
+			ul{list-style: none;}
+			.banner{
+				width: 100%;
+				margin: 0 auto;
+
+				position: relative;
+				overflow: hidden;
+			}
+			.img{
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.img li{
+				float: left;
+				width: 600px;
+			}
+			.num{
+				position: absolute;
+				bottom: 10px;
+				width: 100%;
+				text-align: center;
+				font-size: 0;
+			}
+			.num li{
+				width: 10px;
+				height: 10px;
+				background:rgba(0,0,0,0.5);
+				display: block;
+				border-radius: 100%;
+				display: inline-block;
+				margin: 0 5px;
+				cursor: pointer;
+			}
+			.banner .btn{
+				display: none;
+			}
+			.btn span{
+				display: block;
+				width: 50px;
+				height: 100px;
+				background: rgba(0,0,0,0.6);
+				color: #fff;
+				font-size: 40px;
+				line-height: 100px;
+				text-align:center;
+				cursor:pointer;
+			}
+			.btn .prev{
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -50px;
+			}
+			.btn .next{
+				position: absolute;
+				right: 0;
+				top: 50%;
+				margin-top: -50px;
+			}
+			.num .active{
+				background-color: #fff;
+			}
+			.img img{
+				width: 100%;
+			}

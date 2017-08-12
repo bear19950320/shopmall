@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<link rel="stylesheet" type="text/css" href="css/iconfonts.css" />
+		<link rel="stylesheet" type="text/css" href="css/orderCommon.css" />
+		<link rel="stylesheet" type="text/css" href="css/orderDetails.css" />
+		<title>订单详情</title>
+	</head>
+	<body>
+		<div class="pad_div"></div>
+		<section class="section_c1">
+			<p>卖家已发货</p>
+			<p>请关注物流信息，准备收货</p>
+		</section>
+		<section class="section_c2">
+			<label>配送方式：</label>
+			<label class="expressName">韵达快递</label><br />
+			<label>快递单号：</label>
+			<label>652358452684</label><br />
+			<label>官方电话：</label>
+			<label>95546</label>
+		</section>
+		<div class="line_div"></div>
+		<section class="section_c3">
+			<p class="decript_color">在四川成都市国际广场公司进行签收扫描，快件已经被签收，签收人</p>
+			<p class="time_color">2017-07-26 16:30:26</p>
+			<span class="iconfont icon-kuaidi youji_car"></span>
+			<span class="iconfont icon-arrow-right arrow_right"></span>
+		</section>
+		<div class="line_div"></div>
+		<section class="section_c3">
+			<p class="decript_color name_colo">徐凤年 13575485648</p>
+			<p class="time_color">四川省成都市高新区美年广场T3,16楼</p>
+			<span class="iconfont icon-dingwei youji_car dignwei"></span>
+		</section>
+		<div class="bg_div"></div>
+		<section class="order_section">
+			<ul>
+				<li>
+					<div class="li_header">
+						<p>苏宁旗舰店</p>
+						<span class="iconfont icon-arrow-right"></span>
+						<label>申请售后</label>
+					</div>
+					<div class="li_mid1">
+						<img src="img/22.jpg" />
+						<div class="li_con">
+							<p>【澳洲进口】 夏日阳光帆布布艺沙发抱枕，买4送1，超值好礼超值好礼超值好礼超值好礼</p>
+							<div>
+								<label>规格：</label>
+								<label>4合1装</label>
+							</div>
+						</div>
+						<label class="con_price">￥59.00</label>
+						<label class="con_mum">*1</label>
+					</div>
+					<div class="line_div"></div>
+					<div class="li_mid2">
+						<div class="li_mid2_left">
+							<label>商品应付金额：</label><br />
+							<label>快递运费：</label>
+						</div>
+						<div class="li_mid2_right">
+							<label>￥88.00</label><br />
+							<label>0.00</label>
+						</div>
+					</div>
+					<div class="line_div"></div>
+					<div class="li_mid2">
+						<div class="li_mid2_left">
+							<label>实付金额：</label>
+						</div>
+						<div class="li_mid2_right">
+							<label>￥88.00</label>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</section>
+		<div class="bg_div ght"></div>
+		<section class="miaos_sec">
+			<div class="miaos_sec_t">
+				<p>订单编号：1654646864484</p>
+				<p>下单日期：2017-12-23 15:23:25</p>
+			</div>
+			<div class="miaos_sec_b">
+				<label>支付方式：</label>
+				<label>微信支付</label>
+			</div>
+		</section>
+		<div class="bg_div" style="padding-bottom: 50px;"></div>
+		<footer>
+			<div class="footer_left">
+				<label>合计：</label>
+				<label>￥88.50</label>
+			</div>
+			<div class="footer_right">
+				<p>确认收货</p>
+			</div>
+		</footer>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			let order=GetQueryString("orderId")
+			$.ajax({
+					type: "GET",
+					url: testurl + "/api/order/orderinfo",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						orderId: order
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						var data=data.data.orderinfo;
+						console.log(data)
+//						var ware=data.orderWareList;
+//						$(".name_colo").text(data.receiveCustomer+"  "+data.receivePhone);
+//						$(".time_color").text(data.receiveProvince+data.receiveCity+data.receiveArea+data.receiveAddress)
+//					    $(".orderCode").text(data.orderCode);
+//					    $(".orderTime").text(data.payTime);
+//					    $(".sum").append(data.orderTotal)
+//					    var li="";
+//					    for(var i=0;i<ware.length;i++){
+//					    	li+="<li>"
+//					    	li+='<div class="li_header">\
+//										<p>'+ware[i].wareSupplierName+'</p>\
+//										<span class="iconfont icon-arrow-right"></span>\
+//										<label>申请售后</label>\
+//									    </div>\
+//									<div class="li_mid1">\
+//									<img src="'+ware[i].wareImage+'" />\
+//									<div class="li_con">\
+//										<p>'+ware[i].wareName+'</p>\
+//										<div id="'+ware[i].orderWareId+'">\
+//											<label>'+ware[i].orderWareSkuitems[0].name+'</label>\
+//											<label>'+ware[i].orderWareSkuitems[0].value+'</label>\
+//										</div>\
+//									</div>\
+//									<label class="con_price">￥'+ware[i].warePrice+'</label>\
+//									<label class="con_mum">*'+ware[i].wareNum+'</label>\
+//								</div>\
+//								<div class="line_div"></div>\
+//								<div class="li_mid2">\
+//									<div class="li_mid2_left">\
+//										<label>商品应付金额：</label><br />\
+//										<label>快递运费：</label>\
+//									</div>\
+//									<div class="li_mid2_right">\
+//										<label>￥'+ware[0].marketPrice+'</label><br />\
+//										<label>'+data.orderFreight+'</label>\
+//									</div>\
+//								</div>\
+//								<div class="line_div"></div>\
+//								<div class="li_mid2">\
+//									<div class="li_mid2_left">\
+//										<label>实付金额：</label>\
+//									</div>\
+//									<div class="li_mid2_right">\
+//										<label>￥'+data.orderTotal+'</label>\
+//									</div>\
+//								</div>'
+//								li+="</li>"
+//						
+//					    }
+//					    $("ul").append(li)
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+		</script>
+	</body>
+</html>

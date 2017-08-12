@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>我的商城</title>
+		<link rel="stylesheet" type="text/css" href="../css/common_n.css" />
+		<link rel="stylesheet" type="text/css" href="../css/head_foot.css" />
+		<link rel="stylesheet" type="text/css" href="../css/lunbo.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="../css/curr.css" />
+		<style type="text/css">
+			.crousel {
+				text-align: center;
+				margin-top: 0 !important;
+			}
+			
+			#mallHead {
+				height: 60px;
+				width: 60px;
+				margin-top: 30px;
+				border-radius: 50%;
+			}
+			
+			#mallName {
+				font-size: 14px;
+				color: #fff;
+				padding: 10px 4px;
+				letter-spacing: 2px;
+			}
+			
+			p {
+				font-size: 10px;
+				color: #fff;
+				letter-spacing: 1px;
+			}
+			
+			p>span {
+				font-size: 10px;
+				color: #fff;
+				letter-spacing: 1px;
+			}
+			
+			#MymallBtomm {
+				height: 30px;
+				width: 96%;
+				padding: 10px 2%;
+				position: absolute;
+				bottom: 0;
+			}
+			
+			#MymallBtomm>.coach {
+				float: left;
+				border: 1px solid #fff;
+				font-size: 14px;
+				color: #fff;
+				padding: 5px 4px;
+				border-radius: 5px;
+				letter-spacing: 2px;
+			}
+			
+			#MymallBtomm>a {
+				height: 30px;
+				color: #fff;
+				line-height: 30px;
+				float: right;
+				letter-spacing: 2px;
+			}
+			
+			.growthValueUp {
+				position: relative;
+				width: 50%;
+				margin-top: 10px;
+				height: 6px;
+				border-radius: 5px;
+				background: #fff;
+			}
+			
+			.growthValue {
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 6px;
+				border-radius: 5px;
+				background: #FC6E18;
+			}
+			
+			#parameter {
+				width: 94%;
+				height: 20px;
+				padding: 10px 3%;
+				line-height: 20px;
+			}
+			
+			#parameter>span {
+				font-size: 14px;
+				float: left;
+				line-height: 20px;
+			}
+			
+			#parameter>img {
+				float: right;
+				width: 8px;
+				height: 14px;
+				padding-top: 3px;
+			}
+			
+			#parameter>a {
+				padding-right: 10px;
+				font-size: 14px;
+				line-height: 20px;
+				float: right;
+			}
+			
+			table {
+				background: #fff;
+				margin-top: 6px;
+				width: 100%;
+				margin-bottom: 60px;
+			}
+			
+			tr>th {
+				width: 20%;
+				font-size: 12px;
+				padding: 10px 0;
+				line-height: 16px;
+				text-align: center;
+			}
+			
+			tr>td {
+				text-align: center;
+			}
+			
+			.botm {
+				position: fixed;
+				bottom: 0;
+				width: 94%;
+				padding: 10px 3%;
+				background: #fff;
+			}
+			
+			.botm:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			
+			.botm_left {
+				width: 70%;
+				height: 40px;
+				float: left;
+			}
+			
+			.botm_right {
+				width: 28%;
+				line-height: 40px;
+				text-align: center;
+				height: 40px;
+				color: #fff;
+				font-weight: 600;
+				letter-spacing: 2px;
+				background: #DC220D;
+				float: right;
+			}
+			
+			.botm_left li>span {
+				line-height: 20px;
+				font-size: 13px;
+			}
+			
+			.botm_left li>a {
+				line-height: 20px;
+				font-weight: 600;
+				letter-spacing: 2px;
+				font-size: 16px;
+			}
+			
+			#canMoney {
+				color: #FF0000;
+			}
+			#canMoney>span{
+				line-height: 20px;
+				font-weight: 600;
+				letter-spacing: 2px;
+				font-size: 16px;
+				color: #FF0000;
+			}
+		</style>
+	</head>
+
+	<body style="background: #F4F4F4;">
+		<!-- 商城展示    -->
+		<div class="crousel individual" style="background: #FF0000;">
+
+			<img id="mallHead" style="width: 80px !important;height: 80px !important;" src="../img/LOGO.png" alt="" />
+			<p id="mallName">名字</p>
+			<p>成长值: <span id="growthValue"></span>/<span id="growthValueUp"></span></p>
+			<p>
+				<span class="growthValueUp">
+					<span class="growthValue"></span>
+				</span>
+			</p>
+			<div id="MymallBtomm">
+				<span class="coach">辅导教练</span>
+				<a href="javascript:;">邀约码: <span style="color:#fff">985233</span></a>
+			</div>
+		</div>
+		<!-- 商城数据   -->
+		<div id="parameter">
+			<span>
+				销售收益
+			</span>
+			<img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="" alt="" />
+			<a href="pastEarnings.html" id="pastEarnings">过往记录</a>
+
+		</div>
+		<!--    -->
+		<table>
+			<thead>
+				<tr>
+					<th>下单用户</th>
+					<th>成交时间</th>
+					<th>订单额</th>
+					<th>收益</th>
+					<th>状态</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+		<div class="botm">
+			<div class="botm_left">
+				<ul>
+					<li><span>可领取总额:</span>
+						<a href="javascipt:;" id="canMoney">¥ <span></span></a>
+					</li>
+					<li><span>待领取总额:</span>
+						<a href="javascipt:;" id="notMoney">¥<span></span></a>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:;" class="botm_right" id="receiveMoney">一键领取</a>
+		</div>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			/* 头部的显示    */
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			let name = GetQueryString("name");
+			headImage = GetQueryString("headImage");
+			invitationCode = GetQueryString("invitationCode");
+			growthValue = GetQueryString("growthValue");
+			growthValueUp = GetQueryString("growthValueUp");
+			$(".growthValue").css("width", Number(growthValue) / Number(growthValueUp) * 100 + "%")
+			$("#mallName").html(name);
+			$("#MymallBtomm>a>span").html(invitationCode);
+			$("#growthValue").html(growthValue);
+			$("#growthValueUp").html(growthValueUp);
+			$("#mallHead").attr("src", headImage);
+			/* table的加载显示   */
+
+			$.ajax({
+				type: "POST",
+				url: testurl + "/api/customer/mystaymarketearnings",
+				dataType: "json",
+				data: {
+					platform: "2",
+					cutomerId: localStorage.getItem("cutomerId"),
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				async: true,
+				timeout: 1000,
+				beforeSend: function(XMLHttpRequest) {
+					$("#ajax").show();
+				},
+				success: function(data) {
+
+					if(data.code == 10000) {
+						$("#canMoney>span").append(  data.data.canMoneyTotal);
+						$("#notMoney>span").append(  data.data.notMoneyTotal)
+						var data = data.data.WalletLogoVoList;
+
+						if(data.length != 0) {
+							for(var i = 0; i < data.length; i++) {
+								if(data[i].placeordercusimage == "") {
+									data[i].placeordercusimage = "../img/icon/My_HeaderDefault@2x.png"
+								}
+								$("tbody").append('<tr>\
+									<td><img src="' + data[i].placeordercusimage + '" style="width: 50%;height:36px" alt="" /></td>\
+									<td>' + data[i].createTime + '</td>\
+									<td>' + data[i].money + '</td>\
+									<td>' + data[i].earnings + '</td>\
+									<td>待领取</td>\
+									</tr>')
+							}
+						}
+					}
+				},
+				complete: function(XMLHttpRequest, textStatus) {
+					$("#ajax").hide();
+				},
+				error: function(data) {
+					if(data.status == "404") {
+						alert('请求地址出错！');
+					} else if(data.status == "302") {
+						alert('连接网页出错');
+					} else if(data.status == "timeout") {
+						alert("请求超时!");
+					} else {
+						alert('服务器出差了~！');
+					}
+				}
+			});
+			$("#receiveMoney").click(function() {
+				if(Number($("#canMoney>span").html())<=0){
+					alert("没有可领金额咯~！")
+				}else{
+					$.ajax({
+						type: "GET",
+						url: testurl + "/api/customer/getstaymoney",
+						dataType: "json",
+						data: { 
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async: true,
+						timeout: 2000,
+						beforeSend: function(XMLHttpRequest) {
+							$("#ajax").show();
+						},
+						success: function(data) {
+							if(data.code==10000){
+								location.reload();
+							}
+						},
+						complete: function(XMLHttpRequest, textStatus) {
+							$("#ajax").hide();
+						},
+						error: function(data) {
+							if(data.status == "404") {
+								alert('请求地址出错！');
+							} else if(data.status == "302") {
+								alert('连接网页出错');
+							} else if(data.status == "timeout") {
+								alert("请求超时!");
+							} else {
+								alert('服务器出差了~！');
+							}
+						}
+					});
+		       }				
+			})
+		</script>
+
+	</body>
+
+</html>

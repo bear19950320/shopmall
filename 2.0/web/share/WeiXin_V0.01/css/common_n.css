@@ -1,0 +1,181 @@
+
+*{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-decoration: none;
+	color: black;
+}
+h4{
+	margin-bottom: 0.05rem;
+}
+.clear{
+	clear: both;
+}
+
+
+/*公共样式      字体颜色和大小*/
+.font_color_one{
+	color: white;
+}
+.font_color_two{
+	color: red;
+}
+.font_color_three{
+	color: darkgrey;
+}
+
+.font_color_four{
+	color:#999999;
+}
+
+.font_size_one{
+	font-size: 24px;
+}
+.font_size_two{
+	font-size: 12px;
+}
+.font_size_three{
+	font-size: 20px !important;
+}
+.font_size_four{
+	font-size: 10px;
+}
+.font_size_five{
+	font-size: 16px;
+}
+
+.overflow_shenglue_danhang{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+
+.word_padding_left{
+	padding-left: 0.1rem;
+	padding-left: 0.24rem;
+}
+
+.word_marging_right{
+	margin-right: 0.1rem;
+	margin-right: 0.24rem;
+}
+
+
+
+.background_color_one{
+	background-color: red;
+}
+.background_color_two{
+	background-color: white;
+}
+
+.background_img{
+	/*background: url() center no-repeat cover;*/
+	/*background-size: 100%;*/
+}
+.img_style{
+	width: 100%;
+}
+
+.shade_box{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	background-color: rgba(0,0,0,0.5);
+	display: none;
+}
+
+
+/*横向菜单导航条*/
+.fenlei_navagation{
+	border-bottom: 1px solid ghostwhite;
+	padding: 0.12rem 0;
+	background-color: white;
+}
+.fenlei_navagation ul{
+	list-style: none;
+	white-space: nowrap;
+	overflow-x: auto;
+	vertical-align: middle;
+	height: auto;
+	font-size: 18px;
+}
+.fenlei_navagation li{
+	display: inline-block;
+	/*width: 0.5rem;*/
+	margin-right: 0.15rem;
+	color: #666666;
+	text-align: center;
+}
+.fenlei_navagation li:nth-last-child{
+	margin-right: 0;
+}
+
+/*padding marging*/
+.padding_one{
+	padding: 0 0.24rem;
+}
+.padding_two{
+	padding: 0.15rem 0;
+}
+.marging_bottom{
+	margin-bottom: 0.24rem;
+}
+.marging_bottom_2{
+	margin-bottom: 0.03rem;
+}
+
+
+
+
+.li_style{
+	display: inline-block;
+}
+.li_style_float_right{
+	float: right;
+}
+
+
+#weixin_shop{
+	overflow: hidden;
+	background-color: #F7F7F7;
+}
+
+
+
+/*公共头部*/
+html{
+	font-size: 100px;
+}
+/*导航条*/
+#home_navigation{
+	display: -webkit-flex;
+	display: flex;
+	flex-direction:row;     /*决定项目的排列方向*/
+	flex-wrap:wrap;    /*一行显示不下的时候不换行      还有另外两个参数*/
+	justify-content:center;   /*设置对齐方式      居中对齐*/
+	align-items:center;   /*在交叉轴上如何对齐*/
+}
+#home_navigation{
+	height: 0.35rem;
+	background-color: red;
+	font-size: 14px;
+}
+#home_navigation div{
+	width: 25%;
+}
+#home_navigation div:nth-of-type(2){
+	width: 50%;
+	text-align: center;
+	font-weight: 600;
+	
+}
+#home_navigation div:nth-of-type(3){
+	text-align: right;
+}
+
+/*公共页脚*/
+
+

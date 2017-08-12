@@ -1,0 +1,27 @@
+
+
+			/*导航条*/
+			#navigationBox,#navigationBox .goback,#navigationBox .goback i{
+				height: 0.3rem;
+				line-height: 0.3rem;	
+			}
+			#navigationBox{
+				width: 100%;
+				padding: 0.04rem 0.08rem;
+				overflow: hidden;
+				font-size: 14px;
+				background: white;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 100;	
+				background: white;	
+				outline: 1px solid red;
+			}
+			#navigationBox .goback{
+				width: 0.2rem;
+				margin-right:1.2rem;
+				display: inline-block;
+				text-align: center;
+				background-color: blanchedalmond;	
+			}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta id="head" />
+	</head>
+
+	<body style="background: #fff;">
+		<div id="prompt" style="width:80%;margin-left: 10%;font-size: 2rem;">&nbsp;</div>
+		<div class="registerCon" style="padding-top: 15%;">
+			<div class="inputCon" style="position: relative;">
+				<font style="background: url(../img/phone.png)no-repeat;background-size:contain;position: absolute;top:50%;margin-top:-17px;left:6px;"></font>
+				<input id="phone" placeholder="请输入11位手机号码" onkeyup="value=value.replace(/[^\d]/g,'')" type="tel" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+			</div>
+			<a class="btn" id="btn">验证</a>
+		</div>
+		<!-- 输入验证码 -->
+		<div class="registerConCode" style="padding-top: 15%;">
+			<div class="inputCon" style="position: relative;">
+				<font style="background: url(../img/pass.png)no-repeat;background-size:contain;position: absolute;top:50%;margin-top:-17px;left:6px;"></font>
+				<input id="smscode" placeholder="请输入验证码" onkeyup="value=value.replace(/[^\d]/g,'')" type="text" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+			</div>
+			<a class="btn" id="btnCode">下一步</a>
+		</div>
+		<!-- 输入邀约码 -->
+		<div class="invitationCode" style="padding-top: 15%;">
+			<div class="inputCon" style="position: relative;">
+				<span id="notice" style="position: absolute;top:-20px;left:0;line-height:1.5rem;font-size: 1.5rem;color:#DA251D;display: none;">邀约码不存在<img src="../img/notice.png" style="margin-left: 10px;" width="15" height="15" alt="" /> </span>
+				<font style="background: url(../img/intion.png)no-repeat;background-size:contain;position: absolute;top:50%;margin-top:-13px;left:6px;"></font>
+				<input id="invitation" placeholder="请输入邀约码" type="text" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+				<img src="../img/twoCode.png" width="30" height="30" style="position:absolute;right:5px;top:5px" />
+			</div>
+			<a class="btn" id="btnInvitation">下一步</a>
+		</div>
+		<!-- 设置密码 -->
+		<div class="passCode" style="padding-top: 15%;">
+			<div class="inputCon" style="position: relative;">
+				<span id="notice" style="position: absolute;top:-20px;left:0;line-height:1.5rem;font-size: 1.5rem;color:#DA251D;display: none;">邀约码不存在<img src="../img/notice.png" style="margin-left: 10px;" width="15" height="15" alt="" /> </span>
+				<font style="background: url(../img/passCode.png)no-repeat;background-size:contain;position: absolute;top:50%;margin-top:-13px;left:6px;"></font>
+				<input id="password" placeholder="请输入密码" type="text" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+				<input id="passwordinput" placeholder="请输入密码" type="password" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+				<img src="../img/passHide.png" id="passDisplay" width="30" height="20" style="position:absolute;right:5px;top:10px" />
+			</div>
+			<a class="btn" id="passBtn">下一步</a>
+		</div>
+
+		<div class="passCodes" style="padding-top: 15%;display: none;">
+			<div class="inputCon" style="position: relative;">
+				<span id="notice" style="position: absolute;top:-20px;left:0;line-height:1.5rem;font-size: 1.5rem;color:#DA251D;display: none;">邀约码不存在<img src="../img/notice.png" style="margin-left: 10px;" width="15" height="15" alt="" /> </span>
+				<font style="background: url(../img/passCode.png)no-repeat;background-size:contain;position: absolute;top:50%;margin-top:-13px;left:6px;"></font>
+				<input id="passwords" placeholder="请输入密码" type="text" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+				<input id="passwordinputs" placeholder="请输入密码" type="password" style="background: url(../img/right.png)no-repeat;background-size:contain;display: inline-block;width:90%;float: right;height:100%;position: absolute;left:35px;" />
+				<img src="../img/passHide.png" id="passDisplays" width="30" height="20" style="position:absolute;right:5px;top:10px" />
+			</div>
+			<a class="btn" id="passBtns">下一步</a>
+		</div>
+
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/curr.js"></script>
+		<script type="text/javascript">
+			$('body').css({
+				"width": $(window).width(),
+				"height": $(window).height()
+			})
+			$("head").load("../html/mate.html", function() {
+				$("title").html("注册");
+			});
+			$("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">')
+			//		    $("body").load("../html/head.html",function(){
+			//		    	$(".H-title").html("登陆");
+			//		    })
+			$(function() {
+				$("title").html("注册");
+
+				$(".registerConCode").hide();
+				$(".invitationCode").hide();
+				$(".passCode").hide();
+				//                 $(".registerCon").hide()
+				isWeiXin();
+				/* 获取验证码 */
+				$("#btn").click(function() {
+					if(!(/^1[34578]\d{9}$/.test($("#phone").val()))) {
+						$("#inputText").focus();
+						$("#prompt").text("手机号码有误!");
+						$("#prompt").css("color", "#DA251D");
+						return false;
+					} else {
+						$("#prompt").css("color", "#e6e6e6");
+						/* 验证手机是否注册  */
+						$.ajax({
+							type: "POST",
+							url: testurl + "/api/login/getcode",
+							data: {
+								platform: "2",
+								phone: $("#phone").val()
+							},
+							dataType: "json",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							success: function(data) {
+								if(data.code != 10000) {
+
+								}
+								if(data.code == 10000) {
+									$(".registerCon").hide();
+									$(".registerConCode").show();
+									var passPhone = $("#phone").val().substring(0, 3) + "****" + $("#phone").val().substring(8, 11);
+									$("#prompt").text("我们已经向" + passPhone + "发送了验证码");
+								}
+							},
+							error: function() {
+
+							},
+							start: function() {
+								$("body").html("正在加载")
+							}
+						});
+					}
+
+				})
+				/*  验证码验证    */
+				$("#btnCode").click(function() {
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/login/verifysmscode",
+						data: {
+							platform: "2",
+							phone: $("#phone").val(),
+							smscode: $("#smscode").val()
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							if(data.code != 10000) {
+
+							}
+							if(data.code == 10000) {
+								$.ajax({
+									type: "POST",
+									url: testurl + "/api/login/verifycustomer",
+									data: {
+										platform: "2",
+										phone: $("#phone").val()
+									},
+									dataType: "json",
+									xhrFields: {
+										withCredentials: true
+									},
+									crossDomain: true,
+									success: function(data) {
+										if(data.code == 10000) {
+											$(".registerConCode").hide();
+											$(".invitationCode").show();
+										} else if(data.code == 1005) {
+											$("#prompt").css("color", "#DA251D");
+											$("#prompt").text("您已注册,请设置登录密码");
+											$(".passCodes").show();
+											$(".registerCon,.registerConCode").hide();
+										} else if(data.code != 10000) {
+											$("#prompt").text(data.msg + "请登录");
+										}
+									}
+								})
+
+							}
+						},
+						error: function() {
+
+						},
+						start: function() {
+							$("body").html("正在加载")
+						}
+					});
+				});
+
+				/* 邀约码验证    */
+				$("#btnInvitation").click(function() {
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/login/pqszq",
+						data: {
+							platform: "2",
+							invitationCode: $("#invitation").val()
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							if(data.code != 10000) {
+								$("#notice").show();
+								$(".invitationCode").show();
+							} else if(data.code == 10000) {
+								$(".passCode").show();
+								$(".invitationCode").hide()
+								$(".registerCon").hide();
+								$(".registerConCode").hide();
+							}
+						},
+						error: function() {
+
+						}
+					});
+
+				})
+				/* 密码的加密与不加密   */
+				$("#password").hide();
+				var put1 = document.getElementById("passwordinput");
+				var div1 = document.getElementById("password");
+				put1.onkeyup = function() {
+					div1.value = put1.value;
+				}
+				/* 保存设置密码   */
+				var flog = 0;
+				$("#passDisplay").click(function() {
+					flog++;
+					console.log(flog)
+					if(flog % 2 == 0) {
+						$(this).attr("src", "../img/passHide.png");
+						$("#password").hide()
+						$("#passwordinput").show();
+						$("#passwords").hide()
+						$("#passwordinputs").show();
+					} else {
+						$("#password").show();
+						$("#passwordinput").hide();
+						$("#passwords").show();
+						$("#passwordinputs").hide();
+						$(this).attr("src", "../img/passShow.png");
+					}
+				})
+				/* 提交密码   */
+				$("#passBtn").click(function() {
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/login/register",
+						data: {
+							platform: "2",
+							phone: $("#phone").val(),
+							password: $("#password").val(),
+							invitationCode: $("#invitation").val()
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							if(data.code == 1001) {
+								alert(data.msg);
+								location.href = "login.html"
+								/* 这里到时候 跳到个人中心   */
+							}
+						},
+						error: function() {
+
+						}
+					});
+				})
+
+			});
+			var flog2 = 0;
+			$("#passwords").hide();
+			var put1 = document.getElementById("passwordinputs");
+			var div1 = document.getElementById("passwords");
+			put1.onkeyup = function() {
+				div1.value = put1.value;
+			}
+			$("#passDisplays").click(function() {
+				flog2++;
+				console.log(flog2)
+				if(flog2 % 2 == 0) {
+					$(this).attr("src", "../img/passHide.png");
+					$("#passwords").hide()
+					$("#passwordinputs").show();
+				} else {
+					$("#passwords").show();
+					$("#passwordinputs").hide();
+					$(this).attr("src", "../img/passShow.png");
+				}
+			})
+			$("#passBtns").click(function() {
+				$.ajax({
+					type: "POST",
+					url: testurl + "/api/login/setpassword",
+					data: {
+						platform: "2",
+						phone: $("#phone").val(),
+						password: $("#passwords").val(),
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						if(data.code == 10000) {
+							alert("密码设置成功请登陆")
+							location.href = "login.html"
+							/* 这里到时候 跳到个人中心   */
+						}
+					},
+					error: function() {
+
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

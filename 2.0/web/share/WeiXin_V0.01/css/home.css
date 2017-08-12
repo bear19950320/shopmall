@@ -1,0 +1,324 @@
+html{
+				font-size: 100px;
+			}
+			body{
+				position: relative;
+			}
+			*{
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			img{
+				width: 100%;
+			}
+			
+			.fenlei_margin_top{
+				padding: 0.2rem 0;
+			}
+			
+			/*.layoutBox,.layoutBox,.layoutCaiBaoOne,.layout_global_shop,.layout_global_shop_two_one,.home_foot_box,#home_navigation,.fenlei_fifth_box,.fenlei_four_box,.home_store_box_header,.home_goods_list{
+				display: -webkit-flex;
+				display: flex;
+				flex-direction:row;     /*决定项目的排列方向*/
+				/*flex-wrap:wrap;    /*一行显示不下的时候不换行      还有另外两个参数*/
+				/*justify-content:center;   /*设置对齐方式      居中对齐*/
+				/*align-items:center;   /*在交叉轴上如何对齐*/
+			/*}*/
+			.layoutBox{
+				margin-top: 0.3rem;
+				padding: 0 0.1rem;
+				font-size: 14px;
+			}
+			
+			.layoutBox .layoutOne:nth-of-type(1),.layoutBox .layoutOne:nth-of-type(5){
+				margin-left: 0rem;
+			}
+			.layoutBox .layoutOne:nth-of-type(4),.layoutBox .layoutOne:nth-of-type(8){
+				margin-right: 0rem;
+			}	
+			.layoutBox .layoutOne{
+				margin-right: 0.25rem;
+				width: 0.5rem;
+				height: 0.5rem;
+				font-size: 14px;
+				margin-bottom: 0.2rem;
+			}
+			.layout_one_img{
+				width: 0.28rem;
+				height: 0.28rem;
+				margin: 0 auto;
+				background: palegreen url() center no-repeat;
+				background-size: 100%;
+			}
+			.layoutOne p{
+				font-size: 12px;
+				width: 100%;
+				text-align: center;
+				margin-top: 0.05rem;
+			}
+			.layoutBox .layoutCaiBao,.layout_youzhi,.layout_global_shop,.layout_global_shop_two_one div{
+				width: 49%;
+				height: 0.85rem;
+				border: 1px solid gainsboro;
+				border-top:none;
+				border-left: none;
+				background: url() center no-repeat;
+				background-size: 100%;
+			}
+			.layoutBox .layoutCaiBaoB2{
+				border-right: none;
+			}
+			.layoutBox .layoutCaiBao div{
+				height: 100%;
+				font-size: 12px;
+				
+			}
+			.layoutBox .layoutCaiBao div:nth-of-type(1){
+				width: 55%;
+			}
+			.layoutBox .layoutCaiBao div:nth-of-type(2){
+				width: 45%;
+				line-height: 1.5rem;
+			}
+			
+			#drag{
+				width: 100px;
+				height: 100px;
+				background: red;
+				color: white;
+				line-height: 100px;
+				text-align: center;
+				font-size: 16px;
+				position: absolute;
+				top: 0;
+			}
+			
+			.special_box{
+				font-size: 14px;
+				width: 100%;
+				height: 0.26rem;
+				background: red url() center no-repeat;
+				background-size: 100%;
+			}
+			
+			.layoutCaiBaoOne div{
+				width: 0.77rem;
+				background: lightyellow url() center no-repeat;
+				background-size: 100%;
+				height: 0.85rem;
+				font-size: 14px;
+				border-right: 1px solid gainsboro;
+			}
+			.layoutCaiBaoOne div:nth-last-of-type(1){
+				border: none;
+			}
+			
+			.layout_global_shop_two{
+				height: 1.7rem;
+			}
+			
+			.layout_global_shop_two_one{
+				width: 100%;
+				height: 0.85rem;
+				background: greenyellow;
+			}
+			.layout_global_shop_two_one:nth-of-type(1){
+				border-bottom: 1px solid gainsboro;
+			}
+			.layout_global_img{
+				background: url() center no-repeat;
+				background-size: 100%;
+			}
+			
+			/*商品列表*/
+			.goods_list_one{
+				width: 100%;
+			}
+			.goods_list_one_img{
+				text-align: center;
+			}
+			.goods_list_one_text{
+				margin-top: 0.1rem;
+				margin-bottom: 0.2rem;
+			}
+			.goods_list_one_text p{
+				color: darkgray;
+				font-size: 12px;
+				margin: 0.04rem 0;
+			}
+			.goods_list_one_text span{
+				color: red;
+			}
+			img{
+				width: 65%;
+			}
+			
+			#weixin_shop{
+				max-width: 998px;
+				margin: 0 auto;
+				background-color: #F7F7F7;
+			}
+
+			.fenlei_fifth_box{
+				padding: 0 0.12rem;
+				background-color: white;
+			}
+			.fenlei_fifth_box .fenlei_fifth_box_1{
+				width: 20%;
+			}
+			.fenlei_fifth_box_1 div{
+				width: 0.4rem;
+				height: 0.4rem;
+				margin: 0 auto;
+			}
+			.fenlei_fifth_box p{
+				text-align: center;
+				/*font-size: 16px;*/
+				margin-top: 0.16rem;
+				/*color: #262626;*/
+			}
+			.fenlei_four_box_1 div{
+				width: 0.7rem;
+				height: 0.7rem;
+				background-color: antiquewhite;
+				margin: 0 auto;
+			}
+			.fenlei_four_box_1{
+				width: 25%;
+			}
+
+			
+			/*图片板块*/
+			.mall_moban_img_1{
+				height: 1.895rem;
+				text-align: center;
+				font-size: 14px;
+			}
+			.mall_moban_img_2{
+				height: 1.88rem;
+				border: 1px solid ghostwhite;
+			}
+			
+			
+			.home_store_box_header{
+				font-size: 14px;
+				justify-content: flex-start;
+				padding: 0.15rem 0.12rem;
+				background-color: white;
+			}
+			.home_store_box_header div:nth-of-type(1){
+				width: 0.5rem;
+				height: 0.5rem;
+				margin-right: 0.07rem;
+			}
+
+			.home_store_box_banner{
+				height: 1.6rem;
+				width: 100%;
+				font-size:14px;
+				background-color: white;
+			}
+			.home_store_box_describ{
+				margin-top: 0.11rem;
+				margin-bottom: 0.11rem;
+				padding-bottom: 0.18rem;
+				background-color: palegreen;
+				min-height: 0.5rem;
+				font-size: 14px;
+				position: relative;
+				background-color: white;
+			}
+			.home_store_box_describ .temai_to_earn_box{
+				position: absolute;
+				top: 0.25rem;
+				left: 0.6rem;
+			}
+			.home_store_box_describ li{
+				display: inline-block;
+				margin-top: 0.14rem;
+			}
+			.home_store_box_describ li:nth-of-type(2){
+				text-align: right;
+				float: right;
+			}
+			.home_store_box_describ li i{
+				margin-left: 0.03rem;
+			}
+			
+			
+			
+			
+			.home_sell_hot_box{
+				margin: 0.11rem 0;
+			}
+			.home_sell_hot_header{
+				padding: 0.15rem 0.12rem 0.15rem 0.12rem;
+				font-size: 13px;
+				background-color: white;
+			}
+			.home_sell_hot_header li{
+				display: inline-block;
+				color: #333333;
+				font-size: 13px;
+			}
+			.home_sell_hot_header li:nth-of-type(1){
+				width: 0.02rem;
+				height: 0.15rem;
+				background-color: #DC210D;
+			}
+			
+			
+			
+			
+			/*.temai_span{
+				display: inline-block;
+				border: 1px solid red;
+			}
+			.temai_to_earn_box{
+				position: absolute;
+				top: 0.25rem;
+				left: 0.4rem;
+			}
+			.home_goods_list{
+				padding: 0.15rem 0.12rem;
+				background-color: white;
+				justify-content: flex-start;
+				margin-bottom: 0.05rem;
+			}
+			.home_goods_list_img{
+				width: 0.7rem;
+				height: 0.7rem;
+				background-color: palegreen;
+				margin-right: 0.07rem;
+			}
+			.home_goods_list .home_store_box_describ{
+				margin: 0;
+				padding: 0;
+			}
+			.home_goods_list_describe{
+				font-size: 16px;
+				position: relative;
+				width: 2.5rem;
+			}
+			.home_goods_list_describe li{
+				margin-top: 0.14rem;
+			}*/
+			
+			
+			
+
+			
+			/*图片模板*/
+			.mall_moban_img_3{
+				height: 1.6rem;
+				background-color: white;
+				width: 100%;
+			}
+			.mall_moban_img_1,.mall_moban_img_2,.mall_moban_img_3{
+				margin: 0.11rem 0;
+				background-color: white;
+			}
+			.mall_moban_img_1{
+				margin-top: 0;
+			}

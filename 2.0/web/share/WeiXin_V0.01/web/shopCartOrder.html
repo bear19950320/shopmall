@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>订单支付</title>
+		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<style type="text/css">
+			#content {
+				background-color: #F9F9FA;
+			}
+			
+			.choose_address,
+			.submit_good_box,
+			.describe_box_line,
+			.submit_box_btn {
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: row;
+				/*决定项目的排列方向*/
+				flex-wrap: wrap;
+				/*一行显示不下的时候不换行      还有另外两个参数*/
+				justify-content: center;
+				/*设置对齐方式      居中对齐*/
+				align-items: center;
+				/*在交叉轴上如何对齐*/
+			}
+			
+			.choose_address {
+				height: 0.4rem;
+				font-size: 14px;
+			}
+			
+			.choose_address div:nth-of-type(1) {
+				text-align: left;
+				width: 80%;
+			}
+			
+			.choose_address div:nth-of-type(2) {
+				text-align: right;
+				width: 20%;
+			}
+			
+			.choose_address .submit_span_one {
+				display: inline-block;
+				width: 0.2rem;
+				text-align: center;
+				margin-left: 0.05rem;
+				border-radius: 0.03rem;
+			}
+			
+			.submit_good_box {
+				font-size: 14px;
+			}
+			
+			.submit_good_box .img {
+				width: 30%;
+			}
+			
+			.submit_good_box .describe {
+				width: 70%;
+			}
+			
+			.submit_good_box .img img {
+				width: 100%;
+			}
+			
+			.describe_box_line .one {
+				width: 80%;
+				text-align: left;
+			}
+			
+			.describe_box_line .two {
+				width: 20%;
+				text-align: right;
+			}
+			
+			.submit_price_freight {
+				font-size: 14px;
+				margin-top: 0.1rem;
+			}
+			
+			.submit_foot {
+				width: 100%;
+				font-size: 14px;
+				height: 0.25rem;
+				line-height: 0.25rem;
+				background-color: blanchedalmond;
+				position: fixed;
+				bottom: 0.5rem;
+				left: 0;
+			}
+			
+			.submit_box_btn {
+				width: 100%;
+				height: 0.5rem;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+			}
+			
+			.submit_box_btn div {
+				height: 100%;
+				line-height: 0.5rem;
+			}
+			
+			.submit_box_btn div:nth-of-type(1) {
+				width: 60%;
+				background-color: white;
+			}
+			
+			.submit_box_btn div:nth-of-type(2) {
+				width: 40%;
+				text-align: center;
+				background-color: red;
+				color: white;
+			}
+			
+			.describe_box_line {
+				padding-top: 0.05rem;
+			}
+			
+			#map:after {
+				clear: both;
+				content: "";
+				display: block;
+			}
+			
+			#map {
+				display: block;
+				width: 100%;
+				border-bottom: 2px solid red;
+			}
+			
+			.background_color_two {
+				width: 96%;
+				padding: 0 2%;
+			}
+			
+			.font_size_two {
+				padding-top: 8px;
+			}
+			
+			.submit_good_box {
+				margin-top: 5px;
+			}
+			
+			.classifyListText {
+				padding-top: 5px;
+				line-height: 18px;
+				text-align: left;
+				font-size: 16px;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+			
+			.describe p {
+				margin: 5px 0;
+			}
+			
+			.orderUp {
+				border-top: 1px solid #f8f8f8;
+				background: #fff;
+				width: 94%;
+				padding: 5px 3%;
+				height: 30px;
+				line-height: 30px;
+			}
+			
+			.orderUp>div {
+				width: 30%;
+				float: left;
+				text-align: center;
+			}
+			
+			#PaidMone {
+				width: 70%;
+			}
+			
+			#placeOrder {
+				line-height: 30px;
+				font-weight: 600;
+			}
+			
+			#placeOrder>a {
+				width: 80%;
+				border-radius: 10px;
+				background: #FF0000;
+				line-height: 30px;
+				color: #fff;
+			}
+			
+			#ware>div {
+				background: #fff;
+			}
+			
+			#TieMuch,
+			#cashMuch {
+				padding-right: 10px;
+			}
+			
+			#TieMoney,
+			#TieMuch,
+			#cash,
+			#cashMuch {
+				float: right;
+			}
+			
+			#confirmCon {
+				width: 280px;
+				height: 200px;
+				background: #fff;
+				text-align: center;
+				position: fixed;
+				top: 50%;
+				margin-top: -100px;
+				left: 50%;
+				margin-left: -140px;
+			}
+			
+			#num,
+			.alt {
+				text-align: center;
+			}
+			
+			#name {
+				margin: 10px 0;
+				width: 90%;
+				padding: 0 5%;
+				padding-top: 5px;
+				line-height: 18px;
+				text-align: left;
+				font-size: 16px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+			}
+			
+			.confirm {
+				width: 50px;
+				height: 20px;
+				line-height: 20px;
+				font-size: 18px;
+				padding: 4px 8px;
+				border-radius: 5px;
+				color: #fff;
+				background: #FF0000;
+				position: absolute;
+				bottom: 20px;
+				left: 50%;
+				margin-left: -25px;
+				font-weight: 500;
+			}
+			
+			#password {
+				width: 80%;
+				height: 30px;
+				margin: 0 auto;
+			}
+			
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				-webkit-appearance: none !important;
+				margin: 0;
+			}
+			
+			#passwordinput {
+				display: inline-block;
+				width: 100%;
+				height: 30px;
+				font-size: 26px;
+				line-height: 30px;
+			}
+			
+			.ipt-box-nick {
+				height: 30px !important;
+				line-height: 30px !important;
+				position: relative !important;
+			}
+			
+			.ipt-box-nick .ipt-real-nick {
+				position: absolute !important;
+				top: 0 !important;
+				left: 0 !important;
+				width: 100%;
+				height: 30px !important;
+				line-height: 30px !important;
+				opacity: 0 !important;
+				z-index: 3 !important;
+			}
+			
+			.ipt-box-nick .ipts-box-nick {
+				position: absolute !important;
+				top: 0 !important;
+				left: 0 !important;
+				z-index: 1 !important;
+				width: 100%;
+				height: 36px !important;
+				line-height: 30px !important;
+				overflow: hidden;
+			}
+			
+			.ipt-box-nick .ipts-box-nick .ipt-fake-box {
+				height: 30px !important;
+				line-height: 30px !important;
+				display: flex !important;
+				justify-content: space-between !important;
+			}
+			
+			.ipt-box-nick .ipts-box-nick .ipt-fake-box input {
+				width: 30px !important;
+				height: 30px !important;
+				border: 1px solid #D7D7D7 !important;
+				border-radius: 4px;
+				background: #EBEBE4;
+				color: #810213 !important;
+				font-weight: bold !important;
+				font-size: 18px !important;
+				text-align: center !important;
+				padding: 0 !important;
+			}
+			
+			.ipt-box-nick {
+				padding-left: 100px !important;
+			}
+			
+			.ipt-box-nick .ipt-active-nick {
+				width: 30px !important;
+				height: 30px !important;
+				line-height: 30px !important;
+				text-align: center;
+				position: absolute !important;
+				top: 0;
+				left: 0;
+				z-index: 2;
+			}
+			
+			.ipt-box-nick .ipt-active-nick img {
+				vertical-align: middle;
+			}
+			
+			.fixed {
+				display: none;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, .5);
+				z-index: 999;
+				position: fixed;
+			}
+			
+			.supplierName>a {
+				width: 80%;
+				overflow: hidden;
+			}
+			
+			#passwordinput {
+				color: #EBEBE4;
+			}
+			
+			.confirmTitle {
+				position: relative;
+				width: 100%;
+				height: 60px;
+				line-height: 60px;
+				border-bottom: 1px solid #FF0000;
+			}
+			
+			#password>a {
+				height: 20px;
+				line-height: 20px;
+				padding: 20px 0;
+			}
+			.font_size_three{
+				font-size: 14px;
+			}
+			.class="font_size_two">span{
+				font-size: 16px;
+			}
+			#orderUl>li{
+				border: none;
+			}
+			#orderUl{
+				padding-top: 10px !important;
+			}
+			.orderAlt{
+				font-size: 14px !important;
+			}
+			.orderUp{
+				padding: 10px 3%;
+			}
+		</style>
+
+	</head>
+
+	<body id='0' style="background: #F7F7F7;">
+		<div class="fixed">
+			<div id="confirmCon">
+				<div class="confirmTitle">
+					<svg t="1502088620267" class="icon" id="closeOrder" style="width: 25px;height: 25px;position: absolute;bottom: 18px;left:5px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2376" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+						<defs>
+							<style type="text/css"></style>
+						</defs>
+						<path d="M553.568 512l270.112-270.112c11.488-11.488 11.488-30.08 0-41.568-11.488-11.488-30.08-11.488-41.568 0L512 470.432 241.888 200.352c-11.488-11.488-30.08-11.488-41.568 0-11.488 11.488-11.488 30.08 0 41.568L470.432 512l-270.112 270.112c-11.488 11.488-11.488 30.08 0 41.568 11.488 11.488 30.08 11.488 41.568 0L512 553.568l270.112 270.112c11.488 11.488 30.08 11.488 41.568 0 11.488-11.488 11.488-30.08 0-41.568L553.568 512z" p-id="2377" fill="#dbdbdb"></path>
+					</svg>
+					<a style="font-size: 16px;" href="javascript:;">请输入支付密码</a>
+				</div>
+
+				<div id="password">
+					<a style="font-size: 16px;" href="javascript:;">订单支付</a>
+					<div>
+						<div class="ipt-box-nick">
+							<input id="passwordinput" type="text" class="ipt-real-nick" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="6" />
+							<div class="ipts-box-nick">
+								<div class="ipt-fake-box">
+									<input type="password" onkeyup="value=value.replace(/[^\d]/g,'')">
+									<input type="password" onkeyup="value=value.replace(/[^\d]/g,'')">
+									<input type="password" onkeyup="value=value.replace(/[^\d]/g,'')">
+									<input type="password" onkeyup="value=value.replace(/[^\d]/g,'')">
+									<input type="password" onkeyup="value=value.replace(/[^\d]/g,'')">
+									<input type="password" onkeyup="value=value.replace(/[^\d]/g,'')">
+								</div>
+							</div>
+							<div class="ipt-active-nick"><img src="https://t.alipayobjects.com/images/rmsweb/T1nYJhXalXXXXXXXXX.gif"></div>
+						</div>
+					</div>
+				</div>
+				<!--<a href="javascript:;" id="confirm" class="confirm">确认</a>-->
+			</div>
+		</div>
+		<div id="confirmCon" style="width:50%;height:40%;background: #fff;text-align: center;display: none;position: fixed;top:30%;left:25%;">
+			<p id="name" class="font_size_three"></p>
+			<div id="num" class="font_size_three">
+			</div>
+			<a href="javascript:;" id="confirm" style="font-size: 20px;background: red;position: absolute;bottom:50px;left:40%;">确认</a>
+		</div>
+		<div id="content">
+
+			<!--订单地址-->
+			<a id="map" style="height: 70px;background: url(../img/icon/line@2x.png)no-repeat;">
+
+			</a>
+			<div style="width: 100%;height: 10px;background: #FFFFFF;"></div>
+			<!--产品列表-->
+			<ul id="orderUl" style="overflow: auto;margin-top: 0;padding-top: 0;">
+
+			</ul>
+			<div id="Pay">
+				<!--<div class="PayTitle">
+					<span>支付方式</span>
+					<span id="PayAlt">现金</span>
+				</div>-->
+				<div class="PayTitle">
+					<span style="background: url(../img/icon/xianjin@2x.png)no-repeat;background-size:contain;padding-left: 20px;">使用现金</span>
+					<span id="cash">
+						<div id="div1" class="open1" style="width: 40px;height: 20px;border-radius: 50px;position: relative;">
+							<div id="div2" class="open2" style="width: 20px;height: 18px;border-radius: 48px;position: absolute;background: white;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);"></div>
+						</div>
+					</span>
+					<span id="cashMuch">余额<span style="color:#FF0000"></span></span>
+				</div>
+				<div class="PayTitle">
+					<span style="background: url(../img/icon/daijin@2x.png)no-repeat;background-size:contain;padding-left: 20px;">使用呔金</span>
+					<span id="TieMoney">
+						<div id="div3" class="close1" style="width: 40px;height: 20px;border-radius: 50px;position: relative;">
+							<div id="div4" class="close2" style="width: 20px;height: 18px;border-radius: 48px;position: absolute;background: white;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);"></div>
+						</div>
+					</span>
+					<span id="TieMuch">余额<span style="color:#FF0000"></span></span>
+				</div>
+			</div>
+			<div style="display: none;" class="all_price">
+			</div>
+			<div class="orderUp">
+				<div class="font_size_three font_color_two" id="PaidMone">
+					<div id="PaidCon" class="left"><span style="color:#BF4440">实付款: ¥<span class="font_size_three font_color_two" style="color:#BF4440" id="Paid"></span></span>
+					</div>
+					<div class="left"><span>(运费<span class="two freight" id="freight"></span>.00)</span>
+					</div>
+				</div>
+				<div id="placeOrder">
+					<a href="javascript:;">立即发货</a>
+				</div>
+			</div>
+
+		</div>
+
+	<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			let form = GetQueryString("form");
+			orderid = GetQueryString("orderid");
+			// 	ware = GetQueryString("ware");
+			// 供应商头像为   + ss[i * 12 + 11] + 
+			if(!orderid) {
+				sessionStorage.setItem("bodyId", window.location.href);
+				sessionStorage.setItem("Status", "订单")
+				var shopcartWareId = sessionStorage.getItem("shopcart")
+				console.log(shopcartWareId)
+				var data = JSON.parse(shopcartWareId)
+				//	var ss = shopcartWareId.split(",")
+				for(var i = 0; i < data.length; i++) {
+					if(data.length != 0) {
+						var str = [];
+						var con = [];
+						var jsons = {};
+						var n = 0;
+						for(var i = 0; i < data.length; i++) {
+							if(!jsons[data[i].supportName]) {
+								n++;
+								str.push(data[i].supportName, 'name' + n)
+								jsons[data[i].supportName] = n;
+								con[n-1] = [];
+								con[n-1].push(data[i])
+							} else {
+								var ind=jsons[data[i].supportName]
+								con[ind-1].push(data[i])
+							}
+						}
+
+						var ster = [];
+						var strname = [];
+						for(var i = 0; i < str.length; i++) {
+							if(i % 2 == 1) {
+								ster.push(str[i])
+							} else {
+								strname.push(str[i])
+							}
+						}
+						console.log(con)
+						var st = '';
+						$("#orderUl").empty();
+						for(var i = 0; i < con.length; i++) {
+
+							$("#orderUl").append('<li id="ware' + ster[i] + '"><div class="supplierTitle left" style="padding: 5px ;"> <a href="javascript:;" >' + strname[i] + '</a><a href="javascript:;" class="activityA" style="text-align: right !important;font-size: 10px;color:#DD200D" >购买活动商品不参加返利</a><ul class="orderContent" id="' + ster[i] + '"></ul>\
+						 </div></li>')
+							for(var j = 0; j < con[i].length; j++) {
+								$("#ware" + ster[i]).attr("support", con[i][j].supportType);
+
+								$("#" + ster[i]).append('<li waraId="' + con[i][j].skuid + '" wareId="' + con[i][j].wareId + '">\
+			      		    		      <div class="storeWare">\
+						      		    	<img class="wareImg" src="' + con[i][j].wareImg + '" alt="" />\
+						      		    	<div class="wareText">\
+						      		    		<p class="classifyListText left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;line-height: 20px;">' + con[i][j].wareName + '</span><span style="width:35%;text-align: right;font-size: 14px;">¥<span class="Part">' + con[i][j].warePart + '</span></span></p>\
+						      		    	    <div class="spec left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;"><span id=' + con[i][j].skuitemId + '>' + con[i][j].skuitem + '</span></span><span style="width:35%;text-align: right;font-size: 14px;">数量:<span class="num">' + con[i][j].wareNum + '</span></span></div>\
+						      		    	</div>\
+						      		    </div>\
+				      		    	</li>')
+							}
+							var num = 0,
+								freight = 0,
+								som = 0;
+							var Pact = [];
+							for(var l = 0; l < $("#" + ster[i]).find("li").length; l++) {
+								var sum = 0;
+								freight += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
+								num += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
+								sum += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text()));
+								som += (freight + sum)
+								//Pact.push(sum)
+								console.log(sum)
+							}
+
+							//parseInt(Pact)
+
+							console.log(typeof Pact)
+
+							$("#ware" + ster[i]).append('<div class="orderAlt">\
+	      		       	共<span class="NUM">' + num + '</span>件商品，合计¥<span class="all_price">' + som + '</span>(含运费<span class="freight">0</span>.00)')
+						}
+						$(".supplierTitle>a").css({
+							"width": "50%",
+							"float": "left",
+							"height": "20px",
+							"display": "block",
+							"white-space": "nowrap",
+							"overflow": "hidden",
+							"text-overflow": "ellipsis"
+						})
+					}
+				}
+
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/address/addresslist",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId")
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					success: function(data) {
+						$("#map").empty();
+						var addressesList = data.data.addressesList;
+						for(var i = 0; i < addressesList.length; i++) {
+							if(addressesList[i].isDefault == "1") {
+								$("#map").append('<div class="choose_address background_color_two" style="height: 50px;" id="' + addressesList[i].addressId + '">' +
+									'<div>' +
+									'<div class="font_size_three">' +
+									' ' + addressesList[i].customerName + '&nbsp;' + addressesList[i].phone + '<span class="submit_span_one font_color_one background_color_one font_size_four" style="width: 40px;">默认</span>' +
+									'</div>' +
+									'<p class="font_size_two">' +
+									'<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' +
+									'<span class="submit_address">' + addressesList[i].province + "&nbsp;" + addressesList[i].city + "&nbsp;" + addressesList[i].area + "&nbsp;" + addressesList[i].address + '</span>' +
+									'</p>' +
+									'</div>' +
+									'<div>' +
+									'<img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="height:20px;float: right;">' +
+									'</div>' +
+									'</div>');
+							}
+						}
+					}
+				});
+				if(localStorage.getItem("loginStatus") == 1) {
+					$.ajax({
+						type: "GET",
+						url: testurl + "/api/customer/getme",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId")
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							if(data.code == 10000) {
+								$("#TieMuch span").text(data.data.user.replaceMoney);
+								$("#cashMuch span").text(data.data.user.cashMoney);
+								sessionStorage.setItem("TieMuch", data.data.user.replaceMoney);
+								sessionStorage.setItem("cashMuch", data.data.user.cashMoney)
+								var allMoney = data.data.user.replaceMoney + data.data.user.cashMoney
+								sessionStorage.setItem("allMoney", allMoney)
+							} else if(data.code == 2001) {
+								alert(data.msg);
+								location.href = "login.html"
+							}
+
+						}
+					});
+				} else {
+					$("#TieMuch,#cashMuch").append("0");
+				}
+				
+				var put1 = document.getElementById("div1");
+				var div1 = document.getElementById("div3");
+				var cash = 0,
+					TieMoney = 0,
+					supCode = 0,
+					freightMoney = 0;
+
+				/*  循环   */
+				var m = 0;
+				var n = 0;
+
+				for(var i = 0; i < $("#orderUl>li").length; i++) {
+					if($("#orderUl>li").eq(i).attr("support") == "1") {
+						TieMoney += Number($("#orderUl>li").eq(i).find(".all_price").html())
+					}
+					if($("#orderUl>li").eq(i).attr("support") == "0") {
+						cash += Number($("#orderUl>li").eq(i).find(".all_price").html())
+					}
+					if(Number($(".all_price").eq(i).html()) < 99) {
+						$(".all_price").eq(i).siblings(".freight").text("6")
+					} else if(Number($(".all_price").eq(i).html()) > 99) {
+						$(".all_price").eq(i).siblings(".freight").text("0")
+					}
+					console.log("dadasdada" + (Number($(".all_price").eq(i).html())).toFixed(2))
+					n += Number($(".all_price").eq(i).siblings(".freight").html())
+					m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html())
+					//m += Number($(".all_price").eq(i).html()) 
+				}
+				console.log("运费" + freightMoney)
+				console.log(TieMoney + "非自营" + cash)
+
+				console.log("钱" + parseInt(m))
+				console.log("云仓ID"+form=="云仓")
+				
+				
+				$("#freight").text(n);
+				if(form=="云仓"){
+					$("#Paid").text($("#freight").html())
+				}else if(form=="订单"){
+					$("#Paid").text(m);
+				}
+				
+				if(TieMoney > 0 && cash > 0) {
+					$("#div1").attr("class", "open1");
+					$("#div2").attr("class", "open2");
+					$("#div3").attr("class", "open1");
+					$("#div4").attr("class", "open2");
+				} else if(cash > 0 && TieMoney <= 0) {
+					$("#div3").attr("class", "close1");
+					$("#div4").attr("class", "close2");
+					$("#div1").attr("class", "open1");
+					$("#div2").attr("class", "open2");
+					$("#div3,#div4").click(function() {
+						alert("非自营商品无法使用呔金");
+						return false;
+					})
+				} else if(TieMoney > 0 ) {
+					$("#div1").attr("class", "close1");
+					$("#div2").attr("class", "close2");
+					$("#div3").attr("class", "open1");
+					$("#div4").attr("class", "open2");
+				}
+				if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0)
+				if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0) {
+					$("#div1").attr("class", "open1");
+					$("#div2").attr("class", "open2");
+					$("#div2,#div1").click(function() {
+						alert("呔金不能支付其他费用")
+						return false;
+					});
+				}
+				$("#TieMoney #div3").click(function() {
+					var div4 = document.getElementById("div3");
+					var div3 = document.getElementById("div4");
+					div3.className = (div3.className == "open2") ? "close2" : "open2";
+					div4.className = (div4.className == "open1") ? "close1" : "open1";
+				});
+				$("#cash #div1").click(function() {
+					var div2 = document.getElementById("div1");
+					var div1 = document.getElementById("div2");
+					div1.className = (div1.className == "open2") ? "close2" : "open2";
+					div2.className = (div2.className == "open1") ? "close1" : "open1";
+				})
+				/*  关闭支付窗口   */
+				$("#closeOrder").click(function() {
+					$(".fixed").hide()
+				});
+				/* -------------循环end--------- */
+
+				if($("#div3").attr("class") == "open1") {
+					$("#placeOrder").attr("type", "0");
+					//	$("#PayAlt").text("呔金");
+				} else if($("#div1").attr("class") == "open1") {
+					$("#placeOrder").attr("type", "1");
+					//	$("#PayAlt").text("现金");
+				}
+				sessionStorage.setItem("bodyId", window.location.href);
+				sessionStorage.setItem("Status", "订单")
+
+				/* 跳转地址列表  */
+				$("#map").click(function() {
+					sessionStorage.setItem("bodyId", window.location.href);
+					location.reload()
+					$(this).empty();
+					sessionStorage.setItem("need-refresh", true)
+					location.href = 'addresslist.html';
+				});
+				if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
+					$("#placeOrder").attr("type", "4");
+					//	$("#PayAlt").text("混合支付");
+				}
+                if(form=="云仓"){
+                	$("#div1").attr("class", "open1");
+					$("#div2").attr("class", "open2");
+					$("#div3").attr("class", "close1");
+					$("#div4").attr("class", "close2");
+					$("#div2,#div1,#div4,#div3").click(function(){
+						alert("云仓提货请支付运费")
+						return false;
+					})
+                }
+				function GetJsonData() {
+					var jsons = [];
+					var n = [];
+					for(var i = 0; i < $("#orderUl>li").length; i++) {
+						for(var j = 0; j < $("#orderUl>li").eq(i).find("ul>li").length; j++) {
+							
+							n[j] = new Object();
+							n[j].wareId = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("wareId")
+							n[j].wareNum = $("#orderUl>li").eq(i).find("ul>li").eq(j).find(".num").html()
+							n[j].wareSkuid = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("waraId")
+							jsons.push(n[j])
+						}
+						// n[i].orderWareSkuitems = []
+						//					for(var j = 0; j < $("#ware .submit_good_box").eq(i).find('#spce').find('span').length; j++) {
+						//						n[i].orderWareSkuitems[j] = new Object();
+						//						n[i].orderWareSkuitems[j].skuitemId = $("#spce span").attr("id")
+						//					}
+
+					}
+					var orderType, content;
+					if(form == "订单") {
+						orderType = "0"
+					} else if(form == "云仓") {
+						orderType = "2"
+					}
+					content = "订单" + orderType
+					var json = {
+						orderType: orderType,
+						orderTotal: $("#Paid").text(),
+						orderRemarks: content,
+						shopcartId: "",
+						receiveId: $("#map>div").attr("id"),
+						orderWareList: jsons
+					};
+					console.log(json)
+					return json;
+				}
+				$('#placeOrder').click(function() {
+					
+					if($("#div3").attr("class") != "open1" && $("#div1").attr("class") != "open1") {
+						alert("至少选择一种支付方式");
+						return false;
+					} else {
+						if($("#div3").attr("class") == "open1") {
+							$("#placeOrder").attr("type", "0");
+							//	$("#PayAlt").text("呔金");
+						} else if($("#div1").attr("class") == "open1") {
+							$("#placeOrder").attr("type", "1");
+							//	$("#PayAlt").text("现金");
+						}
+						if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
+							$("#placeOrder").attr("type", "4");
+							//	$("#PayAlt").text("混合支付");
+						}
+					}
+
+					if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
+						location.href = "login.html"
+					} else if(localStorage.getItem("loginStatus") == "1") {
+
+						$.ajax({
+							type: "POST",
+							url: testurl + "/api/order/addorder",
+							data: {
+								platform: "2",
+								cutomerId: localStorage.getItem("cutomerId"),
+								orderContent: JSON.stringify(GetJsonData())
+							},
+							dataType: "json",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							success: function(data) {
+								if(data.code == 10000) {
+									var orderCode = data.data.orderCode;
+									$("#confirmCon").attr("orderid", orderCode)
+									$(".fixed").show();
+									$("#name").prepend($(".classifyListText").text());
+									$("#num").text($("#Paid").text())
+								}else if(data.code==2001){
+									localStorage.setItem("cutomerId"," ")
+									localStorage.setItem("loginStatus","0")
+									alert(data.msg)
+								} else {
+									alert(data.msg)
+								}
+
+							}
+						});
+					}
+
+				})
+
+				$("#confirm").click(function() {
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/pay/getPayInfo",
+						data: {
+							orderCode: $(this).attr("id"),
+							amount: $("#Paid").text(),
+							payType: "1"
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							$.ajax({
+								type: "POST",
+								url: testurl + "/api/pay/wechatpay/callback",
+								data: {
+									orderCode: $(this).attr("id"),
+									amount: $("#Paid").text(),
+									payType: "1"
+								},
+								dataType: "json",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								success: function(data) {
+
+								}
+							})
+						}
+					})
+				});
+
+				/*   -------------------------------------------------------支付密码---------------------------------------------------------------------    */
+				$(".ipt-real-nick").on("input", function() {
+					//console.log($(this).val());
+					var $input = $(".ipt-fake-box input");
+					if(!$(this).val()) { //无值光标顶置
+						$('.ipt-active-nick').css('left', $input.eq(0).offset().left - parseInt($('.ipt-box-nick').parent().css('padding-left')) + 'px');
+					}
+					if(/^[0-9]*$/g.test($(this).val())) { //有值只能是数字
+						//console.log($(this).val());
+						var pwd = $(this).val().trim();
+						for(var i = 0, len = pwd.length; i < len; i++) {
+							$input.eq(i).val(pwd[i]);
+							if($input.eq(i).next().length) { //模拟光标，先将图片容器定位，控制left值而已
+								console.log($('.ipt-box-nick').parent().css('padding-left'))
+								$('.ipt-active-nick').css('left', $input.eq(i + 1).offset().left - 80 + 'px');
+							}
+						}
+						$input.each(function() { //将有值的当前input后的所有input清空
+							var index = $(this).index();
+							if(index >= len) {
+								$(this).val("");
+							}
+						});
+						if(len == 6) {
+							if(sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
+								alert("金额不足")
+							} else {
+								$.ajax({
+									type: "GET",
+									url: testurl + "/api/customer/paypassword/check",
+									dataType: "json",
+									data: {
+										platform: "2",
+										cutomerId: localStorage.getItem("cutomerId"),
+										paypassword: $("#passwordinput").val()
+									},
+									xhrFields: {
+										withCredentials: true
+									},
+									crossDomain: true,
+									success: function(data) {
+										if(data.code == 10000) {
+											$.ajax({
+												type: "POST",
+												url: testurl + "/api/pay/orderpay",
+												data: {
+													cutomerId: localStorage.getItem("cutomerId"),
+													paypassword: $("#passwordinput").val(),
+													orderCode: $("#confirmCon").attr("orderid"),
+													payType: $("#placeOrder").attr("type"),
+													type: "0"
+												},
+												dataType: "json",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												success: function(data) {
+													if(data.code == 8001) {
+														alert(data.msg);
+													} else if(data.code == 10000) {
+														$("#orderUl").empty();
+														alert("订单已提交!")
+														location.href = "order.html"
+														sessionStorage.setItem("orderCode", "200")
+													}
+
+													// location.href="order.html?code=200"
+												}
+											})
+										} else {
+											$("#passwordinput").val("");
+											$(".ipt-fake-box input").val("")
+											alert(data.msg)
+										}
+									}
+								})
+							}
+							//执行其他操作
+						}
+					} else { //清除val中的非数字，返回纯number的value
+						var arr = $(this).val().match(/\d/g);
+						$(this).val($(this).val().slice(0, $(this).val().lastIndexOf(arr[arr.length - 1]) + 1));
+					}
+				});
+
+			}else{
+				$("#orderUl").empty();
+			}
+
+			//			if(!orderid) {
+			//
+			//			} else {
+			//
+			//				$.ajax({
+			//					type: "GET",
+			//					url: testurl + "/api/order/orderinfo",
+			//					dataType: "json",
+			//					data: {
+			//						platform: "2",
+			//						cutomerId: localStorage.getItem("cutomerId"),
+			//						orderId: orderid
+			//					},
+			//					xhrFields: {
+			//						withCredentials: true
+			//					},
+			//					crossDomain: true,
+			//					success: function(data) {
+			//						var data = data.data.orderinfo,
+			//							ware = data.orderWareList;
+			//						$("#map").empty();
+			//						$("#orderUl").empty();
+			//						console.log(data.receiveCustomer)
+			//						$("#map").append('<div class="choose_address background_color_two" style="height: 50px;" id="' + data.receiveId + '">' +
+			//							'<div>' +
+			//							'<div class="font_size_three">' +
+			//							' ' + data.receiveCustomer + '&nbsp;' + data.receivePhone + '<span class="submit_span_one font_color_one background_color_one font_size_four" style="width: 40px;">默认</span>' +
+			//							'</div>' +
+			//							'<p class="font_size_two">' +
+			//							'<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' +
+			//							'<span class="submit_address">' + data.receiveProvince + "&nbsp;" + data.receiveCity + "&nbsp;" + data.receiveArea + "&nbsp;" + data.receiveAddress + '</span>' +
+			//							'</p>' +
+			//							'</div>' +
+			//							'<div>' +
+			//							'<img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="height:20px;float: right;">' +
+			//							'</div>' +
+			//							'</div>');
+			//						for(var i = 0; i < ware.length; i++) {
+			//							$("#orderUl").append('<li  wareId="' + ware[i].wareId + '" waraId="' + ware[i].wareSkuid + '" support="' + ware[i].support + '" >\
+			//								      			<div class="storeTitle">\
+			//								      				<div style="width: 80%;text-align: left;">' + ware[i].wareSupplierName + '</div>\
+			//								      				<div class="del" style="width: 12%;"><a href="javascript:;" style="float: right;" ><img src="../img/icon/My_DeleteAddress@2x.png" style="width:16px;height: 16px;" /></a></div>\
+			//								      			</div>\
+			//								      		    <ul class="orderContent">\
+			//								      		    <li>\
+			//						      		    		      <div class="storeWare">\
+			//									      		    	<img class="wareImg" src="' + ware[i].wareImage + '" alt="" />\
+			//									      		    	<div class="wareText">\
+			//									      		    		<p class="classifyListText left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;line-height: 20px;">' + ware[i].wareName + '</span><span style="width:35%;text-align: right;font-size: 14px;">¥' + ware[i].warePrice + '</span></p>\
+			//									      		    	    <div class="spec left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;">规格：<span id=' + ware[i].orderWareSkuitems[0].skuitemId + '>' + ware[i].orderWareSkuitems[0].name + ' ' + ware[i].orderWareSkuitems[0].value + '</span></span><span style="width:35%;text-align: right;font-size: 14px;">数量:' + ware[i].wareNum + '</span></div>\
+			//									      		    	</div>\
+			//									      		    </div>\
+			//							      		    	</li>\
+			//								      		    </ul>\
+			//								      		    <div class="orderAlt">\
+			//								      		       	共<span class="NUM">' + ware[i].wareNum + '</span>件商品，合计¥<span class="all_price">' + (ware[i].warePrice * ware[i].wareNum).toFixed(2) + '</span>(含运费<span class="freight">0</span>.00)\
+			//								      		    </div>\
+			//								      		    <div class="orderAlt">\
+			//								      		    	<span class="left" style="width:100%;overflow: hidden;"><input type="text" id="Remarks" placeholder="有什么想对商家说的话可以在这里说哦~" /></span>\
+			//								      		    </div>\
+			//								      		</li>');
+			//						}
+			//						if(localStorage.getItem("loginStatus") == 1) {
+			//							$.ajax({
+			//								type: "GET",
+			//								url: testurl + "/api/customer/getme",
+			//								data: {
+			//									platform: "2",
+			//									cutomerId: localStorage.getItem("cutomerId")
+			//								},
+			//								dataType: "json",
+			//								xhrFields: {
+			//									withCredentials: true
+			//								},
+			//								crossDomain: true,
+			//								success: function(data) {
+			//									$("#TieMuch span").text(data.data.user.replaceMoney);
+			//									$("#cashMuch span").text(data.data.user.cashMoney);
+			//								}
+			//							});
+			//						} else {
+			//							$("#TieMuch,#cashMuch").append("0");
+			//						}
+			//
+			//						var put1 = document.getElementById("div1");
+			//						var div1 = document.getElementById("div3");
+			//						var cash = 0,
+			//							TieMoney = 0;
+			//						for(var i = 0; i < $("#orderUl>li").length; i++) {
+			//							if($("#orderUl>li").eq(i).attr("support") == "1") {
+			//								TieMoney += Number($("#orderUl>li").eq(i).find(".all_price").html())
+			//								if(Number($("#TieMoney>span").html()) > 0) {
+			//									$("#div3").attr("class", "open1");
+			//									$("#div4").attr("class", "open2");
+			//								} else {
+			//									$("#div3").attr("class", "close1");
+			//									$("#div4").attr("class", "close2");
+			//								}
+			//							} else if($("#orderUl>li").eq(i).attr("support") == "0") {
+			//								$("#div3").attr("class", "open1");
+			//								$("#div4").attr("class", "open2");
+			//								cash += Number($("#orderUl>li").eq(i).find(".all_price").html())
+			//							}
+			//						}
+			//						for(var i = 0; i < $("#orderUl>li").length; i++) {
+			//							console.log($("#orderUl>li").eq(i).attr("support"))
+			//							if($("#orderUl>li").eq(i).attr("support") != 1) {
+			//								$("#div3").attr("class", "close1");
+			//								$("#div4").attr("class", "close2");
+			//								$("#div3,#div4").click(function() {
+			//									alert("非自营商品不能使用呔金");
+			//									return false;
+			//								})
+			//							}
+			//						}
+			//						$("#TieMoney #div3").click(function() {
+			//							if(cash > 0) {
+			//								$("#div1").attr("class", "open1");
+			//								$("#div2").attr("class", "open2");
+			//								return false
+			//							}
+			//							if(TieMoney > 99 || TieMoney > Number($("#TieMuch").find("span").html())) {
+			//								$("#div1").attr("class", "open1");
+			//								$("#div2").attr("class", "open2");
+			//								$("#div1,#div2").click(function(event) {
+			//									event.stopPropagation();
+			//									return false
+			//								})
+			//							}
+			//							var div4 = document.getElementById("div3");
+			//							var div3 = document.getElementById("div4");
+			//							div3.className = (div3.className == "open2") ? "close2" : "open2";
+			//							div4.className = (div4.className == "open1") ? "close1" : "open1";
+			//							if($("#div3").attr("class") == "open1") {
+			//								$("#placeOrder").attr("type", "0");
+			//								$("#PayAlt").text("呔金");
+			//							}
+			//						});
+			//						$("#cash #div1").click(function() {
+			//							if(cash > 0) {
+			//								$("#cash #div1").attr("class", "open1");
+			//								$("#cash #div2").attr("class", "open2");
+			//								return false;
+			//							}
+			//							var div2 = document.getElementById("div1");
+			//							var div1 = document.getElementById("div2");
+			//							div1.className = (div1.className == "open2") ? "close2" : "open2";
+			//							div2.className = (div2.className == "open1") ? "close1" : "open1";
+			//							if($("#div1").attr("class") == "open1") {
+			//								$("#placeOrder").attr("type", "1");
+			//								$("#PayAlt").text("现金");
+			//							}
+			//						})
+			//
+			//						if($("#div3").attr("class") == "open1") {
+			//							$("#placeOrder").attr("type", "0");
+			//							$("#PayAlt").text("呔金");
+			//						} else if($("#div1").attr("class") == "open1") {
+			//							$("#placeOrder").attr("type", "1");
+			//							$("#PayAlt").text("现金");
+			//						}
+			//						sessionStorage.setItem("bodyId", window.location.href);
+			//						sessionStorage.setItem("Status", "订单")
+			//
+			//						/* 跳转地址列表  */
+			//						$("#map").click(function() {
+			//							sessionStorage.setItem("bodyId", window.location.href);
+			//							location.reload()
+			//							$(this).empty();
+			//							sessionStorage.setItem("need-refresh", true)
+			//							location.href = 'addresslist.html';
+			//							if($(".submit_address").text() == "默认存入云仓") {
+			//								$(".submit_foot").text("存入云仓");
+			//							} else {
+			//								$(".submit_foot").text("配送至：" + $(".submit_address").text());
+			//							}
+			//						});
+			//
+			//						function GetJsonData() {
+			//							console.log($("#ware .submit_good_box #spce span").length)
+			//							var n = [];
+			//							for(var i = 0; i < $("#orderUl>li").length; i++) {
+			//								n[i] = new Object();
+			//								n[i].wareId = $("#orderUl>li").eq(i).attr("wareId")
+			//								n[i].wareNum = $("#orderUl>li").eq(i).find(".orderAlt").find(".NUM").html()
+			//								n[i].wareSkuid = $("#orderUl>li").eq(i).attr("waraId")
+			//								// n[i].orderWareSkuitems = []
+			//								//					for(var j = 0; j < $("#ware .submit_good_box").eq(i).find('#spce').find('span').length; j++) {
+			//								//						n[i].orderWareSkuitems[j] = new Object();
+			//								//						n[i].orderWareSkuitems[j].skuitemId = $("#spce span").attr("id")
+			//								//					}
+			//							}
+			//
+			//							var orderType, content;
+			//							console.log(n)
+			//							if(form == "订单") {
+			//								orderType = "0"
+			//							} else if(form == "云仓") {
+			//								orderType = "1"
+			//							}
+			//							content = "订单" + orderType
+			//							var json = {
+			//								orderType: orderType,
+			//								orderTotal: $("#Paid").text(),
+			//								orderRemarks: content,
+			//								shopcartId: "",
+			//								receiveId: $("#map>div").attr("id"),
+			//								orderWareList: n
+			//							};
+			//							return json;
+			//						}
+			//						$('#placeOrder').click(function() {
+			//							if($("#div3").attr("class") == "open1") {
+			//								$("#placeOrder").attr("type", "0");
+			//								$("#PayAlt").text("呔金");
+			//							} else if($("#div1").attr("class") == "open1") {
+			//								$("#placeOrder").attr("type", "1");
+			//								$("#PayAlt").text("现金");
+			//							}
+			//							if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
+			//								$("#placeOrder").attr("type", "4");
+			//								$("#PayAlt").text("混合支付");
+			//							}
+			//							if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
+			//								location.href = "login.html"
+			//							} else if(localStorage.getItem("loginStatus") == "1") {
+			//
+			//								$.ajax({
+			//									type: "POST",
+			//									url: testurl + "/api/order/addorder",
+			//									data: {
+			//										platform: "2",
+			//										cutomerId: localStorage.getItem("cutomerId"),
+			//										orderContent: JSON.stringify(GetJsonData())
+			//									},
+			//									dataType: "json",
+			//									xhrFields: {
+			//										withCredentials: true
+			//									},
+			//									crossDomain: true,
+			//									success: function(data) {
+			//										if(data.code == 10000) {
+			//											var orderCode = data.data.orderCode;
+			//											$("#confirm").attr("id", orderCode)
+			//											$(".fixed").show();
+			//											$("#name").prepend($(".classifyListText").text());
+			//											$("#num").text($("#Paid").text())
+			//										} else {
+			//											alert(data.msg)
+			//										}
+			//
+			//									}
+			//								});
+			//							}
+			//
+			//						})
+			//
+			//						$("#confirm").click(function() {
+			//							$.ajax({
+			//								type: "POST",
+			//								url:  testurl + "/api/pay/getPayInfo",
+			//								data: {
+			//									orderCode: $(this).attr("id"),
+			//									amount: $("#Paid").text(),
+			//									payType: "1"
+			//								},
+			//								dataType: "json",
+			//								xhrFields: {
+			//									withCredentials: true
+			//								},
+			//								crossDomain: true,
+			//								success: function(data) {
+			//									$.ajax({
+			//										type: "POST",
+			//										url:  testurl +"/api/pay/wechatpay/callback",
+			//										data: {
+			//											orderCode: $(this).attr("id"),
+			//											amount: $("#Paid").text(),
+			//											payType: "1"
+			//										},
+			//										dataType: "json",
+			//										xhrFields: {
+			//											withCredentials: true
+			//										},
+			//										crossDomain: true,
+			//										success: function(data) {
+			//
+			//										}
+			//									})
+			//								}
+			//							})
+			//						});
+			//
+			//						var m = 0;
+			//						var n = 0;
+			//						for(var i = 0; i < $("#orderUl>li").length; i++) {
+			//							if(Number($(".all_price").eq(i).html()) < 99) {
+			//								$(".all_price").eq(i).siblings(".freight").text("6")
+			//							} else if(Number($(".all_price").eq(i).html()) > 99) {
+			//								$(".all_price").eq(i).siblings(".freight").text("0")
+			//							}
+			//							n += Number($(".all_price").eq(i).siblings(".freight").html())
+			//							m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html())
+			//						}
+			//						$("#Paid").text(m);
+			//						$("#freight").text(n);
+			//						$("#closeOrder").click(function() {
+			//							$(".fixed").hide()
+			//						});
+			//					},
+			//					error: function(data) {
+			//						if(data.status == "404") {
+			//							alert('请求地址出错！');
+			//						} else if(data.status == "302") {
+			//							alert('连接网页出错');
+			//						} else if(data.status == "timeout") {
+			//							alert("请求超时!");
+			//						} else {
+			//							alert('服务器出差了~！');
+			//						}
+			//					}
+			//				})
+			//			}
+		</script>
+	</body>
+</html>

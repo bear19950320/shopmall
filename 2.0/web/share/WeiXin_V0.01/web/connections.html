@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<style type="text/css">
+			.bottom a {
+				width: 200px;
+				height: 40px;
+				margin: 0 auto;
+				background: url(../img/logininput.png)no-repeat;
+				background-size: 100%;
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body style="background: #F0F3F8;">
+		<ul id="set" class="connect">
+			<li style="height:auto" id="me">
+				
+			</li>
+			<li style="margin-top: 5px;" id="one"><i class="fa fa-caret-right"></i>&nbsp;直接客户 <b id="contactsVos1"></b></li>
+			<div class="one"></div>
+			<li id="two"><i class="fa fa-caret-right"></i>&nbsp;间接客户 <b id="contactsVos2"></b></li>
+			<div class="two"></div>
+			<li id="three"><i class="fa fa-caret-right"></i>&nbsp;辐射用户<b id="contactsVos3"></b></li>
+			<div class="three"></div>
+		</ul>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/curr.js"></script>
+		<script type="text/javascript">
+			$("head").load("../html/mate.html", function() {
+				$("title").html("设置");
+				$("head").append('<link rel="stylesheet" type="text/css" href="../css/connect.css"/>')
+			});
+$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+			$.ajax({
+				type: "GET",
+				url: testurl + "/api/customer/getcontacts",
+				dataType: "json",
+				data: {
+					platform: "2",
+					cutomerId: localStorage.getItem("cutomerId")
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				async: true,
+				beforeSend: function(XMLHttpRequest) {
+					loadImg();
+				},
+				success: function(data) {
+					if(data.code == 2001) {
+						alert(data.msg);
+						location.href = "login.html";
+						localStorage.setItem("loginStatus", 0)
+					} else if(data.code == 10000) {//<img src="../img/cons/V.png" >
+						var data = data.data.contactsList;
+						$("#me").append('<img src="'+data.headImage+'" alt="" />\
+										<span>\
+							    			<p><label>'+data.name+'</label><label class="grade" grade="'+data.grade+'" identity="'+data.identity+'"></label></p>\
+							    			<p>手机:'+data.phone+'</p>\
+							    		</span>')
+						$("#contactsVos1").html(data.contactsVos1.length)
+						$("#contactsVos2").html(data.contactsVos2.length)
+						$("#contactsVos3").html(data.contactsVos3.length)
+						var data1 = data.contactsVos1;
+						var data2 = data.contactsVos2;
+						var data3 = data.contactsVos3;
+						var one= "<ul>",two= "<ul>",three= "<ul>";
+						for(var i = 0; i < data1.length; i++) {
+							one += '<li>\
+				    				<img src="'+data1[i].headImage+'" alt="" />\
+						    		<span>\
+						    			<p><label>'+data1[i].name+'</label><label class="grade" grade="'+data1[i].grade+'" identity="'+data1[i].identity+'"> </label></p>\
+						    			<p>手机:'+data1[i].phone+'</p>\
+						    		</span>\
+				    			</li>'
+						}
+						for(var i = 0; i < data2.length; i++) {
+							two += '<li>\
+				    				<img src="'+data2[i].headImage+'" alt="" />\
+						    		<span>\
+						    			<p><label>'+data2[i].name+'</label><label  class="grade" grade="'+data2[i].grade+'" identity="'+data2[i].identity+'"></label></p>\
+						    			<p>手机:'+data2[i].phone+'</p>\
+						    		</span>\
+				    			</li>'
+						}
+						for(var i = 0; i < data3.length; i++) {
+							three += '<li>\
+				    				<img src="'+data3[i].headImage+'" alt="" />\
+						    		<span>\
+						    			<p><label>'+data3[i].name+'</label><label  class="grade" grade="'+data3[i].grade+'" identity="'+data3[i].identity+'"></label></p>\
+						    			<p>手机:'+data3[i].phone+'</p>\
+						    		</span>\
+				    			</li>'
+						}
+						one += "</ul>";
+						two+= "<ul>";
+						three+= "<ul>";
+						$(".one").append(one)
+						$(".two").append(two)
+						$(".three").append(three);
+						$.each($(".grade"),function(){
+							if($(this).attr("identity")=="0"){
+								$(this).append('<img src="../img/grade/ordinary.png" >')
+							}else if($(this).attr("identity")=="1"){
+								$(this).append('<img src="../img/grade/keeper.png" >');
+							}else if($(this).attr("identity")=="2"){
+								$(this).append('<img src="../img/grade/Partner.png" >')
+							}
+							if($(this).attr("identity")=="1"&&$(this).attr("grade")!="-1"){
+								if($(this).attr("grade")=="-1"){
+									$(this).append('<img src="../img/grade/ordinary.png" >')
+								}else if($(this).attr("grade")=="0"){
+									$(this).append('<img src="../img/grade/keeper0.png" >')
+								}else if($(this).attr("grade")=="1"){
+									$(this).append('<img src="../img/grade/keeper1.png" >')
+								}else if($(this).attr("grade")=="2"){
+									$(this).append('<img src="../img/grade/keeper2.png" >')
+								}
+							}
+						})
+						
+						
+					}
+					$('img').error(function(){
+						$(this).attr("src","../img/icon/My_HeaderDefault@2x.png")
+					});
+					
+				},
+				complete: function(XMLHttpRequest, textStatus) {
+					$("#loadImg").remove();
+				},
+				error: function(data) {
+					if(data.status == "404") {
+						alert('请求地址出错！');
+					} else if(data.status == "302") {
+						alert('连接网页出错');
+					} else if(data.status == "timeout") {
+						alert("请求超时!");
+					} else if(data.status == "400") {
+						location.href = "login.html"
+					} else {
+						alert('服务器出差了~！');
+					}
+				}
+			});
+
+			/* 淡出淡入  */
+			var flog1=0,flog2=0,flog3=0;
+			$("#one").click(function() {
+				flog1++;
+				if(flog1%2!=0){
+					$(this).find("i").removeClass("fa-caret-right").addClass("fa-caret-down");
+					$(".one").fadeIn("3000 slow");
+					$(".two,.three").fadeOut("3000 slow");
+					$(this).siblings().find("i").removeClass("fa-caret-down").addClass("fa-caret-right");
+				}else{
+					$(this).find("i").removeClass("fa-caret-down");
+					$(this).find("i").addClass("fa-caret-right");
+					$(".one").fadeOut("3000 slow");
+				}
+			})
+			$("#two").click(function() {
+				flog2++;
+				if(flog2%2!=0){
+					$(this).find("i").removeClass("fa-caret-right").addClass("fa-caret-down");
+					$(".two").fadeIn("3000 slow");
+					$(".one,.three").fadeOut("3000 slow");
+					$(this).siblings().find("i").removeClass("fa-caret-down").addClass("fa-caret-right");
+				}else{
+					$(this).find("i").removeClass("fa-caret-down");
+					$(this).find("i").addClass("fa-caret-right");
+					$(".two").fadeOut("3000 slow");
+				}
+			})
+			$("#three").click(function() {
+				flog3++;
+				if(flog3%2!=0){
+					$(this).find("i").removeClass("fa-caret-right").addClass("fa-caret-down");
+					$(".three").fadeIn("3000 slow");
+					$(".one,.two").fadeOut("3000 slow");
+					$(this).siblings().find("i").removeClass("fa-caret-down").addClass("fa-caret-right");
+				}else{
+					$(this).find("i").removeClass("fa-caret-down");
+					$(this).find("i").addClass("fa-caret-right");
+					$(".three").fadeOut("3000 slow");
+				}
+			})
+		</script>
+	</body>
+
+</html>

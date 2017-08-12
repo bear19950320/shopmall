@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/search.css" />
+		<title>商品搜索</title>
+	</head>
+
+	<body>
+		<header>
+			<span class="iconfont icon-xiangzuojiantou backicon"></span>
+			<input type="text" id="searchInput" placeholder="奥特曼变身器" />
+			<span class="iconfont icon-search searchicon"></span>
+			<label>搜索</label>
+		</header>
+		<!--搜索的商品列表-->
+		<section class="searchlist">
+			<ul id="searchWare">
+
+			</ul>
+		</section>
+		<!--没有商品显示-->
+		<section class="nogoods">
+			<div>
+				<div>
+					<img src="img/nogoods.png" />
+				</div>
+				<p class="mishfi">抱歉，没有找到商品~</p>
+			</div>
+		</section>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var dataCount;
+			$("#searchInput").focus(function() {
+				dataCount = 0;
+			});
+
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = location.search.substr(1).match(reg);
+				if(r != null) return unescape(decodeURI(r[2]));
+				return null;
+			}
+			let name = GetQueryString("url")
+			$("#searchInput").on("change", function() {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/ware/searchware",
+					dataType: "json",
+					data: {
+						platform: "2",
+						content: $(this).val(),
+						pageId: '0',
+						pageSize: "15"
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						$("#searchWare").empty();
+						dataCount = 0;
+						var data = data.data.searchWareList
+						if(data.length != 0) {
+							for(var i = 0; i < data.length; i++) {
+								$("#searchWare").append('<li id="' + data[i].wareId + '">\
+									<img class="li_imgs" src="' + data[i].imagePath + '" />\
+									<div class="list_con">\
+										<p class="description supper'+data[i].support+'" ><label class="zhiyou">直邮</label>&nbsp;' + data[i].wareName + '</p>\
+										<div class="li_p">\
+											<div class="li_p_l">\
+												<p>¥' + parseInt(data[i].warePrice).toFixed(2) + '<label class="coupon">+返' + data[i].bonusMoney + '</label></p>\
+												<p>库存：' + data[i].sales + '</p>\
+											</div>\
+											<div class="li_p_r">\
+												<img src="../img/share.png" />\
+											</div>\
+										</div>\
+									</div>\
+								</li>')
+								$("#" + data[i].wareId).click(function() {
+									if(name) {
+										window.history.go(-1)
+									} else {
+										sessionStorage.setItem("TowareId", '')
+										var TowareId = $(this).attr("id");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html";
+									}
+								});
+							}
+						}
+						$("#searchWare li").fadeIn(1000);
+						imgNot();
+						
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+			});
+			$(window).scroll(function() {
+				// 当滚动到最底部以上100像素时， 加载新内容
+				if($(document).height() - $(this).scrollTop() - $(this).height() == 0) {
+					loadMore($("#searchInput").val());
+				}
+			});
+
+			function loadMore(value) {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/ware/searchware",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						content: value,
+						pageId: dataCount,
+						pageSize: "15"
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						// $("#searchWare").empty()
+						var data = data.data.searchWareList;
+						if(typeof data == 'object') {
+							var oProduct, $row, iHeight, iTempHeight;
+							for(var i = 0, l = data.length; i < l; i++) {
+								oProduct = data[i];
+								// 找出当前高度最小的列, 新内容添加到该列
+								iHeight = -1;
+								$("#searchWare li").each(function() {
+									iTempHeight = Number($(this).height());
+									if(iHeight == -1 || iHeight > iTempHeight) {
+										iHeight = iTempHeight;
+										$row = $(this);
+									}
+								});
+
+								if(data.length != 0) {
+									for(var i = 0; i < data.length; i++) {
+											$("#searchWare").append('<li id="' + data[i].wareId + '">\
+												<img class="li_imgs" src="' + data[i].imagePath + '" />\
+												<div class="list_con">\
+													<p class="description supper'+data[i].support+'" ><label class="zhiyou">直邮</label>&nbsp;' + data[i].wareName + '</p>\
+													<div class="li_p">\
+														<div class="li_p_l">\
+															<p>¥' + parseInt(data[i].warePrice).toFixed(2) + '<label class="coupon">+返' + data[i].bonusMoney + '</label></p>\
+															<p>库存：' + data[i].sales + '</p>\
+														</div>\
+														<div class="li_p_r">\
+															<img src="../img/share.png" />\
+														</div>\
+													</div>\
+												</div>\
+											</li>')
+										$("#" + data[i].wareId).click(function() {
+											if(name) {
+												window.history.go(-1)
+											} else {
+												sessionStorage.setItem("TowareId", '')
+												var TowareId = $(this).attr("id");
+												sessionStorage.setItem("TowareId", TowareId);
+												window.location.href = "./detailsdemo.html";
+											}
+										});
+									}
+									dataCount++;
+								}
+								//					$row.append($item);
+								$("#searchWare li").fadeIn(1000);
+							}
+						}
+						imgNot()
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+
+			}
+		</script>
+	</body>
+
+</html>

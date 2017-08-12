@@ -1,0 +1,9 @@
+* { margin: 0; padding: 0; }
+.line-wrapper { width: 100%;  overflow: hidden; font-size: 2.6rem; border-bottom: 1px solid #aaa; line-height: 100%;}
+.line-scroll-wrapper { white-space: nowrap;clear: both; }
+.line-btn-delete {width: 132px; }
+.line-btn-delete button { width: 100%;  background: red;border: none; font-size: 24px; font-family: 'Microsoft Yahei'; color: #fff; }
+.line-normal-wrapper { display: inline-block; float: left; padding-top: 10px; padding-bottom: 10px; }
+.line-normal-info-wrapper { float: left; margin-left: 10px; }
+.numcon{width:100%}
+.numcon>div{float: left;}

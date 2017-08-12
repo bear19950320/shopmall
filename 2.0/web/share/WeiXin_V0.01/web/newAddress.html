@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+	</head>
+
+	<body style="background: #fff;">
+		<ul class="addressUl">
+			<li>
+				<!--<div class="addressTitle">
+					收货人&nbsp;:
+				</div>-->
+				<div class="addressInput">
+					<input id="customerName" type="text" placeholder="请输入收货人姓名" class="name" />
+				</div>
+			</li>
+			<li>
+				<!--<div class="addressTitle">
+					手机号码&nbsp;:
+				</div>-->
+				<div class="addressInput">
+					<input id="phone" type="text" placeholder="请输入收货人手机号码" class="phone" />
+				</div>
+			</li>
+			<li>
+				<!--<div class="addressTitle">
+					所在地址&nbsp;:
+				</div>-->
+				<div class="addressInput locationDiv" style="position: relative;">
+					<input id="location" readonly value="" type="text" name="addr" data-key="23-385-4224" value="" placeholder="选择地区" class="map" />
+					<svg t="1498876535566" class="icon" style="width:28px;height:15px;position: absolute;right: 0px;top:10px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+						<defs>
+							<style type="text/css"></style>
+						</defs>
+						<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+					</svg>
+				</div>
+			</li>
+			<li>
+				<!--<div class="addressTitle">
+					详细地址&nbsp;:
+				</div>-->
+				<div class="addressInput">
+					<input id="address" type="text" placeholder="街道 , 楼牌号等" class="address" />
+				</div>
+			</li>
+			<li style="color:#F26586;border:none;background: #F2FBFD;padding: 10px 2%;font-size: 12px;">
+				海关政策要求，请填写身份证。加密保存，仅用于海关清关
+			</li>
+			<li style="position: relative;">
+				<!--<div style="position: absolute;left: 0;top: 0;width: 60px;" class="addressTitle">
+					身份证&nbsp;:
+				</div>-->
+				<div class="addressInput">
+					<input id="idCard" type="text" placeholder="(身份证：可选填写,购买报税物品必填)" onblur="check()" class="address" />
+				</div>
+			</li>
+			<li style="position: relative;">
+				<!--<div class="addressTitle" style="width: 60%;text-align: left;">
+					设为默认地址:
+				</div>-->
+				<p style="position: absolute;left: 60px;top: 0;">设为默认地址</p>
+				<div class="addressInput" style="width: 40px;">
+					<div class="open1" id="btnBody" style="width: 40px;height: 20px;border-radius: 50px;position: relative;">
+						<div class="open2" id="btnBodys" style="width: 20px;height: 18px;border-radius: 48px;position: absolute;background: white;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);"></div><span style="position: absolute; right: -30px; line-height: 20px; color: red;" id="1" class="default"></span></div>
+						
+				</div>
+				
+			</li>
+		</ul>
+		<div style="position: fixed;bottom: 0;background: #fff;width: 100%;height: 60px;">
+			<a class="btn" id="preservation" style="margin-top:0 ;">保存</a>
+		</div>
+
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/curr.js"></script>
+		<script type="text/javascript" src="../js/CNAddrArr.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.scs.min.js"></script>
+		<script type="text/javascript">
+			$('body').css({
+				"width": $(window).width(),
+				"height": $(window).height()
+			})
+			$("head").load("../html/mate.html", function() {
+				$("title").html("新建地址");
+				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/layout.min.css"/>');
+				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
+			});
+			$("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">')
+			var isDefault = 0;
+			$("#btnBody").click(function() {
+				var div2 = document.getElementById("btnBody");
+				var div1 = document.getElementById("btnBodys");
+				div1.className = (div1.className == "open2") ? "close2" : "open2";
+				div2.className = (div2.className == "open1") ? "close1" : "open1";
+				if(div2.className == "open1") {
+					$(this).children(".default").attr("id", "1");
+				}
+				if(div2.className == "close1") {
+					$(this).children(".default").attr("id", "0");
+				}
+
+			})
+			if($("#btnBody").attr("class") == "open1") {
+				isDefault = 1
+			} else {
+				isDefault = 0
+			}
+
+			$(function() {
+
+				/**
+				 * 通过数组id获取地址列表数组
+				 *
+				 * @param {Number} id
+				 * @return {Array} 
+				 */
+				function getAddrsArrayById(id) {
+					var results = [];
+					if(addr_arr[id] != undefined)
+						addr_arr[id].forEach(function(subArr) {
+							results.push({
+								key: subArr[0],
+								val: subArr[1]
+							});
+						});
+					else {
+						return;
+					}
+					return results;
+				}
+				/**
+				 * 通过开始的key获取开始时应该选中开始数组中哪个元素
+				 *
+				 * @param {Array} StartArr
+				 * @param {Number|String} key
+				 * @return {Number} 
+				 */
+				function getStartIndexByKeyFromStartArr(startArr, key) {
+					var result = 0;
+					if(startArr != undefined)
+						startArr.forEach(function(obj, index) {
+							if(obj.key == key) {
+								result = index;
+								return false;
+							}
+						});
+					return result;
+				}
+				$("#location").click(function() {
+					var PROVINCES = [],
+						startCities = [],
+						startDists = [];
+					//Province data，shall never change.
+					addr_arr[0].forEach(function(prov) {
+						PROVINCES.push({
+							key: prov[0],
+							val: prov[1]
+						});
+					});
+					//init other data.
+					var $input = $(this),
+						dataKey = $input.attr("data-key"),
+						provKey = 1, //default province 北京
+						cityKey = 36, //default city 北京
+						distKey = 37, //default district 北京东城区
+						distStartIndex = 0, //default 0
+						cityStartIndex = 0, //default 0
+						provStartIndex = 0; //default 0
+
+					if(dataKey != "" && dataKey != undefined) {
+						var sArr = dataKey.split("-");
+						if(sArr.length == 3) {
+							provKey = sArr[0];
+							cityKey = sArr[1];
+							distKey = sArr[2];
+
+						} else if(sArr.length == 2) { //such as 台湾，香港 and the like.
+							provKey = sArr[0];
+							cityKey = sArr[1];
+						}
+						startCities = getAddrsArrayById(provKey);
+						startDists = getAddrsArrayById(cityKey);
+						provStartIndex = getStartIndexByKeyFromStartArr(PROVINCES, provKey);
+						cityStartIndex = getStartIndexByKeyFromStartArr(startCities, cityKey);
+						distStartIndex = getStartIndexByKeyFromStartArr(startDists, distKey);
+					}
+					var navArr = [{ //3 scrollers, and the title and id will be as follows:
+						title: "省",
+						id: "scs_items_prov"
+					}, {
+						title: "市",
+						id: "scs_items_city"
+					}, {
+						title: "区",
+						id: "scs_items_dist"
+					}];
+					SCS.init({
+						navArr: navArr,
+						onOk: function(selectedKey, selectedValue) {
+							$input.val(selectedValue).attr("data-key", selectedKey);
+						}
+					});
+					var distScroller = new SCS.scrollCascadeSelect({
+						el: "#" + navArr[2].id,
+						dataArr: startDists,
+						startIndex: distStartIndex
+					});
+					var cityScroller = new SCS.scrollCascadeSelect({
+						el: "#" + navArr[1].id,
+						dataArr: startCities,
+						startIndex: cityStartIndex,
+						onChange: function(selectedItem, selectedIndex) {
+							distScroller.render(getAddrsArrayById(selectedItem.key), 0); //re-render distScroller when cityScroller change
+						}
+					});
+					var provScroller = new SCS.scrollCascadeSelect({
+						el: "#" + navArr[0].id,
+						dataArr: PROVINCES,
+						startIndex: provStartIndex,
+						onChange: function(selectedItem, selectedIndex) { //re-render both cityScroller and distScroller when provScroller change
+							cityScroller.render(getAddrsArrayById(selectedItem.key), 0);
+							distScroller.render(getAddrsArrayById(cityScroller.getSelectedItem().key), 0);
+						}
+					});
+				});
+
+			});
+
+			function check() {
+				var idCard = document.getElementById("idCard").value;
+				var flag = IdCardValidate(idCard);
+				if(flag) {
+
+				} else {
+					mask("您输入的身份证号格式不正确 ");
+				}
+			}
+			var Wi = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1]; // 加权因子   
+			var ValideCode = [1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2]; // 身份证验证位值.10代表X   
+			function IdCardValidate(idCard) {
+				idCard = trim(idCard.replace(/ /g, "")); //去掉字符串头尾空格                     
+				if(idCard.length == 15) {
+					return isValidityBrithBy15IdCard(idCard); //进行15位身份证的验证    
+				} else if(idCard.length == 18) {
+					var a_idCard = idCard.split(""); // 得到身份证数组   
+					if(isValidityBrithBy18IdCard(idCard) && isTrueValidateCodeBy18IdCard(a_idCard)) { //进行18位身份证的基本验证和第18位的验证
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
+			/**  
+			 * 判断身份证号码为18位时最后的验证位是否正确  
+			 * @param a_idCard 身份证号码数组  
+			 * @return  
+			 */
+			function isTrueValidateCodeBy18IdCard(a_idCard) {
+				var sum = 0; // 声明加权求和变量   
+				if(a_idCard[17].toLowerCase() == 'x') {
+					a_idCard[17] = 10; // 将最后位为x的验证码替换为10方便后续操作   
+				}
+				for(var i = 0; i < 17; i++) {
+					sum += Wi[i] * a_idCard[i]; // 加权求和   
+				}
+				valCodePosition = sum % 11; // 得到验证码所位置   
+				if(a_idCard[17] == ValideCode[valCodePosition]) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			/**  
+			 * 验证18位数身份证号码中的生日是否是有效生日  
+			 * @param idCard 18位书身份证字符串  
+			 * @return  
+			 */
+			function isValidityBrithBy18IdCard(idCard18) {
+				var year = idCard18.substring(6, 10);
+				var month = idCard18.substring(10, 12);
+				var day = idCard18.substring(12, 14);
+				var temp_date = new Date(year, parseFloat(month) - 1, parseFloat(day));
+				// 这里用getFullYear()获取年份，避免千年虫问题   
+				if(temp_date.getFullYear() != parseFloat(year) ||
+					temp_date.getMonth() != parseFloat(month) - 1 ||
+					temp_date.getDate() != parseFloat(day)) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+			/**  
+			 * 验证15位数身份证号码中的生日是否是有效生日  
+			 * @param idCard15 15位书身份证字符串  
+			 * @return  
+			 */
+			function isValidityBrithBy15IdCard(idCard15) {
+				var year = idCard15.substring(6, 8);
+				var month = idCard15.substring(8, 10);
+				var day = idCard15.substring(10, 12);
+				var temp_date = new Date(year, parseFloat(month) - 1, parseFloat(day));
+				// 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法   
+				if(temp_date.getYear() != parseFloat(year) ||
+					temp_date.getMonth() != parseFloat(month) - 1 ||
+					temp_date.getDate() != parseFloat(day)) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+			//去掉字符串头尾空格   
+			function trim(str) {
+				return str.replace(/(^\s*)|(\s*$)/g, "");
+			}
+			$("#preservation").click(function() {
+				if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
+					mask("收件人信息不能为空");
+				} else {
+					var loction = $("#location").val();
+					var tion = loction.split(" ");
+
+					function GetJsonData() {
+						var json = {
+							customerName: $("#customerName").val(),
+							phone: $("#phone").val(),
+							province: tion[0],
+							city: tion[1],
+							area: tion[2],
+							address: $("#address").val(),
+							idCard: $("#idCard").val(),
+							isDefault: isDefault
+						};
+						return json;
+					}
+					$.ajax({
+						type: "POST",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							addressContent: JSON.stringify(GetJsonData())
+						},
+						url: testurl + "/api/address/addaddress",
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							if(data.code == 400) {
+
+							} else if(data.code == 10000) {
+								location.href = "addresslist.html"
+								//跳转个人中心
+							}
+						},
+						error: function(error) {
+
+							console.log(error.statusText)
+						}
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>
