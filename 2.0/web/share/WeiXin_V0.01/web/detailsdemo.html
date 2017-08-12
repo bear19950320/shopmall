@@ -1014,7 +1014,12 @@
 						$(".Activity").append('满<span>' + ware.activitymanage.fallMoney + '</span>返<span>' + ware.activitymanage.returnMoney + '</span>')
 					}
 					var tt = ware.skuList;
-					$(".marketPrice>del").text(ware.marketPrice.toFixed(2))
+					if(ware.marketPrice!=""){
+						$(".marketPrice>del").text(ware.marketPrice)
+					}else{
+						$(".marketPrice>del").remove()
+					}
+					
 					if(ware.skuList[0].skuItemList.length != 0) {
 						for(var j = 0; j < ware.skuList[0].skuItemList.length; j++) {
 							$("#specifications").append('<div class="specificationsMa">' +
