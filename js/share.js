@@ -149,7 +149,7 @@ function share(wareid,img,title){
 	    laye+='<div class="layeFont"><a href="javascript:;" class="closeLaye">取消</a></div>'
 	    laye+='</div>'
 	    $("body").append(laye);
-	    var share_url = encodeURIComponent('http://192.168.1.155:8020/WeiXin/web/detailsdemo.html?wareId='+wareid);
+	    var share_url = encodeURIComponent('http://120.77.101.152:8090/TBL/web/detailsdemo.html?wareId='+wareid);
 		var share_title = "发现 : "+title;
 		var share_summipt="我在呔棒啦商城发现了一个好东西，赶紧看看吧";
 		var share_pic = img; //榛樿鐨勫垎浜浘鐗�
