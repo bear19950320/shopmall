@@ -120,9 +120,9 @@ function homeLoadImg() {
 function removerLoad() {
 	$("body").remove('<img id="loadImg" src="img/ajax-loader.gif" width="48" height="48" alt="" style="position: fixed;top:50%;margin-top: -24px;left:50%;margin-left: -24px;"/>')
 }
-/* 登陆注册  */
+/* 登录注册  */
 function showLogin() {
-	/* 弹出登陆注册按钮 */
+	/* 弹出登录注册按钮 */
 	
 }
 
@@ -614,6 +614,11 @@ function shopNum() {
 				currNum.val(parseInt(currNum.val()) - 1);
 				$(this).parent().find('.num').html(currNum.val());
 			}
+			var num=0
+			for(var i=0;i<$('.cart dd>input[type="checkbox"]:checked').length;i++){
+				num+=Number($('.cart dd>input[type="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".number").val());
+			}
+			$(".total").text(num)
 			shopCart();
 		});
 		//加
@@ -626,6 +631,11 @@ function shopNum() {
             	$(this).siblings("span").find(".number").val($(this).siblings("span").find(".number").attr("name"))
             }
 			shopCart();
+			var num=0
+			for(var i=0;i<$('.cart dd>input[type="checkbox"]:checked').length;i++){
+				num+=Number($('.cart dd>input[type="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".number").val());
+			}
+			$(".total").text(num)
 		});
 		//加
 		$(".plus").click(function() {
@@ -633,6 +643,7 @@ function shopNum() {
 			currNum.val(parseInt(currNum.val()) + 1);
 			$(this).parent().find('.num').html(currNum.val());
 			shopCart();
+			
 		});
 		//删除
 		$(".delBtn").click(function() {
@@ -667,15 +678,20 @@ function shopNum() {
 		}
 		//全选
 		$('input[id="all"]').on('change', function() {
+			var num=0;
 			if($(this).prop('checked')) {
 				$(".cart dd").parent(".line-scroll-wrapper").siblings(".supplierTitle").find("input").prop('checked', true);
 				$('.cart dd>input').prop('checked', true);
 				$('.cart dd>input').css("background", "red");
+				for(var i=0;i<$('.cart dd>input').length;i++){
+					num+=Number($('.cart dd>input').eq(i).siblings(".goodsInfor").find(".number").val());
+				}
 			} else {
 				$(".cart dd").parent(".line-scroll-wrapper").siblings(".supplierTitle").find("input").prop('checked', false);
 				$('.cart dd>input').prop('checked', false);
 				$('.cart dd>input').css("background", "none")
 			}
+			$(".total").text(num)
 			shopCart();
 		});
 	
@@ -699,6 +715,11 @@ function shopNum() {
 			} else {
 				$(".total").text($('.cart dd input[type="checkbox"]:checked').length)
 			}
+			var num=0
+			for(var i=0;i<$('.cart dd>input[type="checkbox"]:checked').length;i++){
+				num+=Number($('.cart dd>input[type="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".number").val());
+			}
+			$(".total").text(num)
 			shopCart();
 		})
 		//提交订单

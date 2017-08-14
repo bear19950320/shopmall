@@ -134,7 +134,6 @@
 											strname.push(str[i])
 										}
 									}
-console.log(con)
 									var st = '';
 									for(var i = 0; i < con.length; i++) {
 										//console.log(str[i])
@@ -151,7 +150,7 @@ console.log(con)
 											if(con[i][j].shopcartSkuitems.length != 0) {
 												$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
 													'<dd class="line-normal-wrapper">' +
-													'<input type="checkbox" class="checkbox"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=' + con[i][j].shopcartSkuitems[0].skuitemId + '> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
+													'<input type="checkbox" class="checkbox" shopCartId="'+con[i][j].shopcartId+'" id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=' + con[i][j].shopcartSkuitems[0].skuitemId + '> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
 													'<img src="' + con[i][j].ware.imagePath + '" style="width: 25%;height: 99px;"/>' +
 													'<div class="line-normal-info-wrapper goodsInfor"style="height: 99px;">' +
 													'<p style="font-size:14px;height: 45px;" >' + con[i][j].ware.wareName + '</p>' +
@@ -183,7 +182,7 @@ console.log(con)
 											}else{//' + con[i][j].shopcartSkuitems[0].skuitemId + '
 													$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
 													'<dd class="line-normal-wrapper">' +
-													'<input type="checkbox" class="checkbox"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=" "> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
+													'<input type="checkbox" class="checkbox" shopCartId="'+con[i][j].shopcartId+'"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=" "> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
 													'<img src="' + con[i][j].ware.imagePath + '" style="width: 7rem;height: 7rem;"/>' +
 													'<div class="line-normal-info-wrapper goodsInfor">' +
 													'<p style="font-size:14px;height: 50px;" >' + con[i][j].ware.wareName + '</p>' +
@@ -346,7 +345,8 @@ console.log(con)
 											"warePart":$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find("strong").text(),
 											"supportName":$('.cart dd input[class="checkbox"]:checked').eq(i).parents(".line-wrapper").find(".supplierTitle a").text(),
 											"supportType":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("support"),
-											"supportImage":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("HeadImage")
+											"supportImage":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("HeadImage"),
+											"shopcartId":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("shopcartid")
 										};
 										console.log(json)
 										return json;

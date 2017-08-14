@@ -96,6 +96,9 @@
 				</li>
 			</ul>
 		</div>
+		<div style="height:200px;width:100%;">
+			
+		</div>
 		<nav></nav>
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -138,6 +141,26 @@
 							localStorage.setItem("loginStatus", 0)
 						} else if(data.data.user.loginStatus == "1") {
 							var user = data.data.user;
+							if(user.obligationNum>9){
+								user.obligationNum="9+"
+							}else if(user.obligationNum<=0){
+								$("#Unpaid").find("m").hide();
+							}
+							if(user.toSendTheGoodNum>9){
+								user.toSendTheGoodNum="9+"
+							}else if(user.toSendTheGoodNum<=0){
+								$("#Unpaid").find("m").hide();
+							}
+							if(user.waitForReceivingNum>9){
+								user.waitForReceivingNum="9+"
+							}else if(user.waitForReceivingNum<=0){
+								$("#Unpaid").find("m").hide();
+							}
+							if(user.afterSale>9){
+								user.afterSale="9+"
+							}else if(user.afterSale<=0){
+								$("#Unpaid").find("m").hide();
+							}
 							$("#Unpaid").find("m").text(user.obligationNum);
 							$("#Ready").find("m").text(user.toSendTheGoodNum);
 							$("#Collect").find("m").text(user.waitForReceivingNum);

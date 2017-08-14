@@ -9,21 +9,11 @@
 		<title>物流查询</title>
 	</head>
 	<body>
-		<section class="con_c1">
-			<div class="con_c1_l">
+		<section class="con_c1" id="order">
+			<!--<div class="con_c1_l">
 				<img src="img/22.jpg" />
 				<p>1件商品</p>
-			</div>
-			<div class="con_c1_r">
-				<label class="wwst">物流状态：</label>
-				<label class="ysstatus">运输中</label><br />
-				<label>配送方式：</label>
-				<label>韵达快递</label><br />
-				<label>快递单号：</label>
-				<label>65463541641354</label><br />
-				<label>官方电话：</label>
-				<label class="ysstatus">6582255</label>
-			</div>
+			</div>-->
 		</section>
 		<div class="bg_div"></div>
 		<section class="wuliu">
@@ -34,29 +24,88 @@
 			<div style="width: 100%;height: 10px;background: #FFFFFF;"></div>
 			<div class="guij">
 				<ul>
-					<li>
-						<span class="iconfont icon-search2"></span>
-						<div class="message">
-							<p>在四川成都国际广场公司进行签收扫描，快件已经被签收</p>
-							<p>2017-02-23 17:54:12</p>
-						</div>
-					</li>
-					<li>
-						<span class="iconfont icon-yuanquan-red color_yuan"></span>
-						<div class="message">
-							<p>在四川成都国际广场公司进行签收扫描，快件已经被签收</p>
-							<p>2017-02-23 17:54:12</p>
-						</div>
-					</li>
-					<li>
-						<span class="iconfont icon-yuanquan-red color_yuan"></span>
-						<div class="message">
-							<p>在四川成都国际广场公司进行签收扫描，快件已经被签收</p>
-							<p>2017-02-23 17:54:12</p>
-						</div>
-					</li>
+					
+					
 				</ul>
 			</div>
 		</section>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			 	function GetQueryString(name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                    var r = location.search.substr(1).match(reg);
+                    if (r != null) return unescape(decodeURI(r[2])); return null;
+                }
+				let expressCode=GetQueryString("expressCode"),expressNo=GetQueryString("expressNo");
+				function loadImg() {
+					$("body").append('<img id="loadImg" src="../../img/ajax-loader.gif" width="48" height="48" alt="" style="position: fixed;top:50%;margin-top: -24px;left:50%;margin-left: -24px;"/>')
+				}
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/order/getexpress",
+					dataType: "json",
+					data: {
+						platform: "2",
+						cutomerId: localStorage.getItem("cutomerId"),
+						expressCode:expressCode,
+						expressNo:expressNo
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						var data=data.data;
+						var logistics=data.data;
+						var message="运输中";
+						if(data.message=="ok"){
+							message="已签收"
+						}
+	 					$("#order").append('<div class="con_c1_r">\
+							<label class="wwst">物流状态：</label>\
+							<label class="ysstatus">'+message+'</label><br />\
+							<label>配送方式：</label>\
+							<label>'+data.com+'</label><br />\
+							<label>快递单号：</label>\
+							<label>'+data.nu+'</label><br />\
+							<label>官方电话：</label>\
+							<label class="ysstatus">6582255</label>\
+							</div>');
+							var li=''
+							for(var i=0;i<logistics.length;i++){
+								li+='<li>\
+										<span class="iconfont"></span>\
+										<div class="message">\
+											<p>'+logistics[i].context+'</p>\
+											<p>'+logistics[i].time+'</p>\
+										</div>\
+									</li>'
+							}
+						$("ul").append(li);
+						/*  控制物流的显示   */
+						$("ul>li").eq(0).find(".iconfont").addClass("icon-search2");
+						$("ul>li").eq(0).siblings("li").find("p").css("color","#9b9b9b")
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				})
+		</script>
 	</body>
 </html>
