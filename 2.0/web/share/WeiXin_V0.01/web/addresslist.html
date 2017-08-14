@@ -17,7 +17,7 @@
 		<ul class="addressUl line-wrapper1" style="border-bottom: 0;padding-bottom: 60px;">
 
 		</ul>
-		<div style="position: fixed;bottom: 0;background: #fff;width: 100%;height: 60px;">
+		<div style="position: fixed;bottom: 0;background: #fff;width: 100%;height: 60px;padding-top: 20px;border-top: 1px solid #F1F1F1;">
 			<a class="btn" href="newAddress.html" id="preservation" style="margin-top:0 ;"> + 新建地址</a>
 		</div>
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -66,12 +66,16 @@
 								'<div id="T' + addressesList[i].addressId + '" class="close2" style="width: 20px;height: 18px;border-radius: 48px;position: absolute;background: white;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);"></div>' +
 								'<span style="position: absolute;right: -40px;line-height: 20px; font-size: 15px;color: #9B9B9B;font-family: 微软雅黑;" id=' + addressesList[i].isDefault + ' class="default">默认</span>' +
 								'</div>' +
-								'<a href="javascript:;" class="edit" style="position: absolute;right: 5%;top:10px;text-decoration: none;font-size: 17px;color: #6666666;">' +
+								'<a href="javascript:;" class="edit" style="position: absolute;right: 25%;top:10px;text-decoration: none;font-size: 17px;color: #6666666;">' +
 								'<img src="../img/icon/My_EidtAddress@2x.png" width="16" height="16" alt="" />&nbsp;编辑 ' +
+								'</a>' +
+								'<a href="javascript:;" class="edit line-btn-delete1 '+addressesList[i].addressId+'" style="position: absolute;right: 5%;top:10px;text-decoration: none;font-size: 17px;color: #6666666;">' +
+								'<img src="../img/icon/My_DeleteAddress@2x.png" width="16" height="16" alt="" />&nbsp;删除 ' +
 								'</a>' +
 								'</span>' +
 								'</div>' +
-								'<div class="line-btn-delete1"><button class=' + addressesList[i].addressId + ' style="height: 109px;">删除</button></div>' +
+//								'<div class="line-btn-delete1"><button class=' + addressesList[i].addressId + ' style="height: 109px;">删除</button></div>' +
+								
 								'</li>');
 								if(addressesList[i].isDefault == "1") {
 									$("#"+addressesList[i].isDefault).css("color","red");

@@ -11,7 +11,7 @@
 	</head>
 
 	<body style="background: #F4F4F4;">
-		<div class="crousel findImg" id="subjectlist">
+		<div class="crousel findImg" style="margin: 0;" id="subjectlist">
 			<a href="javascript:;" id="openNotes">发布</a>
 		</div>
 
@@ -75,8 +75,8 @@
 						for(var i = 0; i < subjectlist.length; i++) {
 							if(subjectlist[i].templet == "0") {
 								/* 模板 1B */
-								$("#subjectlist").append('<div class="special1" id=' + subjectlist[i].bannerId + '>' +
-									'<div class="crousel">' +
+								$("#subjectlist").append('<div class="special1" style="margin: 0" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="crousel" style="margin: 0;">' +
 									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + ' />' +
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
@@ -367,7 +367,7 @@
 												'<ul>' +
 												'<li style="line-height: 20px;">\
 											<span class="' + data[i].selfnotesId + '">\
-											<img src="../img/praise.png" style="width: 28px;height: 20px;"/></span>\
+											<img src="../img/praise.png" style="width: 22px;height: 16px;"/></span>\
 											<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>' +
 												'</ul>' +
 												'</div>' +

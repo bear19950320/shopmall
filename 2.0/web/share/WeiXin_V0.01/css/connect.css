@@ -5,11 +5,12 @@
     border-radius: 50%;
 }
 .connect li{
-	padding:5px 3% !important;
+	padding:10px 3% !important;
 }
 .connect li label img{
 	width: 54px;
 	height: 16px;
+	margin-left: 3px;
 }
 .connect li>span>p{
 	line-height: 20px;
