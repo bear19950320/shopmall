@@ -875,7 +875,7 @@
 							$("#supplierUl").append('<li id="' + data[i].wareId + '">\
 					     	                                <img src=' + data[i].imagePath + ' >\
 					     	                                <p class="notes_Title">' + data[i].wareName + '</p>\
-					     	                                <p class="notes_Text" style="color:#FF0000;text-align: center;padding: 5px 0;"> ¥' + data[i].warePrice + '</p>\
+					     	                                <p class="notes_Text" style="color:#FF0000 !important;text-align: center;padding: 5px 0;"> ¥' + data[i].warePrice + '</p>\
 					     	                                </li>');
 							$("#" + data[i].wareId).click(function() {
 								sessionStorage.setItem("TowareId", '')

@@ -18,11 +18,11 @@ a,span,input,{
 .cart dd img{float: left;width: 20%;margin-left: 3rem;margin-top: 3px;}
 .cart dd>input{width:20px;height:20px;vertical-align: middle;}
 .cart dd>.goodsInfor{width: 58%;margin-left: 1%;}
-@media only screen and (min-width: 320px) {
-	.cart dd>.goodsInfor{width: 59% !important;}
+@media only screen and (min-width: 320px) and (max-width: 359px) {
+	.cart dd>.goodsInfor{width: 58% !important;float: right;margin-right: 3%;}
 }
-@media only screen and (min-width: 320px) and (max-width: 640px) {
-	.cart dd>.goodsInfor{width: 59% !important;}
+@media only screen and (min-width: 360px) and (max-width: 640px) {
+	.cart dd>.goodsInfor{width: 61% !important;float: right;margin-right: 3%;}
 }
 .cart dd .goodsInfor .numberWidget{display:block;float: right;line-height: 24px;margin-right: 18px;border: 1px solid #DDDDDD;border-radius: 2px;}
 .cart dd .goodsInfor .numberWidget input[type="button"]{width:2;height:2;background:none;border:0;color:grey;outline:none;}
@@ -39,7 +39,7 @@ a,span,input,{
 .cart dd .goodsInfor .priceArea strong:before{content:"¥";font-size:1.6rem;}
 .cart dd .goodsInfor .priceArea del{color:grey;}
 .cart dd .goodsInfor .priceArea del:before{content:"¥";}
-.cart dd .goodsInfor .numberWidget input[type="text"]{width:20px;text-align:center;background:none;border:none;}
+.cart dd .goodsInfor .numberWidget input[type="text"]{width:15px;text-align:center;background:none;border:none;}
 
 .btmNav{
 	border-top:1px solid #EAEAEA;

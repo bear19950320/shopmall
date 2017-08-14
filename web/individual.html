@@ -63,7 +63,7 @@
 					</li>
 				</ul>
 			</div>
-			<ul id="orderStatus">
+			<ul id="orderStatus" style="border-bottom: 1px solid #F1F1F1;">
 				<li id="Unpaid">
 					<span>
 						<m>0</m>
@@ -186,7 +186,9 @@
 							$(".individual").append('<div id="individualTitle"><a href="outLogin.html" id="outLogin" style="float: left;"><img src="../img/icon/My_Setting@2x.png" style="width:20px;height: 20px;padding-left: 10px;" /></a>' + user.address + '</div>' +
 								'<p id="signature">' + user.signature + ' </p>' +
 								'<span id="individualName">' + user.name + '</span>' +
-								'<img id="individualImg" src=' + user.headImage + ' alt="" />');
+								'<img id="individualImg" src=' + user.headImage + ' alt="" />'+
+								'<img src="../img/renz/My_DirectStore@2x.png" id="levelimg" style="width: 70px !important;height: 20px !important;position: absolute;left: 100px;bottom: 10px;">'
+							);
 							$("#myMall").click(function() {
 								location.href = 'myMall.html?name=' + user.name + "&headImage=" + user.headImage + "&growthValue=" + user.growthValue + "&growthValueUp=" + user.growthValueUp + "&invitationCode=" + user.invitationCode
 							});

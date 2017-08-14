@@ -21,7 +21,7 @@
 		<!--板块1-->
 		<div id="homePage">
 			<!-- 首页banner轮播   -->
-			<div class="crousel" id="SITE_MALL_HOME_001">
+			<div class="crousel" id="SITE_MALL_HOME_001" style="margin-top: 0;">
 				<div class="banner" style="overflow: hidden;">
 					<!--轮播图-->
 					<div class="swiper-container">
@@ -48,7 +48,7 @@
 			</ul>
 		</div>
 		<!-- 大分类   -->
-		<div id="twoStage" style="margin-top:5px;">
+		<div id="twoStage">
 			<ul id="twoStageBan" style="background: #fff;">
 
 			</ul>
@@ -69,7 +69,7 @@
 				</li>
 				<li onclick="window.location.href='./web/find.html'">
 					<div style="width:100%;">
-						<img src="img/navImg/find.png" width="24" height="24" alt="" />
+						<img src="img/navImg/find.png" width="22" height="24" alt="" />
 					</div>
 					<a href="javascript:;">发现</a>
 				</li>
@@ -81,7 +81,7 @@
 				</li>
 				<li onclick="window.location.href='./web/cloud.html'">
 					<div style="width:100%;">
-						<img src="img/navImg/cloud.png" width="24" height="24" alt="" />
+						<img src="img/navImg/cloud.png" width="30" height="24" alt="" />
 					</div>
 					<a href="javascript:;">云仓</a>
 				</li>
@@ -424,8 +424,8 @@
 
 						if(subjectlist[i].templet == "0") {
 							/* 模板 1B */
-							$("#homePageCon").append('<div class="special1" id=' + subjectlist[i].bannerId + '>' +
-								'<div class="crousel">' +
+							$("#homePageCon").append('<div class="special1" style="margin-top: 0" id=' + subjectlist[i].bannerId + '>' +
+								'<div class="crousel" style="margin-top: 0">' +
 								'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + ' />' +
 								'</div>');
 							for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
@@ -664,7 +664,7 @@
 											'<div class="classifyListContent">' +
 											'<p class="classifyListText left support' + wareList[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + wareList[i].wareName + '</p>' +
 											'<div class="classifyListDetails">' +
-											'<span class="Number" id="number' + wareList[i].wareId + '" style="position: relative;">¥' + wareList[i].warePrice.toFixed(2) + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返<b>' + wareList[i].bonusMoney + '</b></span></span>' +
+											'<span class="Number" id="number' + wareList[i].wareId + '" style="position: relative;">¥' + wareList[i].warePrice.toFixed(2) + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返<b style="color: #DC210D;">' + wareList[i].bonusMoney + '</b></span></span>' +
 											'<div style="display: block;">库存：' + wareList[i].sales + '</div>' +
 											'<div class="imgDiv">' +
 											'<img src="img/share.png" class="share" width="30" height="24" alt="" />' +
@@ -805,8 +805,8 @@
 													});
 												}
 												$("#twoStageBan").append('<li id="search" class="' + $("#twoStageBan>li").attr("id") + '">' +
-													'<img src="img/all.png" alt="" />' +
-													'<a href="javascript:;">全 部</a>' +
+													'<img src="img/all.png" style="width: 30px;height: 30px;margin-top: 15px" alt="" />' +
+													'<a href="javascript:;" style="margin-top: 15px;">查看全 部</a>' +
 													'</li>');
 												$("#search").click(function() {
 													location.href = "web/fourStage.html?classifyId=" + $(this).attr("class")

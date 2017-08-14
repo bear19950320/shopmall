@@ -12,6 +12,7 @@
 				background-size: 100%;
 				display: inline-block;
 			}
+			
 		</style>
 	</head>
 
@@ -60,7 +61,7 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 						var data = data.data.contactsList;
 						$("#me").append('<img src="'+data.headImage+'" alt="" />\
 										<span>\
-							    			<p><label>'+data.name+'</label><label class="grade" grade="'+data.grade+'" identity="'+data.identity+'"></label></p>\
+							    			<p><label style="font-size: 14px;">'+data.name+'</label><label style="font-size: 14px;" class="grade" grade="'+data.grade+'" identity="'+data.identity+'"></label></p>\
 							    			<p>手机:'+data.phone+'</p>\
 							    		</span>')
 						$("#contactsVos1").html(data.contactsVos1.length)
