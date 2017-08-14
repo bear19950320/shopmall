@@ -345,7 +345,7 @@
 			#password>a {
 				height: 20px;
 				line-height: 20px;
-				padding: 20px 0;
+				padding: 5px 0;
 			}
 			.activity>span{
 				display: none;
@@ -358,6 +358,11 @@
 				display: block;
 				content: "";
 				clear: both;
+			}
+			#Prict{
+				font-size: 16px;
+				height: 20px;
+				line-height: 20px;
 			}
 		</style>
 
@@ -378,6 +383,7 @@
 
 				<div id="password">
 					<a href="javascript:;">订单支付</a>
+					<p><a href="javascript:;" id="Prict">¥</a></p>
 					<div>
 						<div class="ipt-box-nick">
 							<input id="passwordinput" type="text" style="color:transparent;" class="ipt-real-nick" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="6" />
@@ -979,7 +985,8 @@
 						crossDomain: true,
 						success: function(data) {
 							var orderCode = data.data.orderCode;
-							$("#confirmCon").attr("orderid", orderCode)
+							$("#confirmCon").attr("orderid", orderCode);
+							$("#Prict").append(parseInt($("#Paid").text()).toFixed(2))
 							$(".fixed").show();
 							//									$("#name").prepend($(".classifyListText").text());
 							//									$("#num").text($("#Paid").text())

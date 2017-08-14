@@ -100,13 +100,13 @@
 				text-align: center;
 			}
 			
-			.buyBox>ul>li:first-child{
+			/*.buyBox>ul>li:first-child{
 				background: #FF8B4E;
 				color: #FFFFFF;
 				text-align: center;
 				font-size: 14px;
 				margin-left: 7.5%;
-			}
+			}*/
 			.buyBox>ul>li:last-child{
 				color: #FFFFFF;
 				text-align: center;
@@ -114,19 +114,36 @@
 			}
 			.buyBox li {
 				float: left;
-				width: 40%;
+				width: 30%;
 				border-radius: 20px;
 				margin: 5px 2.5%;
 				text-align: #333333;
 				line-height: 35px;
+				
+			}
+			.buyBox li>span{
+				position: relative;
 			}
 			
+			.buyBox li span>m{
+			    padding: 0 5px;
+			    border-radius: 3px;
+			    font-size: 0.6em;
+			    line-height: 12px;
+			    color: #fff;
+			    position: absolute;
+			    background: red;
+			    right: -5px;
+			    top: -8px;
+			}
+			
+	
 			.buyBox li:nth-of-type(1) {}
 			
-			.buyBox li:nth-of-type(2) {
+			/*.buyBox li:nth-of-type(2) {
 				color: #666;
 				background-color: #F7F7F7;
-			}
+			}*/
 			
 			#buy_now {
 				background-color: #DC210D;
@@ -459,7 +476,9 @@
 			#supplierUl>li{
 				padding: 0;
 			}
-			
+			.shoppingCartBagnum{
+				display: none;
+			}
 			/*html{
 			//	font-size: calc(100vw/3.75)
 			}*/
@@ -489,7 +508,11 @@
 				<!--加入购物车     立即购买-->
 				<div class="buyBox">
 					<ul>
-						<!--<li style="text-align: left;"><span style="width: 30px;height: 30px;background: url(../img/navImg/news.png) no-repeat;background-size: 100% 100%;"></span></li>-->
+						<li style="text-align: left;width: 10%;">
+							<span style="width: 30px;height: 30px;background: url(../img/navImg/news.png) no-repeat;background-size: 100% 100%;">
+								<m class="shoppingCartBagnum"></m>
+							</span>
+						</li>
 						<li id="toStopCart" class="toStopCart">加入购物车</li>
 						<li id="buy_now" class="buy_now">立即购买</li>
 					</ul>
@@ -983,10 +1006,18 @@
 				}
 			})
 			//商品详情接口
+			/* 用户id定义为了获取用户的购物车数量  */
+			var cutomerId="";
+			if(!localStorage.getItem("cutomerId")||localStorage.getItem("cutomerId")==""){
+				cutomerId=""
+			}else{
+				cutomerId=localStorage.getItem("cutomerId");
+			}
 			$.ajax({
 				type: "GET",
 				data: {
 					platform: "2",
+					cutomerId:cutomerId,
 					wareId: sessionStorage.getItem("TowareId")
 				},
 				url: testurl + "/api/ware/wareinfo",
@@ -999,7 +1030,12 @@
 				success: function(data) {
 					var ware = data.data.wareInfo;
 					supplier(ware.supplierId)
-
+                    if(ware.shoppingCartBagnum>0){
+                    	$(".shoppingCartBagnum").text(ware.shoppingCartBagnum);
+                    	$(".shoppingCartBagnum").show();
+                    }else if(ware.shoppingCartBagnum<=0){
+                    	$(".shoppingCartBagnum").hide();
+                    }
 					//	SpecificationGoods("",ware,"")
 					$("#explains").text(ware.activitymanage.explains)
 					$("#toStopCart,#buy_now").attr("wareId", ware.wareId);

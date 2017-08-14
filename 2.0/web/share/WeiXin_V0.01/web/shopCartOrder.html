@@ -376,25 +376,37 @@
 			#password>a {
 				height: 20px;
 				line-height: 20px;
-				padding: 20px 0;
+				padding: 5px 0;
 			}
-			.font_size_three{
+			
+			.font_size_three {
 				font-size: 14px;
 			}
-			.class="font_size_two">span{
+			
+			.class="font_size_two">span {
 				font-size: 16px;
 			}
-			#orderUl>li{
+			
+			#orderUl>li {
 				border: none;
 			}
-			#orderUl{
+			
+			#orderUl {
 				padding-top: 10px !important;
 			}
-			.orderAlt{
+			
+			.orderAlt {
 				font-size: 14px !important;
 			}
-			.orderUp{
+			
+			.orderUp {
 				padding: 10px 3%;
+			}
+			
+			#Prict {
+				font-size: 16px;
+				height: 20px;
+				line-height: 20px;
 			}
 		</style>
 
@@ -415,6 +427,9 @@
 
 				<div id="password">
 					<a style="font-size: 16px;" href="javascript:;">订单支付</a>
+					<p>
+						<a href="javascript:;" id="Prict">¥</a>
+					</p>
 					<div>
 						<div class="ipt-box-nick">
 							<input id="passwordinput" type="text" class="ipt-real-nick" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="6" />
@@ -492,7 +507,7 @@
 
 		</div>
 
-	<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -524,11 +539,11 @@
 								n++;
 								str.push(data[i].supportName, 'name' + n)
 								jsons[data[i].supportName] = n;
-								con[n-1] = [];
-								con[n-1].push(data[i])
+								con[n - 1] = [];
+								con[n - 1].push(data[i])
 							} else {
-								var ind=jsons[data[i].supportName]
-								con[ind-1].push(data[i])
+								var ind = jsons[data[i].supportName]
+								con[ind - 1].push(data[i])
 							}
 						}
 
@@ -551,7 +566,7 @@
 							for(var j = 0; j < con[i].length; j++) {
 								$("#ware" + ster[i]).attr("support", con[i][j].supportType);
 
-								$("#" + ster[i]).append('<li waraId="' + con[i][j].skuid + '" wareId="' + con[i][j].wareId + '">\
+								$("#" + ster[i]).append('<li waraId="' + con[i][j].skuid + '" wareId="' + con[i][j].wareId + '" shopcartId="' + con[i][j].shopcartId + '">\
 			      		    		      <div class="storeWare">\
 						      		    	<img class="wareImg" src="' + con[i][j].wareImg + '" alt="" />\
 						      		    	<div class="wareText">\
@@ -660,7 +675,7 @@
 				} else {
 					$("#TieMuch,#cashMuch").append("0");
 				}
-				
+
 				var put1 = document.getElementById("div1");
 				var div1 = document.getElementById("div3");
 				var cash = 0,
@@ -693,16 +708,15 @@
 				console.log(TieMoney + "非自营" + cash)
 
 				console.log("钱" + parseInt(m))
-				console.log("云仓ID"+form=="云仓")
-				
-				
+				console.log("云仓ID" + form == "云仓")
+
 				$("#freight").text(n);
-				if(form=="云仓"){
+				if(form == "云仓") {
 					$("#Paid").text($("#freight").html())
-				}else if(form=="订单"){
+				} else if(form == "订单") {
 					$("#Paid").text(m);
 				}
-				
+
 				if(TieMoney > 0 && cash > 0) {
 					$("#div1").attr("class", "open1");
 					$("#div2").attr("class", "open2");
@@ -717,21 +731,21 @@
 						alert("非自营商品无法使用呔金");
 						return false;
 					})
-				} else if(TieMoney > 0 ) {
+				} else if(TieMoney > 0) {
 					$("#div1").attr("class", "close1");
 					$("#div2").attr("class", "close2");
 					$("#div3").attr("class", "open1");
 					$("#div4").attr("class", "open2");
 				}
 				if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0)
-				if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0) {
-					$("#div1").attr("class", "open1");
-					$("#div2").attr("class", "open2");
-					$("#div2,#div1").click(function() {
-						alert("呔金不能支付其他费用")
-						return false;
-					});
-				}
+					if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0) {
+						$("#div1").attr("class", "open1");
+						$("#div2").attr("class", "open2");
+						$("#div2,#div1").click(function() {
+							alert("呔金不能支付其他费用")
+							return false;
+						});
+					}
 				$("#TieMoney #div3").click(function() {
 					var div4 = document.getElementById("div3");
 					var div3 = document.getElementById("div4");
@@ -772,35 +786,34 @@
 					$("#placeOrder").attr("type", "4");
 					//	$("#PayAlt").text("混合支付");
 				}
-                if(form=="云仓"){
-                	$("#div1").attr("class", "open1");
+				if(form == "云仓") {
+					$("#div1").attr("class", "open1");
 					$("#div2").attr("class", "open2");
 					$("#div3").attr("class", "close1");
 					$("#div4").attr("class", "close2");
-					$("#div2,#div1,#div4,#div3").click(function(){
+					$("#div2,#div1,#div4,#div3").click(function() {
 						alert("云仓提货请支付运费")
 						return false;
 					})
-                }
+				}
+
 				function GetJsonData() {
 					var jsons = [];
 					var n = [];
 					for(var i = 0; i < $("#orderUl>li").length; i++) {
 						for(var j = 0; j < $("#orderUl>li").eq(i).find("ul>li").length; j++) {
-							
 							n[j] = new Object();
 							n[j].wareId = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("wareId")
 							n[j].wareNum = $("#orderUl>li").eq(i).find("ul>li").eq(j).find(".num").html()
 							n[j].wareSkuid = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("waraId")
 							jsons.push(n[j])
 						}
-						// n[i].orderWareSkuitems = []
-						//					for(var j = 0; j < $("#ware .submit_good_box").eq(i).find('#spce').find('span').length; j++) {
-						//						n[i].orderWareSkuitems[j] = new Object();
-						//						n[i].orderWareSkuitems[j].skuitemId = $("#spce span").attr("id")
-						//					}
-
 					}
+					var nu = ''
+					for(var i = 0; i < $("#orderUl>li").length; i++) {
+						nu += $("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId") + ',';
+					}
+					nu = nu.slice(0, -1)
 					var orderType, content;
 					if(form == "订单") {
 						orderType = "0"
@@ -812,7 +825,7 @@
 						orderType: orderType,
 						orderTotal: $("#Paid").text(),
 						orderRemarks: content,
-						shopcartId: "",
+						shopcartId: nu,
 						receiveId: $("#map>div").attr("id"),
 						orderWareList: jsons
 					};
@@ -820,7 +833,7 @@
 					return json;
 				}
 				$('#placeOrder').click(function() {
-					
+
 					if($("#div3").attr("class") != "open1" && $("#div1").attr("class") != "open1") {
 						alert("至少选择一种支付方式");
 						return false;
@@ -837,41 +850,67 @@
 							//	$("#PayAlt").text("混合支付");
 						}
 					}
-
-					if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
-						location.href = "login.html"
-					} else if(localStorage.getItem("loginStatus") == "1") {
-
-						$.ajax({
-							type: "POST",
-							url: testurl + "/api/order/addorder",
-							data: {
-								platform: "2",
-								cutomerId: localStorage.getItem("cutomerId"),
-								orderContent: JSON.stringify(GetJsonData())
-							},
-							dataType: "json",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							success: function(data) {
-								if(data.code == 10000) {
-									var orderCode = data.data.orderCode;
-									$("#confirmCon").attr("orderid", orderCode)
-									$(".fixed").show();
-									$("#name").prepend($(".classifyListText").text());
-									$("#num").text($("#Paid").text())
-								}else if(data.code==2001){
-									localStorage.setItem("cutomerId"," ")
-									localStorage.setItem("loginStatus","0")
-									alert(data.msg)
-								} else {
-									alert(data.msg)
+					if($("#map").html()==""){
+						alert("没有收货地址,请设置收货地址");
+						location.href="addresslist.html"
+					}else if($("#map").html()!=""){
+						if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
+							location.href = "login.html"
+						} else if(localStorage.getItem("loginStatus") == "1") {
+							$.ajax({
+								type: "POST",
+								url: testurl + "/api/order/addorder",
+								data: {
+									platform: "2",
+									cutomerId: localStorage.getItem("cutomerId"),
+									orderContent: JSON.stringify(GetJsonData())
+								},
+								dataType: "json",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								success: function(data) {
+									if(data.code == 10000) {
+										$.ajax({
+											type: "GET",
+											url: testurl + "/api/customer/paypassword/has",
+											dataType: "json",
+											data: {
+												platform: "2",
+												cutomerId: localStorage.getItem("cutomerId"),
+												paypassword: $("#passwordinput").val()
+											},
+											xhrFields: {
+												withCredentials: true
+											},
+											crossDomain: true,
+											success: function(data) {
+												if(data.data.result == false) {
+													alert("没有支付密码");
+													location.href = "securityCenter.html"
+												} else if(data.data.result == true) {
+													var orderCode = data.data.orderCode;
+													$("#confirmCon").attr("orderid", orderCode);
+													$("#Prict").append(parseInt($("#Paid").text()).toFixed(2));
+													$(".fixed").show();
+													$("#name").prepend($(".classifyListText").text());
+													$("#num").text($("#Paid").text())
+												}
+											}
+										})
+									} else if(data.code == 2001) {
+										localStorage.setItem("cutomerId", " ")
+										localStorage.setItem("loginStatus", "0")
+										alert(data.msg)
+									} else {
+										alert(data.msg)
+									}
+	
 								}
-
-							}
-						});
+							});
+						}
+					
 					}
 
 				})
@@ -936,6 +975,7 @@
 							}
 						});
 						if(len == 6) {
+
 							if(sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
 								alert("金额不足")
 							} else {
@@ -991,6 +1031,7 @@
 								})
 							}
 							//执行其他操作
+							//							
 						}
 					} else { //清除val中的非数字，返回纯number的value
 						var arr = $(this).val().match(/\d/g);
@@ -998,7 +1039,7 @@
 					}
 				});
 
-			}else{
+			} else {
 				$("#orderUl").empty();
 			}
 
@@ -1327,4 +1368,5 @@
 			//			}
 		</script>
 	</body>
+
 </html>

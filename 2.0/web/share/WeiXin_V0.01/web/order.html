@@ -128,7 +128,7 @@
 							      		       	共' + data[i].orderWareList.length + '件商品，合计' + data[i].orderTotal + '.00(含运费' + data[i].orderFreight + '.00)\
 							      		    </div>\
 							      		    <div class="orderAlt">\
-							      		    	<span class="left" style="float:left;width:60%;overflow: hidden;">备注:<red>' + data[i].orderRemarks + '</red></span> <a href="javascript:;" class="payment" id="'+ data[i].orderId +'"></a>\
+							      		    	<span class="left" style="float:left;width:60%;overflow: hidden;">备注:<red>' + data[i].orderRemarks + '</red></span> <a href="javascript:;" class="payment" expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'" id="'+ data[i].orderId +'"></a>\
 							      		    </div>\
 							      		</li>');
 										for(var j = 0; j < data[i].orderWareList.length; j++) {
@@ -146,8 +146,9 @@
 										$("." + data[i].orderId).click(function() {
 											DelOrder($(this).attr("class"));
 										});
-										$("#"+data[i].orderId).click(function(){
+										$("#"+data[i].orderId).click(function(event){
 											/*跳转到详情*/
+											event.stopPropagation();
 											if(sessionStorage.getItem("orderCode")==200){
 												location.href="../html/newProject/orderDetailsthree.html?orderId="+$(this).attr("id")
 											}else if(sessionStorage.getItem("orderCode")==300){
@@ -155,6 +156,7 @@
 											}
 											
 										});
+										
 									};
 
 									if(ord == 100) {
@@ -171,7 +173,12 @@
 										$(".payment").text("查看");
 									} else if(ord == 300) {
 										$(".del").empty();
-										$(".payment").text("查看物流")
+										
+										$(".payment").text("查看物流");
+										$(".patment").click(function(event){
+											event.stopPropagation();
+											location.href="../html/newProject/wuliuguiji.html?expresscode="+$(this).attr("expresscode")+"&expressno="+$(this).attr("expressno")
+										})
 									} else if(ord == 400) {
 										$(".payment").text("评论")
 									};

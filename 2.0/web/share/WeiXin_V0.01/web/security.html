@@ -31,8 +31,7 @@
 			$("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">');
 			if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
 				location.href = "login.html"
-			} else if(localStorage.getItem("loginStatus") == "1") {
-				
+			} else if(localStorage.getItem("loginStatus") == "1") {	
 				function pushCode(phone){
 					$.ajax({
 						type: "POST",
@@ -121,6 +120,31 @@
 						}
 					})
 				}
+				
+				/*   修改    */
+				function RepawCode(phone){
+					$.ajax({
+						type: "POST",
+						url: testurl + "/api/customer/paypassword/set",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							paypassword:phone
+						},
+						dataType: "json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+						    if(data.code==10000){
+						    	mask("设置成功");
+						    }else{
+						    	mask(data.msg)
+						    }
+						}
+					})
+				}
 				/*  判断是否有支付密码    */
 				$.ajax({
 					type: "GET",
@@ -140,7 +164,7 @@
 								$("#phone").append('<input type="tel" name="" id="payPaw" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请输入支付密码" />')
 								$("#code").append('<input type="tel" name="" id="payPaws" value="" onkeyup="value=value.replace(/[^\d]/g,'+""+')" placeholder="请再次输入支付密码" />')
 							    $("#Payover").show();
-							    $("#Paydown").hide()
+							    $("#Paydown").hide();
 							}else if(data.data.result == false){
 								$("#phone").append('<select name="">\
 									<option value="0">+86</option>\
