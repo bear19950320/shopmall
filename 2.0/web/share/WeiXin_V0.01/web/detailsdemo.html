@@ -508,12 +508,12 @@
 				<!--加入购物车     立即购买-->
 				<div class="buyBox">
 					<ul>
-						<li style="text-align: left;width: 10%;">
+						<li style="text-align: left;width: 10%;" class="shopping">
 							<span style="width: 30px;height: 30px;background: url(../img/navImg/news.png) no-repeat;background-size: 100% 100%;">
 								<m class="shoppingCartBagnum"></m>
 							</span>
 						</li>
-						<li id="toStopCart" class="toStopCart">加入购物车</li>
+						<li id="toStopCart" class="toStopCart">加入购物袋</li>
 						<li id="buy_now" class="buy_now">立即购买</li>
 					</ul>
 				</div>
@@ -791,10 +791,12 @@
 					}
 	
 				}
-			
-
 		})
-
+        /*   进去购物车     */
+        $(".shopping").click(function(event){
+	       	event.stopPropagation();
+	       	location.href="shopCart.html"
+        })
 		/* 特色服务   */
 		$.ajax({
 			type: "GET",
@@ -836,7 +838,6 @@
 
 		$(function() {
 			//获取商品id
-
 			//设置遮罩层的宽高
 			$(".shade_box").width($(window).width()).height($(window).height());
 

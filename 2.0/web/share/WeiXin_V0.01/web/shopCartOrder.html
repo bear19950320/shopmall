@@ -428,7 +428,7 @@
 				<div id="password">
 					<a style="font-size: 16px;" href="javascript:;">订单支付</a>
 					<p>
-						<a href="javascript:;" id="Prict">¥</a>
+						<a href="javascript:;" id="Prict"></a>
 					</p>
 					<div>
 						<div class="ipt-box-nick">
@@ -482,7 +482,7 @@
 					<span id="cashMuch">余额<span style="color:#FF0000"></span></span>
 				</div>
 				<div class="PayTitle">
-					<span style="background: url(../img/icon/daijin@2x.png)no-repeat;background-size:contain;padding-left: 20px;">使用呔金</span>
+					<span id="TieBack" style="background: url(../img/icon/daijin@2x.png)no-repeat;background-size:contain;padding-left: 20px;">使用呔金</span>
 					<span id="TieMoney">
 						<div id="div3" class="close1" style="width: 40px;height: 20px;border-radius: 50px;position: relative;">
 							<div id="div4" class="close2" style="width: 20px;height: 18px;border-radius: 48px;position: absolute;background: white;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);"></div>
@@ -704,11 +704,7 @@
 					m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html())
 					//m += Number($(".all_price").eq(i).html()) 
 				}
-				console.log("运费" + freightMoney)
-				console.log(TieMoney + "非自营" + cash)
-
-				console.log("钱" + parseInt(m))
-				console.log("云仓ID" + form == "云仓")
+		
 
 				$("#freight").text(n);
 				if(form == "云仓") {
@@ -716,7 +712,7 @@
 				} else if(form == "订单") {
 					$("#Paid").text(m);
 				}
-
+               
 				if(TieMoney > 0 && cash > 0) {
 					$("#div1").attr("class", "open1");
 					$("#div2").attr("class", "open2");
@@ -725,6 +721,7 @@
 				} else if(cash > 0 && TieMoney <= 0) {
 					$("#div3").attr("class", "close1");
 					$("#div4").attr("class", "close2");
+					$("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
 					$("#div1").attr("class", "open1");
 					$("#div2").attr("class", "open2");
 					$("#div3,#div4").click(function() {
@@ -737,15 +734,18 @@
 					$("#div3").attr("class", "open1");
 					$("#div4").attr("class", "open2");
 				}
-				if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0)
-					if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0) {
-						$("#div1").attr("class", "open1");
-						$("#div2").attr("class", "open2");
-						$("#div2,#div1").click(function() {
-							alert("呔金不能支付其他费用")
-							return false;
-						});
-					}
+				if(TieMoney > Number(sessionStorage.getItem("TieMuch")) || n > 0) {
+					$("#div1").attr("class", "open1");
+					$("#div2").attr("class", "open2");
+					$("#div2,#div1").click(function() {
+						alert("呔金不能支付其他费用")
+						return false;
+					});
+				}
+				if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
+                	$("#div1,#div3").attr("class", "close1");
+                	$("#div2,#div4").attr("class", "close2");
+                }
 				$("#TieMoney #div3").click(function() {
 					var div4 = document.getElementById("div3");
 					var div3 = document.getElementById("div4");
@@ -791,12 +791,13 @@
 					$("#div2").attr("class", "open2");
 					$("#div3").attr("class", "close1");
 					$("#div4").attr("class", "close2");
+					$("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
 					$("#div2,#div1,#div4,#div3").click(function() {
 						alert("云仓提货请支付运费")
 						return false;
 					})
 				}
-
+ 				
 				function GetJsonData() {
 					var jsons = [];
 					var n = [];
@@ -811,7 +812,11 @@
 					}
 					var nu = ''
 					for(var i = 0; i < $("#orderUl>li").length; i++) {
-						nu += $("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId") + ',';
+						if($("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId")!="undefined"){
+							nu += $("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId") + ',';
+						}else{
+							nu+=''
+						}
 					}
 					nu = nu.slice(0, -1)
 					var orderType, content;
@@ -892,7 +897,7 @@
 												} else if(data.data.result == true) {
 													var orderCode = data.data.orderCode;
 													$("#confirmCon").attr("orderid", orderCode);
-													$("#Prict").append(parseInt($("#Paid").text()).toFixed(2));
+													$("#Prict").text("¥"+parseInt($("#Paid").text()).toFixed(2))
 													$(".fixed").show();
 													$("#name").prepend($(".classifyListText").text());
 													$("#num").text($("#Paid").text())
@@ -977,7 +982,8 @@
 						if(len == 6) {
 
 							if(sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
-								alert("金额不足")
+								alert("金额不足支付订单,请下载app完成支付")
+								location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 							} else {
 								$.ajax({
 									type: "GET",

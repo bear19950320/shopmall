@@ -122,7 +122,6 @@
 						var subjectlist = data.data.subjectlist;
 						$("#subjectlist").empty();
 						for(var i = 0; i < subjectlist.length; i++) {
-
 							if(subjectlist[i].templet == "0") {
 								/* 模板 1B */
 								$("#subjectlist").append('<div class="special1" id=' + subjectlist[i].bannerId + '>' +
@@ -160,7 +159,7 @@
 										sessionStorage.setItem("TowareId", '')
 										var TowareId = $(this).attr("class");
 										sessionStorage.setItem("TowareId", TowareId);
-										window.location.href = "./web/detailsdemo.html?wareId=" + $(this).attr("id");
+										window.location.href = "./web/detailsdemo.html?wareId=" + TowareId;
 									})
 
 									$(".share").click(function(event) {
@@ -182,8 +181,9 @@
 									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
+										
 										sessionStorage.setItem("TowareId", TowareId);
-										window.location.href = "web/detailsdemo.html?wareId=" + $(this).attr("id");
+										window.location.href = "web/detailsdemo.html?wareId=" + TowareId;
 									})
 								}
 							} else if(subjectlist[i].templet == "2") {
@@ -222,8 +222,9 @@
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										sessionStorage.setItem("TowareId", '')
 										var TowareId = $(this).attr("class");
+									
 										sessionStorage.setItem("TowareId", TowareId);
-										window.location.href = "./web/detailsdemo.html?wareId=" + $(this).attr("id");
+										window.location.href = "./web/detailsdemo.html?wareId=" + TowareId;
 									})
 									$(".share").click(function(event) {
 										event.stopPropagation();
@@ -258,8 +259,9 @@
 									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
+										
 										sessionStorage.setItem("TowareId", TowareId);
-										window.location.href = "web/detailsdemo.html?wareId=" + $(this).attr("id");
+										window.location.href = "web/detailsdemo.html?wareId=" + TowareId;
 									})
 								}
 							} else if(subjectlist[i].templet == "4") {
@@ -277,7 +279,8 @@
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										sessionStorage.setItem("TowareId", TowareId);
-										window.location.href = "web/detailsdemo.html";
+										
+										window.location.href = "web/detailsdemo.html?wareId=" +TowareId;
 									})
 								}
 							}
@@ -457,7 +460,7 @@
 									sessionStorage.setItem("TowareId", '')
 									var TowareId = $(this).attr("class");
 									sessionStorage.setItem("TowareId", TowareId);
-									window.location.href = "./web/detailsdemo.html?wareId=" + $(this).attr("id")
+									window.location.href = "./web/detailsdemo.html?wareId=" + TowareId
 								})
 								$(".share").click(function(event) {
 									event.stopPropagation();
@@ -479,8 +482,9 @@
 								$("." + subjectlist[i].choiceWare[j].wareId).click(function(event) {
 									event.stopPropagation();
 									var TowareId = $(this).attr("class");
+								
 									sessionStorage.setItem("TowareId", TowareId);
-									window.location.href = "web/detailsdemo.html?wareId=" + $(this).attr("id")
+									window.location.href = "web/detailsdemo.html?wareId=" + TowareId
 								})
 							}
 						} else if(subjectlist[i].templet == "2") {
@@ -520,8 +524,9 @@
 									event.stopPropagation();
 									sessionStorage.setItem("TowareId", '')
 									var TowareId = $(this).attr("class");
+									
 									sessionStorage.setItem("TowareId", TowareId);
-									window.location.href = "./web/detailsdemo.html?wareId=" + $(this).attr("id")
+									window.location.href = "./web/detailsdemo.html?wareId=" +TowareId
 								})
 								$(".share").click(function(event) {
 									event.stopPropagation();
@@ -556,8 +561,9 @@
 								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 								$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 									var TowareId = $(this).attr("class");
+									
 									sessionStorage.setItem("TowareId", TowareId);
-									window.location.href = "web/detailsdemo.html?wareId=" + $(this).attr("id")
+									window.location.href = "web/detailsdemo.html?wareId=" + TowareId
 								})
 							}
 						} else if(subjectlist[i].templet == "4") {
@@ -574,8 +580,9 @@
 								$("." + subjectlist[i].choiceWare[j].wareId).click(function(event) {
 									event.stopPropagation();
 									var TowareId = $(this).attr("class");
+									
 									sessionStorage.setItem("TowareId", TowareId);
-									window.location.href = "web/detailsdemo.html?wareId=" + $(this).attr("id")
+									window.location.href = "web/detailsdemo.html?wareId=" + TowareId
 								})
 							}
 						}

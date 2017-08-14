@@ -257,6 +257,9 @@
 								alert(data.msg);
 								location.href = "login.html"
 								/* 这里到时候 跳到个人中心   */
+							}else if(data.code==10000){
+								mask("注册成功");
+								location.href = "login.html"
 							}
 						},
 						error: function() {
