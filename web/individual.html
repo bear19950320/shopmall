@@ -149,17 +149,17 @@
 							if(user.toSendTheGoodNum>9){
 								user.toSendTheGoodNum="9+"
 							}else if(user.toSendTheGoodNum<=0){
-								$("#Unpaid").find("m").hide();
+								$("#Ready").find("m").hide();
 							}
 							if(user.waitForReceivingNum>9){
 								user.waitForReceivingNum="9+"
 							}else if(user.waitForReceivingNum<=0){
-								$("#Unpaid").find("m").hide();
+								$("#Collect").find("m").hide();
 							}
 							if(user.afterSale>9){
 								user.afterSale="9+"
 							}else if(user.afterSale<=0){
-								$("#Unpaid").find("m").hide();
+								$("#CService").find("m").hide();
 							}
 							$("#Unpaid").find("m").text(user.obligationNum);
 							$("#Ready").find("m").text(user.toSendTheGoodNum);

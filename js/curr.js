@@ -291,6 +291,8 @@ function outlogin() {
 		crossDomain: true,
 		success: function(data) {
 			if(data.code == 10000) {
+				localStorage.setItem("cutomerId"," ")
+				localStorage.setItem("loginStatus"," ")
                  location.href="./login.html"
 			}
 		}

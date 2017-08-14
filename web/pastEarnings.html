@@ -267,8 +267,8 @@
 					success: function(data) {
 							
 						if(data.code == 10000) {
-							$("#Mon").append(parseInt(data.data.cashMoneyTotal).toFixed(2));
-							$("#Tie").append(parseInt(data.data.stayMoneyTotal).toFixed(2))
+							$("#Mon").append(data.data.cashMoneyTotal);
+							$("#Tie").append(data.data.stayMoneyTotal)
 							var data = data.data.WalletLogoVoList;
 							if(typeof data == 'object') {
 								var oProduct, $row, iHeight, iTempHeight;
