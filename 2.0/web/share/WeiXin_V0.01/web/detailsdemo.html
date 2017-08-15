@@ -145,9 +145,10 @@
 				background-color: #F7F7F7;
 			}*/
 			
-			#buy_now {
+			#buy_now,#NoBuy {
 				background-color: #DC210D;
 			}
+
 			/*规格*/
 			
 			.specificationsBox {
@@ -784,9 +785,12 @@
 					window.location.href = "submit_order.html?wareId=" + $(this).attr('wareid') + "&buyNumBox=" + $(".buyNumBox").text() + "&spceId=" + $(".guigeChoose").attr("id")
 				} else if($(this).attr("type") == 1) {
 					for(var i = 0; i < $(".specificationsUl0 li").length; i++) {
+					    console.log($(".specificationsUl0 .guigeChoose").eq(i).attr("name"))
 						if($(".specificationsUl0 .guigeChoose").eq(i).attr("name") == "yes") {
 							sessionStorage.setItem("bodyId", "0");
 							window.location.href = "submit_order.html?wareId=" + $(this).attr('wareid') + "&buyNumBox=" + $(".buyNumBox").text() + "&spceId=" + $(".guigeChoose[name='yes']").attr("id");
+						}else{
+                            $(this).attr("id","NoBuy")
 						}
 					}
 	
@@ -1182,7 +1186,8 @@
 						} else {
 							return false;
 						}
-					})
+
+					});
 					//数量减少
 					$(".reducNum").click(function() {
 						var buyNum = $(".buyNumBox:eq(0)").text();
@@ -1202,8 +1207,8 @@
 							if($(this).text() == "立即购买") {
 								if($(".chooseText").text() != "") {
 									//跳转到订单页面
-									$(".buy_now").wrap("<a></a>");
-									$(".buy_now").parent().prop("href", "submit_order.html?wareId=" + data.data.wareInfo.wareId + "&buyNumBox=" + $(".buyNumBox").text());
+//									$(".buy_now").wrap("<a></a>");
+//									$(".buy_now").parent().prop("href", "submit_order.html?wareId=" + data.data.wareInfo.wareId + "&buyNumBox=" + $(".buyNumBox").text());
 								} else {
 									//执行弹出选择规格的界面
 									$(".shade_box").fadeIn();
