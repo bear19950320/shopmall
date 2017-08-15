@@ -60,7 +60,7 @@
 				<label class="allPrice">￥</label>
 			</div>
 			<div class="footer_right">
-				<p>确认收货</p>
+				<p class="confirmReceipt">确认收货</p>
 			</div>
 		</footer>
 		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
@@ -100,6 +100,7 @@
 					} else if(data.code == 10000) {
 						var data = data.data.orderinfo;
 						var ware = data.orderWareList;
+						$(".confirmReceipt").attr("orderId",data.orderId);
 						var express = data.expressContext
 						$(".name_colo").text(data.receiveCustomer + "  " + data.receivePhone);
 						$(".time_color").text(data.receiveProvince + data.receiveCity + data.receiveArea + data.receiveAddress)
@@ -206,6 +207,49 @@
 					}
 				}
 			});
+			/*-----------------------分割线----------------------------*/
+            //确认收货
+            $(".confirmReceipt").click(function (e) {
+                e.stopPropagation();
+                $.ajax({
+                    type: "POST",
+                    url: testurl + "/api/order/confirmorder",
+                    dataType: "json",
+                    data: {
+                        platform: "2",
+                        cutomerId: localStorage.getItem("cutomerId"),
+                        orderId:$(this).attr("orderId")
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    async: true,
+                    beforeSend: function(XMLHttpRequest) {
+                        loadImg();
+                    },
+                    success: function(data){
+                        if(data.code==10000){
+                            sessionStorage.setItem("orderCode", "400");
+                            location.href = "../../web/order.html"
+                        }
+                    },
+                    complete: function(XMLHttpRequest, textStatus) {
+                        $("#loadImg").remove();
+                    },
+                    error: function(data) {
+                        if(data.status == "404") {
+                            alert('请求地址出错！');
+                        } else if(data.status == "302") {
+                            alert('连接网页出错');
+                        } else if(data.status == "timeout") {
+                            alert("请求超时!");
+                        } else {
+                            alert('服务器出差了~！');
+                        }
+                    }
+                });
+            });
 		</script>
 	</body>
 
