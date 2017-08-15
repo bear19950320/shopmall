@@ -34,16 +34,16 @@ li{
 
 .icon-subunselected:before { content: "\e600"; }
 
-form{
+.zhuyecon{
 	width: 100%;
 	height: auto;
 	background: #FFFFFF;
 }
-form>ul{
+.zhuyecon>ul{
 	width: 100%;
 	height: auto;
 }
-form>ul>li{
+.zhuyecon>ul>li{
 	width: 100%;
 	height: auto;
 	padding: 10px;
@@ -51,30 +51,31 @@ form>ul>li{
 	font-size: 0;
 	border-bottom: 1px solid #F1F1F1;
 }
-form>ul>li>p{
+.zhuyecon>ul>li>p{
 	display: inline-block;
 	width: 50%;
 	font-size: 14px;
 	color: #9B9B9B;
 	vertical-align: middle;
 }
-form>ul>li>p>input,form>ul>li>p>span{
+.zhuyecon>ul>li>p>input,.zhuyecon>ul>li>p>span{
 	display: inline-block;
 	vertical-align: middle;
 }
-form>ul>li>p>input{
+.zhuyecon>ul>li>p>input{
 	width: 70%;
 	text-overflow: ellipsis;
 	border: none;
 	text-align: right;
 }
-form>ul>li>p:first-child{
+.zhuyecon>ul>li>p:first-child{
 	text-align: left;
 }
-form>ul>li>p:last-child{
-	text-align: right;
+.zhuyecon>ul>li>p:last-child{
+	text-align: left;
 }
-form>ul>li>p:last-child>span{
+.zhuyecon>ul>li>p:last-child>span{
+	float: right;
 	font-size: 13px;
 }
 #submit{

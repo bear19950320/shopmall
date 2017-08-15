@@ -216,11 +216,9 @@
             // 当滚动到最底部以上100像素时， 加载新内容
             if($(document).height() - $(this).scrollTop() - $(this).height() == 0) {
                 if($(".li_cjig").css("display")!="none"){
-                    alert("142")
                     orderDown();
 				}
                if($(".li_coen").css("display")!="none"){
-                    alert("li_coen")
                    orderOver();
                }
 
