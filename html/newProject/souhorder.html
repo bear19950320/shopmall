@@ -79,12 +79,19 @@
 				position: relative;
 				float: left;
 			}
+			.li_min>li:after{
+				display: block;
+				content: "";
+				clear: both;
+			}
+			.li_min>li{
+				margin: 10px 0;
+			}
 			.img_head{
 				width: 50px;
 				height: 50px;
 				position: absolute;
 				left: 10px;
-				top: 10px;
 			}
 			.img_head>img{
 				width: 100%;
@@ -177,81 +184,19 @@
 		</header>
 		<div class="bg_div"></div>
 		<section class="con li_cjig">
-			<ul>
-				<li>
-					<p class="li_h">订单编号：YC14314354413654</p>
-					<div class="li_min">
-						<div class="img_head">
-							<img src="../../img/bg@3x.png" />
-						</div>
-						<div class="li_con">
-							<p>澳洲进口Swisse液体胶原蛋白</p>
-							<label>规格：500ml瓶</label>
-						</div>
-					</div>
-					<div class="li_min2">
-						<label class="cone">共1件商品</label>
-						<label class="cone">实付款：</label>
-						<label class="ctwo">￥128.0</label>
-						<label class="cone">(含运费:￥0)</label>
-					</div>
-					<div class="li_b">
-						<p>售后处理状态：<label>待处理</label></p>
-						<p>2017-06-06 10:16:28</p>
-					</div>
-				</li>
-				<li>
-					<p class="li_h">订单编号：YC14314354413654</p>
-					<div class="li_min">
-						<div class="img_head">
-							<img src="../../img/bg@3x.png" />
-						</div>
-						<div class="li_con">
-							<p>澳洲进口Swisse液体胶原蛋白</p>
-							<label>规格：500ml瓶</label>
-						</div>
-					</div>
-					<div class="li_min2">
-						<label class="cone">共1件商品</label>
-						<label class="cone">实付款：</label>
-						<label class="ctwo">￥128.0</label>
-						<label class="cone">(含运费:￥0)</label>
-					</div>
-					<div class="li_b">
-						<p>售后处理状态：<label>待处理</label></p>
-						<p>2017-06-06 10:16:28</p>
-					</div>
-				</li>
+			<ul id="li_cjig">
 			</ul>
 		</section>
 		<section class="con li_coen">
-			<ul>
-				<li>
-					<p class="li_h">订单编号：YC14314354413654</p>
-					<div class="li_min">
-						<div class="img_head">
-							<img src="../../img/bg@3x.png" />
-						</div>
-						<div class="li_con">
-							<p>澳洲进口Swisse液体胶原蛋白</p>
-							<label>规格：500ml瓶</label>
-						</div>
-					</div>
-					<div class="li_min2">
-						<label class="cone">共1件商品</label>
-						<label class="cone">实付款：</label>
-						<label class="ctwo">￥128.0</label>
-						<label class="cone">(含运费:￥0)</label>
-					</div>
-					<div class="li_b">
-						<p>售后处理状态：<label>待处理</label></p>
-						<p>2017-06-06 10:16:28</p>
-					</div>
-				</li>
+			<ul id="li_coen">
 			</ul>
 		</section>
 	</body>
+	<script src="../../js/curr.js"></script>
 	<script>
+        function loadImg() {
+            $("body").append('<img id="loadImg" src="../../img/ajax-loader.gif" width="48" height="48" alt="" style="position: fixed;top:50%;margin-top: -24px;left:50%;margin-left: -24px;"/>')
+        }
 		$('header>ul>li').each(function(){
 			$(this).on('click',function(){
 				$(this).css({"color":"red","border-bottom":"1px solid red"});
@@ -264,6 +209,225 @@
 					$('.li_coen').css('display','block');
 				} 
 			})
-		})
+		});
+        orderDown();
+        orderOver();
+        $(window).scroll(function() {
+            // 当滚动到最底部以上100像素时， 加载新内容
+            if($(document).height() - $(this).scrollTop() - $(this).height() == 0) {
+                if($(".li_cjig").css("display")!="none"){
+                    alert("142")
+                    orderDown();
+				}
+               if($(".li_coen").css("display")!="none"){
+                    alert("li_coen")
+                   orderOver();
+               }
+
+            }
+        });
+		var dataCount=0;
+		function orderDown() {
+           $.ajax({
+               type: "GET",
+               url: testurl + "/api/order/findaftersalestate",
+               dataType: "json",
+               data: {
+                   platform: "2",
+                   cutomerId: localStorage.getItem("cutomerId"),
+                   aftersaleState: 1,
+                   pageId:dataCount,
+                   pageSize:10
+               },
+               xhrFields: {
+                   withCredentials: true
+               },
+               crossDomain: true,
+               async: true,
+               beforeSend: function(XMLHttpRequest) {
+                   loadImg();
+               },
+               success: function(data) {
+                   var data=data.data.orderVosList;
+                   if(typeof data == 'object') {
+                       var oProduct, $row, iHeight, iTempHeight;
+                       for(var i = 0, l = data.length; i < l; i++) {
+                           oProduct = data[i];
+                           // 找出当前高度最小的列, 新内容添加到该列
+                           iHeight = -1;
+                           $("#li_cjig li").each(function() {
+                               iTempHeight = Number($(this).height());
+                               if(iHeight == -1 || iHeight > iTempHeight) {
+                                   iHeight = iTempHeight;
+                                   $row = $(this);
+                               }
+                           });
+                           if(data.length != 0) {
+								   for(var i=0;i<data.length;i++){
+									   $("#li_cjig").append('<li>\
+										   <p class="li_h">订单编号：'+data[i].orderCode+'</p>\
+									   <div class="li_min" id="ware'+data[i].orderId+'">\
+									   </div>\
+									   <div class="li_min2">\
+										   <label class="cone">共'+data[i].orderWareList.length+'件商品</label>\
+										   <label class="cone">实付款：</label>\
+									   <label class="ctwo">￥'+data[i].orderTotal+'</label>\
+									   <label class="cone">(含运费:￥'+data[i].orderFreight+')</label>\
+									   </div>\
+									   <div class="li_b">\
+										   <p>售后处理状态：<label>待处理</label></p>\
+									   <p>'+data[i].createTime+'</p>\
+									   </div>\
+									   </li>');
+									   for(var j=0;j<data[i].orderWareList.length;j++){
+										   var name="",value="";
+										   if(data[i].orderWareList[j].orderWareSkuitems!=""){
+											   name=data[i].orderWareList[j].orderWareSkuitems[0].name
+										   }
+										   if(data[i].orderWareList[j].orderWareSkuitems!=""){
+											   value=data[i].orderWareList[j].orderWareSkuitems[0].value
+										   }
+										 $("#ware"+data[i].orderId).append('<li id="'+data[i].orderWareList[j].wareId+'"><div class="img_head">\
+												   <img src="'+data[i].orderWareList[j].wareImage+'" />\
+												   </div>\
+												   <div class="li_con">\
+												   <p>'+data[i].orderWareList[j].wareName+'</p>\
+												   <label>'+name+':'+value+'</label>\
+											   </div></li>');
+										 /*售后订单跳转到商品详情 */
+										 $("#"+data[i].orderWareList[j].wareId).click(function (event) {
+											 event.stopPropagation();
+											 location.href="../../web/detailsdemo.html?wareId="+$(this).attr("id")
+                                         })
+
+									   }
+								   }
+                               dataCount++;
+                           }
+                           //					$row.append($item);
+                           $("#li_cjig li").fadeIn(1000);
+                       }
+                   }
+
+               },
+               complete: function(XMLHttpRequest, textStatus) {
+                   $("#loadImg").remove();
+               },
+               error: function(data) {
+                   if(data.status == "404") {
+                       alert('请求地址出错！');
+                   } else if(data.status == "302") {
+                       alert('连接网页出错');
+                   } else if(data.status == "timeout") {
+                       alert("请求超时!");
+                   } else {
+                       alert('服务器出差了~！');
+                   }
+               }
+           });
+       }
+        var dataCountCode=0;
+        function orderOver() {
+            $.ajax({
+                type: "GET",
+                url: testurl + "/api/order/findaftersalestate",
+                dataType: "json",
+                data: {
+                    platform: "2",
+                    cutomerId: localStorage.getItem("cutomerId"),
+                    aftersaleState:2,
+                    pageId:dataCountCode,
+                    pageSize:10
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                async: true,
+                beforeSend: function(XMLHttpRequest) {
+                    loadImg();
+                },
+                success: function(data) {
+                    var data=data.data.orderVosList;
+                    if(typeof data == 'object') {
+                        var oProduct, $row, iHeight, iTempHeight;
+                        for(var i = 0, l = data.length; i < l; i++) {
+                            oProduct = data[i];
+                            // 找出当前高度最小的列, 新内容添加到该列
+                            iHeight = -1;
+                            $("#li_coen li").each(function() {
+                                iTempHeight = Number($(this).height());
+                                if(iHeight == -1 || iHeight > iTempHeight) {
+                                    iHeight = iTempHeight;
+                                    $row = $(this);
+                                }
+                            });
+                            if(data.length != 0) {
+                                for(var i=0;i<data.length;i++){
+                                    $("#li_coen").append('<li>\
+										   <p class="li_h">订单编号：'+data[i].orderCode+'</p>\
+									   <div class="li_min" id="ware'+data[i].orderId+'">\
+									   </div>\
+									   <div class="li_min2">\
+										   <label class="cone">共'+data[i].orderWareList.length+'件商品</label>\
+										   <label class="cone">实付款：</label>\
+									   <label class="ctwo">￥'+data[i].orderTotal+'</label>\
+									   <label class="cone">(含运费:￥'+data[i].orderFreight+')</label>\
+									   </div>\
+									   <div class="li_b">\
+										   <p>售后处理状态：<label>待处理</label></p>\
+									   <p>'+data[i].createTime+'</p>\
+									   </div>\
+									   </li>');
+                                    for(var j=0;j<data[i].orderWareList.length;j++){
+                                        var name="",value="";
+                                        if(data[i].orderWareList[j].orderWareSkuitems!=""){
+                                            name=data[i].orderWareList[j].orderWareSkuitems[0].name
+                                        }
+                                        if(data[i].orderWareList[j].orderWareSkuitems!=""){
+                                            value=data[i].orderWareList[j].orderWareSkuitems[0].value
+                                        }
+                                        $("#ware"+data[i].orderId).append('<li id="'+data[i].orderWareList[j].wareId+'"><div class="img_head">\
+												   <img src="'+data[i].orderWareList[j].wareImage+'" />\
+												   </div>\
+												   <div class="li_con">\
+												   <p>'+data[i].orderWareList[j].wareName+'</p>\
+												   <label>'+name+':'+value+'</label>\
+											   </div></li>');
+										/*售后订单跳转到商品详情 */
+                                        $("#"+data[i].orderWareList[j].wareId).click(function (event) {
+                                            event.stopPropagation();
+                                            location.href="../../web/detailsdemo.html?wareId="+$(this).attr("id")
+                                        })
+                                    }
+                                }
+                                dataCountCode++;
+                            }
+                            //					$row.append($item);
+                            $("#li_coen li").fadeIn(1000);
+                        }
+                    }
+
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    $("#loadImg").remove();
+                },
+                error: function(data) {
+                    if(data.status == "404") {
+                        alert('请求地址出错！');
+                    } else if(data.status == "302") {
+                        alert('连接网页出错');
+                    } else if(data.status == "timeout") {
+                        alert("请求超时!");
+                    } else {
+                        alert('服务器出差了~！');
+                    }
+                }
+            });
+        }
+
+
+
+
 	</script>
 </html>
