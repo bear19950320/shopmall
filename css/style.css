@@ -131,11 +131,19 @@ padding: 10px 0 0 0;
 	width: 33%;
 	float: left;
 	text-align: center;
-	
+	height: 34px;
 }
+
 #colorbagNumber>ul>li>a{
-	color:#fff;
+	display: block;
+	height: 100%;
+	line-height: 34px;
+	color:#9B9B9B;
 	text-decoration: none;
+}
+#colorbagNumber>ul>li:first-child>a{
+	border-bottom: 2px solid red;
+	color: red;
 }
 #recommendCenter:after{
 	display: block;

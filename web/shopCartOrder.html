@@ -131,12 +131,12 @@
 			#map {
 				display: block;
 				width: 100%;
-				border-bottom: 2px solid red;
+				border-bottom: 1px solid red;
 			}
 			
 			.background_color_two {
 				width: 96%;
-				padding: 0 2%;
+				padding: 10px 2%;
 			}
 			
 			.font_size_two {
@@ -148,8 +148,6 @@
 			}
 			
 			.classifyListText {
-				padding-top: 5px;
-				line-height: 18px;
 				text-align: left;
 				font-size: 16px;
 				width: 100%;
@@ -158,6 +156,7 @@
 				display: -webkit-box;
 				-webkit-line-clamp: 2;
 				-webkit-box-orient: vertical;
+				margin-top: 0;
 			}
 			
 			.describe p {
@@ -397,6 +396,7 @@
 			
 			.orderAlt {
 				font-size: 14px !important;
+				float: left;
 			}
 			
 			.orderUp {
@@ -567,11 +567,11 @@
 								$("#ware" + ster[i]).attr("support", con[i][j].supportType);
 
 								$("#" + ster[i]).append('<li waraId="' + con[i][j].skuid + '" wareId="' + con[i][j].wareId + '" shopcartId="' + con[i][j].shopcartId + '">\
-			      		    		      <div class="storeWare">\
+			      		    		      <div style="float: left;" class="storeWare">\
 						      		    	<img class="wareImg" src="' + con[i][j].wareImg + '" alt="" />\
-						      		    	<div class="wareText">\
-						      		    		<p class="classifyListText left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;line-height: 20px;">' + con[i][j].wareName + '</span><span style="width:35%;text-align: right;font-size: 14px;">¥<span class="Part">' + con[i][j].warePart + '</span></span></p>\
-						      		    	    <div class="spec left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;"><span id=' + con[i][j].skuitemId + '>' + con[i][j].skuitem + '</span></span><span style="width:35%;text-align: right;font-size: 14px;">数量:<span class="num">' + con[i][j].wareNum + '</span></span></div>\
+						      		    	<div style="float: left;" class="wareText">\
+						      		    		<p style="position: relative;" class="classifyListText left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;line-height: 20px;">' + con[i][j].wareName + '</span><span style="width:35%;text-align: right;font-size: 14px;position: absolute;top: 3px;">¥<span class="Part">' + con[i][j].warePart + '</span></span></p>\
+						      		    	    <div style="position: relative;" class="spec left"><span style="width: 60%;height:20px;overflow: hidden;font-size: 14px;"><span id=' + con[i][j].skuitemId + '>' + con[i][j].skuitem + '</span></span><span style="width:35%;text-align: right;font-size: 14px;position: absolute;bottom: 10px;">数量:<span class="num">' + con[i][j].wareNum + '</span></span></div>\
 						      		    	</div>\
 						      		    </div>\
 				      		    	</li>')
