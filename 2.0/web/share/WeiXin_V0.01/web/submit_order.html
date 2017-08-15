@@ -948,7 +948,7 @@
 					if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
 	                	$("#div1,#div3").attr("class", "close1");
 	                	$("#div2,#div4").attr("class", "close2");
-	                	alert("金额不足支付订单,请下载app完成支付")
+	                	alert("金额不足支付订单,请下载app完成支付");
 						location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 	                }else{
 	                	alert("至少选择一种支付方式");
