@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="font-size: 10px;">
+<html style="font-size: 10px;font-weight: normal;">
 
 	<head>
 		<meta charset="utf-8">
@@ -12,6 +12,7 @@
 		<!-- C T -->
 		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
 		<link rel="stylesheet" type="text/css" href="../css/swiper.css" />
+		
 	</head>
 
 	<body style="background: #fff;">
@@ -65,17 +66,17 @@
 				</div>
 			</li>
 			<li id="color" style="display: none;">
-				<div style="width:100%;height:34px;background: red;position: relative;">
-					<div id="colorbagNumber" style="width:100%;padding:10px 0;background: #918E8F;position: absolute;bottom: 0;">
+				<div style="width:100%;height:34px;background: red;position: relative;border-bottom: 1px solid #F1F1F1;background: #FFFFFF;color: #9B9B9B;">
+					<div id="colorbagNumber" style="width:100%;height:34px;position: absolute;bottom: 0;">
 						<ul>
 							<li>
-								<a href="javascript:;">未发彩包 :<span id="total" style="color:#fff"></span></a>
+								<a href="javascript:;">未发彩包 :<span id="total"></span></a>
 							</li>
 							<li>
-								<a href="javascript:;">领取中 <span id="Receipt" style="color:#fff"></span></a>
+								<a href="javascript:;">领取中 <span id="Receipt"></span></a>
 							</li>
 							<li>
-								<a href="javascript:;">结束 :<span id="over" style="color:#fff"></span></a>
+								<a href="javascript:;">结束 :<span id="over"></span></a>
 							</li>
 						</ul>
 					</div>
@@ -88,7 +89,7 @@
 					</div>
 				</div>
 				<div id="myColorbag">
-					<div id="colorbagNumber" style="width: 100%;padding:10px 0;background: #F2F2F2;text-align: center;color:#666;">
+					<div id="colorbagNumber" style="width: 100%;padding:10px 0;background: #FFFFFF;text-align: center;color:#666;">
 						<font>我的彩包</font>
 					</div>
 					<ul id="myColorbagCenter"></ul>
@@ -108,7 +109,7 @@
 							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
 						</svg>
 					</div>
-					<div id="recommendCenter">
+					<div id="recommendCenter" style="float: left;">
 						<!--轮播图-->
 						<div class="banner" style="overflow: hidden;">
 							<!--轮播图-->
@@ -708,12 +709,24 @@
 					}
 				});
 				$("#total").click(function() {
+					$(this).parent().css({'color':'red','border-bottom':'2px solid red'})
+					$(this).css('color','red')
+					$(this).parent().parent().siblings('li').find('span').css('color','#9b9b9b')
+					$(this).parent().parent().siblings('li').find('a').css({'color':'#9b9b9b','border-bottom':'none'})
 					colorBig(100)
 				})
 				$("#Receipt").click(function() {
+					$(this).parent().css({'color':'red','border-bottom':'2px solid red'})
+					$(this).css('color','red')
+					$(this).parent().parent().siblings('li').find('span').css('color','#9b9b9b')
+					$(this).parent().parent().siblings('li').find('a').css({'color':'#9b9b9b','border-bottom':'none'})
 					colorBig(200)
 				})
 				$("#over").click(function() {
+					$(this).parent().css({'color':'red','border-bottom':'2px solid red'})
+					$(this).css('color','red')
+					$(this).parent().parent().siblings('li').find('span').css('color','#9b9b9b')
+					$(this).parent().parent().siblings('li').find('a').css({'color':'#9b9b9b','border-bottom':'none'})
 					colorBig(400)
 				})
 				$("#mass").click(function() {

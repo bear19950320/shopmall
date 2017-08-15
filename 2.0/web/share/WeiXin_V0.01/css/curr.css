@@ -76,6 +76,7 @@
 	line-height: 1;
 	font-size: 12px;
 	font-family: "-apple-system,Helvetica,sans-serif";
+	font-weight: normal;
 }
 red{
 	color:#FF0000;
@@ -755,10 +756,11 @@ body {
 	width: 40%;
 	position: absolute;
 	top:100px;
-	left:30%;
-	text-align: left;
+	left:50%;
+	text-align: center;
 	font-size: 12px;
 	color: #fff;
+	transform: translateX(-50%);
 }
 
 #myMall {
@@ -1423,7 +1425,7 @@ body {
 	height:20px;
 	padding: 5px 0;
 	background: #fff;
-	line-height: 20px;
+	line-height: 23px;
 }
 
 #addcolorbag{
