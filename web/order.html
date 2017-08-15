@@ -128,13 +128,14 @@
 							      		       	共' + data[i].orderWareList.length + '件商品，合计' + data[i].orderTotal + '.00(含运费' + data[i].orderFreight + '.00)\
 							      		    </div>\
 							      		    <div class="orderAlt">\
-							      		    <a href="javascript:;" class="afterSale" style="float: left">申请售后</a>\
-											<span class="left remarks" style="float:left;width:60%;overflow: hidden;">备注:<red>' + data[i].orderRemarks + '</red></span><a href="javascript:;" class="viewLogistics"  expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'">查看物流</a> <a href="javascript:;" class="payment" expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'" id="'+ data[i].orderId +'"></a>\
+							      		    <a href="javascript:;" class="afterSale" style="float: left" orderId="'+data[i].orderId+'" money="'+data[i].orderTotal+'">申请售后</a>\
+											<span class="left remarks" style="float:left;width:60%;overflow: hidden;">备注:<red>' + data[i].orderRemarks + '</red></span><a href="javascript:;" class="viewLogistics"  expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'">物流信息</a> <a href="javascript:;" class="payment" expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'" id="'+ data[i].orderId +'"></a>\
 											<a href="javascript:;" class="confirmReceipt" orderId="'+data[i].orderId+'" >确认收货</a>\
+											<a href="javascript:;" class="again" orderId="'+data[i].orderId+'" >再次购买</a>\
 							      		    </div>\
 							      		</li>');
 										for(var j = 0; j < data[i].orderWareList.length; j++) {
-											$("#" + data[i].orderCode).append('<li>\
+											$("#" + data[i].orderCode).append('<li wareId="'+data[i].orderWareList[j].wareId+'" skuId="'+data[i].orderWareList[j].wareSkuid+'">\
 					      		    		      <div class="storeWare">\
 								      		    	<img class="wareImg" src="' + data[i].orderWareList[j].wareImage + '" alt="" />\
 								      		    	<div class="wareText">\
@@ -171,6 +172,84 @@
 										});
 										
 									};
+									/*-----------------------分割线----------------------------*/
+									/* 申请售后*/
+									$(".afterSale").click(function (e) {
+										e.stopPropagation();
+                                        location.href="../html/newProject/shhtml.html?orderId="+$(this).attr("orderId")+"&money="+$(this).attr("money")
+									})
+
+									/*-----------------------分割线----------------------------*/
+                                    //再次购买
+									$(".again").click(function (e) {
+                                        e.stopPropagation();
+                                        console.log($(this).parent(".orderAlt").siblings(".orderContent").find("li").length)
+//                                        for(var i=0;i<$(this).parent(".orderAlt").siblings(".orderContent").find("li").length;i++){
+//                                            function GetJsonData() {
+//                                                var json = {
+//                                                    "wareId":$(this).parent(".orderAlt").siblings(".orderContent").find("li").attr("wareId"),
+//                                                    "skuId":$(this).parent(".orderAlt").siblings(".orderContent").find("li").attr("skuId") ,
+//                                                    "wareNum":'1'
+//                                                };
+//                                                console.log(json)
+//                                                return json;
+//                                            }
+//										}
+                                        function GetJsonData(ware,skuid) {
+                                            var json = {
+                                                "wareId":ware,
+                                                "skuId":skuid ,
+                                                "wareNum":'1'
+                                            };
+
+                                            return json;
+                                        }
+                                        var mo=JSON.stringify(GetJsonData($(this).parent(".orderAlt").siblings(".orderContent").find("li").attr("wareId"),$(this).parent(".orderAlt").siblings(".orderContent").find("li").attr("skuId")))
+                                        console.log(mo)
+//                                        $.ajax({
+//                                            type: "POST",
+//                                            url: testurl + "/api/shopcart/addshopcart",
+//                                            dataType: "json",
+//                                            data: {
+//                                                platform: "2",
+//                                                cutomerId: localStorage.getItem("cutomerId"),
+//                                                shopcartContent: JSON.stringify(GetJsonData($(this).parent(".orderAlt").siblings(".orderContent").find("li").attr("wareId"),$(this).parent(".orderAlt").siblings(".orderContent").find("li").attr("skuId")))
+//                                            },
+//                                            xhrFields: {
+//                                                withCredentials: true
+//                                            },
+//                                            crossDomain: true,
+//                                            beforeSend: function(XMLHttpRequest) {
+//                                                loadImg();
+//                                            },
+//                                            success: function(data) {
+//                                                if(data.code == 10000) {
+//                                                    alert("添加购物车成功");
+//                                                    location.href="shopCart.html"
+//                                                }
+//                                            },
+//                                            complete: function(XMLHttpRequest, textStatus) {
+//                                                $("#loadImg").remove();
+//                                            },
+//                                            error: function(data) {
+//                                                if(data.status == "404") {
+//                                                    alert('请求地址出错！');
+//                                                } else if(data.status == "302") {
+//                                                    alert('连接网页出错');
+//                                                } else if(data.status == "timeout") {
+//                                                    alert("请求超时!");
+//                                                } else if(data.status == "400") {
+//                                                    alert("未登录!请先登录");
+//                                                    location.href = "./login.html"
+//                                                } else {
+//                                                    alert('服务器出差了~！');
+//                                                }
+//                                            }
+//                                        })
+
+
+									});
+
 									/*-----------------------分割线----------------------------*/
                                     //确认收货
                                     $(".confirmReceipt").click(function (e) {
@@ -214,7 +293,7 @@
                                         });
                                     });
 									if(ord == 100) {
-										$(".payment").text("付款");
+										$(".payment").remove();$(".remarks").remove();
 										$(".payment").click(function(event){
 											event.stopPropagation();
 											location.href="./shopCartOrder.html?orderid="+$(this).attr("id")
@@ -227,16 +306,21 @@
 										$(".payment").remove()
 									} else if(ord == 0) {
 										$(".del").empty();
+
 										$(".payment").text("查看");
 									} else if(ord == 300) {
 										$(".del").empty();
+                                        $(".del").text('卖家已发货');
+                                        $(".del").css("color",'#DF3825');
                                         $(".remarks").remove();
                                         $(".afterSale,.confirmReceipt,.viewLogistics").show();
 										$(".payment").remove();
 
 
 									} else if(ord == 400) {
-										$(".payment").text("评论")
+                                        $(".payment").remove();
+                                        $(".remarks").remove();
+                                        $(".afterSale,.viewLogistics,.again").show();
 									};
 
 									dataCount++;

@@ -1517,7 +1517,7 @@ body {
 	border-radius: 5px;
 	padding: 5px 10px;
 }
-.orderAlt>.confirmReceipt,.orderAlt>.afterSale,.orderAlt>.viewLogistics{
+.orderAlt>.confirmReceipt,.orderAlt>.afterSale,.orderAlt>.viewLogistics,.orderAlt>.again{
 	font-weight: 600;
 	background: #FFFFFF;
 	border: 1px solid red;
@@ -1527,7 +1527,7 @@ body {
 	display: none;
 	margin: 0 5px;
 }
-.orderAlt>.confirmReceipt{
+.orderAlt>.confirmReceipt,.orderAlt>.again{
 	background: red;
 	color:#fff;
 }

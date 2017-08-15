@@ -119,7 +119,7 @@
                                             str.push(shopData[i].ware.supplierName, 'name' + n);
                                             jsons[shopData[i].ware.supplierName] = n;
                                             con[n - 1] = [];
-                                            con[n - 1].push(data[i])
+                                            con[n - 1].push(shopData[i])
                                         } else {
                                             var ind = jsons[shopData[i].ware.supplierName]
                                             con[ind - 1].push(shopData[i])
@@ -332,7 +332,7 @@
 							mask("请选择一个商品");
 						} else {
 							var shopcart=[]
-							for(i = 0; i < $('.cart dd input[class="checkbox"]:checked').length; i++) {
+							for(var i = 0; i < $('.cart dd input[class="checkbox"]:checked').length; i++) {
 								function GetJsonData() {
 										var json = {
 											"wareId": $('.cart dd input[class="checkbox"]:checked').eq(i).attr("id"),
@@ -351,34 +351,6 @@
 										console.log(json)
 										return json;
 									}
-//								var shop ='';
-//								/* 商品id */
-//								shop+="wareId:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).attr("id")+"',";
-//								/* 规格id */
-//								shop+= "skuitemId:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).attr("skuitemId")+"',";
-//								/* 规格 */
-//								shop+="wareName:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).attr("wareName")+"',";
-//								/* 规格ID  */
-//								shop+="skuid:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).attr("skuid")+"',";
-//
-//								shop+="skuitem:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".shopcartSkuitems").text()+"',";
-//								/* 数量 */
-//								shop+= "wareNum:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find(".number").val()+"',";
-//								/* 照片 */
-//								shop+="wareImg:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).siblings("img").attr("src")+"',";
-//
-//								shop+="warePart:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).siblings(".goodsInfor").find("strong").text()+"',";
-//
-//								shop+="supportName:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).parents(".line-wrapper").find(".supplierTitle a").text()+"',";
-//								/* 自营与非自营 */
-//								shop+="supportType:'"+ $('.cart dd input[class="checkbox"]:checked').eq(i).attr("support")+"',";
-//								/* 供应商头像 */
-//								shop+="supportImage:'"+$('.cart dd input[class="checkbox"]:checked').eq(i).attr("HeadImage")+"'}";
-//							//	console.log(shopcartSkuitemId)
-//								//shop.push(shopcartWareId,shopcartSkuitemId,shopcartWareName,shopcartSkuitems,shopcartWareNum,shopcartWareImg,shopcartPart,shopcartWareSkuid,supp,support,HeadImage)
-//                             // shop=eval("[" + shop + "]")
-//                            shop= eval('(' +shop+ ')'); 
-									
                                shopcart.push(GetJsonData())
 							}
 							shopcart=JSON.stringify(shopcart) 
