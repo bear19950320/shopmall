@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/shhtml.css" />
+		<script src="../../js/jquery.min.js"></script>
+	</head>
+	<body>
+		<form class="zhuyecon">
+			<ul>
+				<li id="1" class="chioc">
+					<p>类型</p>
+					<p>点击选择售后类型<span class="iconfont icon-combinedshapefuben "></span></p>
+				</li>
+				<li id="2" class="chioc">
+					<p>状态</p>
+					<p>点击选择货物状态<span class="iconfont icon-combinedshapefuben "></span></p>
+				</li>
+				<li id="3" class="chioc">
+					<p>原因</p>
+					<p>点击选择退款原因<span class="iconfont icon-combinedshapefuben "></span></p>
+				</li>
+				<li>
+					<p>金额</p>
+					<p>129</p>
+				</li>
+				<li>
+					<p>说明</p>
+					<textarea placeholder="请详细填写退款原因" style="width: 100%;height: 100px;border: none;padding: 10px 0;box-sizing: border-box;"></textarea>
+				</li>
+				<li>
+					<p>联系电话</p>
+					<p>183246441355</p>
+				</li>
+			</ul>
+			<input id="submit" type="submit" value="提交" />
+		</form>
+		<div class="con">
+			<div class="chgr">
+				<p>选择退款原因</p>
+				<span class="iconfont icon-mjiantou-copy back"></span>
+			</div>
+			<section class="hidden_sele">
+				<ul>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>卖家发错货</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>尺码拍错/不喜欢/效果差</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>质量问题</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>其他</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>卖家发错货</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>尺码拍错/不喜欢/效果差</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>质量问题</p>
+					</li>
+					<li>
+						<span class="check iconfont icon-subunselected"></span>
+						<p>其他</p>
+					</li>
+				</ul>
+			</section>
+		</div>
+	</body>
+	<script>
+		$('.chioc').each(function(){
+			$(this).on('click',function(){
+				var id = $(this).attr('id');
+				$('.con').css('display','block');
+				$('.zhuyecon').css('display','none');
+			})
+			$('.back').on('click',function(){
+				$('.con').css('display','none');
+				$('.zhuyecon').css('display','block');
+			})
+		})
+		$('.check').each(function(){
+			$(this).on('click',function(){
+				$(this).toggleClass('icon-xuanzhong')
+				$(this).toggleClass('icon-subunselected')
+				$(this).parent().siblings('li').find('span').removeClass('icon-xuanzhong').addClass('icon-subunselected')
+			})
+		})
+	</script>
+</html>
