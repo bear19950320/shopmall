@@ -64,9 +64,8 @@
 						var logistics=data.data;
 						var message="运输中";
 						if(data.message=="ok"){
-							message="已签收"
-						}
-	 					$("#order").append('<div class="con_c1_r">\
+							message="已签收";
+                            $("#order").append('<div class="con_c1_r">\
 							<label class="wwst">物流状态：</label>\
 							<label class="ysstatus">'+message+'</label><br />\
 							<label>配送方式：</label>\
@@ -76,20 +75,24 @@
 							<label>官方电话：</label>\
 							<label class="ysstatus">6582255</label>\
 							</div>');
-							var li=''
-							for(var i=0;i<logistics.length;i++){
-								li+='<li>\
+                            var li=''
+                            for(var i=0;i<logistics.length;i++){
+                                li+='<li>\
 										<span class="iconfont"></span>\
 										<div class="message">\
 											<p>'+logistics[i].context+'</p>\
 											<p>'+logistics[i].time+'</p>\
 										</div>\
 									</li>'
-							}
-						$("ul").append(li);
-						/*  控制物流的显示   */
-						$("ul>li").eq(0).find(".iconfont").addClass("icon-search2");
-						$("ul>li").eq(0).siblings("li").find("p").css("color","#9b9b9b")
+                            }
+                            $("ul").append(li);
+							/*  控制物流的显示   */
+                            $("ul>li").eq(0).find(".iconfont").addClass("icon-search2");
+                            $("ul>li").eq(0).siblings("li").find("p").css("color","#9b9b9b")
+						}else if(data.data==""){
+                            $("#order").append(data.message)
+						}
+
 					},
 					complete: function(XMLHttpRequest, textStatus) {
 						$("#loadImg").remove();

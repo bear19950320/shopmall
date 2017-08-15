@@ -55,7 +55,10 @@
 				if(r != null) return unescape(decodeURI(r[2]));
 				return null;
 			}
-			let order=GetQueryString("orderId")
+			let order=GetQueryString("orderId");
+            function loadImg() {
+                $("body").append('<img id="loadImg" src="../../img/ajax-loader.gif" width="48" height="48" alt="" style="position: fixed;top:50%;margin-top: -24px;left:50%;margin-left: -24px;"/>')
+            }
 			$.ajax({
 					type: "GET",
 					url: testurl + "/api/order/orderinfo",
@@ -71,7 +74,7 @@
 					crossDomain: true,
 					async: true,
 					beforeSend: function(XMLHttpRequest) {
-						$("#ajax").show();	
+                        loadImg();
 					},
 					success: function(data) {
 						var data=data.data.orderinfo;
@@ -127,7 +130,7 @@
 					    $("ul").append(li)
 					},
 					complete: function(XMLHttpRequest, textStatus) {
-						$("#ajax").hide();	
+						$("#loadImg").hide();
 					},
 					error: function(data) {
 						if(data.status == "404") {

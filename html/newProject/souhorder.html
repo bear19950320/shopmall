@@ -264,7 +264,7 @@
                            });
                            if(data.length != 0) {
 								   for(var i=0;i<data.length;i++){
-									   $("#li_cjig").append('<li>\
+									   $("#li_cjig").append('<li id="'+data[i].orderId+'">\
 										   <p class="li_h">订单编号：'+data[i].orderCode+'</p>\
 									   <div class="li_min" id="ware'+data[i].orderId+'">\
 									   </div>\
@@ -301,6 +301,10 @@
                                          })
 
 									   }
+                                       $("#"+data[i].orderId).click(function (e) {
+										   e.stopPropagation();
+										   location.href="orderDetailstwo.html?orderId="+$(this).attr("id")
+                                       })
 								   }
                                dataCount++;
                            }
@@ -364,7 +368,7 @@
                             });
                             if(data.length != 0) {
                                 for(var i=0;i<data.length;i++){
-                                    $("#li_coen").append('<li>\
+                                    $("#li_coen").append('<li id="'+data[i].orderId+'">\
 										   <p class="li_h">订单编号：'+data[i].orderCode+'</p>\
 									   <div class="li_min" id="ware'+data[i].orderId+'">\
 									   </div>\
@@ -398,6 +402,10 @@
                                         $("#"+data[i].orderWareList[j].wareId).click(function (event) {
                                             event.stopPropagation();
                                             location.href="../../web/detailsdemo.html?wareId="+$(this).attr("id")
+                                        })
+                                        $("#"+data[i].orderId).click(function (e) {
+                                            e.stopPropagation();
+                                            location.href="orderDetailstwo.html?orderId="+$(this).attr("id")
                                         })
                                     }
                                 }

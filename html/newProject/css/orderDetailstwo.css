@@ -144,15 +144,15 @@
 }
 .con_price{
 	position: absolute;
-	top: 10px;
 	right: 0;
 	font-size: 1.2rem;
 	color: #9b9b9b;
 }
+
 .con_mum{
 	position: absolute;
 	right: 0;
-	bottom: 10px;
+	padding-top: 30px;
 	font-size: 1.2rem;
 	color: #9b9b9b;
 }
