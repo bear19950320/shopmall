@@ -130,7 +130,7 @@
 							      		    <div class="orderAlt">\
 							      		    <a href="javascript:;" class="afterSale" style="float: left">申请售后</a>\
 											<span class="left remarks" style="float:left;width:60%;overflow: hidden;">备注:<red>' + data[i].orderRemarks + '</red></span><a href="javascript:;" class="viewLogistics"  expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'">查看物流</a> <a href="javascript:;" class="payment" expressCode="'+ data[i].expressCode+'" expressNo="'+ data[i].expressNo+'" id="'+ data[i].orderId +'"></a>\
-											<a href="javascript:;" class="confirmReceipt" >确认收货</a>\
+											<a href="javascript:;" class="confirmReceipt" orderId="'+data[i].orderId+'" >确认收货</a>\
 							      		    </div>\
 							      		</li>');
 										for(var j = 0; j < data[i].orderWareList.length; j++) {
@@ -145,13 +145,19 @@
 						      		    	</li>');
 										};
 
+										/*-----------------------分割线----------------------------*/
+                                        //删除订单
 										$("." + data[i].orderId).click(function() {
 											DelOrder($(this).attr("class"));
 										});
+										/*-----------------------分割线----------------------------*/
+                                        //查看物流
                                         $(".viewLogistics").click(function(event){
                                             event.stopPropagation();
 											location.href="../html/newProject/wuliuguiji.html?expresscode="+$(this).attr("expresscode")+"&expressno="+$(this).attr("expressno")
-                                        })
+                                        });
+										/*-----------------------分割线----------------------------*/
+                                        //跳转订单详情
 										$("#"+data[i].orderId).click(function(event){
 											/*跳转到详情*/
 											event.stopPropagation();
@@ -165,7 +171,48 @@
 										});
 										
 									};
-
+									/*-----------------------分割线----------------------------*/
+                                    //确认收货
+                                    $(".confirmReceipt").click(function (e) {
+                                        e.stopPropagation();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: testurl + "/api/order/confirmorder",
+                                            dataType: "json",
+                                            data: {
+                                                platform: "2",
+                                                cutomerId: localStorage.getItem("cutomerId"),
+                                                orderId:$(this).attr("orderId")
+                                            },
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            crossDomain: true,
+                                            async: true,
+                                            beforeSend: function(XMLHttpRequest) {
+                                                loadImg();
+                                            },
+                                            success: function(data){
+                                                if(data.code==10000){
+                                                    $("#orderAll").click();
+                                                }
+                                            },
+                                            complete: function(XMLHttpRequest, textStatus) {
+                                                $("#loadImg").remove();
+                                            },
+                                            error: function(data) {
+                                                if(data.status == "404") {
+                                                    alert('请求地址出错！');
+                                                } else if(data.status == "302") {
+                                                    alert('连接网页出错');
+                                                } else if(data.status == "timeout") {
+                                                    alert("请求超时!");
+                                                } else {
+                                                    alert('服务器出差了~！');
+                                                }
+                                            }
+                                        });
+                                    });
 									if(ord == 100) {
 										$(".payment").text("付款");
 										$(".payment").click(function(event){
