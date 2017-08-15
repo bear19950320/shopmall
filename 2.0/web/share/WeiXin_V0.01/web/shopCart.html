@@ -112,19 +112,19 @@
 									var str = [];
 									var con = [];
 									var jsons = {};
-									var n = -1;
-									for(var i = 0; i < shopData.length; i++) {
-										if(!jsons[shopData[i].ware.supplierName]) {
-											n++;
-											str.push(shopData[i].ware.supplierName, 'name' + n)
-											jsons[shopData[i].ware.supplierName] = n;
-											con[n] = [];
-											con[n].push(shopData[i])
-										} else {
-											con[jsons[shopData[i].ware.supplierName]].push(shopData[i])
-										}
-									}
-               
+                                    var n = 0;
+                                    for(var i = 0; i < shopData.length; i++) {
+                                        if(!jsons[shopData[i].ware.supplierName]) {
+                                            n++;
+                                            str.push(shopData[i].ware.supplierName, 'name' + n);
+                                            jsons[shopData[i].ware.supplierName] = n;
+                                            con[n - 1] = [];
+                                            con[n - 1].push(data[i])
+                                        } else {
+                                            var ind = jsons[shopData[i].ware.supplierName]
+                                            con[ind - 1].push(shopData[i])
+                                        }
+                                    }
 									var ster = [];
 									var strname = [];
 									for(var i = 0; i < str.length; i++) {

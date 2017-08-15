@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		
 		<link rel="stylesheet" type="text/css" href="css/iconfonts.css" />
 		<link rel="stylesheet" type="text/css" href="css/orderCommon.css" />
 		<link rel="stylesheet" type="text/css" href="css/orderDetailstwo.css" />
@@ -12,83 +11,255 @@
 	<body>
 		<div class="pad_div"></div>
 		<section class="section_c1">
-			<p>商家处理中</p>
-			<p>请耐心等待</p>
+			<p class="aftersaleState">商家处理中</p>
+			<p class="aftersaleStateType">请耐心等待</p>
 		</section>
 		
 		<div class="line_div"></div>
 		
 		<section class="section_c3">
-			<p class="decript_color name_colo">徐凤年 13575485648</p>
-			<p class="time_color">四川省成都市高新区美年广场T3,16楼</p>
+			<p class="decript_color name_colo"></p>
+			<p class="time_color"></p>
 			<span class="iconfont icon-dingwei youji_car dignwei"></span>
 		</section>
 		<div class="bg_div"></div>
 		<section class="order_section">
 			<ul>
-				<li>
-					<div class="li_header">
-						<p>苏宁旗舰店</p>
-						<span class="iconfont icon-arrow-right"></span>
-					</div>
-					<div class="li_mid1">
-						<img src="img/22.jpg" />
-						<div class="li_con">
-							<p>【澳洲进口】 夏日阳光帆布布艺沙发抱枕，买4送1，超值好礼超值好礼超值好礼超值好礼</p>
-							<div>
-								<label>规格：</label>
-								<label>4合1装</label>
-							</div>
-						</div>
-						<label class="con_price">￥59.00</label>
-						<label class="con_mum">*1</label>
-					</div>
-					<div class="line_div"></div>
-					<div class="li_mid2">
-						<div class="li_mid2_left">
-							<label>商品应付金额：</label><br />
-							<label>快递运费：</label>
-						</div>
-						<div class="li_mid2_right">
-							<label>￥88.00</label><br />
-							<label>0.00</label>
-						</div>
-					</div>
-					<div class="line_div"></div>
-					<div class="li_mid2">
-						<div class="li_mid2_left">
-							<label>实付金额：</label>
-						</div>
-						<div class="li_mid2_right">
-							<label>￥88.00</label>
-						</div>
-					</div>
-				</li>
+
 			</ul>
 		</section>
 		<div class="bg_div ght"></div>
-		<section class="miaos_sec">
-			<div class="miaos_sec_t">
-				<p>订单编号：1654646864484</p>
-				<p>下单日期：2017-12-23 15:23:25</p>
-			</div>
-			<div class="miaos_sec_b">
-				<label>支付方式：</label>
-				<label>微信支付</label>
-			</div>
+		<section class="miaos_sec" id="orderCode">
 		</section>
 		<div class="bg_div"></div>
-		<section class="miaos_sec">
-			<div class="miaos_sec_b ghb">
-				<label>售后类型：</label>
-				<label>退换货</label>
-			</div>
-			<div class="miaos_sec_t uio">
-				<p>售后原因：质量问题</p>
-				<p>详细信息：质量问题质量问题质量问题质量问题</p>
-			</div>
-			
+		<section class="miaos_sec" id="returnType">
 		</section>
-		
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if(r != null) return unescape(decodeURI(r[2]));
+                return null;
+            }
+            let order=GetQueryString("orderId");
+            $.ajax({
+                type: "GET",
+                url: testurl + "/api/order/getaftersaleinfo",
+                dataType: "json",
+                data: {
+                    platform: "2",
+                    cutomerId: localStorage.getItem("cutomerId"),
+                    orderId: order
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                async: true,
+                beforeSend: function(XMLHttpRequest) {
+                    $("#ajax").show();
+                },
+                success: function(data) {
+                    var data=data.data.orderVo;
+					/*-------------------分割线-------------------------------*/
+					/* 支付方式 */
+                    var payType = "";
+                    if(data.payType == 0) {
+                        payType = "呔金支付";
+                    } else if(data.payType == 1) {
+                        payType = "现金支付";
+                    } else if(data.payType == 2) {
+                        payType = "微信支付";
+                    } else if(data.payType == 3) {
+                        payType = "支付宝支付";
+                    } else if(data.payType == 4) {
+                        payType = "呔金 现金支付";
+                    } else if(data.payType == 5) {
+                        payType = "呔金 微信支付";
+                    } else if(data.payType == 6) {
+                        payType = "呔金 支付宝支付";
+                    } else if(data.payType == 7) {
+                        payType = "现金 微信支付";
+                    } else if(data.payType == 8) {
+                        payType = "现金 支付宝支付";
+                    } else if(data.payType == 9) {
+                        payType = "呔金 现金 微信支付";
+                    } else if(data.payType == 10) {
+                        payType = "呔金  现金  支付宝支付";
+                    }
+					/*-------------------分割线-------------------------------*/
+                    /* 售后原因  */
+                    var type='';
+                    if(data.aftersale.type==1) {
+                        type = "退货和退款"
+                    }else if(data.aftersale.type==2){
+                        type="退款"
+                    }else if(data.aftersale.type==3){
+                        type="换货"
+                    }
+					/*-------------------分割线-------------------------------*/
+					/*原因*/
+                    var reason="";
+                    if(data.aftersale.reason==1){
+                        reason="卖家发错货"
+					}else if(data.aftersale.reason==2){
+                        reason="尺码错拍/不喜欢/效果差"
+                    }else if(data.aftersale.reason==3){
+                        reason="收到商品少许/破损或污损"
+                    }else if(data.aftersale.reason==4){
+                        reason="多拍/错拍/不想要"
+                    }else if(data.aftersale.reason==5){
+                        reason="货物与描述不符"
+                    }else if(data.aftersale.reason==6){
+                        reason="颜色/款式/图案与描述不符"
+                    }else if(data.aftersale.reason==7){
+                        reason="收到商品少件或破损"
+                    }else if(data.aftersale.reason==8){
+                        reason="质量问题"
+                    }else if(data.aftersale.reason==9){
+                        reason="假冒品牌"
+                    }else if(data.aftersale.reason==10){
+                        reason="其他"
+                    }
+					/*-------------------分割线-------------------------------*/
+                    /*处理状态*/
+                    var aftersaleState='';
+                    if(data.aftersale.aftersaleState==1){
+                        aftersaleState="待处理"
+					}else if(data.aftersale.aftersaleState==2){
+                        aftersaleState="处理中"
+					}else if(data.aftersale.aftersaleState==3){
+                        aftersaleState="已处理"
+						$(".aftersaleStateType").hide()
+					}
+					$(".aftersaleState").text(aftersaleState);
+					/*-------------------分割线-------------------------------*/
+                    /* 订单与下单时间与支付方式的添加  */
+                    $("#orderCode").append('<div class="miaos_sec_t">\
+                        <p>订单编号：'+data.orderCode+'</p>\
+						<p>下单日期：'+data.createTime+'</p>\
+						</div>\
+						<div class="miaos_sec_b">\
+							<label>支付方式：</label>\
+						<label>'+payType+'</label>\
+						</div>');
+					/*-------------------分割线-------------------------------*/
+					/*退货类型*/
+
+                    $("#returnType").append('<div class="miaos_sec_b ghb">\
+                        <label>售后类型：</label>\
+                    <label>'+type+'</label>\
+                    </div>\
+                    <div class="miaos_sec_t uio">\
+                        <p>售后原因：'+reason+'</p>\
+                    <p>详细信息：'+data.aftersale.asexplain+'</p>\
+                    </div>');
+					/*-------------------分割线-------------------------------*/
+                    var ware=data.orderWareList;
+                    $(".name_colo").text(data.receiveCustomer+"  "+data.receivePhone);
+                    $(".time_color").text(data.receiveProvince+data.receiveCity+data.receiveArea+data.receiveAddress)
+                    $(".orderCode").text(data.orderCode);
+                    $(".orderTime").text(data.payTime);
+                    $(".sum").append(data.orderTotal);
+                    var str = [];
+                    var con = [];
+                    var jsons = {};
+                    var n = 0;
+                    for(var i = 0; i < ware.length; i++) {
+                        if (!jsons[ware[i].wareSupplierName]) {
+                            n++;
+                            str.push(ware[i].wareSupplierName, 'name' + n);
+                            jsons[ware[i].wareSupplierName] = n;
+                            con[n - 1] = [];
+                            con[n - 1].push(ware[i])
+                        } else {
+                            var ind = jsons[ware[i].wareSupplierName]
+                            con[ind - 1].push(ware[i])
+                        }
+                    }
+                    var ster = [];
+                    var strname = [];
+                    for(var i = 0; i < str.length; i++) {
+                        if(i % 2 == 1) {
+                            ster.push(str[i])
+                        } else {
+                            strname.push(str[i])
+                        }
+                    }
+                    for(var i = 0; i < con.length; i++) {
+                        $("ul").append('<li>\
+                            <div class="li_header">\
+                            <p>'+strname[i]+'</p>\
+                            <span class="iconfont icon-arrow-right"></span>\
+                            </div>\
+                            <div class="li_mid1" id="' + ster[i] + '">\
+                            </div>\
+                            <div class="line_div"></div>\
+                            <div class="li_mid2">\
+                            <div class="li_mid2_left">\
+                            <label>商品应付金额：</label><br />\
+                        <label>快递运费：</label>\
+                        </div>\
+                        <div class="li_mid2_right">\
+                            <label>￥'+data.orderTotal+'</label><br />\
+                        <label>'+data.orderFreight+'</label>\
+                        </div>\
+                        </div>\
+                        <div class="line_div"></div>\
+                            <div class="li_mid2">\
+                            <div class="li_mid2_left">\
+                            <label>实付金额：</label>\
+                        </div>\
+                        <div class="li_mid2_right">\
+                            <label>￥'+data.orderTotal+'</label>\
+                        </div>\
+                        </div>\
+                        </li>');
+                            /* */
+                        for(var j = 0; j < con[i].length; j++) {
+                            var name='',value='';
+                            if(con[i][j].orderWareSkuitems!=""){
+                                name=con[i][j].orderWareSkuitems[0].name;
+                                value=con[i][j].orderWareSkuitems[0].value;
+							}
+                            $("#" + ster[i]).append('<img src="'+con[i][j].wareImage+'" id="'+con[i][j].wareId+'" />\
+							 <div class="li_con">\
+							 <p>'+con[i][j].wareName+'</p>\
+							 <div>\
+							 <label>'+name+'</label>\
+							 <label>'+value+'</label>\
+							 </div>\
+							 </div>\
+							 <label class="con_price">￥'+con[i][j].warePrice+'</label>\
+							 <label class="con_mum">*'+con[i][j].wareNum+'</label><div style="width: 100%;height: 20px;"></div>')
+                       /*-----------------------------分割线------------------------------*/
+                       //跳转到商品详情的页面的点击图片事件
+                         $("#"+con[i][j].wareId).click(function (e) {
+							 e.stopPropagation();
+                             location.href="../../web/detailsdemo.html?wareId="+$(this).attr("id")
+                         })
+
+                        }
+                    }
+
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    $("#ajax").hide();
+                },
+                error: function(data) {
+                    if(data.status == "404") {
+                        alert('请求地址出错！');
+                    } else if(data.status == "302") {
+                        alert('连接网页出错');
+                    } else if(data.status == "timeout") {
+                        alert("请求超时!");
+                    } else {
+                        alert('服务器出差了~！');
+                    }
+                }
+            });
+		</script>
 	</body>
 </html>

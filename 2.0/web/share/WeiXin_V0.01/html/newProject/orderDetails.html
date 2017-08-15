@@ -150,8 +150,10 @@
 						li += "</li>"
 						$("ul").append(li);
 						/* 快递最后一项 */
-						$("#express").append('<p class="decript_color">' + express[0].context + '</p>' +
-							'<p class="time_color">' + express[0].time + '</p>');
+						if(express!=""){
+                            $("#express").append('<p class="decript_color">' + express[0].context + '</p>' +
+                                '<p class="time_color">' + express[0].time + '</p>');
+						}
 						$("#express").attr("expressCode",data.expressCode);
 						$("#express").attr("expressNo",data.expressNo);
 						$("#express").click(function(){
