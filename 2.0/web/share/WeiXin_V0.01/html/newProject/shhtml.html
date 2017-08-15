@@ -1,148 +1,265 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title></title>
-		<link rel="stylesheet" type="text/css" href="css/shhtml.css" />
-		<script src="../../js/jquery.min.js"></script>
-	</head>
-	<body>
-		<form class="zhuyecon">
-			<ul>
-				<li id="1" class="chioc">
-					<p>类型</p>
-					<p><input type="text" readonly="readonly" name="" id="" value="点击选择售后类型" /><span class="iconfont icon-combinedshapefuben "></span></p>
-				</li>
-				<li id="2" class="chioc">
-					<p>状态</p>
-					<p><input type="text" readonly="readonly" name="" id="" value="点击选择货物状态" /><span class="iconfont icon-combinedshapefuben "></span></p>
-				</li>
-				<li id="3" class="chioc">
-					<p>原因</p>
-					<p><input type="text" readonly="readonly" name="" id="" value="点击选择退款原因" /><span class="iconfont icon-combinedshapefuben "></span></p>
-				</li>
-				<li>
-					<p>金额</p>
-					<p><input type="text" readonly="readonly" name="" id="" value="129" /></p>
-				</li>
-				<li>
-					<p>说明</p>
-					<textarea placeholder="请详细填写退款原因" style="width: 100%;height: 100px;border: none;padding: 10px 0;box-sizing: border-box;"></textarea>
-				</li>
-				<li>
-					<p>联系电话</p>
-					<p><input type="text" readonly="readonly" name="" id="" value="183246441355" /></p>
-				</li>
-			</ul>
-			<input id="submit" type="submit" value="提交" />
-		</form>
-		<div class="con">
-			<div class="chgr">
-				<p>选择退款原因</p>
-				<span class="iconfont icon-mjiantou-copy back"></span>
-			</div>
-			<section class="hidden_sele">
-				<ul class="lic_ul">
-					
-					
-				</ul>
-			</section>
-		</div>
-	</body>
-	<script>
-		var arr1 = [
-			{
-				id:1,
-				name:'卖家发错货'
-			},
-			{
-				id:1,
-				name:'尺码拍错/不喜欢/效果差'
-			},
-			{
-				id:1,
-				name:'质量问题'
-			},
-			{
-				id:1,
-				name:'卖家发错货'
-			},
-			{
-				id:1,
-				name:'卖家发错货'
-			},
-			{
-				id:1,
-				name:'卖家发错货'
-			},
-		]
-		var arr2 = [
-			{
-				id:2,
-				name:'卖家发错货'
-			},
-			{
-				id:2,
-				name:'尺码拍错/不喜欢/效果差'
-			},
-			{
-				id:2,
-				name:'质量问题'
-			}
-		]
-		var arr3 = [
-			{
-				id:3,
-				name:'卖家发错货'
-			},
-		]
-		
-		$('.chioc').each(function(){
-			$(this).on('click',function(){
-				var id = $(this).attr('id');
-				$('.con').css('display','block');
-				$('.zhuyecon').css('display','none');
-				var arr = [];
-				if(id == 1){
-					var arr = arr1;
-				} else if(id == 2){
-					var arr = arr2
-				} else if(id == 3){
-					var arr = arr3
-				}
-				var s = '';
-				for(var i=0;i<arr.length;i++){
-					s+= '<li>'+
-							'<span id='+arr[i].id+' class="check iconfont icon-subunselected"></span>'+
-							'<p>'+arr[i].name+'</p>'+
-						'</li>'
-				}
-				$('.lic_ul').empty().append(s);
-				checkfn();
-			})
-			$('.back').on('click',function(){
-				$('.con').css('display','none');
-				$('.zhuyecon').css('display','block');
-			})
-		})
-		function checkfn(){
-			$('.check').each(function(){
-				$(this).on('click',function(){
-					var id = $(this).attr('id');
-					var con = $(this).siblings('p').text()
-					$(this).toggleClass('icon-xuanzhong')
-					$(this).toggleClass('icon-subunselected')
-					$(this).parent().siblings('li').find('span').removeClass('icon-xuanzhong').addClass('icon-subunselected')
-					$('.con').css('display','none');
-					$('.zhuyecon').css('display','block');
-					$('.chioc').each(function(){
-						if($(this).attr('id') == id){
-							$(this).find('input').attr('value',con)
-						}
-					})
-				})
-			})
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/shhtml.css" />
+	<script src="../../js/jquery.min.js"></script>
+	<style>
+		.content>input{
+			display: none;
 		}
-	</script>
+	</style>
+</head>
+<body>
+<div class="zhuyecon">
+	<ul>
+		<li id="2" class="chioc">
+			<p>类型</p>
+			<p class="content"><input type="text" readonly="readonly" name="" id="type" value=""  style="display: none"/><span class="iconfont icon-combinedshapefuben "></span></p>
+		</li>
+		<li id="3" class="chioc">
+			<p>状态</p>
+			<p  class="content"><input type="text" readonly="readonly" name="" id="state" value=""  style="display: none"/><span class="iconfont icon-combinedshapefuben "></span></p>
+		</li>
+		<li id="1" class="chioc">
+			<p>原因</p>
+			<p  class="content"><input type="text" readonly="readonly" name="" id="reason" value=""  style="display: none"/><span class="iconfont icon-combinedshapefuben "></span></p>
+		</li>
+		<li>
+			<p>金额</p>
+			<p class="money"><input type="text" readonly="readonly" name="" id="money" value="129"/></p>
+		</li>
+		<li>
+			<p>说明</p>
+			<textarea placeholder="请详细填写退款原因" id="asexplain" style="width: 100%;height: 100px;border: none;padding: 10px 0;box-sizing: border-box;"></textarea>
+		</li>
+		<li>
+			<p>联系电话</p>
+			<p><input type="text"  name=""  id="phone" value="" /></p>
+		</li>
+	</ul>
+	<input id="submit" type="submit" value="提交" />
+</div>
+<div class="con">
+	<div class="chgr">
+		<p>选择退款原因</p>
+		<span class="iconfont icon-mjiantou-copy back"></span>
+	</div>
+	<section class="hidden_sele">
+		<ul class="lic_ul">
+
+
+		</ul>
+	</section>
+</div>
+</body>
+<script src="../../js/curr.js"></script>
+<script>
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = location.search.substr(1).match(reg);
+        if(r != null) return unescape(decodeURI(r[2]));
+        return null;
+    }
+    let order=GetQueryString("orderId"),money=GetQueryString("money");
+//    $(".money").text(money)
+    $("#money").val(money);
+    var arr1 = [
+        {
+            id:1,
+            name:'卖家发错货',
+            type:'1'
+        },
+        {
+            id:1,
+            name:'尺码拍错/不喜欢/效果差',
+            type:'2'
+        },
+        {
+            id:1,
+            name:'收到商品少许/破损或污损',
+            type:'3'
+        },
+        {
+            id:1,
+            name:'多拍/错拍/不想要 ',
+            type:'4'
+        },
+        {
+            id:1,
+            name:'货物与描述不符',
+            type:'5'
+        },
+        {
+            id:1,
+            name:'颜色/款式/图案与描述不符',
+            type:'6'
+        },
+        {
+            id:1,
+            name:'收到商品少件或破损',
+            type:'7'
+        },
+        {
+            id:1,
+            name:'质量问题',
+            type:'8'
+        },
+        {
+            id:1,
+            name:'假冒品牌',
+            type:'9'
+        },
+        {
+            id:1,
+            name:'其他',
+            type:'10'
+        },
+    ]
+    var arr2 = [
+        {
+            id:2,
+            name:'退货和退款',
+            type:'1'
+        },
+        {
+            id:2,
+            name:'退款',
+            type:'2'
+        },
+        {
+            id:2,
+            name:'换货',
+            type:'3'
+        }
+    ]
+    var arr3 = [
+        {
+            id:3,
+            name:'待发',
+            type:'1'
+        },
+        {
+            id:3,
+            name:'待收',
+            type:'2'
+        },
+		{
+            id:3,
+            name:'已完成',
+            type:'3'
+        },
+
+    ]
+
+    $('.chioc').each(function(){
+        $(this).on('click',function(){
+            var id = $(this).attr('id');
+            $('.con').css('display','block');
+            $('.zhuyecon').css('display','none');
+            var arr = [];
+            if(id == 1){
+                var arr = arr1;
+            } else if(id == 2){
+                var arr = arr2
+            } else if(id == 3){
+                var arr = arr3
+            }
+            var s = '';
+            for(var i=0;i<arr.length;i++){
+                s+= '<li>'+
+                    '<span id='+arr[i].id+' class="check iconfont icon-subunselected"></span>'+
+                    '<p type="'+arr[i].type+'">'+arr[i].name+'</p>'+
+                    '</li>'
+            }
+            $('.lic_ul').empty().append(s);
+            checkfn();
+        })
+        $('.back').on('click',function(){
+            $('.con').css('display','none');
+            $('.zhuyecon').css('display','block');
+        })
+    })
+    function checkfn(){
+        $('.check').each(function(){
+            $(this).on('click',function(){
+                var id = $(this).attr('id');
+                var content = $(this).siblings('p').text();
+                var con = $(this).siblings('p').attr("type");
+                $(this).toggleClass('icon-xuanzhong')
+                $(this).toggleClass('icon-subunselected')
+                $(this).parent().siblings('li').find('span').removeClass('icon-xuanzhong').addClass('icon-subunselected')
+                $('.con').css('display','none');
+                $('.zhuyecon').css('display','block');
+                $('.chioc').each(function(){
+
+                    if($(this).attr('id') == id){
+                        $(this).find('input').attr('value',con);
+                        $(this).find('.content').prepend(content)
+                    }
+                })
+            })
+        })
+    }
+    $("#submit").click(function () {
+        function GetJsonData() {
+			var json = {
+			    "orderId":order,
+				"type":$("#type").val(),
+				"state":$("#state").val(),
+				"reason":$("#reason").val(),
+				"money":$("#money").val(),
+				"asexplain":$("#asexplain").val(),
+				"phone":$("#phone").val()
+			};
+			console.log(json)
+			return json;
+		}
+        $.ajax({
+			type: "GET",
+			url: testurl + "/api/order/addaftersale",
+			dataType: "json",
+			data: {
+				platform: "2",
+				cutomerId: localStorage.getItem("cutomerId"),
+                aftersaleJson: JSON.stringify(GetJsonData())
+			},
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			beforeSend: function(XMLHttpRequest) {
+				loadImg();
+			},
+			success: function(data) {
+				if(data.code == 10000) {
+//					alert("申请");
+					location.href="souhorder.html"
+				}else{
+				    alert(data.msg)
+				}
+			},
+			complete: function(XMLHttpRequest, textStatus) {
+				$("#loadImg").remove();
+			},
+			error: function(data) {
+				if(data.status == "404") {
+					alert('请求地址出错！');
+				} else if(data.status == "302") {
+					alert('连接网页出错');
+				} else if(data.status == "timeout") {
+					alert("请求超时!");
+				} else if(data.status == "400") {
+					alert("未登录!请先登录");
+					//location.href = "./login.html"
+				} else {
+					alert('服务器出差了~！');
+				}
+			}
+		})
+        GetJsonData()
+    })
+</script>
 </html>
