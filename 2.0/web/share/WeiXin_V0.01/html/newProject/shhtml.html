@@ -12,19 +12,19 @@
 			<ul>
 				<li id="1" class="chioc">
 					<p>类型</p>
-					<p>点击选择售后类型<span class="iconfont icon-combinedshapefuben "></span></p>
+					<p><input type="text" readonly="readonly" name="" id="" value="点击选择售后类型" /><span class="iconfont icon-combinedshapefuben "></span></p>
 				</li>
 				<li id="2" class="chioc">
 					<p>状态</p>
-					<p>点击选择货物状态<span class="iconfont icon-combinedshapefuben "></span></p>
+					<p><input type="text" readonly="readonly" name="" id="" value="点击选择货物状态" /><span class="iconfont icon-combinedshapefuben "></span></p>
 				</li>
 				<li id="3" class="chioc">
 					<p>原因</p>
-					<p>点击选择退款原因<span class="iconfont icon-combinedshapefuben "></span></p>
+					<p><input type="text" readonly="readonly" name="" id="" value="点击选择退款原因" /><span class="iconfont icon-combinedshapefuben "></span></p>
 				</li>
 				<li>
 					<p>金额</p>
-					<p>129</p>
+					<p><input type="text" readonly="readonly" name="" id="" value="129" /></p>
 				</li>
 				<li>
 					<p>说明</p>
@@ -32,7 +32,7 @@
 				</li>
 				<li>
 					<p>联系电话</p>
-					<p>183246441355</p>
+					<p><input type="text" readonly="readonly" name="" id="" value="183246441355" /></p>
 				</li>
 			</ul>
 			<input id="submit" type="submit" value="提交" />
@@ -43,61 +43,106 @@
 				<span class="iconfont icon-mjiantou-copy back"></span>
 			</div>
 			<section class="hidden_sele">
-				<ul>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>卖家发错货</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>尺码拍错/不喜欢/效果差</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>质量问题</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>其他</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>卖家发错货</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>尺码拍错/不喜欢/效果差</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>质量问题</p>
-					</li>
-					<li>
-						<span class="check iconfont icon-subunselected"></span>
-						<p>其他</p>
-					</li>
+				<ul class="lic_ul">
+					
+					
 				</ul>
 			</section>
 		</div>
 	</body>
 	<script>
+		var arr1 = [
+			{
+				id:1,
+				name:'卖家发错货'
+			},
+			{
+				id:1,
+				name:'尺码拍错/不喜欢/效果差'
+			},
+			{
+				id:1,
+				name:'质量问题'
+			},
+			{
+				id:1,
+				name:'卖家发错货'
+			},
+			{
+				id:1,
+				name:'卖家发错货'
+			},
+			{
+				id:1,
+				name:'卖家发错货'
+			},
+		]
+		var arr2 = [
+			{
+				id:2,
+				name:'卖家发错货'
+			},
+			{
+				id:2,
+				name:'尺码拍错/不喜欢/效果差'
+			},
+			{
+				id:2,
+				name:'质量问题'
+			}
+		]
+		var arr3 = [
+			{
+				id:3,
+				name:'卖家发错货'
+			},
+		]
+		
 		$('.chioc').each(function(){
 			$(this).on('click',function(){
 				var id = $(this).attr('id');
 				$('.con').css('display','block');
 				$('.zhuyecon').css('display','none');
+				var arr = [];
+				if(id == 1){
+					var arr = arr1;
+				} else if(id == 2){
+					var arr = arr2
+				} else if(id == 3){
+					var arr = arr3
+				}
+				var s = '';
+				for(var i=0;i<arr.length;i++){
+					s+= '<li>'+
+							'<span id='+arr[i].id+' class="check iconfont icon-subunselected"></span>'+
+							'<p>'+arr[i].name+'</p>'+
+						'</li>'
+				}
+				$('.lic_ul').empty().append(s);
+				checkfn();
 			})
 			$('.back').on('click',function(){
 				$('.con').css('display','none');
 				$('.zhuyecon').css('display','block');
 			})
 		})
-		$('.check').each(function(){
-			$(this).on('click',function(){
-				$(this).toggleClass('icon-xuanzhong')
-				$(this).toggleClass('icon-subunselected')
-				$(this).parent().siblings('li').find('span').removeClass('icon-xuanzhong').addClass('icon-subunselected')
+		function checkfn(){
+			$('.check').each(function(){
+				$(this).on('click',function(){
+					var id = $(this).attr('id');
+					var con = $(this).siblings('p').text()
+					$(this).toggleClass('icon-xuanzhong')
+					$(this).toggleClass('icon-subunselected')
+					$(this).parent().siblings('li').find('span').removeClass('icon-xuanzhong').addClass('icon-subunselected')
+					$('.con').css('display','none');
+					$('.zhuyecon').css('display','block');
+					$('.chioc').each(function(){
+						if($(this).attr('id') == id){
+							$(this).find('input').attr('value',con)
+						}
+					})
+				})
 			})
-		})
+		}
 	</script>
 </html>
