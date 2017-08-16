@@ -1129,7 +1129,7 @@
 					}
 					//轮播
 					for(var i = 0; i < banner_wareInfo.length; i++) {
-						$(".swiper-wrapper").append('<img class="swiper-slide" style="height:245px;" src="' + banner_wareInfo[i] + '" />');
+						$(".swiper-wrapper").append('<img class="swiper-slide" style="width: 100%;height:auto;max-height: 400px;" src="' + banner_wareInfo[i] + '" />');
 					}
 					$("img").error(function() {
 						$(this).attr("src", "../img/imgNoload.png")
