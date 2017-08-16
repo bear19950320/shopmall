@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>关于我们</title>
+		<style>
+			img{
+				width:100%;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.head{
+				float: left;
+				width:50px;
+				height:50px;
+				border-radius: 50%;
+			}
+			.ul{
+				list-style: none;
+				float: left;
+			}
+			#div:after{
+				display: block;
+				content: "";
+				clear: both;
+			}
+		</style>
+	</head>
+	<body>
+
+
+		<script src="../../js/jquery.js"></script>
+		<script>
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if(r != null) return unescape(decodeURI(r[2]));
+                return null;
+            }
+           // var json=GetQueryString("json");
+			var json=sessionStorage.getItem("new");
+            var data=JSON.parse(json);
+console.log(data)
+             $("body").append('<img  src="'+data[0].img+'"/><div id="div">\
+                 <img class="head" src="../../img/LOGO.png" alt="">\
+                <ul class="ul">\
+                <li style="font-size: 14px;padding: 5px">'+data[0].writer+'</li>\
+                <li style="font-size: 10px;padding: 5px">'+data[0].time+'</li>\
+            </ul>\
+            </div><p>'+data[0].contern+'</p>')
+			console.log(data[0].img)
+		</script>
+	</body>
+</html>
