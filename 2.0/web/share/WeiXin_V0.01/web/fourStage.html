@@ -33,6 +33,14 @@
 		<script type="text/javascript" src="../js/curr.js"></script>
 		<script type="text/javascript" src="../js/share.js"></script>
 		<script type="text/javascript">
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if(r != null) return unescape(decodeURI(r[2]));
+                return null;
+            }
+
+            var route = GetQueryString("route");
             if(!route) {
 
             } else {

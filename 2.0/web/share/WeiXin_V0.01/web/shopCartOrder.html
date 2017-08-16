@@ -789,6 +789,10 @@
                     $("#div1,#div3").attr("class", "open1");
                     $("#div2,#div4").attr("class", "open2");
                 }
+                if(sessionStorage.getItem("TieMuch")<TieMoney){
+                    $("#div1").attr("class", "open1");
+                    $("#div2").attr("class", "open2");
+				}
                 if($("#freight").html()>0){
                     $("#div1").attr("class", "open1");
                     $("#div2").attr("class", "open2");
