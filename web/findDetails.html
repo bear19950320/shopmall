@@ -60,7 +60,8 @@
 				if(r != null) return unescape(decodeURI(r[2]));
 				return null;
 			}
-			var id = GetQueryString("id")
+			var id = GetQueryString("id");
+            var route = GetQueryString("route");
 			// 精选手记
 			$.ajax({
 				type: "GET",
