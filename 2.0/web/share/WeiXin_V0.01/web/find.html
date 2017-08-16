@@ -11,13 +11,23 @@
 	</head>
 
 	<body style="background: #F4F4F4;">
-		<div class="crousel findImg" style="margin: 0;" id="subjectlist">
+		<div class="crousel findImg" style="margin: 0;overflow: hidden;" id="subjectlist">
+			<div style="position:absolute;left:0;top:0;width: 100%;height: 35px;padding: 10px;box-sizing: border-box;">
+				<p style="width: 100%;height:15px;line-height:15px;font-size: 13px;color: #9B9B9B;border-left: 3px solid red;">【店主福利】11月巨献，Are You Ready?</p>
+			</div>
+			<div class="imggg" style="width: 80%;height: 100%;margin-left: 10%;padding-top: 35px;box-sizing: border-box;">
+				<img src="../img/myMallBack.png" style="width: 100%;height: 100%;" />
+			</div>
+			<div style="width: 100%;height: auto;padding: 20px;box-sizing: border-box;background: rgba(0, 0, 0, 0.2);position: absolute;left: 0;bottom: 0;">
+				<p style="color: #FFFFFF;font-size: 14px;line-height: 140%;">2017年07月刚刚来到中国的帝王级邮轮，邀你来一场奢华的海上邂逅</p>
+			</div>
 			<a href="javascript:;" id="openNotes">发布</a>
 		</div>
 
 		<ul class="notes" style="padding-bottom: 60px;">
 
 		</ul>
+		
 		<div class="selectionType">
 			<ul class="selectionTypeUl">
 				<li>
@@ -367,7 +377,11 @@
 												'<ul>' +
 												'<li style="line-height: 20px;">\
 											<span class="' + data[i].selfnotesId + '">\
-											<img src="../img/praise.png" style="width: 22px;height: 16px;"/></span>\
+											<img src="../img/praise.png" style="width: 20px;height: 15px;"/></span>\
+											<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>' +
+											'<li style="line-height: 20px;">\
+											<span class="' + data[i].selfnotesId + '">\
+											<img src="../img/share.png" style="width: 20px;height: 15px;"/></span>\
 											<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>' +
 												'</ul>' +
 												'</div>' +
@@ -380,7 +394,12 @@
 												'<ul class="notesImgArr" id="notes' + data[i].selfnotesId + '">' +
 												'</ul>' +
 												'</div>' +
-												'</li>');
+												'</li>'+
+												'<div style="width:100%;height:55px;padding:10px 20px;box-sizing:border-box;background:#e5e5e5;position:relative;margin-bottom: 10px;">'+
+												'<img src="../img/bg@3x.png" style="width:35px;height:35px;position:absolute;left:20px;top:10px;" />'+
+												'<p style="font-size:12px;color:#9b9b9b;padding-left:40px;width:100%;height:35px;box-sizing:border-box;line-height: 35px;">益西高端植物纤维防敏卫生巾</p>'+
+												'</div>'
+												);
 
 											if(data[i].imageArray.length > 3) {
 												data[i].imageArray.length = 3
