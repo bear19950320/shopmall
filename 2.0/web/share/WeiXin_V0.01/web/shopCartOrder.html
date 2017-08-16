@@ -956,7 +956,7 @@
 											crossDomain: true,
 											success: function(data) {
 												if(data.data.result == false) {
-													alert("没有支付密码");
+                                                    alert("您还没有支付密码请设置支付密码");
 													location.href = "securityCenter.html"
 												} else if(data.data.result == true) {
 													var orderCode = data.data.orderCode;
