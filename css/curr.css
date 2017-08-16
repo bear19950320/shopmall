@@ -84,6 +84,7 @@ html{
 	/*font-size: 36px;*/
 }
 body{overflow-x: scroll;}
+.element::-webkit-scrollbar {display:none}
 ble:before{content:"¥";font-size:15px;color:#FF0000;padding: 0 5px;}
 bles:before{content:"¥";font-size:14px;padding: 0 5px;}
 .bomel{
