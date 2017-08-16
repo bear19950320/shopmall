@@ -301,7 +301,6 @@
 				}
 			});
 			var dataCount = 0;
-
 			function loadMore() {
 				$.ajax({
 					type: "GET",
@@ -434,8 +433,9 @@
 													num = Number($(this).siblings("span").text()) - 1
 													$(this).find("img").attr("src", "../img/praise.png")
 												}
-												$(this).siblings("span").text(num)
-												if(!localStorage.getItem("cutomerId")) {
+												$(this).siblings("span").text(num);
+
+												if(localStorage.getItem("cutomerId")!="") {
 													$.ajax({
 														type: "POST",
 														url: testurl + "/api/find/imagetextlike",

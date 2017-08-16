@@ -944,10 +944,8 @@
 					shopcartId: "",
 					orderRemarks: $("#Remarks").val(),
 					receiveId: $("#map>div").attr("id"),
-
 					orderWareList: t
 				};
-
 				return json;
 			}
 			$('#placeOrder').click(function() {
@@ -960,7 +958,6 @@
 	                }else{
 	                	alert("至少选择一种支付方式");
 	                }
-					
 					return false;
 				} else {
 					if($("#div3").attr("class") == "open1") {
@@ -996,7 +993,32 @@
 							var orderCode = data.data.orderCode;
 							$("#confirmCon").attr("orderid", orderCode);
 							$("#Prict").text("¥"+parseInt($("#Paid").text()).toFixed(2))
-							$(".fixed").show();
+                            $.ajax({
+                                type: "GET",
+                                url: testurl + "/api/customer/paypassword/has",
+                                data: {
+                                    platform: "2",
+                                    cutomerId: localStorage.getItem("cutomerId")
+                                },
+                                dataType: "json",
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                crossDomain: true,
+                                success: function(data) {
+                                   var data=data.data;
+                                   if(data.result==true){
+                                       $(".fixed").show();
+								   }else if(data.result==false){
+                                       alert("您还没有支付密码请设置支付密码");
+									   location.href="securityCenter.html"
+								   }
+								}
+                            })
+
+
+
+
 							//									$("#name").prepend($(".classifyListText").text());
 							//									$("#num").text($("#Paid").text())
 						}
