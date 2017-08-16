@@ -119,12 +119,13 @@
 										<label>实付金额：</label>\
 									</div>\
 									<div class="li_mid2_right">\
-										<label>￥'+data.orderTotal+'</label>\
+										<label>￥'+data.orderState+'</label>\
 									</div>\
 								</div>'
 								li+="</li>"
 						
 					    }
+					    $('.sum').append(data.orderState);
 					    $("ul").append(li)
 					},
 					complete: function(XMLHttpRequest, textStatus) {
