@@ -753,8 +753,6 @@
                             $(".all_price").eq(i).siblings(".freight").text("0")
                         }
 					}
-
-					console.log("dadasdada" + (Number($(".all_price").eq(i).html())).toFixed(2))
 					n += Number($(".all_price").eq(i).siblings(".freight").html())
 					m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html())
 
@@ -968,7 +966,7 @@
                                                     var orderCode = data.data.orderCode;
                                                     console.log(orderCode)
                                                     $("#confirmCon").attr("orderid", orderCode);
-                                                    $("#Prict").text("¥"+parseInt($("#Paid").text()).toFixed(2))
+                                                    $("#Prict").text("¥"+$("#Paid").text())
                                                     $(".fixed").show();
                                                     $("#name").prepend($(".classifyListText").text());
                                                     $("#num").text($("#Paid").text())

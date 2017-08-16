@@ -992,7 +992,7 @@
 						success: function(data) {
 							var orderCode = data.data.orderCode;
 							$("#confirmCon").attr("orderid", orderCode);
-							$("#Prict").text("¥"+parseInt($("#Paid").text()).toFixed(2))
+							$("#Prict").text("¥"+$("#Paid").text())
                             $.ajax({
                                 type: "GET",
                                 url: testurl + "/api/customer/paypassword/has",
