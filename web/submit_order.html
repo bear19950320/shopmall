@@ -714,7 +714,7 @@
 								if(spceId != "undefined") {
 									console.log(ware.skuList[i].skuId == spceId)
 									if(ware.skuList[i].skuId == spceId) {
-										$("#orderUl").append('<li  wareId=' + ware.wareId + ' waraId=' + ware.skuList[i].skuId + ' support="' + ware.support + '">\
+										$("#orderUl").append('<li  wareId=' + ware.wareId + ' waraId=' + ware.skuList[i].skuId + ' support="' + ware.support + '" >\
 									      			<div class="storeTitle">\
 									      				<img src="' + ware.supplierHeadImage + '" style="height: 20px ;width:20px;float:left;" />\
 									      				<div style="width: 43%;text-align: left;overflow: hidden;">' + ware.supplierName + '</div>\
@@ -792,13 +792,12 @@
 						}
 						if($(".activity").attr("type") == "1") {
 							$(".activity>span").show();
-							$(".activity>span").append('满<span style="color:#fff">' + ware.activitymanage.fallMoney + '</span>包邮')
+							$(".activity>span").append('满<span style="color:#fff" max="'+ ware.activitymanage.fallMoney +'">' + ware.activitymanage.fallMoney + '</span>包邮')
 						} else if($(".activity").attr("type") == "2") {
 							$(".activity>span").show();
 							$(".activity>span").append('满<span style="color:#fff">' + ware.activitymanage.fallMoney + '</span>返<span style="color:#fff">' + ware.activitymanage.returnMoney + '</span>')
 						}
 
-						console.log($(".activityA").attr("type") == "undefined")
 						if($(".activityA").attr("type") == "1") {
 							$(".activityA").show()
 						} else if($(".activityA").attr("type") == "2") {
@@ -810,79 +809,85 @@
 						}
 						$(".NUM").html(Num)
 						$(".all_price").text(ware.warePrice * wareNum);
-						var mu = Number($(".all_price").html());
+
 						var freight = 0;
-						$(".freight").text(freight)
-						if(mu < 99) {
-							$(".freight").text("6");
-							$("#freight").text("6");
-							freight = Number($(".freight").text());
-							mu = mu + freight
-						} else if(mu > 99) {
-							$(".freight").text("0");
-							$("#freight").text("0");
-							freight = Number($(".freight").text());
-							mu = mu + freight
-						}
+						$(".freight").text(freight);
+
+
+						/*--------------------------------分割线----------------------------------------*/
+						//  活动与非活动价格(运费);
+                        var mu = Number($(".all_price").html());
+                        if($(".activity>span>span").attr("max")!=""){
+                            if(mu < Number($(".activity>span>span").attr("max"))) {
+                                $(".freight").text("6");
+                                $("#freight").text("6");
+                                freight = Number($(".freight").text());
+                                mu = mu + freight
+                            } else if(mu > Number($(".activity>span>span").attr("max"))) {
+                                $(".freight").text("0");
+                                $("#freight").text("0");
+                                freight = Number($(".freight").text());
+                                mu = mu + freight
+                            }
+                        }else{
+                            if(mu < 99) {
+                                $(".freight").text("6");
+                                $("#freight").text("6");
+                                freight = Number($(".freight").text());
+                                mu = mu + freight
+                            } else if(mu > 99) {
+                                $(".freight").text("0");
+                                $("#freight").text("0");
+                                freight = Number($(".freight").text());
+                                mu = mu + freight
+                            }
+                        }
+
 						$("#Paid").text(mu);
-						if(Number($("#Paid").html()) < 99) {
-							$("#div1").attr("class", "open1");
-							$("#div2").attr("class", "open2");
-							$("#div1,#div2").click(function() {
-								return false;
-							});
-							$("#placeOrder").attr("type", "4");
-							$("#PayAlt").text("混合支付");
+
+                        var TieMoney=0,caseMoney=0;
+                        if($("#orderUl>li").attr("support") == "1") {
+                            TieMoney=$(".all_price").html();
+                        }else if($("#orderUl>li").attr("support") == "0"){
+                            caseMoney=$(".all_price").html();
+                        }
+
+						/*--------------------------------分割线----------------------------------------*/
+                        //  (呔金和运费不需要现金时);
+						if(TieMoney>0 && $("#freight").html()<=0){
+                            $("#div1").attr("class", "close1");
+                            $("#div2").attr("class", "close2");
+                            $("#div3").attr("class", "open1");
+							$("#div4").attr("class", "open2");
+						}else{
+                            $("#div3").attr("class", "open1");
+                            $("#div4").attr("class", "open2");
 						}
-						if($("#orderUl>li").attr("support") == "0") {
-							$("#div1").attr("class", "open1");
-							$("#div2").attr("class", "open2");
-							$("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
-							$("#TieMoney").find("#div3,#div4").click(function() {
-								alert("非自营商品不能使用呔金");
-								return false;
-							});
-						} else if($("#orderUl>li").attr("support") == 1) {
-							if(Number(sessionStorage.getItem("TieMuch")) > 0) {
-								$("#div3").attr("class", "open1");
-								$("#div4").attr("class", "open2");
-							} else {
-								$("#div3").attr("class", "close1");
-								$("#div4").attr("class", "close2");
-								$("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
-							}
-							if(Number($("#Paid").html()) >= Number(sessionStorage.getItem("TieMuch")) && Number($("#Paid").html()) > 99) {
-								$("#div1").attr("class", "close1");
-								$("#div2").attr("class", "close2");
-								$("#div3").attr("class", "open1");
-								$("#div4").attr("class", "open2");
-							} else if(Number($("#Paid").html()) < 99) {
-								$("#div1").attr("class", "open1");
-								$("#div2").attr("class", "open2");
-								$("#div1,#div2").click(function() {
-									alert("运费必须用现金支付");
-									$("#div1").attr("class", "open1");
-									$("#div2").attr("class", "open2");
-									return false;
-								});
-								$("#placeOrder").attr("type", "4");
-								$("#PayAlt").text("混合支付");
-							}
-							if(Number($("#Paid").html()) > Number(sessionStorage.getItem("TieMuch"))) {
-								$("#div1").attr("class", "open1");
-								$("#div2").attr("class", "open2");
-								$("#div1,#div2").click(function() {
-									// alert("呔金不够支付");
-									return false;
-								});
-								$("#placeOrder").attr("type", "4");
-								$("#PayAlt").text("混合支付");
-							}
-						}
-						if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
-		                	$("#div1,#div3").attr("class", "close1");
-		                	$("#div2,#div4").attr("class", "close2");
-		                }
+						/*--------------------------------分割线----------------------------------------*/
+                        //  现金支付;
+                        if(caseMoney>0){
+                            $("#div1").attr("class", "open1");
+                            $("#div2").attr("class", "open2");
+                            $("#div3").attr("class", "close1");
+                            $("#div4").attr("class", "close2");
+                            $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
+                            $("#div3,#div4").click(function() {
+                                alert("非自营商品不能使用呔金");
+                                return false;
+                            });
+                        }
+						/*--------------------------------分割线----------------------------------------*/
+                        //  (运费开启现金按钮);
+                        if($("#freight").html()>0){
+                            $("#div1").attr("class", "open1");
+                            $("#div2").attr("class", "open2");
+
+                            $("#div1,#div2").click(function() {
+                                alert("运费需用现金支付");
+                                return false;
+                            });
+                        }
+
 						if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
 							$("#placeOrder").attr("type", "4");
 							$("#PayAlt").text("混合支付");
@@ -950,7 +955,7 @@
 					if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
 	                	$("#div1,#div3").attr("class", "close1");
 	                	$("#div2,#div4").attr("class", "close2");
-	                	alert("金额不足支付订单,请下载app完成支付");
+	                	alert("金额不足无法支付订单,请下载app完成支付");
 						location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 	                }else{
 	                	alert("至少选择一种支付方式");

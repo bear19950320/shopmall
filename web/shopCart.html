@@ -147,13 +147,30 @@
 											} else {
 												supplierHeadImage = con[i][j].ware.supplierHeadImage
 											}
+											var activityType="";
+                                            	fallMoney='';
+                                            	returnMoney="";
+
+                                            if(con[i][j].ware.activitymanage!=""){
+                                                activityType=con[i][j].ware.activitymanage.activityType;
+                                                if(con[i][j].ware.activitymanage.fallMoney!=""){
+                                                    fallMoney=con[i][j].ware.activitymanage.fallMoney;
+												}
+                                                if(con[i][j].ware.activitymanage.returnMoney!=""){
+                                                    returnMoney=con[i][j].ware.activitymanage.returnMoney
+                                                }
+
+                                            }
 											if(con[i][j].shopcartSkuitems.length != 0) {
+
+
+											   //	'<a href="javascript:;" class="Activity" type="1" style="display: inline-block;">满<span max="80">80</span>包邮</a>'+
 												$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
 													'<dd class="line-normal-wrapper">' +
-													'<input type="checkbox" class="checkbox" shopCartId="'+con[i][j].shopcartId+'" id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=' + con[i][j].shopcartSkuitems[0].skuitemId + '> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
+													'<input type="checkbox" class="checkbox" activityType="'+activityType+'" fallMoney="'+fallMoney+'"  returnMoney="'+returnMoney+'" shopCartId="'+con[i][j].shopcartId+'" id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=' + con[i][j].shopcartSkuitems[0].skuitemId + '> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
 													'<img src="' + con[i][j].ware.imagePath + '" style="width: 25%;height: 99px;"/>' +
 													'<div class="line-normal-info-wrapper goodsInfor"style="height: 99px;">' +
-													'<p style="font-size:14px;height: 45px;" >' + con[i][j].ware.wareName + '</p>' +
+													'<p style="font-size:14px;-webkit-line-clamp: 2;height: 45px;" class="classifyListText left" >' + con[i][j].ware.wareName + '</p>' +
 													'<div style="width: 100%; font-size: 12px;padding: 5px 0 ;" class="' + con[i][j].shopcartId + '">' +
 													'</div>' +
 													'<div class="numcon" style="position: relative;">' +
@@ -182,10 +199,10 @@
 											}else{//' + con[i][j].shopcartSkuitems[0].skuitemId + '
 													$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
 													'<dd class="line-normal-wrapper">' +
-													'<input type="checkbox" class="checkbox" shopCartId="'+con[i][j].shopcartId+'"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=" "> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
+													'<input type="checkbox" class="checkbox" activityType="'+activityType+'" fallMoney="'+fallMoney+'"  returnMoney="'+returnMoney+'" shopCartId="'+con[i][j].shopcartId+'"  id="' + con[i][j].wareId + '" support="' + con[i][j].ware.support + '" HeadImage="' + supplierHeadImage + '" wareName="' + con[i][j].ware.wareName + '" skuId=' + con[i][j].skuId + ' skuitemId=" "> <i style="display: none;">' + con[i][j].shopcartId + '</i>' +
 													'<img src="' + con[i][j].ware.imagePath + '" style="width: 7rem;height: 7rem;"/>' +
 													'<div class="line-normal-info-wrapper goodsInfor">' +
-													'<p style="font-size:14px;height: 50px;" >' + con[i][j].ware.wareName + '</p>' +
+													'<p style="font-size:14px;-webkit-line-clamp: 2;height: 45px;"  class="classifyListText left" >' + con[i][j].ware.wareName + '</p>' +
 													'<div style="width: 100%; font-size: 12px;padding: 5px 0 ;" class="' + con[i][j].shopcartId + '">' +
 													'</div>' +
 													'<div class="numcon">' +
@@ -346,7 +363,10 @@
 											"supportName":$('.cart dd input[class="checkbox"]:checked').eq(i).parents(".line-wrapper").find(".supplierTitle a").text(),
 											"supportType":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("support"),
 											"supportImage":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("HeadImage"),
-											"shopcartId":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("shopcartid")
+											"shopcartId":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("shopcartid"),
+											"activitytype":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("activitytype"),
+											"fallmoney":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("fallmoney"),
+											"returnmoney":$('.cart dd input[class="checkbox"]:checked').eq(i).attr("returnmoney")
 										};
 										console.log(json)
 										return json;
