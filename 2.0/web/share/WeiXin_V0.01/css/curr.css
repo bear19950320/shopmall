@@ -2060,5 +2060,15 @@ input[type='radio']:checked{
 		width: 69% !important;
 	}
 }
+.Activity {
+	display: none;
+	background: url(../img/icon/activityLine.png)no-repeat;
+	background-size: 100% 100%;
+	padding: 4px;
+	color: #fff;
+}
 
+.Activity>span {
+	color: #fff;
+}
 
