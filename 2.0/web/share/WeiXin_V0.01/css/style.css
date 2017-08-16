@@ -80,7 +80,8 @@ padding: 10px 0 0 0;
 }
 .goodsInfor>p{
 	line-height:20px;
-	padding: 5px 0;
+	padding: 5px 10px 5px 0;
+	box-sizing: border-box;
 }
 /* newAddress */
 .addressUl:after,.addressUl>li:after{

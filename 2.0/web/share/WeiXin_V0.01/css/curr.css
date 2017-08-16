@@ -396,8 +396,10 @@ body {
 	vertical-align: middle;
 	background-color: #FFFFFF;
 	border-bottom: 1px solid #F1F1F1;
+	
 }
-
+#classifyListTitle::-webkit-scrollbar {display:none}
+.commodityList::-webkit-scrollbar {display:none}
 #classifyListTitle li {
 	padding: 0px 12px;
 	text-align: center;
@@ -1063,7 +1065,7 @@ body {
 }
 
 .notesText {
-	padding: 10px 10px 10px 15px;
+	padding: 5px 10px 10px 15px;
 }
 .notesText>p>img{
 	width: 100%;
