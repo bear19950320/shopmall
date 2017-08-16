@@ -930,58 +930,62 @@
 						if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
 							location.href = "login.html"
 						} else if(localStorage.getItem("loginStatus") == "1") {
-							$.ajax({
-								type: "POST",
-								url: testurl + "/api/order/addorder",
-								data: {
-									platform: "2",
-									cutomerId: localStorage.getItem("cutomerId"),
-									orderContent: JSON.stringify(GetJsonData())
-								},
-								dataType: "json",
-								xhrFields: {
-									withCredentials: true
-								},
-								crossDomain: true,
-								success: function(data) {
-									if(data.code == 10000) {
-										$.ajax({
-											type: "GET",
-											url: testurl + "/api/customer/paypassword/has",
-											dataType: "json",
-											data: {
-												platform: "2",
-												cutomerId: localStorage.getItem("cutomerId"),
-												paypassword: $("#passwordinput").val()
-											},
-											xhrFields: {
-												withCredentials: true
-											},
-											crossDomain: true,
-											success: function(data) {
-												if(data.data.result == false) {
-                                                    alert("您还没有支付密码请设置支付密码");
-													location.href = "securityCenter.html"
-												} else if(data.data.result == true) {
-													var orderCode = data.data.orderCode;
-													$("#confirmCon").attr("orderid", orderCode);
-													$("#Prict").text("¥"+parseInt($("#Paid").text()).toFixed(2))
-													$(".fixed").show();
-													$("#name").prepend($(".classifyListText").text());
-													$("#num").text($("#Paid").text())
-												}
-											}
-										})
-									} else if(data.code == 2001) {
-										localStorage.setItem("cutomerId", " ")
-										localStorage.setItem("loginStatus", "0")
-										alert(data.msg)
-									} else {
-										alert(data.msg)
-									}
-	
-								}
-							});
+                            $.ajax({
+                                type: "GET",
+                                url: testurl + "/api/customer/paypassword/has",
+                                dataType: "json",
+                                data: {
+                                    platform: "2",
+                                    cutomerId: localStorage.getItem("cutomerId"),
+                                    paypassword: $("#passwordinput").val()
+                                },
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                crossDomain: true,
+                                success: function(data) {
+                                    if(data.data.result == false) {
+                                        alert("您还没有支付密码请设置支付密码");
+                                        location.href = "securityCenter.html"
+                                    } else if(data.data.result == true) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: testurl + "/api/order/addorder",
+                                            data: {
+                                                platform: "2",
+                                                cutomerId: localStorage.getItem("cutomerId"),
+                                                orderContent: JSON.stringify(GetJsonData())
+                                            },
+                                            dataType: "json",
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            crossDomain: true,
+                                            success: function(data) {
+                                                if(data.code == 10000) {
+                                                    var orderCode = data.data.orderCode;
+                                                    console.log(orderCode)
+                                                    $("#confirmCon").attr("orderid", orderCode);
+                                                    $("#Prict").text("¥"+parseInt($("#Paid").text()).toFixed(2))
+                                                    $(".fixed").show();
+                                                    $("#name").prepend($(".classifyListText").text());
+                                                    $("#num").text($("#Paid").text())
+                                                } else if(data.code == 2001) {
+                                                    localStorage.setItem("cutomerId", " ")
+                                                    localStorage.setItem("loginStatus", "0")
+                                                    alert(data.msg)
+                                                } else {
+                                                    alert(data.msg)
+                                                }
+
+                                            }
+                                        });
+
+                                    }
+                                }
+                            })
+
+
 						}
 					
 					}
@@ -1087,10 +1091,12 @@
 													if(data.code == 8001) {
 														alert(data.msg);
 													} else if(data.code == 10000) {
-														$("#orderUl").empty();
-														alert("订单已提交!")
-														location.href = "order.html"
-														sessionStorage.setItem("orderCode", "200")
+                                                        if(data.code == 8001) {
+                                                            alert(data.msg);
+                                                        } else if(data.code == 10000) {
+                                                            $("#orderUl").empty();
+                                                            location.href = "orderstatush.html?Paid=" + $("#Paid").html()
+                                                        }
 													}
 
 													// location.href="order.html?code=200"

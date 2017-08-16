@@ -280,7 +280,7 @@
 										$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
 											'<dd class="line-normal-wrapper">' +
 											'<input type="checkbox" class="checkbox" support="'+con[i][j].support+'"  id=' + con[i][j].wareId + ' name="' + con[i][j].wareSkuid + '" wareName=' + con[i][j].wareName + ' skuId=' + con[i][j].orderWareSkuitems[0].skuId + ' skuitemId=' + con[i][j].orderWareSkuitems[0].skuItemId + '> <i style="display: none;">' + con[i][j].cloudWareId + '</i>' +
-											'<img src="' + con[i][j].wareImage + '" style="width: 7rem;height: 7rem;"/>' +
+											'<img src="' + con[i][j].wareImage + '" class="imgClick" id="'+con[i][j].wareId+'" style="width: 7rem;height: 7rem;"/>' +
 											'<div class="line-normal-info-wrapper goodsInfor">' +
 											'<p style="font-size:14px;" >' + con[i][j].wareName + '</p>' +
 											'<div style="width: 100%; font-size: 12px;padding: 5px 0 ;" class="' + con[i][j].wareSkuid + '">' +
@@ -347,6 +347,10 @@
 									})
 
 								}
+                                $(".imgClick").click(function (e) {
+                                    e.stopPropagation();
+                                    location.href="detailsdemo.html?wareId="+$(this).attr("id")
+                                })
 								$(".toAll").text(toAll);
 							} else {
 								$("#cloudNull").show();

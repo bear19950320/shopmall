@@ -134,13 +134,19 @@
 											<a href="javascript:;" class="again" orderId="'+data[i].orderId+'" style="font-weight:normal">再次购买</a>\
 							      		    </div>\
 							      		</li>');
+
 										for(var j = 0; j < data[i].orderWareList.length; j++) {
+                                            var name='',value='';
+                                            if(data[i].orderWareList[j].orderWareSkuitems!=""){
+                                                name=data[i].orderWareList[j].orderWareSkuitems[0].name;
+                                                value=data[i].orderWareList[j].orderWareSkuitems[0].value;
+											}
 											$("#" + data[i].orderCode).append('<li wareId="'+data[i].orderWareList[j].wareId+'" skuId="'+data[i].orderWareList[j].wareSkuid+'">\
 					      		    		      <div class="storeWare">\
-								      		    	<img class="wareImg" src="' + data[i].orderWareList[j].wareImage + '" alt="" />\
+								      		    	<img class="wareImg imgClick" id="' + data[i].orderWareList[j].wareId + '" src="' + data[i].orderWareList[j].wareImage + '" alt="" />\
 								      		    	<div class="wareText">\
 								      		    		<p class="classifyListText left">' + data[i].orderWareList[j].wareName + '</p>\
-								      		    	    <div class="spec left">规格：' + data[i].orderWareList[j].orderWareSkuitems[0].value + '</div>\
+								      		    	    <div class="spec left">'+name+' ' + value + '</div>\
 								      		    	</div>\
 								      		    </div>\
 						      		    	</li>');
@@ -170,8 +176,12 @@
 											}
 											
 										});
-										
+										imgNot()
 									};
+                                    $(".imgClick").click(function (e) {
+                                        e.stopPropagation();
+                                        location.href="detailsdemo.html?wareId="+$(this).attr("id")
+                                    })
 									/*-----------------------分割线----------------------------*/
 									/* 申请售后*/
 									$(".afterSale").click(function (e) {
