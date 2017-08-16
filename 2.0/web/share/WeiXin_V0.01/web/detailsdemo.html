@@ -795,7 +795,7 @@
 					}
 	
 				}
-		})
+		});
         /*   进去购物车     */
         $(".shopping").click(function(event){
 	       	event.stopPropagation();
@@ -1049,7 +1049,7 @@
 
 					if(ware.activitymanage.activityType == 1) {
 						$(".Activity").show();
-						$(".Activity").append('满<span>' + ware.activitymanage.fallMoney + '</span>包邮')
+						$(".Activity").append('满<span max="' + ware.activitymanage.fallMoney + '">' + ware.activitymanage.fallMoney + '</span>包邮')
 					} else if(ware.activitymanage.activityType == 2) {
 						$(".Activity").show();
 						$(".Activity").append('满<span>' + ware.activitymanage.fallMoney + '</span>返<span>' + ware.activitymanage.returnMoney + '</span>')
@@ -1060,25 +1060,27 @@
 					}else{
 						$(".marketPrice>del").remove()
 					}
-					
-					if(ware.skuList[0].skuItemList.length != 0) {
-						for(var j = 0; j < ware.skuList[0].skuItemList.length; j++) {
-							$("#specifications").append('<div class="specificationsMa">' +
-								'<p class="fontColorThree font_size_two">' + ware.skuList[0].skuItemList[j].name + '</p>' +
-								'<ul class="specificationsUl' + j + '">' +
-								'</ul>' +
-								'<div class="clear"></div>' +
-								'</div>');
-						}
-						$("#toStopCart,#buy_now").attr("skuitemId", ware.skuList[0].skuItemList[0].skuItemId);
-						$("#toStopCart,#buy_now").attr("skuId", ware.skuList[0].skuId);
-						$(".inventory_num").text(data.data.wareInfo.sales);
+					if(ware.skuList.length!=0){
+                        if(ware.skuList[0].skuItemList.length != 0) {
+                            for(var j = 0; j < ware.skuList[0].skuItemList.length; j++) {
+                                $("#specifications").append('<div class="specificationsMa">' +
+                                    '<p class="fontColorThree font_size_two">' + ware.skuList[0].skuItemList[j].name + '</p>' +
+                                    '<ul class="specificationsUl' + j + '">' +
+                                    '</ul>' +
+                                    '<div class="clear"></div>' +
+                                    '</div>');
+                            }
+                            $("#toStopCart,#buy_now").attr("skuitemId", ware.skuList[0].skuItemList[0].skuItemId);
+                            $("#toStopCart,#buy_now").attr("skuId", ware.skuList[0].skuId);
+                            $(".inventory_num").text(data.data.wareInfo.sales);
 
-					} else {
-						$("#toStopCart,#buy_now").attr("skuitemId", " ");
-						$("#toStopCart,#buy_now").attr("skuId", ware.skuList[0].skuId);
-						$(".inventory_num").text(data.data.wareInfo.sales);
+                        } else {
+                            $("#toStopCart,#buy_now").attr("skuitemId", " ");
+                            $("#toStopCart,#buy_now").attr("skuId", ware.skuList[0].skuId);
+                            $(".inventory_num").text(data.data.wareInfo.sales);
+                        }
 					}
+
 					if(ware.sales == 0) {
 						$("#buy_now,#toStopCart").css({
 							"background":"#F7F7F7",
@@ -1281,5 +1283,10 @@
 			});
 
 		});
+		if($("#supplierUl>li").length>0){
+		    $("#supplier").show()
+		}else{
+            $("#supplier").hide()
+		}
 	</script>
 </html>

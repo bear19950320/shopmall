@@ -33,7 +33,11 @@
 		<script type="text/javascript" src="../js/curr.js"></script>
 		<script type="text/javascript" src="../js/share.js"></script>
 		<script type="text/javascript">
-			
+            if(!route) {
+
+            } else {
+                $("body").append('<a href="../index.html" style="width:0.44rem;padding:10px 0;position: fixed;right:0;bottom:100px;background: rgba(0,0,0,.4);text-align: center;vertical-align: middle;"> <img src="../img/gohome.png" style="width:24px;height:20px;" /></a>')
+            }
 			$(function() {
 				
 				$("#classifyListUl>li>div").css({
