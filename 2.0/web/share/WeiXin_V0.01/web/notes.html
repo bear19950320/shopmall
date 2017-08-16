@@ -73,7 +73,7 @@
 		<div id="seach">
 			<div id="searchBox">
 				<svg t="1500981094549" id="icon" style="width:28px;height:24px;position: absolute;left: 10px;top:2px;" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2378" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M480 64C214.912 64 0 278.912 0 544 0 809.088 214.912 1024 480 1024c265.088 0 480-214.912 480-480C960 278.912 745.088 64 480 64zM565.12 713.024c12.48 12.48 12.48 32.768 0 45.248-6.272 6.272-14.464 9.344-22.656 9.344s-16.384-3.136-22.656-9.344L328.32 566.656c-12.48-12.48-12.48-32.768 0-45.248l192.768-192.832c12.48-12.48 32.768-12.48 45.248 0s12.48 32.768 0 45.248L396.224 544.064 565.12 713.024z" p-id="2379" fill="#ffffff"></path></svg>
-				<input type="text" placeholder="搜索商品" name="" id="searchInput" style="border: none;background: #f1f1f1;border-radius: 10px;padding: 0 10px;font-size: 13px;margin-top: 1px;"/>
+				<input type="text" placeholder="搜索商品" name="" id="searchInput" style="display:none;border: none;background: #f1f1f1;border-radius: 10px;padding: 0 10px;font-size: 13px;margin-top: 1px;"/>
 			</div>
 			<ul id="searchWare">
 	
@@ -99,6 +99,7 @@
             $("#addWare").click(function(){
             	$("form").hide();
             	$("#seach").show();
+            	$("#searchInput").show()
             });
             $("#submit").click(function(){
             	if($("#file_temporaryImage").val()==""){
@@ -208,7 +209,10 @@
 				if(r != null) return unescape(decodeURI(r[2]));
 				return null;
 			}
-			let name = GetQueryString("url")
+			let name = GetQueryString("url");
+//          if( $("#searchInput").css("display")=="none"){
+//               alert("12")
+//		   }
 			$("#searchInput").on("change", function() {
 				$.ajax({
 					type: "GET",
