@@ -733,7 +733,6 @@
 				var n = 0;
 
 				for(var i = 0; i < $("#orderUl>li").length; i++) {
-
 					if($("#orderUl>li").eq(i).attr("support") == 1) {
 						TieMoney += Number($("#orderUl>li").eq(i).find(".all_price").html())
 					}
@@ -741,21 +740,28 @@
 						cash += Number($("#orderUl>li").eq(i).find(".all_price").html())
 					}
 					if(!$(".all_price").eq(i).attr("max")){
-                        if(Number($(".all_price").eq(i).html()) < 99) {
-                            $(".all_price").eq(i).siblings(".freight").text("6")
-                        } else if(Number($(".all_price").eq(i).html()) > 99) {
-                            $(".all_price").eq(i).siblings(".freight").text("0")
-                        }
+                            if(Number($(".all_price").eq(i).html()) < 99) {
+                                $(".all_price").eq(i).siblings(".freight").text("6")
+                            } else if(Number($(".all_price").eq(i).html()) > 99) {
+                                $(".all_price").eq(i).siblings(".freight").text("0")
+                            }
 					}else{
-                        if(Number($(".all_price").eq(i).html()) < Number($(".all_price").eq(i).attr("max"))) {
-                            $(".all_price").eq(i).siblings(".freight").text("6")
-                        } else if(Number($(".all_price").eq(i).html()) > Number($(".all_price").eq(i).attr("max"))) {
-                            $(".all_price").eq(i).siblings(".freight").text("0")
+						if($(".all_price").eq(i).attr("max")=="undefined"){
+							if(Number($(".all_price").eq(i).html()) < 99) {
+								$(".all_price").eq(i).siblings(".freight").text("6")
+							} else if(Number($(".all_price").eq(i).html()) > 99) {
+								$(".all_price").eq(i).siblings(".freight").text("0")
+							}
+						}else{
+                            if(Number($(".all_price").eq(i).html()) < Number($(".all_price").eq(i).attr("max"))) {
+                                $(".all_price").eq(i).siblings(".freight").text("6")
+                            } else if(Number($(".all_price").eq(i).html()) > Number($(".all_price").eq(i).attr("max"))) {
+                                $(".all_price").eq(i).siblings(".freight").text("0")
+                            }
                         }
 					}
 					n += Number($(".all_price").eq(i).siblings(".freight").html())
-					m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html())
-
+					m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html());
 				}
 		
 
@@ -1090,13 +1096,12 @@
 												success: function(data) {
 													if(data.code == 8001) {
 														alert(data.msg);
+                                                        location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 													} else if(data.code == 10000) {
-                                                        if(data.code == 8001) {
-                                                            alert(data.msg);
-                                                        } else if(data.code == 10000) {
+
                                                             $("#orderUl").empty();
                                                             location.href = "orderstatush.html?Paid=" + $("#Paid").html()
-                                                        }
+
 													}
 
 													// location.href="order.html?code=200"

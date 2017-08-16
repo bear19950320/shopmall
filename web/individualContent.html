@@ -89,12 +89,13 @@
 						</svg>
 					</div>
 				</li>
-				<li>
+				<li id="locationLi">
 					<div class="individualLeft">
 						<span>常住</span>
 					</div>
 					<div class="addressInput locationDiv individualRight" style="position: relative;">
-						<input id="location" style="margin-top: -15px;font-size: 15px;" readonly value="" type="text" name="address" data-key="23-385-4224" value="" placeholder="选择地区" class="map" />
+						<!--<span id="locationSpan"></span>-->
+						<input id="location" style="margin-top: -15px;font-size: 15px;" readonly="readonly" value="" type="text" name="address" data-key="23-385-4224" value="" placeholder="选择地区" class="map" />
 						<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:-15px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
 							<defs>
 								<style type="text/css"></style>
@@ -217,6 +218,7 @@
 							$("#name").val(user.name);
 							$("#phone").val(user.phone);
 							$("#location").val(user.address);
+							$("#locationSpan").text(user.address);
 							$(".signature").val(user.signature);
 							$("#date").val(user.birthday)
 							if(user.sex == 0) {
@@ -548,6 +550,19 @@
 			//					}
 			//				});
 			//			});
+//			$("#locationSpan").click(function (e) {
+//				e.stopPropagation();
+//                $("#location").trigger("click");
+//                $("#location").blur(function (e) {
+//                    alert("12")
+//                    e.stopPropagation();
+//
+//                    console.log($(this).val())
+//                    $("#locationSpan").text($(this).val())
+//                    //$(this).parents(".individualRight").prepend('<span>'+$(this).val()+'</span>')
+//                })
+//            })
+
 		</script>
 
 	</body>
