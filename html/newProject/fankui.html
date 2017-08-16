@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>问题反馈</title>
+		<script src="../../js/jquery.min.js"></script>
+		<style>
+			@font-face {font-family: "iconfont";
+			  src: url('fonts/iconfont.eot?t=1502169903076'); /* IE9*/
+			  src: url('fonts/iconfont.eot?t=1502169903076#iefix') format('embedded-opentype'), /* IE6-IE8 */
+			  url('fonts/iconfont.woff?t=1502169903076') format('woff'), /* chrome, firefox */
+			  url('fonts/iconfont.ttf?t=1502169903076') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+			  url('fonts/iconfont.svg?t=1502169903076#iconfont') format('svg'); /* iOS 4.1- */
+			}
+			
+			.iconfont {
+			  font-family:"iconfont" !important;
+			  font-size:16px;
+			  font-style:normal;
+			  -webkit-font-smoothing: antialiased;
+			  -moz-osx-font-smoothing: grayscale;
+			}
+			
+			.icon-yuanquan-red:before { content: "\e600"; }
+			
+			.icon-dingwei:before { content: "\e608"; }
+			
+			.icon-search2:before { content: "\e601"; }
+			
+			.icon-arrow-right:before { content: "\e602"; }
+			
+			.icon-kuaidi:before { content: "\e6a9"; }
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			body{
+				background: #F1F1F1;
+			}
+			li{
+				list-style: none;
+			}
+			ul{
+				width: 90%;
+				height: auto;
+				background: #FFFFFF;
+				margin: 10px auto;
+				padding: 0 15px;
+				box-sizing: border-box;
+				border-radius: 8px;
+			}
+			ul>li{
+				width: 100%;
+				padding: 15px 0;
+				box-sizing: border-box;
+				border-bottom: 1px solid #F1F1F1;
+				position: relative;
+			}
+			ul>li:last-child{
+				border: none;
+			}
+			ul>li>div{
+				width: 100%;
+				height: auto;
+				padding-left: 25px;
+				box-sizing: border-box;
+				font-size: 0;
+			}
+			ul>li>img{
+				position: absolute;
+				top: 21px;
+				left: 0;
+				width: 17px;
+				height: 17px;
+			}
+			ul>li>div>p,ul>li>div>span{
+				display: inline-block;
+				vertical-align: middle;
+				width: 50%;
+			}
+			ul>li>div>p{
+				font-size: 14px;
+				color: #333333;
+				text-align: left;
+			}
+			ul>li>div>span{
+				font-size: 24px !important;
+				color: #333333;
+				text-align: right;
+			}
+			.con_one,.con_two{
+				width: 90%;
+				height: auto;
+				padding: 15px 5px;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				margin: 15px auto;
+				border-radius: 8px;
+			}
+			.con_one_t{
+				width: 100%;
+				height: auto;
+				border-bottom: 1px solid #F1F1F1;
+				font-size: 0;
+			}
+			.con_one_t>p{
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 14px;
+				width: 50%;
+				padding: 10px 5px;
+				box-sizing: border-box;
+			}
+			.con_one_t>p:first-child{
+				color: #333333;
+				text-align: left;
+			}
+			.con_one_t>p:last-child{
+				color: #9B9B9B;
+				text-align: right;
+			}
+			textarea{
+				width: 100%;
+				color: #9B9B9B;
+				font-size: 10px;
+				height: 100px;
+				padding: 5px;
+				box-sizing: border-box;
+				border: none;
+				outline: none;
+			}
+			.con_two>p{
+				font-size: 14px;
+				color: #333333;
+				width: 100%;
+				border-bottom: 1px solid #F1F1F1;
+				padding: 0 5px 5px;
+				box-sizing: border-box;
+			}
+			.crmarea{
+				width: 100%;
+				height: auto;
+				font-size: 0;
+			}
+			.crmarea>li{
+				width: 30%;
+				display: inline-block;
+				padding: 0;
+				margin-left: 5%;
+			}
+			.crmarea>li:nth-child(3n+1){
+				margin-left: 0;
+				margin-top: 5px;
+			}
+			
+			.crmarea>li>img{
+				width: 100%;
+				height: 100%;
+				top: 0;
+				margin: 0;
+				padding: 0;
+			}
+			.con_three{
+				width: 90%;
+				height: auto;
+				margin: 15px auto;
+			}
+			.con_three>button{
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 14px;
+				color: #FFFFFF;
+				background: red;
+				border: none;
+				border-radius: 5px;
+			}
+			.tijiao{
+				display: none;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<ul class="list_ul">
+			<li>
+				<img src="img/notes.png" />
+				<div>
+					<p>笔记问题</p>
+					<span class="iconfont icon-arrow-right"></span>
+				</div>
+			</li>
+			<li>
+				<img src="img/user.png" />
+				<div>
+					<p>账户问题</p>
+					<span class="iconfont icon-arrow-right"></span>
+				</div>
+			</li>
+			<li>
+				<img src="img/function.png" style="height: 18px;" />
+				<div>
+					<p>功能建议</p>
+					<span class="iconfont icon-arrow-right"></span>
+				</div>
+			</li>
+			<li>
+				<img src="img/error.png" />
+				<div>
+					<p>APP报错</p>
+					<span class="iconfont icon-arrow-right"></span>
+				</div>
+			</li>
+			<li>
+				<img src="img/order.png" />
+				<div>
+					<p>订单问题</p>
+					<span class="iconfont icon-arrow-right"></span>
+				</div>
+			</li>
+		</ul>
+		<section class="tijiao">
+			<div class="con_one">
+				<div class="con_one_t">
+					<p>意见类型</p>
+					<p class="text_p">APP报错</p>
+				</div>
+				<textarea placeholder="写下呔棒啦功能建议或发现的问题"></textarea>
+			</div>
+			<div class="con_two">
+				<p>添加图片证据</p>
+				<ul class="crmarea">
+					<li>
+						<img src="../../img/bg@3x.png" />
+					</li>
+					<li>
+						<img src="../../img/bg@3x.png" />
+					</li>
+					<li>
+						<img src="../../img/bg@3x.png" />
+					</li>
+					<li>
+						<img src="../../img/bg@3x.png" />
+					</li>
+				</ul>
+			</div>
+			<div class="con_three">
+				<button>提交</button>
+			</div>
+		</section>
+	</body>
+	<script>
+		$('.list_ul>li').each(function(){
+			$(this).on('click',function(){
+				$('.tijiao').css('display','block')
+				$(this).parent().css('display','none')
+				var text = $(this).find('div').find('p').text()
+				$('.text_p').text(text)
+				$('.crmarea>li').css('height',$('.crmarea>li').width()+'px');
+			})
+		})
+		
+		$('.con_three>button').on('click',function(){
+			var t = $('textarea').val();
+			var l = $('.crmarea>li');
+			if(t == ''){
+				alert('请填写你的意见！')
+			} else if(l.length<2){
+				alert('请添加图片！')
+			} else {
+				$('.tijiao').css('display','none')
+				$('.list_ul').css('display','block')
+			}
+		})
+	</script>
+</html>

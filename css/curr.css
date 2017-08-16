@@ -1645,7 +1645,6 @@ body {
 }
 #nav>ul>li>a{
 	line-height: 24px;
-	font-weight:700;
 	color: #9b9b9b;
 }
 #nav>ul>li:nth-child(3)>a{
