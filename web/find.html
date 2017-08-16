@@ -11,18 +11,11 @@
 	</head>
 
 	<body style="background: #F4F4F4;">
-		<div class="crousel findImg" style="margin: 0;overflow: hidden;" id="subjectlist">
-			<div style="position:absolute;left:0;top:0;width: 100%;height: 35px;padding: 10px;box-sizing: border-box;">
-				<p style="width: 100%;height:15px;line-height:15px;font-size: 13px;color: #9B9B9B;border-left: 3px solid red;">【店主福利】11月巨献，Are You Ready?</p>
-			</div>
-			<div class="imggg" style="width: 80%;height: 100%;margin-left: 10%;padding-top: 35px;box-sizing: border-box;">
-				<img src="../img/myMallBack.png" style="width: 100%;height: 100%;" />
-			</div>
-			<div style="width: 100%;height: auto;padding: 20px;box-sizing: border-box;background: rgba(0, 0, 0, 0.2);position: absolute;left: 0;bottom: 0;">
-				<p style="color: #FFFFFF;font-size: 14px;line-height: 140%;">2017年07月刚刚来到中国的帝王级邮轮，邀你来一场奢华的海上邂逅</p>
-			</div>
-			<a href="javascript:;" id="openNotes">发布</a>
-		</div>
+	<!--<a href="javascript:;" id="openNotes">发布</a>-->
+	<ul id="new">
+
+	</ul>
+
 
 		<ul class="notes" style="padding-bottom: 60px;">
 
@@ -56,10 +49,85 @@
 		<script type="text/javascript">
 			$("head").load("../html/mate.html", function() {
 				$("title").html("发现");
+				$("head").append('<link rel="stylesheet" type="text/css" href="../css/share.css" />')
 				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
 			});
 
 			subjectList();
+
+
+            $.ajax({
+                type: "POST",
+                url: testurl + "/api/find/findallnews",
+                data: {
+                    platform: "2",
+                },
+                dataType: "json",
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: function(XMLHttpRequest) {
+                    loadImg();
+                     imgNot();
+                },
+                crossDomain: true,
+                async: true,
+                success: function(data) {
+                    if(data.code==10000){
+                        var data=data.data.news;
+                        for(var i=0;i<data.length;i++){//
+                            $("#new").append('<li class="crousel findImg new'+data[i].id+'"  verTime="'+data[i].createTime+'" writer="'+data[i].writer+'" style="margin: 0;overflow: hidden;" id="subjectlist" >\
+                             <span class="content" style="display: none">'+data[i].content+'</span>\
+                             <div style="position:absolute;left:0;top:0;width: 100%;height: 35px;padding: 10px;box-sizing: border-box;">\
+                             <p style="width: 100%;height:15px;line-height:15px;font-size: 13px;color: #9B9B9B;border-left: 3px solid red;">'+data[i].title+'</p>\
+                            </div>\
+                            <div class="imggg" style="width: 80%;height: 100%;margin-left: 10%;padding-top: 35px;box-sizing: border-box;">\
+                                <img src="'+data[i].contentImage+'" class="HeaImg" style="width: 100%;height: 100%;" />\
+                                </div>\
+                                <div style="width: 100%;height: auto;padding: 20px;box-sizing: border-box;background: rgba(0, 0, 0, 0.2);position: absolute;left: 0;bottom: 0;">\
+                                <p style="color: #FFFFFF;font-size: 14px;line-height: 140%;">'+data[i].intro+'</p>\
+                            </div>\
+                                </li>');
+                            $(".new"+data[i].id).click(function (e) {
+								e.stopPropagation();
+
+                                function GetJsonData(img,time,writer,contern) {
+                                    var json = {
+                                        "img": img,
+                                        "time": time,
+                                        "writer": writer,
+                                        "contern": contern
+                                    }
+                                    console.log(json)
+                                    return json;
+                                }
+                                var shop=[];
+                                var mm=GetJsonData($(this).find(".HeaImg").attr("src"),$(this).attr("verTime"),$(this).attr("writer"),$(this).find('.content').html())
+                               shop.push(mm)
+                                shop= JSON.stringify(shop)
+								sessionStorage.setItem("new",shop)
+                                location.href="../html/newProject/newText.html"
+                            })
+						}
+
+					}
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    $("#loadImg").remove();
+                },
+                error: function(data) {
+                    if(data.status == "404") {
+                        alert('请求地址出错！');
+                    } else if(data.status == "302") {
+                        alert('连接网页出错');
+                    } else if(data.status == "timeout") {
+                        alert("请求超时!");
+                    } else {
+                        alert('服务器出差了~！');
+                    }
+                }
+            });
+
 
 			function subjectList() {
 				$.ajax({
@@ -381,7 +449,7 @@
 												<img src="../img/praise.png" style="width: 20px;height: 15px;"/></span>\
 												<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>' +
 												'<li style="line-height: 20px;">\
-												<span class="share' + data[i].selfnotesId + '">\
+												<span class="share' + data[i].selfnotesId + '" id="'+ data[i].selfnotesId +'">\
 												<img src="../img/share.png" style="width: 20px;height: 15px;"/></span>\
 												<span id="' + data[i].shareNum + '" >' + data[i].shareNum + '</span></li>' +
 												'</ul>' +
@@ -428,9 +496,7 @@
 												$("." + data[i].selfnotesId).find("img").attr("src", "../img/praise_click.png")
 											}
 
-											$("#share"+ data[i].selfnotesId).click(function (event) {
-                                                event.stopPropagation();
-                                            });
+
 											$("." + data[i].selfnotesId).click(function(event) {
 												event.stopPropagation();
 												var num;
@@ -486,10 +552,14 @@
 													});
 												} else {
 													show_confirm()
-													
-
 												}
 											});
+                                            $(".share"+ data[i].selfnotesId).click(function (event) {
+                                                event.stopPropagation();
+                                                shares($(this).attr("id"),$(this).parents(".notesOperation").siblings(".notesText").find(".notesImgArr").eq(0).find("li").find("img").attr("src"),$(this).parents(".notesOperation").siblings(".notesText").find(".notesTitle").text())
+                                                $(".laye").show()
+                                            });
+
 										}
 									}
 								}
@@ -532,6 +602,45 @@
 					location.reload()
 				}
 			}
+            function shares(wareid, img, title) {
+                console.log(wareid+"------"+img+"-----"+title)
+                var laye = '<div class="laye" style="z-index:9999;">';
+                laye += '<div class="layeTitle">分享到</div>'
+                laye += '<div class="layeContent"><a href="javascript:;" class="ToQzone" ><img src="../img/share_qqspace.png"/></a><a href="javascript:void(0)" class="Sina"><img src="../img/share_weibo.png"/></a></div>'
+                laye += '<div class="layeFont"><a href="javascript:;" class="closeLaye">取消</a></div>'
+                laye += '</div>'
+                $("body").append(laye);
+                var share_url = encodeURIComponent('http://120.77.101.152:8090/TBL/web/detailsdemo.html?wareId=' + wareid);
+                var share_title = "分享一个手记:" + title;
+                var share_summipt = "我在呔棒啦商城发现了一个好东西，赶紧看看吧！";
+                var share_pic = img; //榛樿鐨勫垎浜浘鐗�
+                var share_from = encodeURIComponent("jQuery鎻掍欢搴�");
+                //Qzone
+                $(".ToQzone").click(function(e) {
+                    window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + share_url + "&title=" + share_title + "&pics=" + share_pic + "&site=" + share_from + "&summary=" + share_summipt + "", "newwindow");
+                });
+
+                //Sina Weibo
+                $('.Sina').click(function(e) {
+                    var param = {
+                        url: share_url,
+                        appkey: '201abfdd50b70',
+                        title: share_title,
+                        pic: share_pic,
+                        ralateUid: '527881777',
+                        rnd: new Date().valueOf()
+                    }
+                    var temp = [];
+                    for(var p in param) {
+                        temp.push(p + '=' + encodeURIComponent(param[p] || ''))
+                    }
+                    window.open('http://v.t.sina.com.cn/share/share.php?' + temp.join('&'));
+                });
+                $(".closeLaye").click(function() {
+                    $(".laye").hide()
+                })
+            }
+
 		</script>
 
 	</body>

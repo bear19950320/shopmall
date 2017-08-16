@@ -152,6 +152,7 @@
                     localStorage.setItem("loginStatus", 0)
                 } else if(data.data.user.loginStatus == "1") {
                     var user = data.data.user;
+                    sessionStorage.setItem("phone",user.phone)
                     if(user.obligationNum>9){
                         user.obligationNum="9+"
                     }else if(user.obligationNum<=0){
