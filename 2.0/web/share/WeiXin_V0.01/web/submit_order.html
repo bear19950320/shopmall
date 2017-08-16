@@ -523,6 +523,7 @@
 											success: function(data) {
 												if(data.code == 8001) {
 													alert(data.msg);
+                                                    location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 												} else if(data.code == 10000) {
 													$("#orderUl").empty();
 													location.href = "orderstatush.html?Paid=" + $("#Paid").html()
@@ -817,7 +818,7 @@
 						/*--------------------------------分割线----------------------------------------*/
 						//  活动与非活动价格(运费);
                         var mu = Number($(".all_price").html());
-                        if($(".activity>span>span").attr("max")!=""){
+                        if($(".activity>span>span").attr("max")){
                             if(mu < Number($(".activity>span>span").attr("max"))) {
                                 $(".freight").text("6");
                                 $("#freight").text("6");
