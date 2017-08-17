@@ -100,6 +100,7 @@
 		<script src="js/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			
 			var pageId = 0;
 			$("#nav").css("width", $("body").width());
 			//			$("#likeware").append("<div>猜你喜欢</div>")
@@ -294,14 +295,12 @@
 										sessionStorage.setItem("wareListId", $(this).attr("id"));
 										location.href = "web/fourStage.html"
 									} else if($(this).attr("type") == 0) {
-                                        location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
+										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
 									} else if($(this).attr("type") == 4) {
 										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-									}else if($(this).attr("type") == 5) {
-                                        location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).text()+ "&id=" + null;
-                                    }
+									}
 								}
-							});
+							})
 							/* 标题名字跳转   */
 							$("#subjectlist .hotTitle").click(function() {
 								if($(this).attr("type") != "" && $(this).attr("type") != "/") {
@@ -757,6 +756,7 @@
 							for(var i = 0; i < classifyList.length; i++) {
 								$("#classifyListTitle").append('<li id="' + classifyList[i].id + '" name="' + (Number([i]) + 1) + '"><span>' + classifyList[i].text + '</span></li>')
 								$("#" + classifyList[i].id).click(function() {
+									sessionStorage.removeItem('top')
 									console.log($(this).attr("name"))
 									subjectList($(this).attr("name"))
 									$("html,body").animate({
@@ -910,11 +910,13 @@
 											"padding-left": "12px"
 										})
 										$("#" + wareList[i].wareId).click(function(event) {
+											var top = document.getElementsByTagName('body')[0].scrollTop;
+											sessionStorage.setItem('top',top);
 											event.stopPropagation();
 											sessionStorage.setItem("TowareId", '')
 											var TowareId = $(this).attr("id");
 											sessionStorage.setItem("TowareId", TowareId);
-											window.location.href = "./web/detailsdemo.html?wareId=" + $(this).attr("id")
+											window.location.href = "./web/detailsdemo.html?wareId=" + $(this).attr("id")+"&tag=1"
 										})
 										$(".share").click(function(event) {									
 											event.stopPropagation();
@@ -925,6 +927,10 @@
 
 								}
 								$("#likeware li").fadeIn(1000);
+								var t = sessionStorage.getItem('top');
+								if(t){
+									document.getElementsByTagName('body')[0].scrollTop = t;
+								}
 							}
 						}
 
