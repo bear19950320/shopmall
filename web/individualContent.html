@@ -9,8 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
 	</head>
 
-	<body style="background: #F4F4F4;">
-		<form action="http://www.tblmall.com:85/api/customer/editcustomer" enctype="multipart/form-data" method="post" target="nm_iframe">
+	<body style="background: #F4F4F4;"><!--action="http://120.77.101.152/api/customer/editcustomer"     target="nm_iframe"-->
+		<form action="http://120.77.101.152/api/customer/editcustomer" enctype="multipart/form-data" id="form" method="post"   target="nm_iframe">
 			<!-- -->
 			<ul class="individualCom">
 				<li style="margin: 0px 0 10px 0;padding:0;border-bottom: 1px solid #F4F4F4;position: relative;" class="backgroundClick">
@@ -120,10 +120,15 @@
 				
 				<input type="text" name="cutomerId" id="cutomerId" style="display: none;" />
 				<input type="text" name="platform" value="2" style="display: none;" />
-				<input type="submit" class="btn" id="smsBtn" value="修改" />
+				<input type="submit" class="btn" id="smsBtn" value="保存修改" />
 			</ul>
 		</form>
-		<iframe id="id_iframe" name="nm_iframe" style="display: none;"></iframe>
+		<iframe id="id_iframe" name="nm_iframe" style="display: none;">
+
+		</iframe>
+	<script>
+        document.domian='http://localhost:63342'
+	</script>
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/CNAddrArr.min.js"></script>
 		<script type="text/javascript" src="../js/jquery.scs.min.js"></script>
@@ -132,38 +137,13 @@
 		<script type="text/javascript">
 			$("head").load("../html/mate.html", function() {
 				$("title").html("个人信息");
-				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">');
 				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
 			});
-
-
-			$("#id_iframe").load(function() { //获取iframe中的内容
-
-				//console.log($(document.getElementById('id_iframe').contentWindow.document.body).htm() )
-				//					var textContent='{"msg":"Success","code":10000,"data":{"backgroundImage":"http://120.77.101.152:81/imgSrc/2017-08-12/6128ce6f-cb43-43ec-8d9d-c6ad01f3536e.jpg","headImage":"http://120.77.101.152:81/imgSrc/2017-08-12/d8d08e59-dac4-4d95-9a04-072047270618.gif"},"uri":"/api/customer/editcustomer"}'
-				//				 	var Content=JSON.parse(textContent)
-				//				 	console.log(Content)
-				//					if(Content.code==10000){
-				//					  	alert("12")
-				//					}
-				//			var domd = document.getElementById("id_iframe").contentWindow;
-				//			var data = eval('(' + body + ')');
-				//console.log(document.getElementById('id_iframe').contentWindow.innerHTML)
-				// console.log(document.getElementById('id_iframe').document.getElementsByName('body').value)//innerText
-
-			});
-			$("#smsBtn").click(function() {
-				setTimeout(function() {
-					console.log($(document.getElementById('id_iframe').contentWindow.document.body).html())
-					var textContent = $(document.getElementById('id_iframe').contentWindow.document.body).html()
-					var Content = JSON.parse(textContent)
-					console.log(Content)
-					if(Content.code == 10000) {
-						location.href = "individual.html"
-					}
-				}, 3000)
-			})
-				//console.log(new Date())
+            $("#id_iframe").load(function() { //获取iframe中的内容
+                location.reload();
+                alert("保存成功")
+            }
           $("#date").attr("max",'2017-08-17')
 			if(localStorage.getItem("loginStatus") == 1) {
 				//   获得个人信息		    
