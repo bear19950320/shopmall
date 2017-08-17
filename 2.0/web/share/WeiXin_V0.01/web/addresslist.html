@@ -66,8 +66,8 @@
 								'<div id="T' + addressesList[i].addressId + '" class="close2" style="width: 20px;height: 18px;border-radius: 48px;position: absolute;background: white;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);"></div>' +
 								'<span style="position: absolute;right: -40px;line-height: 20px; font-size: 15px;color: #9B9B9B;font-family: 微软雅黑;" id=' + addressesList[i].isDefault + ' class="default">默认</span>' +
 								'</div>' +
-								'<a href="javascript:;" class="edit" style="position: absolute;right: 28%;top:10px;text-decoration: none;font-size: 17px;color: #6666666;">' +
-								'<img src="../img/icon/My_EidtAddress@2x.png" width="16" height="16" alt="" />&nbsp;编辑 ' +
+								'<a href="javascript:;" class="edit'+addressesList[i].addressId+'" id="'+addressesList[i].addressId+'" style="position: absolute;right: 28%;top:10px;text-decoration: none;font-size: 17px;color: #6666666;">' +
+								'<img src="../img/icon/My_EidtAddress@2x.png"  width="16" height="16" alt="" />&nbsp;编辑 ' +
 								'</a>' +
 								'<a href="javascript:;" class="edit line-btn-delete1 '+addressesList[i].addressId+'" id="'+addressesList[i].addressId+'" style="position: absolute;right: -17%;top:10px;text-decoration: none;font-size: 17px;color: #6666666;">' +
 								'<img src="../img/icon/My_DeleteAddress@2x.png" width="16" height="16" alt="" />&nbsp;删除 ' +
@@ -85,6 +85,8 @@
 									$("#"+addressesList[i].isDefault).siblings("div").addClass("open2");
 								}
 							/* 控制默认地址  */
+							/*-----------------------f*/
+
 							/* 跳转到订单页面  */
 							$("#" + addressesList[i].addressId).click(function() {
 								$.ajax({
