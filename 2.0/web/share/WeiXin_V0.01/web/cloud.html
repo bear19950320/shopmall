@@ -187,7 +187,7 @@
 					location.href = "shopCartOrder.html?form=云仓";
 				}
 			})
-			if(!localStorage.getItem("cutomerId") || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
+			if(!localStorage.getItem("cutomerId") || localStorage.getItem("cutomerId")==" " ||localStorage.getItem("loginStatus")==" " || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
 				location.href = "login.html";
 			} else if(localStorage.getItem("loginStatus") == "1") {
 				$('#color').css({

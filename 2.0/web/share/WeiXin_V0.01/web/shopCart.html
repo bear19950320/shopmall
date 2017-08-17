@@ -71,7 +71,7 @@
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			if(!localStorage.getItem("cutomerId") || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
+			if(!localStorage.getItem("cutomerId") || localStorage.getItem("cutomerId")==" " ||localStorage.getItem("loginStatus")==" " || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
 				location.href = "login.html";
 			} else if(localStorage.getItem("loginStatus") == "1") {
 				$(".btmNav").hide();
@@ -376,7 +376,7 @@
 									}
                                shopcart.push(GetJsonData())
 							}
-							shopcart=JSON.stringify(shopcart) 
+							shopcart=JSON.stringify(shopcart)
 							sessionStorage.setItem("shopcart", shopcart);
 							location.href = "shopCartOrder.html?form=订单";
 						}

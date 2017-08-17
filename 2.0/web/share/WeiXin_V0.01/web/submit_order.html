@@ -872,21 +872,22 @@
                             $("#div3").attr("class", "close1");
                             $("#div4").attr("class", "close2");
                             $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
-                            $("#div3,#div4").click(function() {
-                                alert("非自营商品不能使用呔金");
-                                return false;
-                            });
+                            $("#div3,#div4").unbind('click')
+//							(function() {
+//                                alert("非自营商品不能使用呔金");
+//                                return false;
+//                            });
                         }
 						/*--------------------------------分割线----------------------------------------*/
                         //  (运费开启现金按钮);
                         if($("#freight").html()>0){
                             $("#div1").attr("class", "open1");
                             $("#div2").attr("class", "open2");
-
-                            $("#div1,#div2").click(function() {
-                                alert("运费需用现金支付");
-                                return false;
-                            });
+                            $("#div1,#div2").unbind('click')
+//                            .click(function() {
+//                                alert("运费需用现金支付");
+//                                return false;
+//                            });
                         }
 
 						if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
