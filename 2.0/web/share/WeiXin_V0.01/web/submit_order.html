@@ -732,7 +732,7 @@
 										      		    	<div class="wareText">\
 										      		    		<p class="classifyListText left" style="height: 20px;margin: 0;"><span style="width: 60%;height:14px;overflow: hidden;font-size: 12px;line-height: 14px;">' + ware.wareName + '</span><span style="width: 35%;height:14px;font-size: 12px;text-align: right;"><ble></ble>' + ware.warePrice + '</span></p>\
 										      		    	      <div class="spec left" style="font-size: 12px;line-height: 14px;height: 14px;" ><a class="activity"  type="' + ware.activitymanage.activityType + '" style="width:60%;float:left;line-height:14px;display:inline-block;height:14px;"><span></span></a><span style="width: 35%;height:14px;text-align: right;"><a href="javascript:;" ><del style="text-decoration: line-through;">¥' + ware.marketPrice + '</del></a></span></div>\
-										      		    	    <div class="spec left" style="height: 14px;"><span style="width: 60%;height:14px;overflow: hidden;font-size: 12px;">' + ware.skuList[i].skuItemList[0].name + '/' + ware.skuList[i].skuItemList[0].value + '</span><span style="width: 35%;height:14px;text-align: right;"">' + Num + '</span></div>\
+										      		    	    <div class="spec left" style="height: 14px;"><span style="width: 60%;height:14px;overflow: hidden;font-size: 12px;">' + ware.skuList[i].skuItemList[0].name + '/' + ware.skuList[i].skuItemList[0].value + '</span><span style="width: 35%;height:14px;text-align: right;" class="Sum">' + Num + '</span></div>\
 										      		    	</div>\
 										      		    </div>\
 								      		    	</li>');
@@ -809,8 +809,7 @@
 							$(".activityA").remove()
 						}
 						$(".NUM").html(Num)
-						$(".all_price").text(ware.warePrice * wareNum);
-
+						$(".all_price").text((ware.warePrice * Num).toFixed(2));
 						var freight = 0;
 						$(".freight").text(freight);
 
@@ -872,6 +871,7 @@
                             $("#div3").attr("class", "close1");
                             $("#div4").attr("class", "close2");
                             $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
+
                             $("#div3,#div4").unbind('click')
 //							(function() {
 //                                alert("非自营商品不能使用呔金");

@@ -617,15 +617,15 @@
 								if(!$("#" + ster[i]).find("li").find(".Activity>span>span").attr("max")){
                                     freight += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
                                     num += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
-                                    sum += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text()));
-                                    som += (freight + sum)
+                                    sum += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text())).toFixed(2);
+                                    som += (Number(freight) + Number(sum));
 								}
 								if($("#" + ster[i]).find("li").find(".Activity>span>span").attr("max")!="undefined"){
 								    /*包邮的算法 */
                                     freights += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
                                     nums += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
-                                    sums += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text()));
-                                    soms += (freights + sums)
+                                    sums += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text())).toFixed(2);
+                                    soms += (Number(freights) + Number(sums));
 								}
 							}
 
