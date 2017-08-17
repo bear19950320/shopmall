@@ -120,7 +120,7 @@
 									for(var i = 0; i < data.length; i++) {
 										$("#orderUl").append('<li>\
 							      			<div class="storeTitle">\
-							      				<div style="width: 60%;text-align: left;font-size: 14px;" id="'+ data[i].orderId +'">' +data[i].orderWareList[0].wareSupplierName+'</div>\
+							      				<div style="width: 60%;text-align: left;font-size: 14px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="'+ data[i].orderId +'">' +data[i].orderWareList[0].wareSupplierName+'</div>\
 							      				<div class="del" style="width: 30%;text-align: right"><a href="javascript:;" style="float: right;font-size: 14px;line-height: 20px;" class=' + data[i].orderId + ' >删除</a></div>\
 							      			</div>\
 							      		    <ul class="orderContent" id="' + data[i].orderCode + '"></ul>\
@@ -170,9 +170,12 @@
 											if(sessionStorage.getItem("orderCode")==200){
 												location.href="../html/newProject/orderDetailsthree.html?orderId="+$(this).attr("id")
 											}else if(sessionStorage.getItem("orderCode")==300){
-
 												location.href="../html/newProject/orderDetails.html?orderId="+$(this).attr("id")
-											}
+											}else if(sessionStorage.getItem("orderCode")==100){
+                                                location.href="../html/newProject/orderDetailsfour.html?orderId="+$(this).attr("id")
+											}else if(sessionStorage.getItem("orderCode")==400){
+                                                location.href="../html/newProject/orderDetailsfive.html?orderId="+$(this).attr("id")
+                                            }
 											
 										});
 										imgNot()

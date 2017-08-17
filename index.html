@@ -294,12 +294,14 @@
 										sessionStorage.setItem("wareListId", $(this).attr("id"));
 										location.href = "web/fourStage.html"
 									} else if($(this).attr("type") == 0) {
-										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
+                                        location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
 									} else if($(this).attr("type") == 4) {
 										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-									}
+									}else if($(this).attr("type") == 5) {
+                                        location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).text()+ "&id=" + null;
+                                    }
 								}
-							})
+							});
 							/* 标题名字跳转   */
 							$("#subjectlist .hotTitle").click(function() {
 								if($(this).attr("type") != "" && $(this).attr("type") != "/") {

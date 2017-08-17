@@ -105,24 +105,48 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 						$(".two").append(two)
 						$(".three").append(three);
 						$.each($(".grade"),function(){
-							if($(this).attr("identity")=="0"){
-								$(this).append('<img src="../img/grade/ordinary.png" >')
-							}else if($(this).attr("identity")=="1"){
-								$(this).append('<img src="../img/grade/keeper.png" >');
-							}else if($(this).attr("identity")=="2"){
-								$(this).append('<img src="../img/grade/Partner.png" >')
-							}
-							if($(this).attr("identity")=="1"&&$(this).attr("grade")!="-1"){
-								if($(this).attr("grade")=="-1"){
-									$(this).append('<img src="../img/grade/ordinary.png" >')
-								}else if($(this).attr("grade")=="0"){
-									$(this).append('<img src="../img/grade/keeper0.png" >')
-								}else if($(this).attr("grade")=="1"){
-									$(this).append('<img src="../img/grade/keeper1.png" >')
-								}else if($(this).attr("grade")=="2"){
-									$(this).append('<img src="../img/grade/keeper2.png" >')
-								}
-							}
+//							if($(this).attr("identity")=="0"){
+//								$(this).append('<img src="../img/grade/ordinary.png" >')
+//							}else if($(this).attr("identity")=="1"){
+//								$(this).append('<img src="../img/grade/keeper.png" >');
+//							}else if($(this).attr("identity")=="2"){
+//								$(this).append('<img src="../img/grade/Partner.png" >')
+//							}
+//							if($(this).attr("identity")=="1"&&$(this).attr("grade")!="-1"){
+//								if($(this).attr("grade")=="-1"){
+//									$(this).append('<img src="../img/grade/ordinary.png" >')
+//								}else if($(this).attr("grade")=="0"){
+//									$(this).append('<img src="../img/grade/keeper0.png" >')
+//								}else if($(this).attr("grade")=="1"){
+//									$(this).append('<img src="../img/grade/keeper1.png" >')
+//								}else if($(this).attr("grade")=="2"){
+//									$(this).append('<img src="../img/grade/keeper2.png" >')
+//								}
+//							}
+//                            if($(this).attr("identity")=="2"&&$(this).attr("grade")!="-1"){
+//                                if($(this).attr("grade")=="-1"){
+//                                    $(this).append('<img src="../img/grade/ordinary.png" >')
+//                                }else if($(this).attr("grade")=="0"){
+//                                    $(this).append('<img src="../img/grade/keeper0.png" >')
+//                                }else if($(this).attr("grade")=="1"){
+//                                    $(this).append('<img src="../img/grade/keeper1.png" >')
+//                                }else if($(this).attr("grade")=="2"){
+//                                    $(this).append('<img src="../img/grade/keeper2.png" >')
+//                                }
+//                            }
+                            if($(this).attr("grade")=="-1"){
+                                $(this).append('<img src="../img/grade/ordinary.png" >')
+                            }else if($(this).attr("grade")=="0"){
+                                $(this).append('<img src="../img/grade/keeper.png" >')
+                            }else if($(this).attr("grade")=="1"){
+                                $(this).append('<img src="../img/grade/keeper0.png" >')
+                            }else if($(this).attr("grade")=="2"){
+                                $(this).append('<img src="../img/grade/keeper1.png" >')
+                            }else if($(this).attr("grade")=="3"){
+                                $(this).append('<img src="../img/grade/keeper2.png" >')
+                            }else if($(this).attr("grade")=="4"){
+                                $(this).append('<img src="../img/grade/Partner.png" >')
+                            }
 						})
 						
 						

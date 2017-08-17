@@ -1530,8 +1530,8 @@ body {
 .orderAlt>.confirmReceipt,.orderAlt>.afterSale,.orderAlt>.viewLogistics,.orderAlt>.again{
 	font-weight: 600;
 	background: #FFFFFF;
-	border: 1px solid red;
-	color:red;
+	border: 1px solid #B9B9B9;
+	color:#B9B9B9;
 	border-radius: 5px;
 	padding: 5px 10px;
 	display: none;

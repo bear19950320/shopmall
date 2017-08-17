@@ -81,7 +81,7 @@
 						$(".name_colo").text(data.receiveCustomer+"  "+data.receivePhone);
 						$(".time_color").text(data.receiveProvince+data.receiveCity+data.receiveArea+data.receiveAddress)
 					    $(".orderCode").text(data.orderCode);
-					    $(".orderTime").text(data.payTime);
+					    $(".orderTime").text(data.createTime);
 					   // $(".sum").append(data.orderTotal)
                         var payType = "";
                         if(data.payType == 0) {
@@ -144,13 +144,13 @@
 										<label>实付金额：</label>\
 									</div>\
 									<div class="li_mid2_right">\
-										<label>￥'+data.orderState+'</label>\
+										<label>￥'+data.orderTotal+'</label>\
 									</div>\
 								</div>'
 								li+="</li>"
 						
 					    }
-					    $('.sum').append(data.orderState);
+					    $('.sum').append(data.orderTotal);
 					    $("ul").append(li)
 					},
 					complete: function(XMLHttpRequest, textStatus) {

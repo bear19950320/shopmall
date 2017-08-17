@@ -103,6 +103,7 @@
 									success: function(data) {
 										if(data.code==10000){
 											 var needRefresh = sessionStorage.getItem("need-refresh");
+											 location.reload();
 											    if(needRefresh){
 											        sessionStorage.removeItem("need-refresh");
 											        window.location.href = document.referrer;

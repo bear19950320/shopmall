@@ -904,6 +904,11 @@
 						$("#" + ware.supplierId).click(function() {
 							location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + ware.supplierName + "&id=" + null;
 						});
+                        if($("#supplierUl>li").length>0){
+                            $("#supplier").show()
+                        }else{
+                            $("#supplier").hide()
+                        }
 						$("img").error(function() {
 							$(this).attr("src", "../img/imgNoload.png")
 						})
@@ -1296,10 +1301,6 @@
 			});
 
 		});
-		if($("#supplierUl>li").length>0){
-		    $("#supplier").show()
-		}else{
-            $("#supplier").hide()
-		}
+
 	</script>
 </html>

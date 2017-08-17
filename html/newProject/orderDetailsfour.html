@@ -8,6 +8,46 @@
 		<link rel="stylesheet" type="text/css" href="css/orderCommon.css" />
 		<link rel="stylesheet" type="text/css" href="css/orderDetailstwo.css" />
 		<title>订单详情</title>
+		<style>
+			footer{
+				width: 100%;
+				height: 40px;
+				background: #FFFFFF;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+			}
+			footer>ul{
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			footer>ul>li{
+				height: 100%;
+				display: flex;
+				font-size: 14px;
+			}
+			footer>ul>li:first-child{
+				width: 70%;
+				float: left;
+				background: #FFFFFF;
+				align-items: center;
+				padding-left: 10px;
+				box-sizing: border-box;
+			}
+			footer>ul>li:first-child>p>label{
+				color: red;
+			}
+			footer>ul>li:last-child{
+				width: 30%;
+				float: right;
+				background: red;
+				color: #FFFFFF;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="pad_div"></div>
@@ -19,112 +59,159 @@
 		<div class="line_div"></div>
 		
 		<section class="section_c3">
-			<p class="decript_color name_colo">徐凤年 13575485648</p>
-			<p class="time_color">四川省成都市高新区美年广场T3,16楼</p>
+			<p class="decript_color name_colo"></p>
+			<p class="time_color"></p>
 			<span class="iconfont icon-dingwei youji_car dignwei"></span>
 		</section>
 		<div class="bg_div"></div>
 		<section class="order_section">
-			<ul>
-				<li>
-					<div class="li_header">
-						<p>苏宁旗舰店</p>
-						<span class="iconfont icon-arrow-right"></span>
-					</div>
-					<div class="li_mid1">
-						<img src="img/22.jpg" />
-						<div class="li_con">
-							<p>【澳洲进口】 夏日阳光帆布布艺沙发抱枕，买4送1，超值好礼超值好礼超值好礼超值好礼</p>
-							<div>
-								<label>规格：</label>
-								<label>4合1装</label>
-							</div>
-						</div>
-						<label class="con_price">￥59.00</label>
-						<label class="con_mum">*1</label>
-					</div>
-					<div class="line_div"></div>
-					<div class="li_mid2">
-						<div class="li_mid2_left">
-							<label>商品应付金额：</label><br />
-							<label>快递运费：</label>
-						</div>
-						<div class="li_mid2_right">
-							<label>￥88.00</label><br />
-							<label>0.00</label>
-						</div>
-					</div>
-					<div class="line_div"></div>
-					<div class="li_mid2">
-						<div class="li_mid2_left">
-							<label>实付金额：</label>
-						</div>
-						<div class="li_mid2_right">
-							<label>￥88.00</label>
-						</div>
-					</div>
-				</li>
+			<ul class="ul">
+
 			</ul>
 		</section>
 		<div class="bg_div ght"></div>
 		<section class="miaos_sec">
 			<div class="miaos_sec_t">
-				<p>订单编号：1654646864484</p>
-				<p>下单日期：2017-12-23 15:23:25</p>
+				<p>订单编号：<span class="orderCode"></span></p>
+				<p>下单日期：<span class="orderTime"></span></p>
 			</div>
 			<div class="miaos_sec_b">
 				<label>支付方式：</label>
-				<label>代金支付</label>
+				<label id="PayType"></label>
 			</div>
 		</section>
 		<footer>
 			<ul>
 				<li>
-					<p>合计:<label>￥128</label></p>
+					<p>合计:<label class="sum">￥</label></p>
 				</li>
-				<li>去付款</li>
+				<li style="background: #fff"></li>
 			</ul>
 		</footer>
-		
+		<script src="../../js/jquery.js"></script>
+		<script src="../../js/curr.js"></script>
+		<script>
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if(r != null) return unescape(decodeURI(r[2]));
+                return null;
+            }
+            let order=GetQueryString("orderId");
+            console.log(order);
+            function loadImg() {
+                $("body").append('<img id="loadImg" src="../../img/ajax-loader.gif" width="48" height="48" alt="" style="position: fixed;top:50%;margin-top: -24px;left:50%;margin-left: -24px;"/>')
+            }
+            $.ajax({
+                type: "GET",
+                url: testurl + "/api/order/orderinfo",
+                dataType: "json",
+                data: {
+                    platform: "2",
+                    cutomerId: localStorage.getItem("cutomerId"),
+                    orderId: order
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                async: true,
+                beforeSend: function(XMLHttpRequest) {
+                    loadImg();
+                },
+                success: function(data) {
+                    var data=data.data.orderinfo;
+                    var ware=data.orderWareList;
+                    $(".name_colo").text(data.receiveCustomer+"  "+data.receivePhone);
+                    $(".time_color").text(data.receiveProvince+data.receiveCity+data.receiveArea+data.receiveAddress)
+                    $(".orderCode").text(data.orderCode);
+                    $(".orderTime").text(data.createTime);
+                    // $(".sum").append(data.orderTotal)
+                    var payType = "";
+                    if(data.payType == 0) {
+                        payType = "呔金支付";
+                    } else if(data.payType == 1) {
+                        payType = "现金支付";
+                    } else if(data.payType == 2) {
+                        payType = "微信支付";
+                    } else if(data.payType == 3) {
+                        payType = "支付宝支付";
+                    } else if(data.payType == 4) {
+                        payType = "呔金 现金支付";
+                    } else if(data.payType == 5) {
+                        payType = "呔金 微信支付";
+                    } else if(data.payType == 6) {
+                        payType = "呔金 支付宝支付";
+                    } else if(data.payType == 7) {
+                        payType = "现金 微信支付";
+                    } else if(data.payType == 8) {
+                        payType = "现金 支付宝支付";
+                    } else if(data.payType == 9) {
+                        payType = "呔金 现金 微信支付";
+                    } else if(data.payType == 10) {
+                        payType = "呔金  现金  支付宝支付";
+                    }
+                    $("#PayType").text(payType)
+                    var li="";
+                    for(var i=0;i<ware.length;i++){
+                        li+="<li>"
+                        li+='<div class="li_header">\
+										<p>'+ware[i].wareSupplierName+'</p>\
+										<span class="iconfont icon-arrow-right"></span>\
+									    </div>\
+									<div class="li_mid1">\
+									<img src="'+ware[i].wareImage+'" />\
+									<div class="li_con">\
+										<p>'+ware[i].wareName+'</p>\
+										<div id="'+ware[i].orderWareId+'">\
+											<label>'+ware[i].orderWareSkuitems[0].name+'</label>\
+											<label>'+ware[i].orderWareSkuitems[0].value+'</label>\
+										</div>\
+									</div>\
+									<label class="con_price">￥'+ware[i].warePrice+'</label>\
+									<label class="con_mum">*'+ware[i].wareNum+'</label>\
+								</div>\
+								<div class="line_div"></div>\
+								<div class="li_mid2">\
+									<div class="li_mid2_left">\
+										<label>商品应付金额：</label><br />\
+										<label>快递运费：</label>\
+									</div>\
+									<div class="li_mid2_right">\
+										<label>￥'+ware[0].marketPrice+'</label><br />\
+										<label>'+data.orderFreight+'</label>\
+									</div>\
+								</div>\
+								<div class="line_div"></div>\
+								<div class="li_mid2">\
+									<div class="li_mid2_left">\
+										<label>实付金额：</label>\
+									</div>\
+									<div class="li_mid2_right">\
+										<label>￥'+data.orderTotal+'</label>\
+									</div>\
+								</div>'
+                        li+="</li>"
+
+                    }
+                    $('.sum').append(data.orderTotal);
+                    $(".ul").append(li)
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    $("#loadImg").hide();
+                },
+                error: function(data) {
+                    if(data.status == "404") {
+                        alert('请求地址出错！');
+                    } else if(data.status == "302") {
+                        alert('连接网页出错');
+                    } else if(data.status == "timeout") {
+                        alert("请求超时!");
+                    } else {
+                        alert('服务器出差了~！');
+                    }
+                }
+            });
+		</script>
 	</body>
-	<style>
-		footer{
-			width: 100%;
-			height: 40px;
-			background: #FFFFFF;
-			position: fixed;
-			bottom: 0;
-			left: 0;
-		}
-		footer>ul{
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-		}
-		footer>ul>li{
-			height: 100%;
-			display: flex;
-			font-size: 14px;
-		}
-		footer>ul>li:first-child{
-			width: 70%;
-			float: left;
-			background: #FFFFFF;
-			align-items: center;
-			padding-left: 10px;
-			box-sizing: border-box;
-		}
-		footer>ul>li:first-child>p>label{
-			color: red;
-		}
-		footer>ul>li:last-child{
-			width: 30%;
-			float: right;
-			background: red;
-			color: #FFFFFF;
-			justify-content: center; 
-			align-items: center;
-		}
-	</style>
 </html>

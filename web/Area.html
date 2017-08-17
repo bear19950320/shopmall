@@ -167,6 +167,63 @@
 						}
 					})
 				}
+//				else if(title == "商家"){
+//                    sandId = name;
+//                    sandType = "POST";
+//                    $.ajax({
+//                        type: sandType,
+//                        url: testurl + "/activitymanage/getWareByCharId",
+//                        data: {
+//                            platform: "2",
+//                            charId: sandId
+//                        },
+//                        dataType: "json",
+//                        xhrFields: {
+//                            withCredentials: true
+//                        },
+//                        crossDomain: true,
+//                        async: true,
+//                        success: function(data) {
+//                            var data = data.data.ativitymanageInfo;
+//                            for(var i = 0; i < data.wareVos.length; i++) {
+//                                $("#classifyListUl").append('<li id=' + data.wareVos[i].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
+//                                    '<img src=' + data.wareVos[i].imagePath + ' width="90" height="90" alt="" />' +
+//                                    '<div class="classifyListContent">' +
+//                                    '<p class="classifyListText left">' + data.wareVos[i].wareName + '</p>' +
+//                                    '<div class="classifyListDetails">' +
+//                                    '<span class="Number" style="position: relative;">¥' + data.wareVos[i].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返<b>' + data.wareVos[i].bonusMoney + '</b></span></span>' +
+//                                    '<div style="display: block;">库存：' + data.wareVos[i].sales + '</div>' +
+//                                    '<div class="imgDiv">' +
+//                                    '<img src="../img/share.png" class="share" width="30" height="24" alt="" />' +
+//                                    '</div>' +
+//                                    '</div>' +
+//                                    '</div>' +
+//                                    '</li>');
+//                                var wid = $("#classifyListUl>li").width() - $("#classifyListUl>li>img").width();
+//                                var wids = $("#classifyListUl>li").width() - $("#classifyListUl>li>img").width() - 15;
+//                                var widc = wid - 15;
+//                                $("#classifyListUl li .classifyListContent .Number").find("span").css("right", -$("#classifyListUl li .Number").find("span").width())
+//                                $("#classifyListUl>li>div").css({
+//                                    "width": widc,
+//                                    "height": $("#classifyListUl>li>img").height(),
+//                                    "padding-left": "12px"
+//                                });
+//                                $("#" + data.wareVos[i].wareId).click(function(event) {
+//                                    event.stopPropagation();
+//                                    sessionStorage.setItem("TowareId", $(this).attr("id"));
+//                                    location.href = "detailsdemo.html?wareId=" + $(this).attr("id")
+//                                })
+//                                $(".share").click(function(event) {
+//                                    event.stopPropagation();
+//                                    share($(this).parents("li").attr('id'), $(this).parents("li").find("img").attr("src"), $(this).parents(".classifyListContent").find(".classifyListText").text());
+//                                    $(".laye").show()
+//                                })
+//                            }
+//                            $("head>title").html(data.uName);
+//                            imgNot();
+//                        }
+//                    })
+//				}
 
 				sessionStorage.setItem("appsandId", sandId)
 			} else if(supplierId != "null") {
