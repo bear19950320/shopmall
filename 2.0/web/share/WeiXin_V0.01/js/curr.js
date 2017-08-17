@@ -1,4 +1,4 @@
-var testurl = "http://120.77.101.152";
+var testurl = "http://www.tblmall.com:85";
 var loginurl = "http://120.76.247.147:85";
 var dataCount=0;
 //var htmlStr=document.getElementsByTagName("style")[0].innerHTML;
