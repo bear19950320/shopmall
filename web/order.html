@@ -318,8 +318,9 @@
 										$(".payment").remove()
 									} else if(ord == 0) {
 										$(".del").empty();
-
-										$(".payment").text("查看");
+                                        $(".remarks").remove();
+                                        $(".payment").remove();
+										//$(".payment").text("查看");
 									} else if(ord == 300) {
 										$(".del").empty();
                                         $(".del").text('卖家已发货');
