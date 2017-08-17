@@ -152,7 +152,7 @@
                     localStorage.setItem("loginStatus", 0)
                 } else if(data.data.user.loginStatus == "1") {
                     var user = data.data.user;
-                    sessionStorage.setItem("phone",user.phone)
+                    sessionStorage.setItem("phone",user.phone);
                     if(user.obligationNum>9){
                         user.obligationNum="9+"
                     }else if(user.obligationNum<=0){
@@ -190,7 +190,7 @@
                     });
                     $("#balanceNum").text(user.cashMoney);
                     $("#costNum").text(user.replaceMoney);
-                    $("#sharNum").text(user.sharePersonNum+"位")
+                    $("#sharNum").text(user.sharePersonNum+"位");
                     if(user.headImage == '') {
                         user.headImage = '../img/LOGO.png'
                     }
@@ -199,7 +199,7 @@
                         '<p id="signature">' + user.signature + ' </p>' +
                         '<span id="individualName">' + user.name + '</span>' +
                         '<img id="individualImg" src=' + user.headImage + ' alt="" />'+
-                        '<img src="../img/renz/My_DirectStore@2x.png" id="levelimg" style="width: 70px !important;height: 20px !important;position: absolute;left: 100px;bottom: 10px;">'
+                        '<img src="../img/renz/My_DirectStore@2x.png" class="grade" grade="'+user.grade+'" id="levelimg" style="width: 70px !important;height: 20px !important;position: absolute;left: 100px;bottom: 10px;">'
                     );
                     $("#myMall").click(function() {
                         location.href = 'myMall.html?name=' + user.name + "&headImage=" + user.headImage + "&growthValue=" + user.growthValue + "&growthValueUp=" + user.growthValueUp + "&invitationCode=" + user.invitationCode
@@ -207,6 +207,20 @@
                     $("#individualImg").click(function() {
                         location.href = "individualContent.html"
                     });
+                    /*显示个人图标*/
+                    if($("#levelimg").attr("grade")=="-1"){
+                        $("#levelimg").attr("src","../img/grade/ordinary.png")
+                    }else if($("#levelimg").attr("grade")=="0"){
+                        $("#levelimg").attr("src","../img/grade/keeper.png")
+                    }else if($("#levelimg").attr("grade")=="1"){
+                        $("#levelimg").attr("src","../img/grade/keeper0.png")
+                    }else if($("#levelimg").attr("grade")=="2"){
+                        $("#levelimg").attr("src","../img/grade/keeper1.png")
+                    }else if($("#levelimg").attr("grade")=="3"){
+                        $("#levelimg").attr("src","../img/grade/keeper2.png")
+                    }else if($("#levelimg").attr("grade")=="4"){
+                        $("#levelimg").attr("src","../img/grade/Partner.png")
+                    }
                 }
             },
             complete: function(XMLHttpRequest, textStatus) {
@@ -227,6 +241,10 @@
             }
         });
     }
+
+
+
+
     $("#orderAll").click(function() {
         sessionStorage.setItem("orderCode", "0");
         location.href = "order.html"
@@ -247,6 +265,7 @@
         sessionStorage.setItem("orderCode", "400");
         location.href = "../html/newProject/souhorder.html"
     });
+
 </script>
 </body>
 </html>

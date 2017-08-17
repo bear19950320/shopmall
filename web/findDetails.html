@@ -146,7 +146,7 @@
 				success: function(data) {
 					var data = data.data.selfnotesInfo;
 					for(var i=0;i<data.imageArray.length;i++){
-						$(".swiper-wrapper").append('<img class="swiper-slide"  style="height:200px;" src="' + data.imageArray[i] + '" />');
+						$(".swiper-wrapper").append('<img class="swiper-slide"  src="' + data.imageArray[i] + '" />');
 					}
 					$(".notes").append('<li id=' + data.selfnotesId + '>' +
 						'<div class="notesOperation">' +
@@ -241,6 +241,7 @@
 						paginationClickable: true,
 						spaceBetween: 30,
 						centeredSlides: true,
+						autoHeight:true,
 						autoplay: 5000,
 						autoplayDisableOnInteraction: false
 					});
