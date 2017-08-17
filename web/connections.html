@@ -62,7 +62,7 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 						$("#me").append('<img src="'+data.headImage+'" alt="" />\
 										<span>\
 							    			<p><label style="font-size: 14px;">'+data.name+'</label><label style="font-size: 14px;" class="grade" grade="'+data.grade+'" identity="'+data.identity+'"></label></p>\
-							    			<p>手机:'+data.phone+'</p>\
+							    			<p>手机:'+data.phone.substring(0,3)+"****"+data.phone.substring(7,11)+'</p>\
 							    		</span>')
 						$("#contactsVos1").html(data.contactsVos1.length)
 						$("#contactsVos2").html(data.contactsVos2.length)
@@ -76,16 +76,17 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 				    				<img src="'+data1[i].headImage+'" alt="" />\
 						    		<span>\
 						    			<p><label>'+data1[i].name+'</label><label class="grade" grade="'+data1[i].grade+'" identity="'+data1[i].identity+'"> </label></p>\
-						    			<p>手机:'+data1[i].phone+'</p>\
+						    			<p>手机:'+data1[i].phone.substring(0,3)+"****"+data1[i].phone.substring(7,11)+'</p>\
 						    		</span>\
 				    			</li>'
+                          //  $(".phone").eq(i).text($(".phone").eq(i).text().substring(0,3)+"****"+$(".phone").eq(i).text().substring(7,11))
 						}
 						for(var i = 0; i < data2.length; i++) {
 							two += '<li>\
 				    				<img src="'+data2[i].headImage+'" alt="" />\
 						    		<span>\
 						    			<p><label>'+data2[i].name+'</label><label  class="grade" grade="'+data2[i].grade+'" identity="'+data2[i].identity+'"></label></p>\
-						    			<p>手机:'+data2[i].phone+'</p>\
+						    			<p>手机:'+data2[i].phone.substring(0,3)+"****"+data2[i].phone.substring(7,11)+'</p>\
 						    		</span>\
 				    			</li>'
 						}
@@ -94,7 +95,7 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 				    				<img src="'+data3[i].headImage+'" alt="" />\
 						    		<span>\
 						    			<p><label>'+data3[i].name+'</label><label  class="grade" grade="'+data3[i].grade+'" identity="'+data3[i].identity+'"></label></p>\
-						    			<p>手机:'+data3[i].phone+'</p>\
+						    			<p>手机:'+data3[i].phone.substring(0,3)+"****"+data3[i].phone.substring(7,11)+'</p>\
 						    		</span>\
 				    			</li>'
 						}
