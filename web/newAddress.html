@@ -78,16 +78,136 @@
 		<script type="text/javascript" src="../js/CNAddrArr.min.js"></script>
 		<script type="text/javascript" src="../js/jquery.scs.min.js"></script>
 		<script type="text/javascript">
-			$('body').css({
-				"width": $(window).width(),
-				"height": $(window).height()
-			})
 			$("head").load("../html/mate.html", function() {
 				$("title").html("新建地址");
 				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/layout.min.css"/>');
 				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
 			});
-			$("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">')
+			$("head").append('<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">');
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if(r != null) return unescape(decodeURI(r[2]));
+                return null;
+            }
+            var form=GetQueryString("form")
+				console.log(form);
+            if(form!=null){
+                /*修改地址的事件*/
+                var data=JSON.parse(sessionStorage.getItem("address"));
+                $("#customerName").val(data[0].name);
+                $("#phone").val(data[0].phone);
+                $("#location").val(data[0].province+data[0].city+data[0].area)
+                $("#address").val(data[0].address);
+                if(data[0].open==1){
+                    $("#btnBody").attr("class","open1");
+                    $("#btnBodys").attr("class","open2");
+				}else{
+                    $("#btnBody").attr("class","close1");
+                    $("#btnBodys").attr("class","close2");
+				}
+				$("#preservation").attr("addId",data[0].id)
+                $("#preservation").click(function() {
+                    if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
+                        mask("收件人信息不能为空");
+                    } else {
+                        var loction = $("#location").val();
+                        var tion = loction.split(" ");
+
+                        function GetJsonData() {
+                            var json = {
+                                addressId:$("#preservation").attr("addId"),
+                                customerName: $("#customerName").val(),
+                                phone: $("#phone").val(),
+                                province: tion[0],
+                                city: tion[1],
+                                area: tion[2],
+                                address: $("#address").val(),
+                                idCard: $("#idCard").val(),
+                                isDefault: isDefault
+                            };
+                            return json;
+                        }
+                        $.ajax({
+                            type: "POST",
+                            data: {
+                                platform: "2",
+                                cutomerId: localStorage.getItem("cutomerId"),
+                                addressContent: JSON.stringify(GetJsonData())
+                            },
+                            url: testurl + "/api/address/updateaddress",
+                            dataType: "json",
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            crossDomain: true,
+                            success: function(data) {
+                                if(data.code == 400) {
+
+                                } else if(data.code == 10000) {
+                                    location.href = "addresslist.html"
+                                    //跳转个人中心
+                                }
+                            },
+                            error: function(error) {
+
+                                console.log(error.statusText)
+                            }
+                        });
+                    }
+                })
+
+			}else{
+                /*新增的事件 */
+                $("#preservation").click(function() {
+                    if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
+                        mask("收件人信息不能为空");
+                    } else {
+                        var loction = $("#location").val();
+                        var tion = loction.split(" ");
+
+                        function GetJsonData() {
+                            var json = {
+                                customerName: $("#customerName").val(),
+                                phone: $("#phone").val(),
+                                province: tion[0],
+                                city: tion[1],
+                                area: tion[2],
+                                address: $("#address").val(),
+                                idCard: $("#idCard").val(),
+                                isDefault: isDefault
+                            };
+                            return json;
+                        }
+                        $.ajax({
+                            type: "POST",
+                            data: {
+                                platform: "2",
+                                cutomerId: localStorage.getItem("cutomerId"),
+                                addressContent: JSON.stringify(GetJsonData())
+                            },
+                            url: testurl + "/api/address/addaddress",
+                            dataType: "json",
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            crossDomain: true,
+                            success: function(data) {
+                                if(data.code == 400) {
+
+                                } else if(data.code == 10000) {
+                                    location.href = "addresslist.html"
+                                    //跳转个人中心
+                                }
+                            },
+                            error: function(error) {
+
+                                console.log(error.statusText)
+                            }
+                        });
+                    }
+                })
+			}
 			var isDefault = 0;
 			$("#btnBody").click(function() {
 				var div2 = document.getElementById("btnBody");
@@ -316,54 +436,7 @@
 			function trim(str) {
 				return str.replace(/(^\s*)|(\s*$)/g, "");
 			}
-			$("#preservation").click(function() {
-				if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
-					mask("收件人信息不能为空");
-				} else {
-					var loction = $("#location").val();
-					var tion = loction.split(" ");
 
-					function GetJsonData() {
-						var json = {
-							customerName: $("#customerName").val(),
-							phone: $("#phone").val(),
-							province: tion[0],
-							city: tion[1],
-							area: tion[2],
-							address: $("#address").val(),
-							idCard: $("#idCard").val(),
-							isDefault: isDefault
-						};
-						return json;
-					}
-					$.ajax({
-						type: "POST",
-						data: {
-							platform: "2",
-							cutomerId: localStorage.getItem("cutomerId"),
-							addressContent: JSON.stringify(GetJsonData())
-						},
-						url: testurl + "/api/address/addaddress",
-						dataType: "json",
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						success: function(data) {
-							if(data.code == 400) {
-
-							} else if(data.code == 10000) {
-								location.href = "addresslist.html"
-								//跳转个人中心
-							}
-						},
-						error: function(error) {
-
-							console.log(error.statusText)
-						}
-					});
-				}
-			})
 		</script>
 	</body>
 

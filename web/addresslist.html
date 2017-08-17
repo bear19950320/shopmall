@@ -85,7 +85,33 @@
 									$("#"+addressesList[i].isDefault).siblings("div").addClass("open2");
 								}
 							/* 控制默认地址  */
-							/*-----------------------f*/
+							/*-----------------------地址再次编辑-----------------------*/
+							$(".edit"+addressesList[i].addressId).click(function (e) {
+								e.stopPropagation();
+								var open=0;
+								if($(this).siblings("div").attr("class")=="open1"){
+								    open=1;
+								}
+								var address=[];
+                                function GetJsonData(id,open,name,phone,province,area,city,address) {
+                                    var json = {
+                                        "id": id,
+                                        "open": open,
+                                        "name": name,
+                                        "phone": phone,
+                                        "province": province,
+                                        "area": area,
+                                        "city": city,
+                                        "address": address
+                                    };
+                                    console.log(json);
+                                    return json;
+                                }
+                                address.push(GetJsonData($(this).attr("id"),open,$(this).parents("span").siblings("span").find(".name").html(),$(this).parents("span").siblings("span").find(".phone").html(),$(this).parents("span").siblings("span").find(".province").html(),$(this).parents("span").siblings("span").find(".area").html(),$(this).parents("span").siblings("span").find(".city").html(),$(this).parents("span").siblings("span").find(".address").html()));
+                               	address=JSON.stringify(address);
+                                sessionStorage.setItem('address',address);
+                               	location.href='newAddress.html?form=0'
+							});
 
 							/* 跳转到订单页面  */
 							$("#" + addressesList[i].addressId).click(function() {
