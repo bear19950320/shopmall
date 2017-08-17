@@ -691,90 +691,103 @@
 				console.log(json)
 				return json;
 			}
-			if($(this).attr("skuitemId") == " ") {
-				$.ajax({
-					type: "POST",
-					url: testurl + "/api/shopcart/addshopcart",
-					dataType: "json",
-					data: {
-						platform: "2",
-						cutomerId: localStorage.getItem("cutomerId"),
-						shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
-					},
-					xhrFields: {
-						withCredentials: true
-					},
-					crossDomain: true,
-					beforeSend: function(XMLHttpRequest) {
-						loadImg();
-					},
-					success: function(data) {
-						if(data.code == 10000) {
-							alert("添加购物车成功")
-						}
-					},
-					complete: function(XMLHttpRequest, textStatus) {
-						$("#loadImg").remove();
-					},
-					error: function(data) {
-						if(data.status == "404") {
-							alert('请求地址出错！');
-						} else if(data.status == "302") {
-							alert('连接网页出错');
-						} else if(data.status == "timeout") {
-							alert("请求超时!");
-						} else if(data.status == "400") {
-							alert("未登录!请先登录");
-							location.href = "./login.html"
-						} else {
-							alert('服务器出差了~！');
-						}
-					}
-				})
-			} else {
-				if($(".guigeChoose").attr("name") == "yes") {
-					//	console.log($(this).attr("skuId")) testurl +
-					$.ajax({
-						type: "POST",
-						url: testurl + "/api/shopcart/addshopcart",
-						dataType: "json",
-						data: {
-							platform: "2",
-							cutomerId: localStorage.getItem("cutomerId"),
-							shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
-						},
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						beforeSend: function(XMLHttpRequest) {
-							loadImg();
-						},
-						success: function(data) {
-							if(data.code == 10000) {
-								alert("添加购物车成功")
-							}
-						},
-						complete: function(XMLHttpRequest, textStatus) {
-							$("#loadImg").remove();
-						},
-						error: function(data) {
-							if(data.status == "404") {
-								alert('请求地址出错！');
-							} else if(data.status == "302") {
-								alert('连接网页出错');
-							} else if(data.status == "timeout") {
-								alert("请求超时!");
-							} else if(data.status == "400") {
-								alert("未登录!请先登录");
-								location.href = "./login.html"
-							} else {
-								alert('服务器出差了~！');
-							}
-						}
-					})
-				}
-			}
+
+
+                if($(this).attr("skuitemId") == " ") {
+                    $.ajax({
+                        type: "POST",
+                        url: testurl + "/api/shopcart/addshopcart",
+                        dataType: "json",
+                        data: {
+                            platform: "2",
+                            cutomerId: localStorage.getItem("cutomerId"),
+                            shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
+                        },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        beforeSend: function(XMLHttpRequest) {
+                            loadImg();
+                        },
+                        success: function(data) {
+                            if(data.code == 10000) {
+                                alert("添加购物车成功");
+                                $(".specificationsBox").fadeOut();
+                                $(".shade_box").hide();
+                            }else if(data.code==10001){
+                                alert("请先登录");
+                                location.href='login.html'
+                            }
+                        },
+                        complete: function(XMLHttpRequest, textStatus) {
+                            $("#loadImg").remove();
+                        },
+                        error: function(data) {
+                            if(data.status == "404") {
+                                alert('请求地址出错！');
+                            } else if(data.status == "302") {
+                                alert('连接网页出错');
+                            } else if(data.status == "timeout") {
+                                alert("请求超时!");
+                            } else if(data.status == "400") {
+                                alert("未登录!请先登录");
+                                location.href = "./login.html"
+                            } else {
+                                alert('服务器出差了~！');
+                            }
+                        }
+                    })
+                } else {
+                    if($(".guigeChoose").attr("name") == "yes") {
+                        //	console.log($(this).attr("skuId")) testurl +
+                        $.ajax({
+                            type: "POST",
+                            url: testurl + "/api/shopcart/addshopcart",
+                            dataType: "json",
+                            data: {
+                                platform: "2",
+                                cutomerId: localStorage.getItem("cutomerId"),
+                                shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
+                            },
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            crossDomain: true,
+                            beforeSend: function(XMLHttpRequest) {
+                                loadImg();
+                            },
+                            success: function(data) {
+                                if(data.code == 10000) {
+                                    alert("添加购物车成功");
+                                    $(".specificationsBox").fadeOut();
+                                    $(".shade_box").hide();
+                                }else if(data.code==10001){
+                                    alert("请先登录");
+									location.href='login.html'
+								}
+                            },
+                            complete: function(XMLHttpRequest, textStatus) {
+                                $("#loadImg").remove();
+                            },
+                            error: function(data) {
+                                if(data.status == "404") {
+                                    alert('请求地址出错！');
+                                } else if(data.status == "302") {
+                                    alert('连接网页出错');
+                                } else if(data.status == "timeout") {
+                                    alert("请求超时!");
+                                } else if(data.status == "400") {
+                                    alert("未登录!请先登录");
+                                    location.href = "./login.html"
+                                } else {
+                                    alert('服务器出差了~！');
+                                }
+                            }
+                        })
+                    }
+                }
+
 		});
 
 		$("#buy_now").click(function(event) {
