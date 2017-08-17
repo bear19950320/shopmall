@@ -157,6 +157,7 @@
 		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/swiper.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			sessionStorage.removeItem('top');
 			$("#extract").click(function() {
 				if($('.cart dd input[type="checkbox"]:checked').length == 0) {
 					mask("请选择一个商品");

@@ -1010,7 +1010,7 @@ body {
 }
 .notes>li{
 	background: #FFFFFF;
-	padding: 0 10px;
+	padding: 0 10px 5px 0;
 	box-sizing: border-box;
 }
 .notesOperation>img {
@@ -1183,7 +1183,7 @@ body {
 	padding-bottom: 0;
 }
 .notes>li{
-	padding: 10px 10px 0 10px;
+	padding: 10px 10px 10px 10px;
 }
 .notes .notesOperation ul>li{
 	height: 20px;
