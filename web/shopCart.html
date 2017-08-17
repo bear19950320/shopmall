@@ -71,6 +71,7 @@
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			sessionStorage.removeItem('top');
 			if(!localStorage.getItem("cutomerId") || localStorage.getItem("cutomerId")==" " ||localStorage.getItem("loginStatus")==" " || !localStorage.getItem("loginStatus") || localStorage.getItem("loginStatus") == "0") {
 				location.href = "login.html";
 			} else if(localStorage.getItem("loginStatus") == "1") {
