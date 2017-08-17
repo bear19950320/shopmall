@@ -34,7 +34,7 @@
 			</div>
 			<div class="miaos_sec_b">
 				<label>支付方式：</label>
-				<label>微信支付</label>
+				<label id="PayType"></label>
 			</div>
 		</section>
 		<div class="bg_div" style="padding-bottom: 50px;"></div>
@@ -82,7 +82,32 @@
 						$(".time_color").text(data.receiveProvince+data.receiveCity+data.receiveArea+data.receiveAddress)
 					    $(".orderCode").text(data.orderCode);
 					    $(".orderTime").text(data.payTime);
-					    $(".sum").append(data.orderTotal)
+					   // $(".sum").append(data.orderTotal)
+                        var payType = "";
+                        if(data.payType == 0) {
+                            payType = "呔金支付";
+                        } else if(data.payType == 1) {
+                            payType = "现金支付";
+                        } else if(data.payType == 2) {
+                            payType = "微信支付";
+                        } else if(data.payType == 3) {
+                            payType = "支付宝支付";
+                        } else if(data.payType == 4) {
+                            payType = "呔金 现金支付";
+                        } else if(data.payType == 5) {
+                            payType = "呔金 微信支付";
+                        } else if(data.payType == 6) {
+                            payType = "呔金 支付宝支付";
+                        } else if(data.payType == 7) {
+                            payType = "现金 微信支付";
+                        } else if(data.payType == 8) {
+                            payType = "现金 支付宝支付";
+                        } else if(data.payType == 9) {
+                            payType = "呔金 现金 微信支付";
+                        } else if(data.payType == 10) {
+                            payType = "呔金  现金  支付宝支付";
+                        }
+                        $("#PayType").text(payType)
 					    var li="";
 					    for(var i=0;i<ware.length;i++){
 					    	li+="<li>"
