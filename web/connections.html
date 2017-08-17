@@ -57,16 +57,16 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 						alert(data.msg);
 						location.href = "login.html";
 						localStorage.setItem("loginStatus", 0)
-					} else if(data.code == 10000) {//<img src="../img/cons/V.png" >
+					} else if(data.code == 10000) {
 						var data = data.data.contactsList;
 						$("#me").append('<img src="'+data.headImage+'" alt="" />\
 										<span>\
 							    			<p><label style="font-size: 14px;">'+data.name+'</label><label style="font-size: 14px;" class="grade" grade="'+data.grade+'" identity="'+data.identity+'"></label></p>\
 							    			<p>手机:'+data.phone.substring(0,3)+"****"+data.phone.substring(7,11)+'</p>\
-							    		</span>')
-						$("#contactsVos1").html(data.contactsVos1.length)
-						$("#contactsVos2").html(data.contactsVos2.length)
-						$("#contactsVos3").html(data.contactsVos3.length)
+							    		</span>');
+						$("#contactsVos1").html(data.contactsVos1.length);
+						$("#contactsVos2").html(data.contactsVos2.length);
+						$("#contactsVos3").html(data.contactsVos3.length);
 						var data1 = data.contactsVos1;
 						var data2 = data.contactsVos2;
 						var data3 = data.contactsVos3;
@@ -102,39 +102,10 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
 						one += "</ul>";
 						two+= "<ul>";
 						three+= "<ul>";
-						$(".one").append(one)
-						$(".two").append(two)
+						$(".one").append(one);
+						$(".two").append(two);
 						$(".three").append(three);
 						$.each($(".grade"),function(){
-//							if($(this).attr("identity")=="0"){
-//								$(this).append('<img src="../img/grade/ordinary.png" >')
-//							}else if($(this).attr("identity")=="1"){
-//								$(this).append('<img src="../img/grade/keeper.png" >');
-//							}else if($(this).attr("identity")=="2"){
-//								$(this).append('<img src="../img/grade/Partner.png" >')
-//							}
-//							if($(this).attr("identity")=="1"&&$(this).attr("grade")!="-1"){
-//								if($(this).attr("grade")=="-1"){
-//									$(this).append('<img src="../img/grade/ordinary.png" >')
-//								}else if($(this).attr("grade")=="0"){
-//									$(this).append('<img src="../img/grade/keeper0.png" >')
-//								}else if($(this).attr("grade")=="1"){
-//									$(this).append('<img src="../img/grade/keeper1.png" >')
-//								}else if($(this).attr("grade")=="2"){
-//									$(this).append('<img src="../img/grade/keeper2.png" >')
-//								}
-//							}
-//                            if($(this).attr("identity")=="2"&&$(this).attr("grade")!="-1"){
-//                                if($(this).attr("grade")=="-1"){
-//                                    $(this).append('<img src="../img/grade/ordinary.png" >')
-//                                }else if($(this).attr("grade")=="0"){
-//                                    $(this).append('<img src="../img/grade/keeper0.png" >')
-//                                }else if($(this).attr("grade")=="1"){
-//                                    $(this).append('<img src="../img/grade/keeper1.png" >')
-//                                }else if($(this).attr("grade")=="2"){
-//                                    $(this).append('<img src="../img/grade/keeper2.png" >')
-//                                }
-//                            }
                             if($(this).attr("grade")=="-1"){
                                 $(this).append('<img src="../img/grade/ordinary.png" >')
                             }else if($(this).attr("grade")=="0"){
@@ -149,8 +120,6 @@ $("head").append('<meta name="viewport" content="initial-scale=1, width=device-w
                                 $(this).append('<img src="../img/grade/Partner.png" >')
                             }
 						})
-						
-						
 					}
 					$('img').error(function(){
 						$(this).attr("src","../img/icon/My_HeaderDefault@2x.png")
