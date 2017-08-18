@@ -797,6 +797,7 @@
                 if(TieMoney>0&&cash>0){
                     $("#div1,#div3").attr("class", "open1");
                     $("#div2,#div4").attr("class", "open2");
+                    $("#div1").attr("id","div5");
                     $("#div1,#div2").click(false)
                 }
                 if(sessionStorage.getItem("TieMuch")<TieMoney){
@@ -806,6 +807,7 @@
                 if($("#freight").html()>0){
                     $("#div1").attr("class", "open1");
                     $("#div2").attr("class", "open2");
+                    $("#div1").attr("id","div5");
                     $("#div1,#div2").click(false)
 //						.click(function() {
 //                        alert("运费需要现金支付");
@@ -864,7 +866,7 @@
 					$("#div4").attr("class", "close2");
 					$("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
 					$("#div2,#div1,#div4,#div3").click(function() {
-						alert("云仓提货请支付运费")
+						alert("云仓提货请支付运费");
 						return false;
 					})
 				}
@@ -896,7 +898,7 @@
 					} else if(form == "云仓") {
 						orderType = "2"
 					}
-					content = "订单" + orderType
+					content = "订单" + orderType;
 					var json = {
 						orderType: orderType,
 						orderTotal: $("#Paid").text(),
@@ -929,7 +931,7 @@
 							$("#placeOrder").attr("type", "1");
 							//	$("#PayAlt").text("现金");
 						}
-						if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
+						if($("#div2").attr("class") == "open2" && $("#div3").attr("class") == "open1") {
 							$("#placeOrder").attr("type", "4");
 							//	$("#PayAlt").text("混合支付");
 						}
