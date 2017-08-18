@@ -217,7 +217,7 @@ function classIfy(thisId,dataCount) {
 					if(wareList.length != 0) {
 						for(var i = 0; i < wareList.length; i++) {
 							$("#classifyListUl").append('<li id=' + wareList[i].wareId + ' style="padding: 15px 2%;border-bottom: 1px solid #EAEAEA;">' +
-								'<img src=' + wareList[i].imagePath + ' width="90" height="90" alt="" />' +
+								'<img src=' + wareList[i].image1file + ' width="90" height="90" alt="" />' +
 								'<div class="classifyListContent">' +
 								'<p class="classifyListText left support'+wareList[i].support+'"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">直邮</span>' + wareList[i].wareName + '</p>' +
 								'<div class="classifyListDetails">' +

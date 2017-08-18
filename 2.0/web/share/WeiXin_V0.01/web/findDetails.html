@@ -225,7 +225,7 @@
 					});
 					if(data.wareVos != "") {
 						for(var i = 0; i < data.wareVos.length; i++) {
-							$(".commodityList").append('<li class=' + data.wareVos[i].wareId + '><img src=' + data.wareVos[i].imagePath + ' alt="" /><div>' + data.wareVos[i].wareName + '</div><p> ¥' + data.wareVos[i].warePrice + '</p></li>')
+							$(".commodityList").append('<li class=' + data.wareVos[i].wareId + '><img src=' + data.wareVos[i].image1file + ' alt="" /><div>' + data.wareVos[i].wareName + '</div><p> ¥' + data.wareVos[i].warePrice + '</p></li>')
 						  $("."+ data.wareVos[i].wareId).click(function(){
 						  	sessionStorage.setItem("TowareId", '')
 								var TowareId = $(this).attr("class");

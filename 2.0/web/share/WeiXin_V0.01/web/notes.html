@@ -238,7 +238,7 @@
 						var data = data.data.searchWareList
 						if(data.length != 0) {
 							for(var i = 0; i < data.length; i++) {
-								$("#searchWare").append('<li id="' + data[i].wareId + '"><img src=' + data[i].imagePath + ' /><p>' + data[i].wareName + '</p></li>')
+								$("#searchWare").append('<li id="' + data[i].wareId + '"><img src=' + data[i].image1file + ' /><p>' + data[i].wareName + '</p></li>')
 								$("#" + data[i].wareId).click(function() {
 									$("form").show();
             						$("#seach").hide();
@@ -311,7 +311,7 @@
 								if(data.length != 0) {
 									for(var i = 0; i < data.length; i++) {
 										
-											$("#searchWare").append('<li id="' + data[i].wareId + '"><img src=' + data[i].imagePath + ' /><p>' + data[i].wareName + '</p></li>')
+											$("#searchWare").append('<li id="' + data[i].wareId + '"><img src=' + data[i].image1file + ' /><p>' + data[i].wareName + '</p></li>')
 											$("#" + data[i].wareId).click(function() {
 												$("form").show();
 	            						        $("#seach").hide();
