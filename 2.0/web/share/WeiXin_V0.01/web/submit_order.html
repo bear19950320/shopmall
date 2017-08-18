@@ -583,48 +583,7 @@
 			var put1 = document.getElementById("div1");
 			var div1 = document.getElementById("div3");
 
-			$("#TieMoney #div3").click(function() {
-				$("#div1").attr("class", "close1");
-				$("#div2").attr("class", "close2");
-				if(Number($(".all_price").html()) < 99 || Number($("#Paid").html()) > Number(sessionStorage.getItem("TieMuch"))) {
-					$("#div1").attr("class", "open1");
-					$("#div2").attr("class", "open2");
-					$("#div1,#div2").click(function() {
-						return false;
-					});
-					$("#placeOrder").attr("type", "4");
-					$("#PayAlt").text("混合支付");
-				} else if(Number($(".all_price").html()) > Number(sessionStorage.getItem("TieMuch"))) {
-					$("#div1").attr("class", "open1");
-					$("#div2").attr("class", "open2");
-					$("#div1,#div2").click(function() {
-						// alert("呔金不够支付");
-						return false;
-					});
-					$("#placeOrder").attr("type", "4");
-					$("#PayAlt").text("混合支付");
-				}
-				if($("#div3").attr("class") == "open1") {
-					//$(".Tieactivity").show();
-					$("#placeOrder").attr("type", "0");
-					$("#PayAlt").text("呔金");
-				}
-				var div4 = document.getElementById("div3");
-				var div3 = document.getElementById("div4");
-				div3.className = (div3.className == "open2") ? "close2" : "open2";
-				div4.className = (div4.className == "open1") ? "close1" : "open1";
 
-			});
-			$("#cash #div1").click(function() {
-				var div2 = document.getElementById("div1");
-				var div1 = document.getElementById("div2");
-				div1.className = (div1.className == "open2") ? "close2" : "open2";
-				div2.className = (div2.className == "open1") ? "close1" : "open1";
-				if($("#div1").attr("class") == "open1" && $("#div3").attr("class") != "open1") {
-					$("#placeOrder").attr("type", "1");
-					$("#PayAlt").text("现金");
-				}
-			})
 
 			sessionStorage.setItem("bodyId", window.location.href);
 			sessionStorage.setItem("Status", "订单")
@@ -871,8 +830,8 @@
                             $("#div3").attr("class", "close1");
                             $("#div4").attr("class", "close2");
                             $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
-
-                            $("#div3,#div4").unbind('click')
+                            $("#div3").attr("id","div6");
+                            $("#div3,#div4").click(false)
 //							(function() {
 //                                alert("非自营商品不能使用呔金");
 //                                return false;
@@ -883,6 +842,7 @@
                         if($("#freight").html()>0){
                             $("#div1").attr("class", "open1");
                             $("#div2").attr("class", "open2");
+                            $("#div1").attr("id","div5");
                             $("#div1,#div2").unbind('click')
 //                            .click(function() {
 //                                alert("运费需用现金支付");
@@ -890,10 +850,23 @@
 //                            });
                         }
 
-						if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
-							$("#placeOrder").attr("type", "4");
-							$("#PayAlt").text("混合支付");
-						}
+
+
+                        $("#TieMoney #div3").click(function() {
+                            var div4 = document.getElementById("div3");
+                            var div3 = document.getElementById("div4");
+                            div3.className = (div3.className == "open2") ? "close2" : "open2";
+                            div4.className = (div4.className == "open1") ? "close1" : "open1";
+
+                        });
+                        $("#cash #div1").click(function() {
+                            var div2 = document.getElementById("div1");
+                            var div1 = document.getElementById("div2");
+                            div1.className = (div1.className == "open2") ? "close2" : "open2";
+                            div2.className = (div2.className == "open1") ? "close1" : "open1";
+
+                        })
+
 						if($(".activityA").attr("type") != 0) {
 							$(".activityA").show()
 						} else {
@@ -951,7 +924,7 @@
 				return json;
 			}
 			$('#placeOrder').click(function() {
-				if($("#div3").attr("class") != "open1" && $("#div1").attr("class") != "open1") {
+				if($("#div4").attr("class") != "open2" && $("#div2").attr("class") != "open2") {
 					if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
 	                	$("#div1,#div3").attr("class", "close1");
 	                	$("#div2,#div4").attr("class", "close2");
@@ -965,11 +938,11 @@
 					if($("#div3").attr("class") == "open1") {
 						$("#placeOrder").attr("type", "0");
 						$("#PayAlt").text("呔金");
-					} else if($("#div1").attr("class") == "open1") {
+					} else if($("#div2").attr("class") == "open2") {
 						$("#placeOrder").attr("type", "1");
 						$("#PayAlt").text("现金");
 					}
-					if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
+					if($("#div2").attr("class") == "open2" && $("#div4").attr("class") == "open2") {
 						$("#placeOrder").attr("type", "4");
 						$("#PayAlt").text("混合支付");
 					}
