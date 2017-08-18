@@ -739,6 +739,7 @@
 					if($("#orderUl>li").eq(i).attr("support") == 0) {
 						cash += Number($("#orderUl>li").eq(i).find(".all_price").html())
 					}
+
 					if(!$(".all_price").eq(i).attr("max")){
                             if(Number($(".all_price").eq(i).html()) < 99) {
                                 $(".all_price").eq(i).siblings(".freight").text("6")
@@ -774,6 +775,7 @@
 
 				/*--------------------分割线--------------------------------*/
                 /*判断开启*/
+                console.log("呔金"+TieMoney+"---现金"+cash)
 			   if(cash>0 && TieMoney<=0){
                    $("#div1").attr("class", "open1");
                    $("#div2").attr("class", "open2");
@@ -795,6 +797,7 @@
                 if(TieMoney>0&&cash>0){
                     $("#div1,#div3").attr("class", "open1");
                     $("#div2,#div4").attr("class", "open2");
+                    $("#div1,#div2").click(false)
                 }
                 if(sessionStorage.getItem("TieMuch")<TieMoney){
                     $("#div1").attr("class", "open1");
