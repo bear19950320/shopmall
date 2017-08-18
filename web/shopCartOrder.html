@@ -589,7 +589,7 @@
 
 							/*--------------------分割线--------------------------------*/
 							/* 显示活动 */
-							if($(".Activity").attr("activitytype")!=""){
+							if($(".Activity").eq(i).attr("activitytype")!=""){
 								$(".Activity").show();
 								if($(".Activity"+con[i][j].wareId).attr("activitytype")=="1"){
                                     $(".Activity"+con[i][j].wareId).append('<span>满<span style="color:#fff;" max="'+con[i][j].fallmoney+'">'+con[i][j].fallmoney+'</span>包邮</span>')
@@ -782,6 +782,7 @@
                    $("#div3").attr("class", "close1");
 				   $("#div4").attr("class", "close2");
                    $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
+                   $("#div3").attr("id","div6");
                    $("#div3,#div4").click(false)
 //					   .click(function() {
 //                       alert("非自营商品无法使用呔金");
@@ -837,13 +838,7 @@
 				});
 				/* -------------循环end--------- */
 
-				if($("#div3").attr("class") == "open1") {
-					$("#placeOrder").attr("type", "0");
-					//	$("#PayAlt").text("呔金");
-				} else if($("#div1").attr("class") == "open1") {
-					$("#placeOrder").attr("type", "1");
-					//	$("#PayAlt").text("现金");
-				}
+
 				sessionStorage.setItem("bodyId", window.location.href);
 				sessionStorage.setItem("Status", "订单")
 
@@ -855,10 +850,6 @@
 					sessionStorage.setItem("need-refresh", true)
 					location.href = 'addresslist.html';
 				});
-				if($("#div1").attr("class") == "open1" && $("#div3").attr("class") == "open1") {
-					$("#placeOrder").attr("type", "4");
-					//	$("#PayAlt").text("混合支付");
-				}
 				if(form == "云仓") {
 					$("#div1").attr("class", "open1");
 					$("#div2").attr("class", "open2");
@@ -913,7 +904,7 @@
 				$('#placeOrder').click(function() {
 					/*--------------------分割线--------------------------------*/
 					/*呔金现金无法支付的时候跳转下载app*/
-					if($("#div3").attr("class") != "open1" && $("#div1").attr("class") != "open1") {
+					if($("#div4").attr("class") != "open2" && $("#div2").attr("class") != "open2") {
                         if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
                             $("#div1,#div3").attr("class", "close1");
                             $("#div2,#div4").attr("class", "close2");
@@ -924,14 +915,14 @@
                         }
 						return false;
 					} else {
-						if($("#div3").attr("class") == "open1") {
+						if($("#div4").attr("class") == "open2") {
 							$("#placeOrder").attr("type", "0");
 							//	$("#PayAlt").text("呔金");
-						} else if($("#div1").attr("class") == "open1") {
+						} else if($("#div2").attr("class") == "open2") {
 							$("#placeOrder").attr("type", "1");
 							//	$("#PayAlt").text("现金");
 						}
-						if($("#div2").attr("class") == "open2" && $("#div3").attr("class") == "open1") {
+						if($("#div2").attr("class") == "open2" && $("#div4").attr("class") == "open2") {
 							$("#placeOrder").attr("type", "4");
 							//	$("#PayAlt").text("混合支付");
 						}
@@ -1105,10 +1096,8 @@
 														alert(data.msg);
                                                         location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 													} else if(data.code == 10000) {
-
                                                             $("#orderUl").empty();
                                                             location.href = "orderstatush.html?Paid=" + $("#Paid").html()
-
 													}
 
 													// location.href="order.html?code=200"
