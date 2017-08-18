@@ -561,11 +561,9 @@
                                     });
                                     $(".share"+ data[i].selfnotesId).click(function (event) {
                                         event.stopPropagation();
-//                                        console.log($(this).parents(".ul").siblings(".notesText").find(".notesImgArr").eq(0).find("li").find("img").attr("src"))//eq(0).find("li").find("img").attr("src")
                                         shares($(this).attr("id"),$(this).parents(".ul").siblings(".notesText").find(".notesImgArr").eq(0).find("li").find("img").attr("src"),$(this).parents(".ul").siblings(".notesText").find(".notesTitle").text())
                                         $(".laye").show()
                                     });
-
                                 }
                             }
                         }
@@ -609,14 +607,14 @@
         }
     }
     function shares(wareid, img, title) {
-        console.log(wareid+"------"+img+"-----"+title)
+        console.log(wareid+"------"+img+"-----"+title);
         var laye = '<div class="laye" style="z-index:9999;">';
         laye += '<div class="layeTitle">分享到</div>'
         laye += '<div class="layeContent"><a href="javascript:;" class="ToQzone" ><img src="../img/share_qqspace.png"/></a><a href="javascript:void(0)" class="Sina"><img src="../img/share_weibo.png"/></a></div>'
         laye += '<div class="layeFont"><a href="javascript:;" class="closeLaye">取消</a></div>'
         laye += '</div>'
         $("body").append(laye);
-        var share_url = encodeURIComponent('http://www.tblmall.com:81/web/web/detailsdemo.html?wareId=' + wareid);
+        var share_url = encodeURIComponent('http://www.tblmall.com:81/web/web/detailsdemo.html?wareId=' + wareid+"&route=share");
         var share_title = "分享一个手记:" + title;
         var share_summipt = "我在呔棒啦商城发现了一个好东西，赶紧看看吧！";
         var share_pic = img; //榛樿鐨勫垎浜浘鐗�
