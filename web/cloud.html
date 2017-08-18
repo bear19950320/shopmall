@@ -23,7 +23,7 @@
 			</ul>
 		</div>
 		<ul class="cloudCom">
-			<li>
+			<li class="cre">
 				<div id="cloudNull">
 					<div class="cloudNull">
 						<img src="../img/icon/colud@2x.png" width="160"  height="160" alt="" />
@@ -209,7 +209,87 @@
 					});
 					$('.cloudCom>li').eq(n).show();
 					$('.cloudCom>li').eq(n).siblings().hide();
+					if($('.cre').css('display') == 'none'){
+						caiimgbanner();
+					}
 				});
+				function caiimgbanner(){
+					$.ajax({
+						type: "GET",
+						url: testurl + "/api/packagess/list",
+						dataType: "json",
+						data: {
+							platform: "2",
+							cutomerId: localStorage.getItem("cutomerId"),
+							type: "0"
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function(data) {
+							var subjectlist = data.data.packagesslist
+							var banner_wareInfo = [];
+							for(var i = 0; i < subjectlist.length; i++) {
+								$(".swiper-wrapper").append('<img class="swiper-slide" type="' + subjectlist[i].commodityCode + '" id="' + subjectlist[i].packageId + '" style="height:200px;" src="' + subjectlist[i].packageImage + '" />');
+								$("#" + subjectlist[i].packageId).click(function() {
+									$.ajax({
+										type: "GET",
+										url: testurl + "/api/packagess/get",
+										dataType: "json",
+										data: {
+											platform: "2",
+											cutomerId: localStorage.getItem("cutomerId"),
+											commodityCode: $(this).attr("type")
+										},
+										xhrFields: {
+											withCredentials: true
+										},
+										crossDomain: true,
+										success: function(data) {
+											var data = data.data.wareList;
+											$("#colorBagFiexd").show();
+											for(var i = 0; i < data.length; i++) {
+												$(".colorBagFiexd ul").append('<li>\
+													<img src="' + data[i].imagePath + '" alt="" />\
+												    <div>\
+												    	<p class="classifyListText left" style="padding: 7px;">' + data[i].wareName + '</p>\
+												    	<p class="classifyListText left" style="font-size: 12px;padding: 5px;">' + data[i].keyWords + '</p>\
+												    	<p style="font-size: 16px;color:#FF0000;">¥' + data[i].warePrice + '</p>\
+												    </div>\
+												</li>')
+											}
+											$(".colorBagFiexd li").css({
+												"height": $(".colorBagFiexd").height() / 19 + "%"
+											});
+											$(".colorBagFiexd li img").css({
+												"width": $(".colorBagFiexd li img").height()
+											});
+											$(".colorBagFiexd li>div").css({
+												"width": $(".colorBagFiexd li").width() - $(".colorBagFiexd li img").width() - 10 + "px"
+											})
+											$(".colorBagFiexd>span").click(function() {
+												$("#colorBagFiexd").hide();
+												$(".colorBagFiexd ul").empty()
+											})
+										}
+									})
+	
+								})
+							}
+							var swiper = new Swiper('.swiper-container', {
+								pagination: '.swiper-pagination',
+								nextButton: '.swiper-button-next',
+								prevButton: '.swiper-button-prev',
+								paginationClickable: true,
+								spaceBetween: 30,
+								centeredSlides: true,
+								autoplay: 5000,
+								autoplayDisableOnInteraction: false
+							});
+						}
+					})
+				}
 				$("nav").load("../html/nav.html", function() {
 					$("#nav").css("width", $("body").width())
 					$("#nav>ul>.li").css({
@@ -388,81 +468,7 @@
 					"height": ($(window).height() / 1.2),
 					"top": $(window).height() * 0.1
 				});
-				$.ajax({
-					type: "GET",
-					url: testurl + "/api/packagess/list",
-					dataType: "json",
-					data: {
-						platform: "2",
-						cutomerId: localStorage.getItem("cutomerId"),
-						type: "0"
-					},
-					xhrFields: {
-						withCredentials: true
-					},
-					crossDomain: true,
-					success: function(data) {
-						var subjectlist = data.data.packagesslist
-						var banner_wareInfo = [];
-						for(var i = 0; i < subjectlist.length; i++) {
-							$(".swiper-wrapper").append('<img class="swiper-slide" type="' + subjectlist[i].commodityCode + '" id="' + subjectlist[i].packageId + '" style="height:200px;" src="' + subjectlist[i].packageImage + '" />');
-							$("#" + subjectlist[i].packageId).click(function() {
-								$.ajax({
-									type: "GET",
-									url: testurl + "/api/packagess/get",
-									dataType: "json",
-									data: {
-										platform: "2",
-										cutomerId: localStorage.getItem("cutomerId"),
-										commodityCode: $(this).attr("type")
-									},
-									xhrFields: {
-										withCredentials: true
-									},
-									crossDomain: true,
-									success: function(data) {
-										var data = data.data.wareList;
-										$("#colorBagFiexd").show();
-										for(var i = 0; i < data.length; i++) {
-											$(".colorBagFiexd ul").append('<li>\
-												<img src="' + data[i].imagePath + '" alt="" />\
-											    <div>\
-											    	<p class="classifyListText left" style="padding: 7px;">' + data[i].wareName + '</p>\
-											    	<p class="classifyListText left" style="font-size: 12px;padding: 5px;">' + data[i].keyWords + '</p>\
-											    	<p style="font-size: 16px;color:#FF0000;">¥' + data[i].warePrice + '</p>\
-											    </div>\
-											</li>')
-										}
-										$(".colorBagFiexd li").css({
-											"height": $(".colorBagFiexd").height() / 19 + "%"
-										});
-										$(".colorBagFiexd li img").css({
-											"width": $(".colorBagFiexd li img").height()
-										});
-										$(".colorBagFiexd li>div").css({
-											"width": $(".colorBagFiexd li").width() - $(".colorBagFiexd li img").width() - 10 + "px"
-										})
-										$(".colorBagFiexd>span").click(function() {
-											$("#colorBagFiexd").hide();
-											$(".colorBagFiexd ul").empty()
-										})
-									}
-								})
-
-							})
-						}
-						var swiper = new Swiper('.swiper-container', {
-							pagination: '.swiper-pagination',
-							nextButton: '.swiper-button-next',
-							prevButton: '.swiper-button-prev',
-							paginationClickable: true,
-							spaceBetween: 30,
-							centeredSlides: true,
-							autoplay: 5000,
-							autoplayDisableOnInteraction: false
-						});
-					}
-				})
+				
 
 				$("#addcolorbag").click(function() {
 					if($('.cart dd input[type="checkbox"]:checked').length == 0) {
