@@ -298,7 +298,9 @@
 										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
 									} else if($(this).attr("type") == 4) {
 										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-									}
+									} else if($(this).attr("type") == 5) {
+                                        location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).parents(".crousel").siblings(".hotTitle").text()+ "&id=" + null;
+                                    }
 								}
 							})
 							/* 标题名字跳转   */
@@ -314,7 +316,9 @@
 										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
 									} else if($(this).attr("type") == 4) {
 										location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-									}
+									}else if($(this).attr("type") == 5) {
+                                        location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).text()+ "&id=" + null;
+                                    }
 								}
 							})
 						}
@@ -962,10 +966,10 @@
 				laye += '</div>'
 				$("body").append(laye);
 				var share_url = encodeURIComponent('http://www.tblmall.com:81/web/web/detailsdemo.html?wareId=' + wareid+"&route=share");
-				var share_title = "给你分享一个商品" + title;
-				var share_summipt = "我在呔棒啦商城发现了一个好东西，赶紧看看吧！";
-				var share_pic = img; //榛樿鐨勫垎浜浘鐗�
-				var share_from = encodeURIComponent("jQuery鎻掍欢搴�");
+				var share_title = "给你分享一个商品:" + title;// 标题
+				var share_summipt = "我在呔棒啦商城发现了一个好东西，赶紧看看吧！";//描述
+				var share_pic = img; //图片
+				var share_from = encodeURIComponent("jQuery鎻掍欢搴�");/
 				//Qzone
 				$(".ToQzone").click(function(e) {
 					window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + share_url + "&title=" + share_title + "&pics=" + share_pic + "&site=" + share_from + "&summary=" + share_summipt + "", "newwindow");
