@@ -116,7 +116,7 @@
 					sandType = "POST";
 					$.ajax({
 						type: sandType,
-						url: testurl + "/activitymanage/getWareByCharId",
+						url: testurl + "/activitymanage/getactivitybycharid",
 						data: {
 							platform: "2",
 							charId: sandId
@@ -129,6 +129,7 @@
 						async: true,
 						success: function(data) {
 							var data = data.data.ativitymanageInfo;
+                            $(".crousel img").attr("src", data.brandPoster)
 							for(var i = 0; i < data.wareVos.length; i++) {
 								$("#classifyListUl").append('<li id=' + data.wareVos[i].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
 									'<img src=' + data.wareVos[i].imagePath + ' width="90" height="90" alt="" />' +

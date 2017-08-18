@@ -246,8 +246,8 @@
 									} else if($(this).attr("type") == 4) {
 										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
 									}else if($(this).attr("type") == 5) {
-									   // alert( $(this).attr("id"))
-                                        location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).siblings(".hotTitle").text()+ "&id=" + null;
+									  //  console.log( $(this).parents(".crousel").siblings(".hotTitle").text())
+                                        location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).parents(".crousel").siblings(".hotTitle").text()+ "&id=" + null;
                                     }
 								}
 							})
@@ -266,7 +266,6 @@
 										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
 									}else if($(this).attr("type") == 5) {
                                         location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).text()+ "&id=" + null;
-
                                     }
 
 								}
