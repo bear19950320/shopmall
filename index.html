@@ -131,7 +131,7 @@
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
 									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-										'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+										'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
 										'<div class="classifyListContent">' +
 										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
 										'<div class="classifyListDetails">' +
@@ -179,7 +179,7 @@
 									'</ul>' +
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										
@@ -199,7 +199,7 @@
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
 									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-										'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+										'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
 										'<div class="classifyListContent">' +
 										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
 										'<div class="classifyListDetails">' +
@@ -257,7 +257,7 @@
 									'</div>');
 								console.log(subjectlist[i].choiceWare.length)
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										
@@ -276,7 +276,7 @@
 									'</div>' +
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										sessionStorage.setItem("TowareId", TowareId);
@@ -435,7 +435,7 @@
 								'</div>');
 							for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
 								$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-									'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+									'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
 									'<div class="classifyListContent">' +
 									'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
 									'<div class="classifyListDetails">' +
@@ -483,7 +483,7 @@
 								'</ul>' +
 								'</div>');
 							for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
+								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 								$("." + subjectlist[i].choiceWare[j].wareId).click(function(event) {
 									event.stopPropagation();
 									var TowareId = $(this).attr("class");
@@ -504,7 +504,7 @@
 								'</div>');
 							for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
 								$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-									'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+									'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
 									'<div class="classifyListContent">' +
 									'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
 									'<div class="classifyListDetails">' +
@@ -563,7 +563,7 @@
 								'</div>');
 							console.log(subjectlist[i].choiceWare.length)
 							for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
+								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 								$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 									var TowareId = $(this).attr("class");
 									
@@ -581,7 +581,7 @@
 								'</div>' +
 								'</div>');
 							for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
+								$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice.toFixed(2) + '</p></li>')
 								$("." + subjectlist[i].choiceWare[j].wareId).click(function(event) {
 									event.stopPropagation();
 									var TowareId = $(this).attr("class");
@@ -604,7 +604,9 @@
 									location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
 								} else if($(this).attr("type") == 4) {
 									location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-								}
+								}else if($(this).attr("type") == 5) {
+                                    location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).parents(".crousel").siblings(".hotTitle").text()+ "&id=" + null;
+                                }
 							}
 						})
 						/* 标题名字跳转   */
@@ -620,7 +622,9 @@
 									location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
 								} else if($(this).attr("type") == 4) {
 									location.href = "web/Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-								}
+								}else if($(this).attr("type") == 5) {
+                                    location.href = "Area.html?supplierId=" + $(this).attr("id") + "&name=" + $(this).parents(".crousel").siblings(".hotTitle").text()+ "&id=" + null;
+                                }
 							}
 						})
 					}
@@ -665,7 +669,7 @@
 								if(wareList.length != 0) {
 									for(var i = 0; i < wareList.length; i++) {
 										$("#classifyListUl").append('<li id=' + wareList[i].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-											'<img src=' + wareList[i].imagePath + ' width="90" height="90" alt="" />' +
+											'<img src=' + wareList[i].image1fle + ' width="90" height="90" alt="" />' +
 											'<div class="classifyListContent">' +
 											'<p class="classifyListText left support' + wareList[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + wareList[i].wareName + '</p>' +
 											'<div class="classifyListDetails">' +
@@ -890,7 +894,7 @@
 									dataCount++;
 									for(var i = 0; i < wareList.length; i++) {
 										$("#likeware").append('<li id=' + wareList[i].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-											'<img src=' + wareList[i].imagePath + ' width="90" height="90" alt="" />' +
+											'<img src=' + wareList[i].image1file + ' width="90" height="90" alt="" />' +
 											'<div class="classifyListContent">' +
 											'<p class="classifyListText left support' + wareList[i].support + '" ><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + wareList[i].wareName + '</p>' +
 											'<div class="classifyListDetails">' +

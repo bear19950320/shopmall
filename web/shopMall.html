@@ -92,7 +92,7 @@
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
 									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-										'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+										'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
 										'<div class="classifyListContent">' +
 										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
 										'<div class="classifyListDetails">' +
@@ -135,7 +135,7 @@
 									'</ul>' +
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										sessionStorage.setItem("TowareId", TowareId);
@@ -154,7 +154,7 @@
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
 									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-										'<img src=' + subjectlist[i].choiceWare[j].imagePath + ' width="90" height="90" alt="" />' +
+										'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
 										'<div class="classifyListContent">' +
 										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
 										'<div class="classifyListDetails">' +
@@ -207,7 +207,7 @@
 									'</div>');
 								console.log(subjectlist[i].choiceWare.length)
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										sessionStorage.setItem("TowareId", TowareId);
@@ -224,7 +224,7 @@
 									'</div>' +
 									'</div>');
 								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].imagePath + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
 									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
 										var TowareId = $(this).attr("class");
 										sessionStorage.setItem("TowareId", TowareId);

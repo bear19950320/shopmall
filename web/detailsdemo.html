@@ -898,7 +898,7 @@
 						var data = ware.wareVos;
 						for(var i = 0; i < data.length; i++) {
 							$("#supplierUl").append('<li id="' + data[i].wareId + '">\
-					     	                                <img src=' + data[i].imagePath + ' >\
+					     	                                <img src=' + data[i].image1file + ' >\
 					     	                                <p class="notes_Title">' + data[i].wareName + '</p>\
 					     	                                <p class="notes_Text" style="color:#FF0000 !important;text-align: center;padding: 5px 0;"> ¥' + data[i].warePrice + '</p>\
 					     	                                </li>');
@@ -1184,7 +1184,7 @@
 					$("#bonusMoney").append(data.data.wareInfo.bonusMoney)
 					$("#good_detail").html(data.data.wareInfo.introduction);
 					//规格选择
-					$(".specificationsBoxShow_img").prop("src", data.data.wareInfo.imagePath);
+					$(".specificationsBoxShow_img").prop("src", data.data.wareInfo.image1file);
 
 					$(".guigeChoose").click(function() {
 						$(".specificationsUl").attr("id", "");
