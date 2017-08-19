@@ -101,15 +101,15 @@
 				<div id="recommend" style="width:100%;position: relative;padding-bottom: 70px;">
 					<!---->
 					<div id="recommendNumber" style="width:96%;padding:10px 2%;height:10%;line-height:initial;">
-						<span style="float: left;padding-right: 28px;color:#666;line-height: 1.5;">任何商品都可以合成彩包</span>
-						<svg t="1498876535566" class="icon" style="width:28px;height:2rem;position: absolute;right: 10px;top:7px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
-							<defs>
-								<style type="text/css"></style>
-							</defs>
-							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
-						</svg>
+						<!--<span style="float: left;padding-right: 28px;color:#666;line-height: 1.5;">任何商品都可以合成彩包</span>-->
+						<!--<svg t="1498876535566" class="icon" style="width:28px;height:2rem;position: absolute;right: 10px;top:7px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">-->
+							<!--<defs>-->
+								<!--<style type="text/css"></style>-->
+							<!--</defs>-->
+							<!--<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>-->
+						<!--</svg>-->
 					</div>
-					<div id="recommendCenter" style="float: left;">
+					<div id="recommendCenter" style="float: left;padding-bottom: 80px">
 						<!--轮播图-->
 						<div class="banner" style="overflow: hidden;">
 							<!--轮播图-->
@@ -126,6 +126,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div id="distributeCon">
 					<div id="distribute">
 						<img src="../img/close.png" id="colorClose" width="40" height="40" alt="" />
@@ -139,8 +140,8 @@
 		</ul>
 		<div id="colorBagFiexd">
 			<div class="colorBagFiexd">
-				<span>
-					关闭
+				<span style="background: none">
+					<img src='../img/colorClose.png' alt="">
 				</span>
 				<div>礼包详情</div>
 				<ul>
@@ -255,13 +256,12 @@
                                             $("#colorBuy").attr("packagedTotal",parct);
                                             $("#colorBuy").attr("packageId",packageId)
 
-											for(var i = 0; i < data.length; i++) {
+											for(var i = 0; i < data.length; i++) {//<p class="classifyListText left" style="font-size: 12px;padding: 5px;height: 20px;">' + data[i].keyWords + '</p>\
 												$(".colorBagFiexd ul").append('<li>\
 													<img src="' + data[i].image1file + '" alt="" style="margin-top: 12px" />\
 												    <div>\
-												    	<p class="classifyListText left" style="padding: 7px;height: 20px;">' + data[i].wareName + '</p>\
-												    	<p class="classifyListText left" style="font-size: 12px;padding: 5px;height: 20px;">' + data[i].keyWords + '</p>\
-												    	<p style="font-size: 16px;color:#FF0000;">¥' + data[i].warePrice + '<span style="float: right"> *'+data[i].wareNum+'</span></p>\
+												    	<p class="classifyListText left" style="padding: 7px;line-height: 30px">' + data[i].wareName + '</p>\
+												    	<p style="font-size: 16px;color:#FF0000;line-height: 30px">¥' + data[i].warePrice + '<span style="float: right"> *'+data[i].wareNum+'</span></p>\
 												    </div>\
 												</li>')
 											}
@@ -366,15 +366,20 @@
 										strname.push(str[i])
 									}
 								}
-								console.log(con)
 								var st = '';
 								var toAll = 0;
 								for(var i = 0; i < con.length; i++) {
+
 									$(".cart").append('<div class="line-wrapper" id="' + ster[i] + '"><div class="supplierTitle"><input type="checkbox"  /> <a href="javascript:;" >' + strname[i] + '</a></div></div>');
 									for(var j = 0; j < con[i].length; j++) {
+                                        var skuid='',skuitemId='';
+                                        if(con[i][j].orderWareSkuitems!=""){
+                                            skuid= con[i][j].orderWareSkuitems[0].skuId;
+                                            skuitemId=con[i][j].orderWareSkuitems[0].skuItemId
+                                        }
 										$("#" + ster[i]).append('<div class="line-scroll-wrapper">' +
 											'<dd class="line-normal-wrapper">' +
-											'<input type="checkbox" class="checkbox" support="'+con[i][j].support+'"  id=' + con[i][j].wareId + ' name="' + con[i][j].wareSkuid + '" wareName=' + con[i][j].wareName + ' skuId=' + con[i][j].orderWareSkuitems[0].skuId + ' skuitemId=' + con[i][j].orderWareSkuitems[0].skuItemId + '> <i style="display: none;">' + con[i][j].cloudWareId + '</i>' +
+											'<input type="checkbox" class="checkbox" support="'+con[i][j].support+'"  id=' + con[i][j].wareId + ' name="' + con[i][j].wareSkuid + '" wareName=' + con[i][j].wareName + ' skuId=' +skuid + ' skuitemId=' + skuitemId + '> <i style="display: none;">' + con[i][j].cloudWareId + '</i>' +
 											'<img src="' + con[i][j].wareImage + '" class="imgClick" id="'+con[i][j].wareId+'" style="width: 7rem;height: 7rem;"/>' +
 											'<div class="line-normal-info-wrapper goodsInfor">' +
 											'<p style="font-size:14px;" >' + con[i][j].wareName + '</p>' +
