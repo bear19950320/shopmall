@@ -231,8 +231,10 @@
 							var subjectlist = data.data.packagesslist
 							var banner_wareInfo = [];
 							for(var i = 0; i < subjectlist.length; i++) {
-								$(".swiper-wrapper").append('<img class="swiper-slide" type="' + subjectlist[i].commodityCode + '" id="' + subjectlist[i].packageId + '" style="height:200px;" src="' + subjectlist[i].packageImage + '" />');
+								$(".swiper-wrapper").append('<img class="swiper-slide" type="' + subjectlist[i].commodityCode + '" id="' + subjectlist[i].packageId + '" packagedTotal="'+ subjectlist[i].packagedTotal+'" style="height:200px;" src="' + subjectlist[i].packageImage + '" packageId="'+subjectlist[i].packageId+'" />');
 								$("#" + subjectlist[i].packageId).click(function() {
+
+                                    var m=$(this).attr('type'),parct=$(this).attr('packagedTotal'),packageId=$(this).attr('packageId');
 									$.ajax({
 										type: "GET",
 										url: testurl + "/api/packagess/get",
@@ -249,18 +251,22 @@
 										success: function(data) {
 											var data = data.data.wareList;
 											$("#colorBagFiexd").show();
+                                            $("#colorBuy").attr("type",m);
+                                            $("#colorBuy").attr("packagedTotal",parct);
+                                            $("#colorBuy").attr("packageId",packageId)
+
 											for(var i = 0; i < data.length; i++) {
 												$(".colorBagFiexd ul").append('<li>\
-													<img src="' + data[i].image1file + '" alt="" />\
+													<img src="' + data[i].image1file + '" alt="" style="margin-top: 12px" />\
 												    <div>\
-												    	<p class="classifyListText left" style="padding: 7px;">' + data[i].wareName + '</p>\
-												    	<p class="classifyListText left" style="font-size: 12px;padding: 5px;">' + data[i].keyWords + '</p>\
-												    	<p style="font-size: 16px;color:#FF0000;">¥' + data[i].warePrice + '</p>\
+												    	<p class="classifyListText left" style="padding: 7px;height: 20px;">' + data[i].wareName + '</p>\
+												    	<p class="classifyListText left" style="font-size: 12px;padding: 5px;height: 20px;">' + data[i].keyWords + '</p>\
+												    	<p style="font-size: 16px;color:#FF0000;">¥' + data[i].warePrice + '<span style="float: right"> *'+data[i].wareNum+'</span></p>\
 												    </div>\
 												</li>')
 											}
 											$(".colorBagFiexd li").css({
-												"height": $(".colorBagFiexd").height() / 19 + "%"
+												"height": $(".colorBagFiexd").height() / 27 + "%"
 											});
 											$(".colorBagFiexd li img").css({
 												"width": $(".colorBagFiexd li img").height()
@@ -271,7 +277,15 @@
 											$(".colorBagFiexd>span").click(function() {
 												$("#colorBagFiexd").hide();
 												$(".colorBagFiexd ul").empty()
-											})
+											});
+											/*------------分割线--------------------*/
+                                            //购买彩包
+                                            $("#colorBuy").click(function (e) {
+                                                e.stopPropagation();
+                                                location.href="shopCartOrder.html?form=彩包&commodityCode="+$(this).attr("type")+"&parct="+$(this).attr('packagedTotal')+"&packageId="+$(this).attr("packageId")
+                                            })
+
+
 										}
 									})
 	
@@ -466,7 +480,7 @@
 				});
 				$(".colorBagFiexd").css({
 					"height": ($(window).height() / 1.2),
-					"top": $(window).height() * 0.1
+					"top": $(window).height() * 0.05
 				});
 				
 
@@ -638,6 +652,7 @@
 								};
 
 							}
+
 
 						},
 						complete: function(XMLHttpRequest, textStatus) {

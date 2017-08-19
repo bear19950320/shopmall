@@ -469,6 +469,12 @@
 			<ul id="orderUl" style="overflow: auto;margin-top: 0;padding-top: 0;">
 
 			</ul>
+			<div class="colorBagFiexd" style="position: static;width: 94%;padding: 5px 3%;">
+				<ul>
+
+				</ul>
+			</div>
+			<p class="caibao" style="width: 94%;padding: 10px 3%;background: #FFF1E6;margin-top: 10px;display: none">存入云仓</p>
 			<div id="Pay">
 				<!--<div class="PayTitle">
 					<span>支付方式</span>
@@ -521,60 +527,299 @@
 			}
 			let form = GetQueryString("form");
 			orderid = GetQueryString("orderid");
-			// 	ware = GetQueryString("ware");
-			// 供应商头像为   + ss[i * 12 + 11] +
-			if(!orderid) {
-				sessionStorage.setItem("bodyId", window.location.href);
-				sessionStorage.setItem("Status", "订单")
-				var shopcartWareId = sessionStorage.getItem("shopcart")
-				console.log(shopcartWareId)
-				var data = JSON.parse(shopcartWareId)
-				//	var ss = shopcartWareId.split(",")
-				for(var i = 0; i < data.length; i++) {
-					if(data.length != 0) {
-						var str = [];
-						var con = [];
-						var jsons = {};
-						var n = 0;
-						for(var i = 0; i < data.length; i++) {
-							if(!jsons[data[i].supportName]) {
-								n++;
-								str.push(data[i].supportName, 'name' + n)
-								jsons[data[i].supportName] = n;
-								con[n - 1] = [];
-								con[n - 1].push(data[i])
-							} else {
-								var ind = jsons[data[i].supportName]
-								con[ind - 1].push(data[i])
-							}
-						}
+            commodityCode=GetQueryString("commodityCode");
+            packageId=GetQueryString("packageId");
+            parct=GetQueryString('parct');
+			 	if(form=="彩包") {
+			 	    $(".caibao").show()
+                    $.ajax({
+                        type: "GET",
+                        url: testurl + "/api/packagess/get",
+                        dataType: "json",
+                        data: {
+                            platform: "2",
+                            cutomerId: localStorage.getItem("cutomerId"),
+                            commodityCode: commodityCode
+                        },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        success: function (data) {
+                            var data = data.data.wareList;
 
-						var ster = [];
-						var strname = [];
-						for(var i = 0; i < str.length; i++) {
-							if(i % 2 == 1) {
-								ster.push(str[i])
-							} else {
-								strname.push(str[i])
-							}
-						}
-						console.log(con)
-						var st = '';
-						$("#orderUl").empty();
-						for(var i = 0; i < con.length; i++) {
+                            $("#map").empty();
+                            $("#map").click(false);
+                            $("#map").append('<p style="line-height: 40px;font-weight: 700;font-size: 16px">彩包 <span style="font-weight: 400;line-height: 14px;font-size:12px;padding: 2px 4px;color:#fff;background: #FF0000;border-radius: 5px">默认</span></p><p style="line-height: 20px;padding-left: 10px">默认存入彩包</p>')
+                            $("#orderUl").remove();
+                            $("#TieMoney,#TieMuch").hide();
+                            $("#PaidMone>.left").hide();
+                            $("#PaidMone>#PaidCon").show();
+                            for (var i = 0; i < data.length; i++) {
+                                $(".colorBagFiexd>ul").append('<li style="padding: 5px 0" wareId="' + data[i].wareId + '" Num="' + data[i].wareNum + '" skuId="'+ data[i].skuList[0].skuId+'">\
+									<img src="' + data[i].image1file + '" style="width: 60px;height: 60px;" alt="">\
+									<div style="width:' + ($(".colorBagFiexd").width() - 80) + 'px;">\
+									<p class="left name" style="line-height: 30px;">' + data[i].wareName + '</p>\
+									<p class="left" style="line-height: 30px;">¥' + data[i].warePrice + '<span style="float: right" class="num">*' + data[i].wareNum + '</span></p>\
+									</div>\
+									</li>');
+                            }
+                            $("#Paid").append(parct);
+                            $("#placeOrder").click(function (e) {
+                                $("#placeOrder").attr("type",0)
+                                e.stopPropagation();
+                                if (localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
+                                    location.href = "login.html"
+                                } else if (localStorage.getItem("loginStatus") == "1") {
+                                    $.ajax({
+                                        type: "GET",
+                                        url: testurl + "/api/customer/getme",
+                                        data: {
+                                            platform: "2",
+                                            cutomerId: localStorage.getItem("cutomerId")
+                                        },
+                                        dataType: "json",
+                                        xhrFields: {
+                                            withCredentials: true
+                                        },
+                                        crossDomain: true,
+                                        success: function(data) {
+                                            if(data.code == 10000) {
+                                                $("#TieMuch span").text(data.data.user.replaceMoney);
+                                                $("#cashMuch span").text(data.data.user.cashMoney);
+                                                sessionStorage.setItem("TieMuch", data.data.user.replaceMoney);
+                                                sessionStorage.setItem("cashMuch", data.data.user.cashMoney)
+                                                var allMoney = data.data.user.replaceMoney + data.data.user.cashMoney
+                                                sessionStorage.setItem("allMoney", allMoney)
+                                            } else if(data.code == 2001) {
+                                                alert(data.msg);
+                                                location.href = "login.html"
+                                            }
 
-							$("#orderUl").append('<li id="ware' + ster[i] + '"><div class="supplierTitle left" style="padding: 5px ;"> <a href="javascript:;" >' + strname[i] + '</a><a href="javascript:;" class="activityA"  style="text-align: right !important;font-size: 10px;color:#DD200D" >购买活动商品不参加返利</a><ul class="orderContent" id="' + ster[i] + '"></ul>\
+                                        }
+                                    });
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: testurl + "/api/customer/paypassword/has",
+                                        dataType: "json",
+                                        data: {
+                                            platform: "2",
+                                            cutomerId: localStorage.getItem("cutomerId"),
+                                            paypassword: $("#passwordinput").val()
+                                        },
+                                        xhrFields: {
+                                            withCredentials: true
+                                        },
+                                        crossDomain: true,
+                                        success: function (data) {
+                                            if (data.data.result == false) {
+                                                alert("您还没有支付密码请设置支付密码");
+                                                location.href = "securityCenter.html"
+                                            } else if (data.data.result == true) {
+                                                $(".fixed").show();
+
+												/*   -------------------------------------------------------支付密码---------------------------------------------------------------------    */
+                                                $(".ipt-real-nick").on("input", function () {
+                                                    //console.log($(this).val());
+                                                    var $input = $(".ipt-fake-box input");
+                                                    if (!$(this).val()) { //无值光标顶置
+                                                        $('.ipt-active-nick').css('left', $input.eq(0).offset().left - parseInt($('.ipt-box-nick').parent().css('padding-left')) + 'px');
+                                                    }
+                                                    if (/^[0-9]*$/g.test($(this).val())) { //有值只能是数字
+                                                        //console.log($(this).val());
+                                                        var pwd = $(this).val().trim();
+                                                        for (var i = 0, len = pwd.length; i < len; i++) {
+                                                            $input.eq(i).val(pwd[i]);
+                                                            if ($input.eq(i).next().length) { //模拟光标，先将图片容器定位，控制left值而已
+                                                                console.log($('.ipt-box-nick').parent().css('padding-left'))
+                                                                $('.ipt-active-nick').css('left', $input.eq(i + 1).offset().left - 80 + 'px');
+                                                            }
+                                                        }
+                                                        $input.each(function () { //将有值的当前input后的所有input清空
+                                                            var index = $(this).index();
+                                                            if (index >= len) {
+                                                                $(this).val("");
+                                                            }
+                                                        });
+                                                        if (len == 6) {
+                                                            if (sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
+                                                                alert("金额不足支付订单,请下载app完成支付")
+                                                                location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
+                                                            } else {
+                                                                $.ajax({
+                                                                    type: "GET",
+                                                                    url: testurl + "/api/customer/paypassword/check",
+                                                                    dataType: "json",
+                                                                    data: {
+                                                                        platform: "2",
+                                                                        cutomerId: localStorage.getItem("cutomerId"),
+                                                                        paypassword: $("#passwordinput").val()
+                                                                    },
+                                                                    xhrFields: {
+                                                                        withCredentials: true
+                                                                    },
+                                                                    crossDomain: true,
+                                                                    success: function (data) {
+                                                                        if (data.code == 10000) {
+                                                                            function GetJsonDate() {
+
+                                                                                var json = {
+                                                                                    orderType: '3',
+                                                                                    orderTotal: $("#Paid").text(),
+                                                                                    orderRemarks: '',
+                                                                                    payType:'1',
+                                                                                    packageId:packageId
+
+                                                                                };
+                                                                                console.log(json)
+                                                                                return json;
+                                                                            }
+
+																			/*生成订单*/
+                                                                            $.ajax({
+                                                                                type: "POST",
+                                                                                url: testurl + "/api/order/addorder",
+                                                                                data: {
+                                                                                    platform: "2",
+                                                                                    cutomerId: localStorage.getItem("cutomerId"),
+                                                                                    orderContent: JSON.stringify(GetJsonDate())
+                                                                                },
+                                                                                dataType: "json",
+                                                                                xhrFields: {
+                                                                                    withCredentials: true
+                                                                                },
+                                                                                crossDomain: true,
+                                                                                success: function (data) {
+                                                                                    if (data.code == 10000) {
+                                                                                        var orderCode = data.data.orderCode;
+                                                                                        $("#confirmCon").attr("orderid", orderCode);
+
+                                                                                        $("#Prict").text("¥" + $("#Paid").text())
+                                                                                        $("#name").prepend($(".classifyListText").text());
+                                                                                        $("#num").text($("#Paid").text())
+
+																						/*订单支付*/
+                                                                                        $.ajax({
+                                                                                            type: "POST",
+                                                                                            url: testurl + "/api/pay/orderpay",
+                                                                                            data: {
+                                                                                                orderCode: $("#confirmCon").attr("orderid"),
+                                                                                                payType: $("#placeOrder").attr("type"),
+                                                                                                type: "0"
+                                                                                            },
+                                                                                            dataType: "json",
+                                                                                            xhrFields: {
+                                                                                                withCredentials: true
+                                                                                            },
+                                                                                            crossDomain: true,
+                                                                                            success: function (data) {
+                                                                                                if (data.code == 8001) {
+                                                                                                    alert(data.msg);
+                                                                                                    location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
+                                                                                                } else if (data.code == 10000) {
+
+
+                                                                                                    $("#orderUl").empty();
+                                                                                                    location.href = "orderstatush.html?Paid=" + $("#Paid").html()
+                                                                                                }
+
+                                                                                                // location.href="order.html?code=200"
+                                                                                            }
+                                                                                        })
+
+
+                                                                                    } else if (data.code == 2001) {
+                                                                                        localStorage.setItem("cutomerId", " ")
+                                                                                        localStorage.setItem("loginStatus", "0")
+                                                                                        alert(data.msg)
+                                                                                    } else {
+                                                                                        alert(data.msg)
+                                                                                    }
+
+                                                                                }
+                                                                            });
+
+
+                                                                        } else {
+                                                                            $("#passwordinput").val("");
+                                                                            $(".ipt-fake-box input").val("")
+                                                                            alert(data.msg)
+                                                                        }
+                                                                    }
+                                                                })
+                                                            }
+                                                            //执行其他操作
+                                                            //
+                                                        }
+                                                    } else { //清除val中的非数字，返回纯number的value
+                                                        var arr = $(this).val().match(/\d/g);
+                                                        $(this).val($(this).val().slice(0, $(this).val().lastIndexOf(arr[arr.length - 1]) + 1));
+                                                    }
+                                                });
+
+                                            } else {
+                                                $("#orderUl").empty();
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+				}else{
+                    if(!orderid) {
+                        sessionStorage.setItem("bodyId", window.location.href);
+                        sessionStorage.setItem("Status", "订单")
+                        var shopcartWareId = sessionStorage.getItem("shopcart")
+                        console.log(shopcartWareId)
+                        var data = JSON.parse(shopcartWareId)
+                        //	var ss = shopcartWareId.split(",")
+                        for(var i = 0; i < data.length; i++) {
+                            if(data.length != 0) {
+                                var str = [];
+                                var con = [];
+                                var jsons = {};
+                                var n = 0;
+                                for(var i = 0; i < data.length; i++) {
+                                    if(!jsons[data[i].supportName]) {
+                                        n++;
+                                        str.push(data[i].supportName, 'name' + n)
+                                        jsons[data[i].supportName] = n;
+                                        con[n - 1] = [];
+                                        con[n - 1].push(data[i])
+                                    } else {
+                                        var ind = jsons[data[i].supportName]
+                                        con[ind - 1].push(data[i])
+                                    }
+                                }
+
+                                var ster = [];
+                                var strname = [];
+                                for(var i = 0; i < str.length; i++) {
+                                    if(i % 2 == 1) {
+                                        ster.push(str[i])
+                                    } else {
+                                        strname.push(str[i])
+                                    }
+                                }
+                                console.log(con)
+                                var st = '';
+                                $("#orderUl").empty();
+                                for(var i = 0; i < con.length; i++) {
+
+                                    $("#orderUl").append('<li id="ware' + ster[i] + '"><div class="supplierTitle left" style="padding: 5px ;"> <a href="javascript:;" >' + strname[i] + '</a><a href="javascript:;" class="activityA"  style="text-align: right !important;font-size: 10px;color:#DD200D" >购买活动商品不参加返利</a><ul class="orderContent" id="' + ster[i] + '"></ul>\
 						 </div></li>')
-							for(var j = 0; j < con[i].length; j++) {
-							    var supportType='';
+                                    for(var j = 0; j < con[i].length; j++) {
+                                        var supportType='';
 
-							    if(con[i][j].supportType==1){
-                                    supportType=1
-								}
-								$("#ware" + ster[i]).attr("support", con[i][j].supportType);
-                                $("#ware" + ster[i]).attr("activitytype", con[i][j].activitytype);
-                                $("#ware" + ster[i]).find('.activityA').attr("type", con[i][j].activitytype);
-								$("#" + ster[i]).append('<li waraId="' + con[i][j].skuid + '" wareId="' + con[i][j].wareId + '" shopcartId="' + con[i][j].shopcartId + '">\
+                                        if(con[i][j].supportType==1){
+                                            supportType=1
+                                        }
+                                        $("#ware" + ster[i]).attr("support", con[i][j].supportType);
+                                        $("#ware" + ster[i]).attr("activitytype", con[i][j].activitytype);
+                                        $("#ware" + ster[i]).find('.activityA').attr("type", con[i][j].activitytype);
+                                        $("#" + ster[i]).append('<li waraId="' + con[i][j].skuid + '" wareId="' + con[i][j].wareId + '" shopcartId="' + con[i][j].shopcartId + '">\
 			      		    		      <div style="float: left;" class="storeWare">\
 						      		    	<img class="wareImg" src="' + con[i][j].wareImg + '" alt="" />\
 						      		    	<div style="float: left;" class="wareText">\
@@ -587,542 +832,543 @@
 						      		    </div>\
 				      		    	</li>');
 
-							/*--------------------分割线--------------------------------*/
-							/* 显示活动 */
-							if($(".Activity").eq(i).attr("activitytype")!=""){
-								$(".Activity").show();
-								if($(".Activity"+con[i][j].wareId).attr("activitytype")=="1"){
-                                    $(".Activity"+con[i][j].wareId).append('<span>满<span style="color:#fff;" max="'+con[i][j].fallmoney+'">'+con[i][j].fallmoney+'</span>包邮</span>')
-								}
-                                if($(".Activity"+con[i][j].wareId).attr("activitytype")=="2"){
-                                    $(".Activity"+con[i][j].wareId).append('<span>满<span style="color:#fff;">'+con[i][j].fallmoney+'</span>返<span style="color:#fff;">'+con[i][j].returnmoney+'</span></span>')
-                                }
-							}
+										/*--------------------分割线--------------------------------*/
+										/* 显示活动 */
+                                        if($(".Activity").eq(i).attr("activitytype")!=""){
+                                            $(".Activity").show();
+                                            if($(".Activity"+con[i][j].wareId).attr("activitytype")=="1"){
+                                                $(".Activity"+con[i][j].wareId).append('<span>满<span style="color:#fff;" max="'+con[i][j].fallmoney+'">'+con[i][j].fallmoney+'</span>包邮</span>')
+                                            }
+                                            if($(".Activity"+con[i][j].wareId).attr("activitytype")=="2"){
+                                                $(".Activity"+con[i][j].wareId).append('<span>满<span style="color:#fff;">'+con[i][j].fallmoney+'</span>返<span style="color:#fff;">'+con[i][j].returnmoney+'</span></span>')
+                                            }
+                                        }
 
-							}//<span style="width:35%;text-align: right;font-size: 14px;position: absolute;top: 3px;">¥<span class="Part">' + con[i][j].warePart + '</span></span>
-                            if(!$("#ware" + ster[i]).find(".activityA").attr("type")){
-                                $("#ware" + ster[i]).find(".activityA").remove()
-                            }else{
-                                $("#ware" + ster[i]).find(".activityA").show();
-                            }
+                                    }//<span style="width:35%;text-align: right;font-size: 14px;position: absolute;top: 3px;">¥<span class="Part">' + con[i][j].warePart + '</span></span>
+                                    if(!$("#ware" + ster[i]).find(".activityA").attr("type")){
+                                        $("#ware" + ster[i]).find(".activityA").remove()
+                                    }else{
+                                        $("#ware" + ster[i]).find(".activityA").show();
+                                    }
 
 
 
-							var num = 0,nums = 0,
-								freight = 0,freights = 0,
-								som = 0,soms = 0;
-							var Pact = [];
-							for(var l = 0; l < $("#" + ster[i]).find("li").length; l++) {
-								var sum = 0,sums = 0;
-								if(!$("#" + ster[i]).find("li").find(".Activity>span>span").attr("max")){
-                                    freight += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
-                                    num += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
-                                    sum += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text())).toFixed(2);
-                                    som += (Number(freight) + Number(sum));
-								}
-								if($("#" + ster[i]).find("li").find(".Activity>span>span").attr("max")!="undefined"){
-								    /*包邮的算法 */
-                                    freights += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
-                                    nums += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
-                                    sums += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text())).toFixed(2);
-                                    soms += (Number(freights) + Number(sums));
-								}
-							}
+                                    var num = 0,nums = 0,
+                                        freight = 0,freights = 0,
+                                        som = 0,soms = 0;
+                                    var Pact = [];
+                                    for(var l = 0; l < $("#" + ster[i]).find("li").length; l++) {
+                                        var sum = 0,sums = 0;
+                                        if(!$("#" + ster[i]).find("li").find(".Activity>span>span").attr("max")){
+                                            freight += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
+                                            num += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
+                                            sum += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text())).toFixed(2);
+                                            som += (Number(freight) + Number(sum));
+                                        }
+                                        if($("#" + ster[i]).find("li").find(".Activity>span>span").attr("max")!="undefined"){
+											/*包邮的算法 */
+                                            freights += Number($("#" + ster[i]).find("li").eq(l).find(".freight").text())
+                                            nums += Number($("#" + ster[i]).find("li").eq(l).find(".num").text());
+                                            sums += (Number($("#" + ster[i]).find("li").eq(l).find(".num").text()) * Number($("#" + ster[i]).find("li").eq(l).find(".Part").text())).toFixed(2);
+                                            soms += (Number(freights) + Number(sums));
+                                        }
+                                    }
 
-							//parseInt(Pact)
+                                    //parseInt(Pact)
 
-                            if(!$("#ware" + ster[i]).attr("activitytype")){
-                                $("#ware" + ster[i]).append('<div class="orderAlt">\
+                                    if(!$("#ware" + ster[i]).attr("activitytype")){
+                                        $("#ware" + ster[i]).append('<div class="orderAlt">\
 	      		       			共<span class="NUM">' + num + '</span>件商品，合计¥<span class="all_price">' + som + '</span>(含运费<span class="freight">0</span>.00)')
-							}else{
-                                $("#ware" + ster[i]).append('<div class="orderAlt">\
+                                    }else{
+                                        $("#ware" + ster[i]).append('<div class="orderAlt">\
 	      		       			共<span class="NUM">' + nums + '</span>件商品，合计¥<span class="all_price" max="'+$("#ware" + ster[i]).find(".Activity").find("span").find("span").attr("max")+'">' + soms + '</span>(含运费<span class="freight">0</span>.00)')
-							}
-        				 console.log("自营"+$("#ware" + ster[i]).attr("activitytype") )
+                                    }
+                                    console.log("自营"+$("#ware" + ster[i]).attr("activitytype") )
 
-						}
+                                }
 
-						$(".supplierTitle>a").css({
-							"width": "50%",
-							"float": "left",
-							"height": "20px",
-							"display": "block",
-							"white-space": "nowrap",
-							"overflow": "hidden",
-							"text-overflow": "ellipsis"
-						})
-					}
-				}
-
-				$.ajax({
-					type: "GET",
-					url: testurl + "/api/address/addresslist",
-					dataType: "json",
-					data: {
-						platform: "2",
-						cutomerId: localStorage.getItem("cutomerId")
-					},
-					xhrFields: {
-						withCredentials: true
-					},
-					crossDomain: true,
-					success: function(data) {
-						$("#map").empty();
-						var addressesList = data.data.addressesList;
-						for(var i = 0; i < addressesList.length; i++) {
-							if(addressesList[i].isDefault == "1") {
-								$("#map").append('<div class="choose_address background_color_two" style="height: 50px;" id="' + addressesList[i].addressId + '">' +
-									'<div>' +
-									'<div class="font_size_three">' +
-									' ' + addressesList[i].customerName + '&nbsp;' + addressesList[i].phone + '<span class="submit_span_one font_color_one background_color_one font_size_four" style="width: 40px;">默认</span>' +
-									'</div>' +
-									'<p class="font_size_two">' +
-									'<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' +
-									'<span class="submit_address">' + addressesList[i].province + "&nbsp;" + addressesList[i].city + "&nbsp;" + addressesList[i].area + "&nbsp;" + addressesList[i].address + '</span>' +
-									'</p>' +
-									'</div>' +
-									'<div>' +
-									'<img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="height:20px;float: right;">' +
-									'</div>' +
-									'</div>');
-							}
-						}
-					}
-				});
-				if(localStorage.getItem("loginStatus") == 1) {
-					$.ajax({
-						type: "GET",
-						url: testurl + "/api/customer/getme",
-						data: {
-							platform: "2",
-							cutomerId: localStorage.getItem("cutomerId")
-						},
-						dataType: "json",
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						success: function(data) {
-							if(data.code == 10000) {
-								$("#TieMuch span").text(data.data.user.replaceMoney);
-								$("#cashMuch span").text(data.data.user.cashMoney);
-								sessionStorage.setItem("TieMuch", data.data.user.replaceMoney);
-								sessionStorage.setItem("cashMuch", data.data.user.cashMoney)
-								var allMoney = data.data.user.replaceMoney + data.data.user.cashMoney
-								sessionStorage.setItem("allMoney", allMoney)
-							} else if(data.code == 2001) {
-								alert(data.msg);
-								location.href = "login.html"
-							}
-
-						}
-					});
-				} else {
-					$("#TieMuch,#cashMuch").append("0");
-				}
-
-				var put1 = document.getElementById("div1");
-				var div1 = document.getElementById("div3");
-				var cash = 0,
-					TieMoney = 0,
-					supCode = 0,
-					freightMoney = 0;
-				/*--------------------分割线--------------------------------*/
-				/*  循环   */
-				var m = 0;
-				var n = 0;
-
-				for(var i = 0; i < $("#orderUl>li").length; i++) {
-					if($("#orderUl>li").eq(i).attr("support") == 1) {
-						TieMoney += Number($("#orderUl>li").eq(i).find(".all_price").html())
-					}
-					if($("#orderUl>li").eq(i).attr("support") == 0) {
-						cash += Number($("#orderUl>li").eq(i).find(".all_price").html())
-					}
-
-					if(!$(".all_price").eq(i).attr("max")){
-                            if(Number($(".all_price").eq(i).html()) < 99) {
-                                $(".all_price").eq(i).siblings(".freight").text("6")
-                            } else if(Number($(".all_price").eq(i).html()) > 99) {
-                                $(".all_price").eq(i).siblings(".freight").text("0")
-                            }
-					}else{
-						if($(".all_price").eq(i).attr("max")=="undefined"){
-							if(Number($(".all_price").eq(i).html()) < 99) {
-								$(".all_price").eq(i).siblings(".freight").text("6")
-							} else if(Number($(".all_price").eq(i).html()) > 99) {
-								$(".all_price").eq(i).siblings(".freight").text("0")
-							}
-						}else{
-                            if(Number($(".all_price").eq(i).html()) < Number($(".all_price").eq(i).attr("max"))) {
-                                $(".all_price").eq(i).siblings(".freight").text("6")
-                            } else if(Number($(".all_price").eq(i).html()) > Number($(".all_price").eq(i).attr("max"))) {
-                                $(".all_price").eq(i).siblings(".freight").text("0")
+                                $(".supplierTitle>a").css({
+                                    "width": "50%",
+                                    "float": "left",
+                                    "height": "20px",
+                                    "display": "block",
+                                    "white-space": "nowrap",
+                                    "overflow": "hidden",
+                                    "text-overflow": "ellipsis"
+                                })
                             }
                         }
-					}
-					n += Number($(".all_price").eq(i).siblings(".freight").html());
-					m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html());
-				}
-		
 
-				$("#freight").text(n);
-				if(form == "云仓") {
-					$("#Paid").text($("#freight").html())
-				} else if(form == "订单") {
-					$("#Paid").text(m);
-				}
-
-				/*--------------------分割线--------------------------------*/
-                /*判断开启*/
-                console.log("呔金"+TieMoney+"---现金"+cash)
-			   if(cash>0 && TieMoney<=0){
-                   $("#div1").attr("class", "open1");
-                   $("#div2").attr("class", "open2");
-                   $("#div3").attr("class", "close1");
-				   $("#div4").attr("class", "close2");
-                   $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
-                   $("#div3").attr("id","div6");
-                   $("#div3,#div4").click(false)
-//					   .click(function() {
-//                       alert("非自营商品无法使用呔金");
-//                       return false;
-//                   })
-			   }
-			   if(TieMoney>0&&cash<=0){
-                   $("#div1").attr("class", "close1");
-                   $("#div2").attr("class", "close2");
-                   $("#div3").attr("class", "open1");
-                   $("#div4").attr("class", "open2");
-			   }
-                if(TieMoney>0&&cash>0){
-                    $("#div1,#div3").attr("class", "open1");
-                    $("#div2,#div4").attr("class", "open2");
-                    $("#div1").attr("id","div5");
-                    $("#div1,#div2").click(false)
-                }
-                if(sessionStorage.getItem("TieMuch")<TieMoney){
-                    $("#div1").attr("class", "open1");
-                    $("#div2").attr("class", "open2");
-				}
-                if($("#freight").html()>0){
-                    $("#div1").attr("class", "open1");
-                    $("#div2").attr("class", "open2");
-                    $("#div1").attr("id","div5");
-                    $("#div1,#div2").click(false)
-//						.click(function() {
-//                        alert("运费需要现金支付");
-//                        return false;
-//                    })
-                }
-
-
-				/*--------------------分割线--------------------------------*/
-                /*开关点击事件*/
-				$("#TieMoney #div3").click(function() {
-					var div4 = document.getElementById("div3");
-					var div3 = document.getElementById("div4");
-					div3.className = (div3.className == "open2") ? "close2" : "open2";
-					div4.className = (div4.className == "open1") ? "close1" : "open1";
-				});
-				$("#cash #div1").click(function() {
-					var div2 = document.getElementById("div1");
-					var div1 = document.getElementById("div2");
-					div1.className = (div1.className == "open2") ? "close2" : "open2";
-					div2.className = (div2.className == "open1") ? "close1" : "open1";
-				});
-
-				/*  关闭支付窗口   */
-				$("#closeOrder").click(function() {
-					$(".fixed").hide()
-				});
-				/* -------------循环end--------- */
-
-
-				sessionStorage.setItem("bodyId", window.location.href);
-				sessionStorage.setItem("Status", "订单")
-
-				/* 跳转地址列表  */
-				$("#map").click(function() {
-					sessionStorage.setItem("bodyId", window.location.href);
-					location.reload()
-					$(this).empty();
-					sessionStorage.setItem("need-refresh", true)
-					location.href = 'addresslist.html';
-				});
-				if(form == "云仓") {
-					$("#div1").attr("class", "open1");
-					$("#div2").attr("class", "open2");
-					$("#div3").attr("class", "close1");
-					$("#div4").attr("class", "close2");
-					$("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
-					$("#div2,#div1,#div4,#div3").click(function() {
-						alert("云仓提货请支付运费");
-						return false;
-					})
-				}
- 				
-				function GetJsonData() {
-					var jsons = [];
-					var n = [];
-					for(var i = 0; i < $("#orderUl>li").length; i++) {
-						for(var j = 0; j < $("#orderUl>li").eq(i).find("ul>li").length; j++) {
-							n[j] = new Object();
-							n[j].wareId = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("wareId")
-							n[j].wareNum = $("#orderUl>li").eq(i).find("ul>li").eq(j).find(".num").html()
-							n[j].wareSkuid = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("waraId")
-							jsons.push(n[j])
-						}
-					}
-					var nu = ''
-					for(var i = 0; i < $("#orderUl>li").length; i++) {
-						if($("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId")!="undefined"){
-							nu += $("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId") + ',';
-						}else{
-							nu+=''
-						}
-					}
-					nu = nu.slice(0, -1)
-					var orderType, content;
-					if(form == "订单") {
-						orderType = "0"
-					} else if(form == "云仓") {
-						orderType = "2"
-					}
-					content = "订单" + orderType;
-					var json = {
-						orderType: orderType,
-						orderTotal: $("#Paid").text(),
-						orderRemarks: content,
-						shopcartId: nu,
-						receiveId: $("#map>div").attr("id"),
-						orderWareList: jsons
-					};
-					console.log(json)
-					return json;
-				}
-				$('#placeOrder').click(function() {
-					/*--------------------分割线--------------------------------*/
-					/*呔金现金无法支付的时候跳转下载app*/
-					if($("#div4").attr("class") != "open2" && $("#div2").attr("class") != "open2") {
-                        if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
-                            $("#div1,#div3").attr("class", "close1");
-                            $("#div2,#div4").attr("class", "close2");
-                            alert("金额不足无法支付订单,请下载app完成支付");
-                            location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
-                        }else{
-                            alert("至少选择一种支付方式");
-                        }
-						return false;
-					} else {
-						if($("#div4").attr("class") == "open2") {
-							$("#placeOrder").attr("type", "0");
-							//	$("#PayAlt").text("呔金");
-						} else if($("#div2").attr("class") == "open2") {
-							$("#placeOrder").attr("type", "1");
-							//	$("#PayAlt").text("现金");
-						}
-						if($("#div2").attr("class") == "open2" && $("#div4").attr("class") == "open2") {
-							$("#placeOrder").attr("type", "4");
-							//	$("#PayAlt").text("混合支付");
-						}
-					}
-					if($("#map").html()==""){
-						alert("没有收货地址,请设置收货地址");
-						location.href="addresslist.html"
-					}else if($("#map").html()!=""){
-						if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
-							location.href = "login.html"
-						} else if(localStorage.getItem("loginStatus") == "1") {
+                        $.ajax({
+                            type: "GET",
+                            url: testurl + "/api/address/addresslist",
+                            dataType: "json",
+                            data: {
+                                platform: "2",
+                                cutomerId: localStorage.getItem("cutomerId")
+                            },
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            crossDomain: true,
+                            success: function(data) {
+                                $("#map").empty();
+                                var addressesList = data.data.addressesList;
+                                for(var i = 0; i < addressesList.length; i++) {
+                                    if(addressesList[i].isDefault == "1") {
+                                        $("#map").append('<div class="choose_address background_color_two" style="height: 50px;" id="' + addressesList[i].addressId + '">' +
+                                            '<div>' +
+                                            '<div class="font_size_three">' +
+                                            ' ' + addressesList[i].customerName + '&nbsp;' + addressesList[i].phone + '<span class="submit_span_one font_color_one background_color_one font_size_four" style="width: 40px;">默认</span>' +
+                                            '</div>' +
+                                            '<p class="font_size_two">' +
+                                            '<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' +
+                                            '<span class="submit_address">' + addressesList[i].province + "&nbsp;" + addressesList[i].city + "&nbsp;" + addressesList[i].area + "&nbsp;" + addressesList[i].address + '</span>' +
+                                            '</p>' +
+                                            '</div>' +
+                                            '<div>' +
+                                            '<img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="height:20px;float: right;">' +
+                                            '</div>' +
+                                            '</div>');
+                                    }
+                                }
+                            }
+                        });
+                        if(localStorage.getItem("loginStatus") == 1) {
                             $.ajax({
                                 type: "GET",
-                                url: testurl + "/api/customer/paypassword/has",
-                                dataType: "json",
+                                url: testurl + "/api/customer/getme",
                                 data: {
                                     platform: "2",
-                                    cutomerId: localStorage.getItem("cutomerId"),
-                                    paypassword: $("#passwordinput").val()
+                                    cutomerId: localStorage.getItem("cutomerId")
                                 },
+                                dataType: "json",
                                 xhrFields: {
                                     withCredentials: true
                                 },
                                 crossDomain: true,
                                 success: function(data) {
-                                    if(data.data.result == false) {
-                                        alert("您还没有支付密码请设置支付密码");
-                                        location.href = "securityCenter.html"
-                                    } else if(data.data.result == true) {
+                                    if(data.code == 10000) {
+                                        $("#TieMuch span").text(data.data.user.replaceMoney);
+                                        $("#cashMuch span").text(data.data.user.cashMoney);
+                                        sessionStorage.setItem("TieMuch", data.data.user.replaceMoney);
+                                        sessionStorage.setItem("cashMuch", data.data.user.cashMoney)
+                                        var allMoney = data.data.user.replaceMoney + data.data.user.cashMoney
+                                        sessionStorage.setItem("allMoney", allMoney)
+                                    } else if(data.code == 2001) {
+                                        alert(data.msg);
+                                        location.href = "login.html"
+                                    }
+
+                                }
+                            });
+                        } else {
+                            $("#TieMuch,#cashMuch").append("0");
+                        }
+
+                        var put1 = document.getElementById("div1");
+                        var div1 = document.getElementById("div3");
+                        var cash = 0,
+                            TieMoney = 0,
+                            supCode = 0,
+                            freightMoney = 0;
+						/*--------------------分割线--------------------------------*/
+						/*  循环   */
+                        var m = 0;
+                        var n = 0;
+
+                        for(var i = 0; i < $("#orderUl>li").length; i++) {
+                            if($("#orderUl>li").eq(i).attr("support") == 1) {
+                                TieMoney += Number($("#orderUl>li").eq(i).find(".all_price").html())
+                            }
+                            if($("#orderUl>li").eq(i).attr("support") == 0) {
+                                cash += Number($("#orderUl>li").eq(i).find(".all_price").html())
+                            }
+
+                            if(!$(".all_price").eq(i).attr("max")){
+                                if(Number($(".all_price").eq(i).html()) < 99) {
+                                    $(".all_price").eq(i).siblings(".freight").text("6")
+                                } else if(Number($(".all_price").eq(i).html()) > 99) {
+                                    $(".all_price").eq(i).siblings(".freight").text("0")
+                                }
+                            }else{
+                                if($(".all_price").eq(i).attr("max")=="undefined"){
+                                    if(Number($(".all_price").eq(i).html()) < 99) {
+                                        $(".all_price").eq(i).siblings(".freight").text("6")
+                                    } else if(Number($(".all_price").eq(i).html()) > 99) {
+                                        $(".all_price").eq(i).siblings(".freight").text("0")
+                                    }
+                                }else{
+                                    if(Number($(".all_price").eq(i).html()) < Number($(".all_price").eq(i).attr("max"))) {
+                                        $(".all_price").eq(i).siblings(".freight").text("6")
+                                    } else if(Number($(".all_price").eq(i).html()) > Number($(".all_price").eq(i).attr("max"))) {
+                                        $(".all_price").eq(i).siblings(".freight").text("0")
+                                    }
+                                }
+                            }
+                            n += Number($(".all_price").eq(i).siblings(".freight").html());
+                            m += Number($(".all_price").eq(i).html()) + Number($(".all_price").eq(i).siblings(".freight").html());
+                        }
+
+
+                        $("#freight").text(n);
+                        if(form == "云仓") {
+                            $("#Paid").text($("#freight").html())
+                        } else if(form == "订单") {
+                            $("#Paid").text(m);
+                        }
+
+						/*--------------------分割线--------------------------------*/
+						/*判断开启*/
+                        console.log("呔金"+TieMoney+"---现金"+cash)
+                        if(cash>0 && TieMoney<=0){
+                            $("#div1").attr("class", "open1");
+                            $("#div2").attr("class", "open2");
+                            $("#div3").attr("class", "close1");
+                            $("#div4").attr("class", "close2");
+                            $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"});
+                            $("#div3").attr("id","div6");
+                            $("#div3,#div4").click(false)
+//					   .click(function() {
+//                       alert("非自营商品无法使用呔金");
+//                       return false;
+//                   })
+                        }
+                        if(TieMoney>0&&cash<=0){
+                            $("#div1").attr("class", "close1");
+                            $("#div2").attr("class", "close2");
+                            $("#div3").attr("class", "open1");
+                            $("#div4").attr("class", "open2");
+                        }
+                        if(TieMoney>0&&cash>0){
+                            $("#div1,#div3").attr("class", "open1");
+                            $("#div2,#div4").attr("class", "open2");
+                            $("#div1").attr("id","div5");
+                            $("#div1,#div2").click(false)
+                        }
+                        if(sessionStorage.getItem("TieMuch")<TieMoney){
+                            $("#div1").attr("class", "open1");
+                            $("#div2").attr("class", "open2");
+                        }
+                        if($("#freight").html()>0){
+                            $("#div1").attr("class", "open1");
+                            $("#div2").attr("class", "open2");
+                            $("#div1").attr("id","div5");
+                            $("#div1,#div2").click(false)
+//						.click(function() {
+//                        alert("运费需要现金支付");
+//                        return false;
+//                    })
+                        }
+
+
+						/*--------------------分割线--------------------------------*/
+						/*开关点击事件*/
+                        $("#TieMoney #div3").click(function() {
+                            var div4 = document.getElementById("div3");
+                            var div3 = document.getElementById("div4");
+                            div3.className = (div3.className == "open2") ? "close2" : "open2";
+                            div4.className = (div4.className == "open1") ? "close1" : "open1";
+                        });
+                        $("#cash #div1").click(function() {
+                            var div2 = document.getElementById("div1");
+                            var div1 = document.getElementById("div2");
+                            div1.className = (div1.className == "open2") ? "close2" : "open2";
+                            div2.className = (div2.className == "open1") ? "close1" : "open1";
+                        });
+
+						/*  关闭支付窗口   */
+                        $("#closeOrder").click(function() {
+                            $(".fixed").hide()
+                        });
+						/* -------------循环end--------- */
+
+
+                        sessionStorage.setItem("bodyId", window.location.href);
+                        sessionStorage.setItem("Status", "订单")
+
+						/* 跳转地址列表  */
+                        $("#map").click(function() {
+                            sessionStorage.setItem("bodyId", window.location.href);
+                            location.reload()
+                            $(this).empty();
+                            sessionStorage.setItem("need-refresh", true)
+                            location.href = 'addresslist.html';
+                        });
+                        if(form == "云仓") {
+                            $("#div1").attr("class", "open1");
+                            $("#div2").attr("class", "open2");
+                            $("#div3").attr("class", "close1");
+                            $("#div4").attr("class", "close2");
+                            $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
+                            $("#div2,#div1,#div4,#div3").click(function() {
+                                alert("云仓提货请支付运费");
+                                return false;
+                            })
+                        }
+
+                        function GetJsonData() {
+                            var jsons = [];
+                            var n = [];
+                            for(var i = 0; i < $("#orderUl>li").length; i++) {
+                                for(var j = 0; j < $("#orderUl>li").eq(i).find("ul>li").length; j++) {
+                                    n[j] = new Object();
+                                    n[j].wareId = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("wareId")
+                                    n[j].wareNum = $("#orderUl>li").eq(i).find("ul>li").eq(j).find(".num").html()
+                                    n[j].wareSkuid = $("#orderUl>li").eq(i).find("ul>li").eq(j).attr("waraId")
+                                    jsons.push(n[j])
+                                }
+                            }
+                            var nu = ''
+                            for(var i = 0; i < $("#orderUl>li").length; i++) {
+                                if($("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId")!="undefined"){
+                                    nu += $("#orderUl>li").eq(i).find(".orderContent>li").attr("shopcartId") + ',';
+                                }else{
+                                    nu+=''
+                                }
+                            }
+                            nu = nu.slice(0, -1)
+                            var orderType, content;
+                            if(form == "订单") {
+                                orderType = "0"
+                            } else if(form == "云仓") {
+                                orderType = "2"
+                            }
+                            content = "订单" + orderType;
+                            var json = {
+                                orderType: orderType,
+                                orderTotal: $("#Paid").text(),
+                                orderRemarks: content,
+                                shopcartId: nu,
+                                receiveId: $("#map>div").attr("id"),
+                                orderWareList: jsons
+                            };
+                            console.log(json)
+                            return json;
+                        }
+                        $('#placeOrder').click(function() {
+							/*--------------------分割线--------------------------------*/
+							/*呔金现金无法支付的时候跳转下载app*/
+                            if($("#div4").attr("class") != "open2" && $("#div2").attr("class") != "open2") {
+                                if(Number(sessionStorage.getItem("TieMuch"))<=0&&Number(sessionStorage.getItem("cashMuch")) <= 0){
+                                    $("#div1,#div3").attr("class", "close1");
+                                    $("#div2,#div4").attr("class", "close2");
+                                    alert("金额不足无法支付订单,请下载app完成支付");
+                                    location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
+                                }else{
+                                    alert("至少选择一种支付方式");
+                                }
+                                return false;
+                            } else {
+                                if($("#div4").attr("class") == "open2") {
+                                    $("#placeOrder").attr("type", "0");
+                                    //	$("#PayAlt").text("呔金");
+                                } else if($("#div2").attr("class") == "open2") {
+                                    $("#placeOrder").attr("type", "1");
+                                    //	$("#PayAlt").text("现金");
+                                }
+                                if($("#div2").attr("class") == "open2" && $("#div4").attr("class") == "open2") {
+                                    $("#placeOrder").attr("type", "4");
+                                    //	$("#PayAlt").text("混合支付");
+                                }
+                            }
+                            if($("#map").html()==""){
+                                alert("没有收货地址,请设置收货地址");
+                                location.href="addresslist.html"
+                            }else if($("#map").html()!=""){
+                                if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
+                                    location.href = "login.html"
+                                } else if(localStorage.getItem("loginStatus") == "1") {
+                                    $.ajax({
+                                        type: "GET",
+                                        url: testurl + "/api/customer/paypassword/has",
+                                        dataType: "json",
+                                        data: {
+                                            platform: "2",
+                                            cutomerId: localStorage.getItem("cutomerId"),
+                                            paypassword: $("#passwordinput").val()
+                                        },
+                                        xhrFields: {
+                                            withCredentials: true
+                                        },
+                                        crossDomain: true,
+                                        success: function(data) {
+                                            if(data.data.result == false) {
+                                                alert("您还没有支付密码请设置支付密码");
+                                                location.href = "securityCenter.html"
+                                            } else if(data.data.result == true) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: testurl + "/api/order/addorder",
+                                                    data: {
+                                                        platform: "2",
+                                                        cutomerId: localStorage.getItem("cutomerId"),
+                                                        orderContent: JSON.stringify(GetJsonData())
+                                                    },
+                                                    dataType: "json",
+                                                    xhrFields: {
+                                                        withCredentials: true
+                                                    },
+                                                    crossDomain: true,
+                                                    success: function(data) {
+                                                        if(data.code == 10000) {
+                                                            var orderCode = data.data.orderCode;
+                                                            console.log(orderCode)
+                                                            $("#confirmCon").attr("orderid", orderCode);
+                                                            $("#Prict").text("¥"+$("#Paid").text())
+                                                            $(".fixed").show();
+                                                            $("#name").prepend($(".classifyListText").text());
+                                                            $("#num").text($("#Paid").text())
+                                                        } else if(data.code == 2001) {
+                                                            localStorage.setItem("cutomerId", " ")
+                                                            localStorage.setItem("loginStatus", "0")
+                                                            alert(data.msg)
+                                                        } else {
+                                                            alert(data.msg)
+                                                        }
+
+                                                    }
+                                                });
+
+                                            }
+                                        }
+                                    })
+
+
+                                }
+
+                            }
+
+                        })
+
+                        $("#confirm").click(function() {
+                            $.ajax({
+                                type: "POST",
+                                url: testurl + "/api/pay/getPayInfo",
+                                data: {
+                                    orderCode: $(this).attr("id"),
+                                    amount: $("#Paid").text(),
+                                    payType: "1"
+                                },
+                                dataType: "json",
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                crossDomain: true,
+                                success: function(data) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: testurl + "/api/pay/wechatpay/callback",
+                                        data: {
+                                            orderCode: $(this).attr("id"),
+                                            amount: $("#Paid").text(),
+                                            payType: "1"
+                                        },
+                                        dataType: "json",
+                                        xhrFields: {
+                                            withCredentials: true
+                                        },
+                                        crossDomain: true,
+                                        success: function(data) {
+
+                                        }
+                                    })
+                                }
+                            })
+                        });
+
+						/*   -------------------------------------------------------支付密码---------------------------------------------------------------------    */
+                        $(".ipt-real-nick").on("input", function() {
+                            //console.log($(this).val());
+                            var $input = $(".ipt-fake-box input");
+                            if(!$(this).val()) { //无值光标顶置
+                                $('.ipt-active-nick').css('left', $input.eq(0).offset().left - parseInt($('.ipt-box-nick').parent().css('padding-left')) + 'px');
+                            }
+                            if(/^[0-9]*$/g.test($(this).val())) { //有值只能是数字
+                                //console.log($(this).val());
+                                var pwd = $(this).val().trim();
+                                for(var i = 0, len = pwd.length; i < len; i++) {
+                                    $input.eq(i).val(pwd[i]);
+                                    if($input.eq(i).next().length) { //模拟光标，先将图片容器定位，控制left值而已
+                                        console.log($('.ipt-box-nick').parent().css('padding-left'))
+                                        $('.ipt-active-nick').css('left', $input.eq(i + 1).offset().left - 80 + 'px');
+                                    }
+                                }
+                                $input.each(function() { //将有值的当前input后的所有input清空
+                                    var index = $(this).index();
+                                    if(index >= len) {
+                                        $(this).val("");
+                                    }
+                                });
+                                if(len == 6) {
+                                    if(sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
+                                        alert("金额不足支付订单,请下载app完成支付")
+                                        location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
+                                    } else {
                                         $.ajax({
-                                            type: "POST",
-                                            url: testurl + "/api/order/addorder",
+                                            type: "GET",
+                                            url: testurl + "/api/customer/paypassword/check",
+                                            dataType: "json",
                                             data: {
                                                 platform: "2",
                                                 cutomerId: localStorage.getItem("cutomerId"),
-                                                orderContent: JSON.stringify(GetJsonData())
+                                                paypassword: $("#passwordinput").val()
                                             },
-                                            dataType: "json",
                                             xhrFields: {
                                                 withCredentials: true
                                             },
                                             crossDomain: true,
                                             success: function(data) {
                                                 if(data.code == 10000) {
-                                                    var orderCode = data.data.orderCode;
-                                                    console.log(orderCode)
-                                                    $("#confirmCon").attr("orderid", orderCode);
-                                                    $("#Prict").text("¥"+$("#Paid").text())
-                                                    $(".fixed").show();
-                                                    $("#name").prepend($(".classifyListText").text());
-                                                    $("#num").text($("#Paid").text())
-                                                } else if(data.code == 2001) {
-                                                    localStorage.setItem("cutomerId", " ")
-                                                    localStorage.setItem("loginStatus", "0")
-                                                    alert(data.msg)
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: testurl + "/api/pay/orderpay",
+                                                        data: {
+                                                            cutomerId: localStorage.getItem("cutomerId"),
+                                                            paypassword: $("#passwordinput").val(),
+                                                            orderCode: $("#confirmCon").attr("orderid"),
+                                                            payType: $("#placeOrder").attr("type"),
+                                                            type: "0"
+                                                        },
+                                                        dataType: "json",
+                                                        xhrFields: {
+                                                            withCredentials: true
+                                                        },
+                                                        crossDomain: true,
+                                                        success: function(data) {
+                                                            if(data.code == 8001) {
+                                                                alert(data.msg);
+                                                                location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
+                                                            } else if(data.code == 10000) {
+                                                                $("#orderUl").empty();
+                                                                location.href = "orderstatush.html?Paid=" + $("#Paid").html()
+                                                            }
+
+                                                            // location.href="order.html?code=200"
+                                                        }
+                                                    })
                                                 } else {
+                                                    $("#passwordinput").val("");
+                                                    $(".ipt-fake-box input").val("")
                                                     alert(data.msg)
                                                 }
-
                                             }
-                                        });
-
+                                        })
                                     }
+                                    //执行其他操作
+                                    //
                                 }
-                            })
+                            } else { //清除val中的非数字，返回纯number的value
+                                var arr = $(this).val().match(/\d/g);
+                                $(this).val($(this).val().slice(0, $(this).val().lastIndexOf(arr[arr.length - 1]) + 1));
+                            }
+                        });
 
+                    } else {
+                        $("#orderUl").empty();
+                    }
+				}
 
-						}
-					
-					}
-
-				})
-
-				$("#confirm").click(function() {
-					$.ajax({
-						type: "POST",
-						url: testurl + "/api/pay/getPayInfo",
-						data: {
-							orderCode: $(this).attr("id"),
-							amount: $("#Paid").text(),
-							payType: "1"
-						},
-						dataType: "json",
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						success: function(data) {
-							$.ajax({
-								type: "POST",
-								url: testurl + "/api/pay/wechatpay/callback",
-								data: {
-									orderCode: $(this).attr("id"),
-									amount: $("#Paid").text(),
-									payType: "1"
-								},
-								dataType: "json",
-								xhrFields: {
-									withCredentials: true
-								},
-								crossDomain: true,
-								success: function(data) {
-
-								}
-							})
-						}
-					})
-				});
-
-				/*   -------------------------------------------------------支付密码---------------------------------------------------------------------    */
-				$(".ipt-real-nick").on("input", function() {
-					//console.log($(this).val());
-					var $input = $(".ipt-fake-box input");
-					if(!$(this).val()) { //无值光标顶置
-						$('.ipt-active-nick').css('left', $input.eq(0).offset().left - parseInt($('.ipt-box-nick').parent().css('padding-left')) + 'px');
-					}
-					if(/^[0-9]*$/g.test($(this).val())) { //有值只能是数字
-						//console.log($(this).val());
-						var pwd = $(this).val().trim();
-						for(var i = 0, len = pwd.length; i < len; i++) {
-							$input.eq(i).val(pwd[i]);
-							if($input.eq(i).next().length) { //模拟光标，先将图片容器定位，控制left值而已
-								console.log($('.ipt-box-nick').parent().css('padding-left'))
-								$('.ipt-active-nick').css('left', $input.eq(i + 1).offset().left - 80 + 'px');
-							}
-						}
-						$input.each(function() { //将有值的当前input后的所有input清空
-							var index = $(this).index();
-							if(index >= len) {
-								$(this).val("");
-							}
-						});
-						if(len == 6) {
-
-							if(sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
-								alert("金额不足支付订单,请下载app完成支付")
-								location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
-							} else {
-								$.ajax({
-									type: "GET",
-									url: testurl + "/api/customer/paypassword/check",
-									dataType: "json",
-									data: {
-										platform: "2",
-										cutomerId: localStorage.getItem("cutomerId"),
-										paypassword: $("#passwordinput").val()
-									},
-									xhrFields: {
-										withCredentials: true
-									},
-									crossDomain: true,
-									success: function(data) {
-										if(data.code == 10000) {
-											$.ajax({
-												type: "POST",
-												url: testurl + "/api/pay/orderpay",
-												data: {
-													cutomerId: localStorage.getItem("cutomerId"),
-													paypassword: $("#passwordinput").val(),
-													orderCode: $("#confirmCon").attr("orderid"),
-													payType: $("#placeOrder").attr("type"),
-													type: "0"
-												},
-												dataType: "json",
-												xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-												success: function(data) {
-													if(data.code == 8001) {
-														alert(data.msg);
-                                                        location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
-													} else if(data.code == 10000) {
-                                                            $("#orderUl").empty();
-                                                            location.href = "orderstatush.html?Paid=" + $("#Paid").html()
-													}
-
-													// location.href="order.html?code=200"
-												}
-											})
-										} else {
-											$("#passwordinput").val("");
-											$(".ipt-fake-box input").val("")
-											alert(data.msg)
-										}
-									}
-								})
-							}
-							//执行其他操作
-							//							
-						}
-					} else { //清除val中的非数字，返回纯number的value
-						var arr = $(this).val().match(/\d/g);
-						$(this).val($(this).val().slice(0, $(this).val().lastIndexOf(arr[arr.length - 1]) + 1));
-					}
-				});
-
-			} else {
-				$("#orderUl").empty();
-			}
 
 			//			if(!orderid) {
 			//
