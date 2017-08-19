@@ -116,9 +116,8 @@
 										if(data.code == 10000) {
 											console.log(data.data.result)
 											if(data.data.result == true) {
-												alert("12")
-												$("#phone").append('<input type="tel" name="" id="payPaw" value="" placeholder="请输入支付密码" />')
-												$("#code").append('<input type="tel" name="" id="payPaws" value="" placeholder="请再次输入支付密码" />')
+												$("#phone").append('<input type="tel" maxlength="6" name="" id="payPaw" value="" placeholder="请输入支付密码" />')
+												$("#code").append('<input type="tel" maxlength="6" name="" id="payPaws" value="" placeholder="请再次输入支付密码" />')
 											    $("#Payover").show();
 											    $("#Paydown").hide();
 											    $("#Payover").click(function(){
@@ -131,8 +130,8 @@
 											    })
 											    
 											}else if(data.data.result == false){
-												$("#phone").append('<input type="tel" name="" id="payPaw" value=""  placeholder="请输入支付密码" />')
-												$("#code").append('<input type="tel" name="" id="payPaws" value=""  placeholder="请再次输入支付密码" />')
+												$("#phone").append('<input type="tel" name="" maxlength="6" id="payPaw" value=""  placeholder="请输入支付密码" />')
+												$("#code").append('<input type="tel" name="" maxlength="6" id="payPaws" value=""  placeholder="请再次输入支付密码" />')
 											    $("#Payover").show();
 											    $("#Paydown").hide();
 												$("#Payover").click(function(){
