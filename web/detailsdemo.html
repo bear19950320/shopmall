@@ -627,8 +627,8 @@
 
 					<div class="notesWare">
 						<div class="notesWare_Title" id="supplier">
-							<span></span>
-							<a href="javascript:;"><img src="../img/icon/ShoppingMall_GoToTheStore@2x.png" style="width:75px;height: 23px;" alt="" /></a>
+							<span style="background: url(../img/supplierImg.png)no-repeat;background-size:contain;padding-left: 26px;width:60%;overflow: hidden; text-overflow: ellipsis; white-space: nowrap; "></span>
+							<a href="javascript:;" style="font-size: 14px">更多<img src="../img/icon/ShoppingMall_ArrowRight@2x.png" style="float:right;height: 12px;padding-left: 10px;padding-top: 5px" alt="" /></a>
 						</div>
 						<ul class="commodityList notesWare_Content" id="supplierUl">
 
@@ -896,6 +896,11 @@
 						$("#supplier span").text(ware.supplierName);
 						$("#supplier a").attr("id", ware.supplierId);
 						var data = ware.wareVos;
+                        if(data.length > 10) {
+                            data.length = 10
+                        } else {
+                            data.length = data.length
+                        }
 						for(var i = 0; i < data.length; i++) {
 							$("#supplierUl").append('<li id="' + data[i].wareId + '">\
 					     	                                <img src=' + data[i].image1file + ' >\
