@@ -42,7 +42,7 @@ header{
 	border-bottom: 1px solid #F1F1F1;
 	width: 100%;
 	height: auto;
-	padding: 7px 45px 7px 35px;
+	padding: 7px;
 	box-sizing: border-box;
 	position: relative;
 }
@@ -58,7 +58,7 @@ header>span{
 }
 .searchicon{
 	font-size: 1.4rem;
-	right: 60px;
+	right: 15px;
 }
 header>input{
 	height: 25px;
@@ -188,16 +188,18 @@ header>label{
 	display: flex;
 	justify-content: center;
 	position: fixed;
-	top: 50%;
+	top: 60px;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	display: none;
 }
 .nogoods>div{
+	margin: auto;
 	text-align: center;
-	width: 120px;
+	width: 100%;
 	height: auto;
 }
+
 .nogoods>div>div{
 	width: 90px;
 	height: 90px;
