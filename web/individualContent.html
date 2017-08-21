@@ -140,11 +140,39 @@
 				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">');
 				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
 			});
-            $("#id_iframe").load(function() { //获取iframe中的内容
-                location.reload();
-                alert("保存成功")
-            });
-          $("#date").attr("max",'2017-08-17')
+
+			$("#smsBtn").click(function (e) {
+			    e.stopPropagation();
+			    console.log($("#backImage").val()=="")
+				if($("#backImage").val()==""||$("#headImage").val()==""){
+				    alert("头像与背景请重新上传");
+				}else{
+                    $("#id_iframe").load(function() { //获取iframe中的内容
+                      //  location.reload();
+                        var dind=document.getElementById('id_iframe').contentWindow;
+                          console.log(dind.document.body.innerText);
+                          var jsons=dind.document.body.innerText;
+						       jsons=JSON.parse(jsons);
+						       if (jsons.code==10000){
+						           console.log("成功！")
+							   }
+                       alert("保存成功")
+                    });
+				}
+            })
+
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1; // 记得当前月是要+1的
+			if(month<10){
+                month="0"+month;
+			}
+            var dt = d.getDate();
+            if(dt<10){
+                dt="0"+dt;
+            }
+            var today = year + "-" + month + "-" + dt;
+          $("#date").attr("max",today);
 			if(localStorage.getItem("loginStatus") == 1) {
 				//   获得个人信息		    
 				$.ajax({
