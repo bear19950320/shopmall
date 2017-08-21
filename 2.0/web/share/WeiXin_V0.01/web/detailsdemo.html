@@ -701,6 +701,7 @@
             if($(".productSellNum").text()==0){
 
 			}else{
+                console.log($(this).attr("skuitemId") == " ")
                 if($(this).attr("skuitemId") == " ") {
                     $.ajax({
                         type: "POST",
@@ -747,8 +748,15 @@
                         }
                     })
                 } else {
-                    if($(".guigeChoose").attr("name") == "yes") {
-                        //	console.log($(this).attr("skuId")) testurl +
+                 for(var i=0;i< $(".specificationsUl0>li").length;i++){
+                    if($(".guigeChoose").eq(i).attr("name") == "yes") {
+                       var skuid='',skuItemId='';
+                        $(".guigeChoose").each(function () {
+                            if($(this).attr('name')=='yes'){
+                                skuid=$(this).attr("id");
+                                skuItemId=$(this).attr("skuItemId")
+                            }
+                        });
                         $.ajax({
                             type: "POST",
                             url: testurl + "/api/shopcart/addshopcart",
@@ -756,7 +764,7 @@
                             data: {
                                 platform: "2",
                                 cutomerId: localStorage.getItem("cutomerId"),
-                                shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), $(this).attr("skuId"), $(this).attr("skuitemId")))
+                                shopcartContent: JSON.stringify(GetJsonData($(this).attr("wareId"), skuid,skuItemId))
                             },
                             xhrFields: {
                                 withCredentials: true
@@ -794,6 +802,7 @@
                             }
                         })
                     }
+                 }
                 }
 			}
 
@@ -963,7 +972,7 @@
 				},
 				success: function(data) {
 					var data = data.data.selfnotesList;
-					$("#notesWare_Title>span>b").text(data.length)
+					$("#notesWare_Title>span>b").text(data.length);
 					if(data.length != 0) {
 						for(var i = 0; i < data.length; i++) {
 							$("#notesWare_Content").append('<li id="' + data[i].selfnotesId + '">\
@@ -1132,7 +1141,7 @@
 									if(!jsons[tt[i].skuItemList[j].value]) {
 										str.push(tt[i].skuItemList[j].value);
 										jsons[tt[i].skuItemList[j].value] = 1;
-										$('.specificationsUl' + j).append('<li id=' + tt[i].skuId + ' class="guigeChoose">' + tt[i].skuItemList[j].value + '</li>')
+										$('.specificationsUl' + j).append('<li id=' + tt[i].skuId + ' skuItemId="'+tt[i].skuItemList[0].skuItemId+'" class="guigeChoose">' + tt[i].skuItemList[j].value + '</li>')
 									};
 									break;
 							}
