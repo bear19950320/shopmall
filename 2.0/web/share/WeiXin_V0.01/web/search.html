@@ -10,10 +10,10 @@
 
 	<body>
 		<header>
-			<span class="iconfont icon-xiangzuojiantou backicon"></span>
-			<input type="text" id="searchInput" placeholder="奥特曼变身器" />
+			<!--<span class="iconfont icon-xiangzuojiantou backicon"></span>-->
+			<input type="text" id="searchInput" placeholder="" />
 			<span class="iconfont icon-search searchicon"></span>
-			<label>搜索</label>
+			<!--<label>搜索</label>-->
 		</header>
 		<!--搜索的商品列表-->
 		<section class="searchlist">
@@ -24,10 +24,7 @@
 		<!--没有商品显示-->
 		<section class="nogoods">
 			<div>
-				<div>
-					<img src="img/nogoods.png" />
-				</div>
-				<p class="mishfi">抱歉，没有找到商品~</p>
+				<p class="mishfi">没有搜索到相关的商品...</p>
 			</div>
 		</section>
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
@@ -96,6 +93,9 @@
 									}
 								});
 							}
+						}else{
+						    $(".searchlist").hide();
+						    $(".nogoods").show()
 						}
 						$("#searchWare li").fadeIn(1000);
 						imgNot();
