@@ -248,7 +248,7 @@
 					async: true,
 					success: function(data) {
 						var data = data.data.supplierWareList;
-
+                         $('.crousel>img').attr("src",data.supplierImp);
 						for(var i = 0; i < data.wareVos.length; i++) {
 							$("#classifyListUl").append('<li id=' + data.wareVos[i].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
 								'<img src=' + data.wareVos[i].image1file + ' width="90" height="90" alt="" />' +
