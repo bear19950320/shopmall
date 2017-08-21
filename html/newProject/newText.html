@@ -27,6 +27,7 @@
 				content: "";
 				clear: both;
 			}
+
 		</style>
 	</head>
 	<body>
@@ -50,8 +51,9 @@ console.log(data)
                 <li style="font-size: 14px;padding: 5px">'+data[0].writer+'</li>\
                 <li style="font-size: 10px;padding: 5px">'+data[0].time+'</li>\
             </ul>\
-            </div><p>'+data[0].contern+'</p>')
-			console.log(data[0].img)
+            </div><p>'+data[0].contern+'</p>');
+			$("p>img").css("max-height","100%");
+			console.log(data[0].contern)
 		</script>
 	</body>
 </html>
