@@ -98,7 +98,6 @@
                                 "writer": writer,
                                 "contern": contern
                             }
-                            console.log(json)
                             return json;
                         }
                         var shop=[];
@@ -268,7 +267,6 @@
                             '<ul class="commodityList">' +
                             '</ul>' +
                             '</div>');
-                        console.log(subjectlist[i].choiceWare.length)
                         for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
                             $(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
                             $("." + subjectlist[i].choiceWare[j].wareId).click(function() {
@@ -418,14 +416,23 @@
                                             date2 = new Date(_date).getTime();
                                         return Math.floor((date1 - date2) / (24 * 3600 * 1000));
                                     }
-                                    console.log(days(data[i].createTime));
-
+                                    var endTime='',piTime='';
+                                    function getStr(string,str){
+                                        var str_before = string.split(str)[0];
+                                        var str_after = string.split(str)[1];
+                                        endTime=str_after;
+                                        piTime=str_before;
+                                    }
+                                    getStr(data[i].createTime," ");
+                                    var endTim=endTime.substr(0, endTime.length - 3);
                                     if(days(data[i].createTime) == 0) {
-                                        timese = "今日"
+                                        timese = "今天"+endTim
                                     } else if(days(data[i].createTime) == 1) {
-                                        timese = "昨日"
+                                        timese = "昨天"+endTim
+                                    } else if(days(data[i].createTime) == 2) {
+                                        timese = "前天"+endTim
                                     } else {
-                                        timese = data[i].createTime
+                                        timese = piTime
                                     }
 
                                     if(data[i].customerName == "") {
@@ -594,7 +601,6 @@
         })
     }
     $("img").error(function() {
-        console.log("cuo")
         $(this).attr("src", "../img/imgNoload.png")
     });
     function show_confirm() {
@@ -607,7 +613,6 @@
         }
     }
     function shares(wareid, img, title) {
-        console.log(wareid+"------"+img+"-----"+title);
         var laye = '<div class="laye" style="z-index:9999;">';
         laye += '<div class="layeTitle">分享到</div>'
         laye += '<div class="layeContent"><a href="javascript:;" class="ToQzone" ><img src="../img/share_qqspace.png"/></a><a href="javascript:void(0)" class="Sina"><img src="../img/share_weibo.png"/></a></div>'
