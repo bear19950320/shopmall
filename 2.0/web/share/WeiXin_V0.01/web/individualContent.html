@@ -9,13 +9,13 @@
 		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
 	</head>
 
-	<body style="background: #F4F4F4;"><!--action="http://120.77.101.152/api/customer/editcustomer"     target="nm_iframe"-->
+	<body style="background: #F4F4F4;"><!--action="http://120.77.101.152/api/customer/editcustomer "     target="nm_iframe"-->
 		<form action="http://www.tblmall.com:85/api/customer/editcustomer" enctype="multipart/form-data" id="form" method="post"   target="nm_iframe">
 			<!-- -->
 			<ul class="individualCom">
 				<li style="margin: 0px 0 10px 0;padding:0;border-bottom: 1px solid #F4F4F4;position: relative;" class="backgroundClick">
 					<div class="individualLeft bg" style="width: 100%;height: auto;">
-						<img src="../img/LOGO.png" id="Backimg" alt="" style="border-radius:0;width: 100%;height: 180px;" />
+						<img src="../img/meBack.png" id="Backimg" alt="" style="border-radius:0;width: 100%;height: 180px;" />
 					</div>
 					<input type="file" id="backImage" name="backgroundImagefile" onchange="BackImage(this)" style="display: none;" />
 					<div style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%);" class="headImgClick">
@@ -148,13 +148,14 @@
 				}else{
                     $("#id_iframe").load(function() { //获取iframe中的内容
                       //  location.reload();
-                        var dind=document.getElementById('id_iframe').contentWindow;
-                          console.log(dind.document.body.innerText);
-                          var jsons=dind.document.body.innerText;
-						       jsons=JSON.parse(jsons);
-						       if (jsons.code==10000){
-						           console.log("成功！")
-							   }
+//                        var dind=document.getElementById('id_iframe').contentWindow;
+                          console.log($("#id_iframe").html());
+//                          var jsons=dind.document.body.innerText;
+//						       jsons=JSON.parse(jsons);
+//						       if (jsons.code==10000){
+//						           console.log("成功！")
+//							   }
+                        window.location.href = document.referrer;
                        alert("保存成功")
                     });
 				}
