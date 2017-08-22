@@ -139,27 +139,6 @@
         $("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">');
         $("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
     });
-
-    //    $("#smsBtn").click(function (e) {
-    //        e.stopPropagation();
-    //        if($("#backImage").val()==""||$("#headImage").val()==""){
-    //            alert("头像与背景请重新上传");
-    //        }else{
-    //            $("#id_iframe").load(function() { //获取iframe中的内容
-    //                //  location.reload();
-    ////                        var dind=document.getElementById('id_iframe').contentWindow;
-    //                console.log($("#id_iframe").html());
-    ////                          var jsons=dind.document.body.innerText;
-    ////						       jsons=JSON.parse(jsons);
-    ////						       if (jsons.code==10000){
-    ////						           console.log("成功！")
-    ////							   }
-    //                window.location.href = document.referrer;
-    //                alert("保存成功")
-    //            });
-    //        }
-    //    })
-
     var d = new Date();
     var year = d.getFullYear();
     var month = d.getMonth() + 1; // 记得当前月是要+1的
@@ -460,7 +439,7 @@
         formData.append('cutomerId',localStorage.getItem("cutomerId") );
         formData.append('platform', '2');
         $.ajax({
-            url: 'http://120.77.101.152/api/customer/editcustomer',
+            url: testurl+'/api/customer/editcustomer',
             type: 'POST',
             cache: false,
             data: formData,
@@ -480,7 +459,7 @@
 
         });
     });
-	
+
 
 </script>
 
