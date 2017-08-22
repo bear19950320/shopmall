@@ -1,564 +1,602 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
-		<title>我的</title>
-		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
-		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+	<title>我的</title>
+	<link rel="stylesheet" type="text/css" href="../css/curr.css" />
+	<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+</head>
 
-	<body style="background: #F4F4F4;"><!--action="http://120.77.101.152/api/customer/editcustomer "     target="nm_iframe"-->
-		<form action="http://www.tblmall.com:85/api/customer/editcustomer" enctype="multipart/form-data" id="form" method="post"   target="nm_iframe">
-			<!-- -->
-			<ul class="individualCom">
-				<li style="margin: 0px 0 10px 0;padding:0;border-bottom: 1px solid #F4F4F4;position: relative;" class="backgroundClick">
-					<div class="individualLeft bg" style="width: 100%;height: auto;">
-						<img src="../img/meBack.png" id="Backimg" alt="" style="border-radius:0;width: 100%;height: 180px;" />
-					</div>
-					<input type="file" id="backImage" name="backgroundImagefile" onchange="BackImage(this)" style="display: none;" />
-					<div style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%);" class="headImgClick">
-						<div class="individualLeft tx">
-							<img style="width: 80px;height: 80px;" src="../img/LOGO.png" id="headimg" alt="" />
-						</div>
-						<input type="file" class="imgfile" id="headImage" name="file" onchange="PreviewImage(this)" style="display: none;" />
-						
-					</div>
-				</li>
-				
+<body style="background: #F4F4F4;"><!--action="http://120.77.101.152/api/customer/editcustomer "     target="nm_iframe"-->
+<!--<form action="http://www.tblmall.com:85/api/customer/editcustomer" enctype="multipart/form-data" id="form" method="post"   target="nm_iframe">-->
+<!-- -->
+<ul class="individualCom">
+	<li style="margin: 0px 0 10px 0;padding:0;border-bottom: 1px solid #F4F4F4;position: relative;" class="backgroundClick">
+		<div class="individualLeft bg" style="width: 100%;height: auto;">
+			<img src="../img/meBack.png" id="Backimg" alt="" style="border-radius:0;width: 100%;height: 180px;" />
+		</div>
+		<input type="file" id="backImage" name="backgroundImagefile" onchange="BackImage(this)" style="display: none;" />
+		<div style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%);" class="headImgClick">
+			<div class="individualLeft tx">
+				<img style="width: 80px;height: 80px;" src="../img/LOGO.png" id="headimg" alt="" />
+			</div>
+			<input type="file" class="imgfile" id="headImage" name="file" onchange="PreviewImage(this)" style="display: none;" />
+		</div>
+	</li>
+
+	<li>
+		<div class="individualLeft">
+			<span class="selected">手机</span>
+		</div>
+		<div class="individualRight">
+			<input type="text" placeholder="输入手机号码" id="phone" name="phone" disabled="disabled" style="font-size: 15px;" />
+		</div>
+	</li>
+	<li>
+		<div class="individualLeft">
+			<span>昵称</span>
+		</div>
+		<div class="individualRight">
+			<input type="text" placeholder="用户呈现昵称" name="name" id="name" style="font-size: 15px;" />
+			<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+				<defs>
+					<style type="text/css"></style>
+				</defs>
+				<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+			</svg>
+		</div>
+	</li>
+	<li>
+		<div class="individualLeft">
+			<span>性别</span>
+		</div>
+		<div class="individualRight">
+			<ul id="sex" style="position: relative;right:40px;">
 				<li>
-					<div class="individualLeft">
-						<span class="selected">手机</span>
-					</div>
-					<div class="individualRight">
-						<input type="text" placeholder="输入手机号码" id="phone" name="phone" disabled="disabled" style="font-size: 15px;" />
-					</div>
-				</li>
-				<li>
-					<div class="individualLeft">
-						<span>昵称</span>
-					</div>
-					<div class="individualRight">
-						<input type="text" placeholder="用户呈现昵称" name="name" id="name" style="font-size: 15px;" />
-						<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
-							<defs>
-								<style type="text/css"></style>
-							</defs>
-							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
-						</svg>
-					</div>
-				</li>
-				<li>
-					<div class="individualLeft">
-						<span>性别</span>
-					</div>
-					<div class="individualRight">
-						<ul id="sex" style="position: relative;right:40px;">
-							<li>
-								<input type="radio" name="sex" id="man" value="0" style="font-size: 15px;" /><span style="font-size: 15px;">男</span>
-							</li>
-							<li>
-								<input type="radio" name="sex" id="girl" value="1" style="font-size: 15px;" /><span style="font-size: 15px;">女</span>
-							</li>
-							<li>
-								<input type="radio" name="sex" id="gay" value="2" style="font-size: 15px;" /><span style="font-size: 15px;">保密</span>
-							</li>
-						</ul>
-						<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
-							<defs>
-								<style type="text/css"></style>
-							</defs>
-							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
-						</svg>
-					</div>
+					<input type="radio" name="sex" id="man" value="0" style="font-size: 15px;" /><span style="font-size: 15px;">男</span>
 				</li>
 				<li>
-					<div class="individualLeft">
-						<span>生日</span>
-					</div>
-					<div class="individualRight">
-						<!--<a href="javascript:;" class="date">生日</a>-->
-						<input type="date" id="date" placeholder="" min="1920-01-01" max="2017-08-17" name="birthday" style="background: #FFFFFF;line-height: 20px;" style="font-size: 15px;" />
-						<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
-							<defs>
-								<style type="text/css"></style>
-							</defs>
-							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
-						</svg>
-					</div>
-				</li>
-				<li id="locationLi">
-					<div class="individualLeft">
-						<span>常住</span>
-					</div>
-					<div class="addressInput locationDiv individualRight" style="position: relative;">
-						<!--<span id="locationSpan"></span>-->
-						<input id="location" style="margin-top: -15px;font-size: 15px;" readonly="readonly" value="" type="text" name="address" data-key="23-385-4224" value="" placeholder="选择地区" class="map" />
-						<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:-15px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
-							<defs>
-								<style type="text/css"></style>
-							</defs>
-							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
-						</svg>
-					</div>
+					<input type="radio" name="sex" id="girl" value="1" style="font-size: 15px;" /><span style="font-size: 15px;">女</span>
 				</li>
 				<li>
-					<div class="individualLeft">
-						<span>签名</span>
-					</div>
-					<div class="individualRight">
-						<input type="text" class="signature" maxlength="100" placeholder="" name="signature" style="width: 100%;line-height: 20px;font-size: 15px;" />
-						<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
-							<defs>
-								<style type="text/css"></style>
-							</defs>
-							<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
-						</svg>
-					</div>
+					<input type="radio" name="sex" id="gay" value="2" style="font-size: 15px;" /><span style="font-size: 15px;">保密</span>
 				</li>
-				
-				<input type="text" name="cutomerId" id="cutomerId" style="display: none;" />
-				<input type="text" name="platform" value="2" style="display: none;" />
-				<input type="submit" class="btn" id="smsBtn" value="保存修改" />
 			</ul>
-		</form>
-		<iframe id="id_iframe" name="nm_iframe" style="display: none;">
+			<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+				<defs>
+					<style type="text/css"></style>
+				</defs>
+				<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+			</svg>
+		</div>
+	</li>
+	<li>
+		<div class="individualLeft">
+			<span>生日</span>
+		</div>
+		<div class="individualRight">
+			<!--<a href="javascript:;" class="date">生日</a>-->
+			<input type="date" id="date" placeholder="" min="1920-01-01" max="2017-08-17" name="birthday" style="background: #FFFFFF;line-height: 20px;" style="font-size: 15px;" />
+			<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+				<defs>
+					<style type="text/css"></style>
+				</defs>
+				<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+			</svg>
+		</div>
+	</li>
+	<li id="locationLi">
+		<div class="individualLeft">
+			<span>常住</span>
+		</div>
+		<div class="addressInput locationDiv individualRight" style="position: relative;">
+			<!--<span id="locationSpan"></span>-->
+			<input id="location" style="margin-top: -15px;font-size: 15px;" readonly="readonly" value="" type="text" name="address" data-key="23-385-4224" value="" placeholder="选择地区" class="map" />
+			<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:-15px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+				<defs>
+					<style type="text/css"></style>
+				</defs>
+				<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+			</svg>
+		</div>
+	</li>
+	<li>
+		<div class="individualLeft">
+			<span>签名</span>
+		</div>
+		<div class="individualRight">
+			<input type="text" class="signature" maxlength="100" placeholder="" name="signature" style="width: 100%;line-height: 20px;font-size: 15px;" />
+			<svg t="1498876535566" class="icon" style="width:20px;height:18px;position: absolute;right: 10px;top:0;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2362" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+				<defs>
+					<style type="text/css"></style>
+				</defs>
+				<path d="M342.4 200c-20.8 20.8-20.8 56 0 76.8l228.8 235.2-228.8 235.2c-20.8 20.8-20.8 56 0 76.8 20.8 20.8 54.4 20.8 75.2 0l265.6-273.6c20.8-20.8 20.8-56 0-76.8l-265.6-273.6c-22.4-20.8-56-20.8-75.2 0z" fill="#cdcdcd" p-id="2363"></path>
+			</svg>
+		</div>
+	</li>
 
-		</iframe>
-	<script>
-        document.domian='http://localhost:63342'
-	</script>
-		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="../js/CNAddrArr.min.js"></script>
-		<script type="text/javascript" src="../js/jquery.scs.min.js"></script>
-		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
-		<!--<script src="http://malsup.github.io/jquery.form.js"></script>-->
-		<script type="text/javascript">
-			$("head").load("../html/mate.html", function() {
-				$("title").html("个人信息");
-				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">');
-				$("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
-			});
+	<input type="text" name="cutomerId" id="cutomerId" style="display: none;" />
+	<input type="text" name="platform" value="2" style="display: none;" />
+	<input type="submit" class="btn" id="smsBtn" value="保存修改" />
+	<input type="submit" class="btn" id="smdBtn" value="修改" />
+</ul>
+<!--</form>-->
+<iframe id="id_iframe" name="nm_iframe" style="display: none;">
 
-			$("#smsBtn").click(function (e) {
-			    e.stopPropagation();
-				if($("#backImage").val()==""||$("#headImage").val()==""){
-				    alert("头像与背景请重新上传");
-				}else{
-                    $("#id_iframe").load(function() { //获取iframe中的内容
-                      //  location.reload();
-//                        var dind=document.getElementById('id_iframe').contentWindow;
-                          console.log($("#id_iframe").html());
-//                          var jsons=dind.document.body.innerText;
-//						       jsons=JSON.parse(jsons);
-//						       if (jsons.code==10000){
-//						           console.log("成功！")
-//							   }
-                        window.location.href = document.referrer;
-                       alert("保存成功")
-                    });
-				}
-            })
+</iframe>
+<script>
+    document.domian='http://localhost:63342'
+</script>
+<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/CNAddrArr.min.js"></script>
+<script type="text/javascript" src="../js/jquery.scs.min.js"></script>
+<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="http://malsup.github.io/jquery.form.js"></script>-->
+<script type="text/javascript">
+    $("head").load("../html/mate.html", function() {
+        $("title").html("个人信息");
+        $("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">');
+        $("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
+    });
 
-            var d = new Date();
-            var year = d.getFullYear();
-            var month = d.getMonth() + 1; // 记得当前月是要+1的
-			if(month<10){
-                month="0"+month;
-			}
-            var dt = d.getDate();
-            if(dt<10){
-                dt="0"+dt;
+
+    $("#smsBtn").click(function () {
+        var ids=2;
+        for(var i=0;i<$("#sex>li").length;i++){
+            if($("#sex>li").eq(i).find("input[type='radio']:checked").val()!=undefined){
+                ids=$("#sex>li").eq(i).find("input[type='radio']:checked").val()
             }
-            var today = year + "-" + month + "-" + dt;
-          $("#date").attr("max",today);
-			if(localStorage.getItem("loginStatus") == 1) {
-				//   获得个人信息		    
-				$.ajax({
-					type: "GET",
-					url: testurl + "/api/customer/getme",
-					dataType: "json",
-					data: {
-						platform: "2",
-						cutomerId: localStorage.getItem("cutomerId")
-					},
-					xhrFields: {
-						withCredentials: true
-					},
-					crossDomain: true,
-					async: true,
-					beforeSend: function(XMLHttpRequest) {
-						loadImg();
-					},
-					success: function(data) {
-						if(data.code == 2001) {
-							alert(data.msg)
-						} else if(data.code == 10000) {
-							$("#cutomerId").val(localStorage.getItem("cutomerId"))
-							var user = data.data.user;
-							$("#balanceNum").text(user.cashMoney);
-							$("#costNum").text(user.replaceMoney)
-							if(user.headImage == '') {
-								user.headImage = '../img/LOGO.png'
-							}
-							$("#headimg").attr("src", user.headImage);
-							$("#headImage").value = data.data.user.headImage
-							//$("#headImage").val(headImage)
-							//$("#headImage").val(user.headImage);
-							//$("#Backimg").val(user.backgroundImage);
-							$("#Backimg").attr("src", user.backgroundImage);
-							$(".signature").val(user.signature);
-							$("#name").val(user.name);
-							$("#phone").val(user.phone);
-							$("#location").val(user.address);
-							$("#locationSpan").text(user.address);
-							$(".signature").val(user.signature);
-							$("#date").val(user.birthday)
-							if(user.sex == 0) {
-								$("#man").attr("checked", "checked")
-							} else if(user.sex == 1) {
-								$("#girl").attr("checked", "checked")
-							} else if(user.sex == 2) {
-								$("#gay").attr("checked", "checked")
-							}
-						}
-					},
-					complete: function(XMLHttpRequest, textStatus) {
-						$("#loadImg").remove();
-					},
-					error: function(data) {
-						if(data.status == "404") {
-							alert('请求地址出错！');
-						} else if(data.status == "302") {
-							alert('连接网页出错');
-						} else if(data.status == "timeout") {
-							alert("请求超时!");
-						} else {
-							alert('服务器出差了~！');
-						}
-					}
-				});
-			}
+        }
+        var formData = new FormData();
+        formData.append('file', $('#headImage')[0].files[0]);
+        formData.append('backgroundImagefile', $('#backImage')[0].files[0]);
+        formData.append('name', $('#name').val());
+        formData.append('sex', ids);
+        formData.append('birthday', $("#date").val());
+        formData.append('address', $("#location").val());
+        formData.append('signature', $(".signature").val());
+        formData.append('cutomerId',localStorage.getItem("cutomerId") );
+        formData.append('platform', '2');
+        $.ajax({
+            url: 'http://120.77.101.152/api/customer/editcustomer',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function(res) {
+            var jsons=res;
+            jsons=JSON.parse(jsons);
+            if (jsons.code==10000){
+                location.href='individual.html';
+                console.log("成功！")
+            }
+        }).fail(function(res) {
 
-			$(".tx").click(function() {
-				$(".imgfile").trigger("click")
-			});
-			$(".bg").click(function() {
-				$("#backImage").trigger("click")
-			});
-			var imgss = [];
+        });
+    });
 
-			function readFile(obj) {
-				var file = obj;
-				var reader = new FileReader();
-				reader.readAsDataURL(file);
-				reader.onload = function(e) {
-					imgss.push(this.result)
-				}
 
-			}
-			for(var i = 0; i < $(".individualCom li").length; i++) {
-				$(".individualCom li").eq(i).click(function() {
-					$(this).find(".individualLeft").find("span").attr("class", "selected")
-					$(this).siblings().find(".individualLeft").find("span").attr("class", "")
-				});
-			}
+    //    $("#smsBtn").click(function (e) {
+    //        e.stopPropagation();
+    //        if($("#backImage").val()==""||$("#headImage").val()==""){
+    //            alert("头像与背景请重新上传");
+    //        }else{
+    //            $("#id_iframe").load(function() { //获取iframe中的内容
+    //                //  location.reload();
+    ////                        var dind=document.getElementById('id_iframe').contentWindow;
+    //                console.log($("#id_iframe").html());
+    ////                          var jsons=dind.document.body.innerText;
+    ////						       jsons=JSON.parse(jsons);
+    ////						       if (jsons.code==10000){
+    ////						           console.log("成功！")
+    ////							   }
+    //                window.location.href = document.referrer;
+    //                alert("保存成功")
+    //            });
+    //        }
+    //    })
 
-			function BackImage(imgFile) {
-				var t_files = imgFile.files;
-				var str = '';
-				imgss = [];
-				for(var i = 0, len = t_files.length; i < len; i++) {
-					var filextension = t_files[i].name.substring(t_files[i].name.lastIndexOf("."), t_files[i].name.length);
-					filextension = filextension.toLowerCase();
-					readFile(t_files[i]);
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1; // 记得当前月是要+1的
+    if(month<10){
+        month="0"+month;
+    }
+    var dt = d.getDate();
+    if(dt<10){
+        dt="0"+dt;
+    }
+    var today = year + "-" + month + "-" + dt;
+    $("#date").attr("max",today);
+    if(localStorage.getItem("loginStatus") == 1) {
+        //   获得个人信息
+        $.ajax({
+            type: "GET",
+            url: testurl + "/api/customer/getme",
+            dataType: "json",
+            data: {
+                platform: "2",
+                cutomerId: localStorage.getItem("cutomerId")
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            async: true,
+            beforeSend: function(XMLHttpRequest) {
+                loadImg();
+            },
+            success: function(data) {
+                if(data.code == 2001) {
+                    alert(data.msg)
+                } else if(data.code == 10000) {
+                    $("#cutomerId").val(localStorage.getItem("cutomerId"));
+                    var user = data.data.user;
+                    $("#balanceNum").text(user.cashMoney);
+                    $("#costNum").text(user.replaceMoney);
+                    if(user.headImage == '') {
+                        user.headImage = '../img/LOGO.png'
+                    }
+                    $("#headimg").attr("src", user.headImage);
+                    $("#headImage").value = data.data.user.headImage;
+                    //$("#headImage").val(headImage)
+                    //$("#headImage").val(user.headImage);
+                    //$("#Backimg").val(user.backgroundImage);
+                    $("#Backimg").attr("src", user.backgroundImage);
+                    $(".signature").val(user.signature);
+                    $("#name").val(user.name);
+                    $("#phone").val(user.phone);
+                    $("#location").val(user.address);
+                    $("#locationSpan").text(user.address);
+                    $(".signature").val(user.signature);
+                    $("#date").val(user.birthday)
+                    if(user.sex == 0) {
+                        $("#man").attr("checked", "checked")
+                    } else if(user.sex == 1) {
+                        $("#girl").attr("checked", "checked")
+                    } else if(user.sex == 2) {
+                        $("#gay").attr("checked", "checked")
+                    }
+                }
+            },
+            complete: function(XMLHttpRequest, textStatus) {
+                $("#loadImg").remove();
+            },
+            error: function(data) {
+                if(data.status == "404") {
+                    alert('请求地址出错！');
+                } else if(data.status == "302") {
+                    alert('连接网页出错');
+                } else if(data.status == "timeout") {
+                    alert("请求超时!");
+                } else {
+                    alert('服务器出差了~！');
+                }
+            }
+        });
+    }
 
-					if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
-						alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
-						imgFile.focus();
-					} else {
-						var path;
-						if(document.all) {
-							imgFile.select();
-							path = document.selection.createRange().text;
-							document.getElementById("img").innerHTML = "";
-							document.getElementById("img").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"; //使用滤镜效果
-						} else {
-							path = window.URL.createObjectURL(imgFile.files[i]);
-							$("#Backimg").attr("src", path);
-						}
-					}
-					$("#img li").eq(0).before(str);
-				}
-				// document.getElementById("img").innerHTML =str;
-				// $("#img li").eq(0).before(str);
-			}
+    $(".tx").click(function() {
+        $(".imgfile").trigger("click")
+    });
+    $(".bg").click(function() {
+        $("#backImage").trigger("click")
+    });
+    var imgss = [];
 
-			function PreviewImage(imgFile) {
-				var t_files = imgFile.files;
-				var str = '';
-				imgss = [];
-				for(var i = 0, len = t_files.length; i < len; i++) {
-					var filextension = t_files[i].name.substring(t_files[i].name.lastIndexOf("."), t_files[i].name.length);
-					filextension = filextension.toLowerCase();
-					readFile(t_files[i]);
+    function readFile(obj) {
+        var file = obj;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e) {
+            imgss.push(this.result)
+        }
 
-					if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
-						alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
-						imgFile.focus();
-					} else {
-						var path;
-						if(document.all) {
-							imgFile.select();
-							path = document.selection.createRange().text;
-							document.getElementById("img").innerHTML = "";
-							document.getElementById("img").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"; //使用滤镜效果
-						} else {
-							path = window.URL.createObjectURL(imgFile.files[i]);
-							$("#headimg").attr("src", path);
-						}
-					}
-					$("#img li").eq(0).before(str);
-				}
-				// document.getElementById("img").innerHTML =str;
-				// $("#img li").eq(0).before(str);
-			}
-			$(function() {
+    }
+    for(var i = 0; i < $(".individualCom li").length; i++) {
+        $(".individualCom li").eq(i).click(function() {
+            $(this).find(".individualLeft").find("span").attr("class", "selected");
+            $(this).siblings().find(".individualLeft").find("span").attr("class", "")
+        });
+    }
 
-				/**
-				 * 通过数组id获取地址列表数组
-				 *
-				 * @param {Number} id
-				 * @return {Array} 
-				 */
-				function getAddrsArrayById(id) {
-					var results = [];
-					if(addr_arr[id] != undefined)
-						addr_arr[id].forEach(function(subArr) {
-							results.push({
-								key: subArr[0],
-								val: subArr[1]
-							});
-						});
-					else {
-						return;
-					}
-					return results;
-				}
-				/**
-				 * 通过开始的key获取开始时应该选中开始数组中哪个元素
-				 *
-				 * @param {Array} StartArr
-				 * @param {Number|String} key
-				 * @return {Number} 
-				 */
-				function getStartIndexByKeyFromStartArr(startArr, key) {
-					var result = 0;
-					if(startArr != undefined)
-						startArr.forEach(function(obj, index) {
-							if(obj.key == key) {
-								result = index;
-								return false;
-							}
-						});
-					return result;
-				}
-				$("#location").click(function() {
-					var PROVINCES = [],
-						startCities = [],
-						startDists = [];
-					//Province data，shall never change.
-					addr_arr[0].forEach(function(prov) {
-						PROVINCES.push({
-							key: prov[0],
-							val: prov[1]
-						});
-					});
-					//init other data.
-					var $input = $(this),
-						dataKey = $input.attr("data-key"),
-						provKey = 1, //default province 北京
-						cityKey = 36, //default city 北京
-						distKey = 37, //default district 北京东城区
-						distStartIndex = 0, //default 0
-						cityStartIndex = 0, //default 0
-						provStartIndex = 0; //default 0
+    function BackImage(imgFile) {
+        var t_files = imgFile.files;
+        var str = '';
+        imgss = [];
+        for(var i = 0, len = t_files.length; i < len; i++) {
+            var filextension = t_files[i].name.substring(t_files[i].name.lastIndexOf("."), t_files[i].name.length);
+            filextension = filextension.toLowerCase();
+            readFile(t_files[i]);
 
-					if(dataKey != "" && dataKey != undefined) {
-						var sArr = dataKey.split("-");
-						if(sArr.length == 3) {
-							provKey = sArr[0];
-							cityKey = sArr[1];
-							distKey = sArr[2];
+            if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
+                alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
+                imgFile.focus();
+            } else {
+                var path;
+                if(document.all) {
+                    imgFile.select();
+                    path = document.selection.createRange().text;
+                    document.getElementById("img").innerHTML = "";
+                    document.getElementById("img").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"; //使用滤镜效果
+                } else {
+                    path = window.URL.createObjectURL(imgFile.files[i]);
+                    $("#Backimg").attr("src", path);
+                }
+            }
+            $("#img li").eq(0).before(str);
+        }
+        // document.getElementById("img").innerHTML =str;
+        // $("#img li").eq(0).before(str);
+    }
 
-						} else if(sArr.length == 2) { //such as 台湾，香港 and the like.
-							provKey = sArr[0];
-							cityKey = sArr[1];
-						}
-						startCities = getAddrsArrayById(provKey);
-						startDists = getAddrsArrayById(cityKey);
-						provStartIndex = getStartIndexByKeyFromStartArr(PROVINCES, provKey);
-						cityStartIndex = getStartIndexByKeyFromStartArr(startCities, cityKey);
-						distStartIndex = getStartIndexByKeyFromStartArr(startDists, distKey);
-					}
-					var navArr = [{ //3 scrollers, and the title and id will be as follows:
-						title: "省",
-						id: "scs_items_prov"
-					}, {
-						title: "市",
-						id: "scs_items_city"
-					}, {
-						title: "区",
-						id: "scs_items_dist"
-					}];
-					SCS.init({
-						navArr: navArr,
-						onOk: function(selectedKey, selectedValue) {
-							$input.val(selectedValue).attr("data-key", selectedKey);
-						}
-					});
-					var distScroller = new SCS.scrollCascadeSelect({
-						el: "#" + navArr[2].id,
-						dataArr: startDists,
-						startIndex: distStartIndex
-					});
-					var cityScroller = new SCS.scrollCascadeSelect({
-						el: "#" + navArr[1].id,
-						dataArr: startCities,
-						startIndex: cityStartIndex,
-						onChange: function(selectedItem, selectedIndex) {
-							distScroller.render(getAddrsArrayById(selectedItem.key), 0); //re-render distScroller when cityScroller change
-						}
-					});
-					var provScroller = new SCS.scrollCascadeSelect({
-						el: "#" + navArr[0].id,
-						dataArr: PROVINCES,
-						startIndex: provStartIndex,
-						onChange: function(selectedItem, selectedIndex) { //re-render both cityScroller and distScroller when provScroller change
-							cityScroller.render(getAddrsArrayById(selectedItem.key), 0);
-							distScroller.render(getAddrsArrayById(cityScroller.getSelectedItem().key), 0);
-						}
-					});
-				});
+    function PreviewImage(imgFile) {
+        var t_files = imgFile.files;
+        var str = '';
+        imgss = [];
+        for(var i = 0, len = t_files.length; i < len; i++) {
+            var filextension = t_files[i].name.substring(t_files[i].name.lastIndexOf("."), t_files[i].name.length);
+            filextension = filextension.toLowerCase();
+            readFile(t_files[i]);
 
-			});
-			$("#preservation").click(function() {
-				if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
-					mask("收件人信息不能为空");
-				} else {
-					var loction = $("#location").val();
-					var tion = loction.split(" ");
+            if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
+                alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
+                imgFile.focus();
+            } else {
+                var path;
+                if(document.all) {
+                    imgFile.select();
+                    path = document.selection.createRange().text;
+                    document.getElementById("img").innerHTML = "";
+                    document.getElementById("img").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"; //使用滤镜效果
+                } else {
+                    path = window.URL.createObjectURL(imgFile.files[i]);
+                    $("#headimg").attr("src", path);
+                }
+            }
+            $("#img li").eq(0).before(str);
+        }
+        // document.getElementById("img").innerHTML =str;
+        // $("#img li").eq(0).before(str);
+    }
+    $(function() {
 
-					function GetJsonData() {
-						var json = {
-							customerName: $("#customerName").val(),
-							phone: $("#phone").val(),
-							province: tion[0],
-							city: tion[1],
-							area: tion[2],
-							address: $("#address").val()
-						};
-						return json;
-					}
-				}
-			});
+        /**
+         * 通过数组id获取地址列表数组
+         *
+         * @param {Number} id
+         * @return {Array}
+         */
+        function getAddrsArrayById(id) {
+            var results = [];
+            if(addr_arr[id] != undefined)
+                addr_arr[id].forEach(function(subArr) {
+                    results.push({
+                        key: subArr[0],
+                        val: subArr[1]
+                    });
+                });
+            else {
+                return;
+            }
+            return results;
+        }
+        /**
+         * 通过开始的key获取开始时应该选中开始数组中哪个元素
+         *
+         * @param {Array} StartArr
+         * @param {Number|String} key
+         * @return {Number}
+         */
+        function getStartIndexByKeyFromStartArr(startArr, key) {
+            var result = 0;
+            if(startArr != undefined)
+                startArr.forEach(function(obj, index) {
+                    if(obj.key == key) {
+                        result = index;
+                        return false;
+                    }
+                });
+            return result;
+        }
+        $("#location").click(function() {
+            var PROVINCES = [],
+                startCities = [],
+                startDists = [];
+            //Province data，shall never change.
+            addr_arr[0].forEach(function(prov) {
+                PROVINCES.push({
+                    key: prov[0],
+                    val: prov[1]
+                });
+            });
+            //init other data.
+            var $input = $(this),
+                dataKey = $input.attr("data-key"),
+                provKey = 1, //default province 北京
+                cityKey = 36, //default city 北京
+                distKey = 37, //default district 北京东城区
+                distStartIndex = 0, //default 0
+                cityStartIndex = 0, //default 0
+                provStartIndex = 0; //default 0
 
-			//			$("body").on('click', "#addFile", function() {
-			//				String.prototype.Trim = function() {
-			//					return this.replace(/(^\s*)|(\s*$)/g, "");
-			//				}
-			//				var FileTemp = document.getElementById("systemType");
-			//				if(null != FileTemp && FileTemp.value.Trim() != "") {
-			//					var fileext = FileTemp.value.substring(FileTemp.value.length - 4, FileTemp.value.length)
-			//					fileext = fileext.toLowerCase()
-			//					if(!(fileext == '.apk' || fileext == '.app')) {
-			//						$("#fileTypes").html(showModalBox("提示", "您选择的文件格式不正确（只能为*.apk文件格式)!", "", "fileType", 3, "myMdalType", "100%"));
-			//					//	$('#myMdalType').modal('show');
-			//						return false;
-			//					}
-			//				}
-			//				editioRepeat();
-			//				$("#edituploadForm").validate({
-			//					submitHandler: function() {
-			//					//	$('#myModal').modal("hide")
-			//						var formData = new FormData($('#edituploadForm')[0]);
-			//						$.ajax({
-			//								url: 'http://192.168.200.203:8089/Gateway/upload 
-			//
-			//								',
-			//								type: 'POST',
-			//								data: formData,
-			//								processData: false,
-			//								contentType: false,
-			//								success: function(data) {
-			//									if(data == null || data == "") {
-			//										return false;
-			//									};
-			//
-			//								});
-			//
-			//						}
-			//						else if(appEdition === '2') {
-			//							var fileUrlios = $.trim($("#fileUrl").val());
-			//
-			//						}
-			//					},
-			//					invalidHandler: function() {
-			//						return false;
-			//					},
-			//					rules: {
-			//						systemType: {
-			//							required: true
-			//						},
-			//						v_version_number: {
-			//							required: true
-			//						},
-			//						i_equipment: {
-			//							required: true
-			//						},
-			//						i_forced_update: {
-			//							required: true
-			//						},
-			//						i_state: {
-			//							required: true
-			//						}
-			//					},
-			//					messages: {
-			//						systemType: {
-			//							required: "文件不能为空"
-			//
-			//						},
-			//						v_version_number: {
-			//							required: "版本号不能为空"
-			//						},
-			//						i_equipment: {
-			//							required: "请选择系统类型"
-			//						},
-			//						i_forced_update: {
-			//							required: "请选择是否强制更新"
-			//						},
-			//						i_state: {
-			//							required: "状态不能为空"
-			//						}
-			//					}
-			//				});
-			//			});
-//			$("#locationSpan").click(function (e) {
-//				e.stopPropagation();
-//                $("#location").trigger("click");
-//                $("#location").blur(function (e) {
-//                    alert("12")
-//                    e.stopPropagation();
-//
-//                    console.log($(this).val())
-//                    $("#locationSpan").text($(this).val())
-//                    //$(this).parents(".individualRight").prepend('<span>'+$(this).val()+'</span>')
-//                })
-//            })
+            if(dataKey != "" && dataKey != undefined) {
+                var sArr = dataKey.split("-");
+                if(sArr.length == 3) {
+                    provKey = sArr[0];
+                    cityKey = sArr[1];
+                    distKey = sArr[2];
 
-		</script>
+                } else if(sArr.length == 2) { //such as 台湾，香港 and the like.
+                    provKey = sArr[0];
+                    cityKey = sArr[1];
+                }
+                startCities = getAddrsArrayById(provKey);
+                startDists = getAddrsArrayById(cityKey);
+                provStartIndex = getStartIndexByKeyFromStartArr(PROVINCES, provKey);
+                cityStartIndex = getStartIndexByKeyFromStartArr(startCities, cityKey);
+                distStartIndex = getStartIndexByKeyFromStartArr(startDists, distKey);
+            }
+            var navArr = [{ //3 scrollers, and the title and id will be as follows:
+                title: "省",
+                id: "scs_items_prov"
+            }, {
+                title: "市",
+                id: "scs_items_city"
+            }, {
+                title: "区",
+                id: "scs_items_dist"
+            }];
+            SCS.init({
+                navArr: navArr,
+                onOk: function(selectedKey, selectedValue) {
+                    $input.val(selectedValue).attr("data-key", selectedKey);
+                }
+            });
+            var distScroller = new SCS.scrollCascadeSelect({
+                el: "#" + navArr[2].id,
+                dataArr: startDists,
+                startIndex: distStartIndex
+            });
+            var cityScroller = new SCS.scrollCascadeSelect({
+                el: "#" + navArr[1].id,
+                dataArr: startCities,
+                startIndex: cityStartIndex,
+                onChange: function(selectedItem, selectedIndex) {
+                    distScroller.render(getAddrsArrayById(selectedItem.key), 0); //re-render distScroller when cityScroller change
+                }
+            });
+            var provScroller = new SCS.scrollCascadeSelect({
+                el: "#" + navArr[0].id,
+                dataArr: PROVINCES,
+                startIndex: provStartIndex,
+                onChange: function(selectedItem, selectedIndex) { //re-render both cityScroller and distScroller when provScroller change
+                    cityScroller.render(getAddrsArrayById(selectedItem.key), 0);
+                    distScroller.render(getAddrsArrayById(cityScroller.getSelectedItem().key), 0);
+                }
+            });
+        });
 
-	</body>
+    });
+    $("#preservation").click(function() {
+        if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
+            mask("收件人信息不能为空");
+        } else {
+            var loction = $("#location").val();
+            var tion = loction.split(" ");
+
+            function GetJsonData() {
+                var json = {
+                    customerName: $("#customerName").val(),
+                    phone: $("#phone").val(),
+                    province: tion[0],
+                    city: tion[1],
+                    area: tion[2],
+                    address: $("#address").val()
+                };
+                return json;
+            }
+        }
+    });
+
+    //			$("body").on('click', "#addFile", function() {
+    //				String.prototype.Trim = function() {
+    //					return this.replace(/(^\s*)|(\s*$)/g, "");
+    //				}
+    //				var FileTemp = document.getElementById("systemType");
+    //				if(null != FileTemp && FileTemp.value.Trim() != "") {
+    //					var fileext = FileTemp.value.substring(FileTemp.value.length - 4, FileTemp.value.length)
+    //					fileext = fileext.toLowerCase()
+    //					if(!(fileext == '.apk' || fileext == '.app')) {
+    //						$("#fileTypes").html(showModalBox("提示", "您选择的文件格式不正确（只能为*.apk文件格式)!", "", "fileType", 3, "myMdalType", "100%"));
+    //					//	$('#myMdalType').modal('show');
+    //						return false;
+    //					}
+    //				}
+    //				editioRepeat();
+    //				$("#edituploadForm").validate({
+    //					submitHandler: function() {
+    //					//	$('#myModal').modal("hide")
+    //						var formData = new FormData($('#edituploadForm')[0]);
+    //						$.ajax({
+    //								url: 'http://192.168.200.203:8089/Gateway/upload
+    //
+    //								',
+    //								type: 'POST',
+    //								data: formData,
+    //								processData: false,
+    //								contentType: false,
+    //								success: function(data) {
+    //									if(data == null || data == "") {
+    //										return false;
+    //									};
+    //
+    //								});
+    //
+    //						}
+    //						else if(appEdition === '2') {
+    //							var fileUrlios = $.trim($("#fileUrl").val());
+    //
+    //						}
+    //					},
+    //					invalidHandler: function() {
+    //						return false;
+    //					},
+    //					rules: {
+    //						systemType: {
+    //							required: true
+    //						},
+    //						v_version_number: {
+    //							required: true
+    //						},
+    //						i_equipment: {
+    //							required: true
+    //						},
+    //						i_forced_update: {
+    //							required: true
+    //						},
+    //						i_state: {
+    //							required: true
+    //						}
+    //					},
+    //					messages: {
+    //						systemType: {
+    //							required: "文件不能为空"
+    //
+    //						},
+    //						v_version_number: {
+    //							required: "版本号不能为空"
+    //						},
+    //						i_equipment: {
+    //							required: "请选择系统类型"
+    //						},
+    //						i_forced_update: {
+    //							required: "请选择是否强制更新"
+    //						},
+    //						i_state: {
+    //							required: "状态不能为空"
+    //						}
+    //					}
+    //				});
+    //			});
+    //			$("#locationSpan").click(function (e) {
+    //				e.stopPropagation();
+    //                $("#location").trigger("click");
+    //                $("#location").blur(function (e) {
+    //                    alert("12")
+    //                    e.stopPropagation();
+    //
+    //                    console.log($(this).val())
+    //                    $("#locationSpan").text($(this).val())
+    //                    //$(this).parents(".individualRight").prepend('<span>'+$(this).val()+'</span>')
+    //                })
+    //            })
+
+</script>
+
+</body>
 
 </html>
