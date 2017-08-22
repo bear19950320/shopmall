@@ -119,8 +119,7 @@
 
 	<input type="text" name="cutomerId" id="cutomerId" style="display: none;" />
 	<input type="text" name="platform" value="2" style="display: none;" />
-	<input type="submit" class="btn" id="smsBtn" value="保存修改" />
-	<input type="submit" class="btn" id="smdBtn" value="修改" />
+	<input type="submit" class="btn" id="smsBtn" style="border-radius: 2px;background: #FF0101;" value="保存修改" />
 </ul>
 <!--</form>-->
 <iframe id="id_iframe" name="nm_iframe" style="display: none;">
@@ -140,44 +139,6 @@
         $("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">');
         $("head").append('<link rel="stylesheet" type="text/css" href="../css/newAddress/scs.min.css"/>');
     });
-
-
-    $("#smsBtn").click(function () {
-        var ids=2;
-        for(var i=0;i<$("#sex>li").length;i++){
-            if($("#sex>li").eq(i).find("input[type='radio']:checked").val()!=undefined){
-                ids=$("#sex>li").eq(i).find("input[type='radio']:checked").val()
-            }
-        }
-        var formData = new FormData();
-        formData.append('file', $('#headImage')[0].files[0]);
-        formData.append('backgroundImagefile', $('#backImage')[0].files[0]);
-        formData.append('name', $('#name').val());
-        formData.append('sex', ids);
-        formData.append('birthday', $("#date").val());
-        formData.append('address', $("#location").val());
-        formData.append('signature', $(".signature").val());
-        formData.append('cutomerId',localStorage.getItem("cutomerId") );
-        formData.append('platform', '2');
-        $.ajax({
-            url: 'http://120.77.101.152/api/customer/editcustomer',
-            type: 'POST',
-            cache: false,
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(function(res) {
-            var jsons=res;
-            jsons=JSON.parse(jsons);
-            if (jsons.code==10000){
-                location.href='individual.html';
-                console.log("成功！")
-            }
-        }).fail(function(res) {
-
-        });
-    });
-
 
     //    $("#smsBtn").click(function (e) {
     //        e.stopPropagation();
@@ -481,119 +442,45 @@
         });
 
     });
-    $("#preservation").click(function() {
-        if($(".address").val() == '' || $(".map").val() == "" || $(".phone").val() == "" || $(".name").val() == "") {
-            mask("收件人信息不能为空");
-        } else {
-            var loction = $("#location").val();
-            var tion = loction.split(" ");
-
-            function GetJsonData() {
-                var json = {
-                    customerName: $("#customerName").val(),
-                    phone: $("#phone").val(),
-                    province: tion[0],
-                    city: tion[1],
-                    area: tion[2],
-                    address: $("#address").val()
-                };
-                return json;
+    $("#smsBtn").click(function () {
+        var ids=2;
+        for(var i=0;i<$("#sex>li").length;i++){
+            if($("#sex>li").eq(i).find("input[type='radio']:checked").val()!=undefined){
+                ids=$("#sex>li").eq(i).find("input[type='radio']:checked").val()
             }
         }
-    });
+        var formData = new FormData();
+        formData.append('file', $('#headImage')[0].files[0]);
+        formData.append('backgroundImagefile', $('#backImage')[0].files[0]);
+        formData.append('name', $('#name').val());
+        formData.append('sex', ids);
+        formData.append('birthday', $("#date").val());
+        formData.append('address', $("#location").val());
+        formData.append('signature', $(".signature").val());
+        formData.append('cutomerId',localStorage.getItem("cutomerId") );
+        formData.append('platform', '2');
+        $.ajax({
+            url: 'http://120.77.101.152/api/customer/editcustomer',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function(res) {
+            var jsons=res;
+            jsons=JSON.parse(jsons);
+            if (jsons.code==10000){
+                location.href='individual.html';
+                console.log("成功！")
+            }else if(jsons.code==2001){
+                alert(jsons.msg);
+                location.href="login.html";
+            }
+        }).fail(function(res) {
 
-    //			$("body").on('click', "#addFile", function() {
-    //				String.prototype.Trim = function() {
-    //					return this.replace(/(^\s*)|(\s*$)/g, "");
-    //				}
-    //				var FileTemp = document.getElementById("systemType");
-    //				if(null != FileTemp && FileTemp.value.Trim() != "") {
-    //					var fileext = FileTemp.value.substring(FileTemp.value.length - 4, FileTemp.value.length)
-    //					fileext = fileext.toLowerCase()
-    //					if(!(fileext == '.apk' || fileext == '.app')) {
-    //						$("#fileTypes").html(showModalBox("提示", "您选择的文件格式不正确（只能为*.apk文件格式)!", "", "fileType", 3, "myMdalType", "100%"));
-    //					//	$('#myMdalType').modal('show');
-    //						return false;
-    //					}
-    //				}
-    //				editioRepeat();
-    //				$("#edituploadForm").validate({
-    //					submitHandler: function() {
-    //					//	$('#myModal').modal("hide")
-    //						var formData = new FormData($('#edituploadForm')[0]);
-    //						$.ajax({
-    //								url: 'http://192.168.200.203:8089/Gateway/upload
-    //
-    //								',
-    //								type: 'POST',
-    //								data: formData,
-    //								processData: false,
-    //								contentType: false,
-    //								success: function(data) {
-    //									if(data == null || data == "") {
-    //										return false;
-    //									};
-    //
-    //								});
-    //
-    //						}
-    //						else if(appEdition === '2') {
-    //							var fileUrlios = $.trim($("#fileUrl").val());
-    //
-    //						}
-    //					},
-    //					invalidHandler: function() {
-    //						return false;
-    //					},
-    //					rules: {
-    //						systemType: {
-    //							required: true
-    //						},
-    //						v_version_number: {
-    //							required: true
-    //						},
-    //						i_equipment: {
-    //							required: true
-    //						},
-    //						i_forced_update: {
-    //							required: true
-    //						},
-    //						i_state: {
-    //							required: true
-    //						}
-    //					},
-    //					messages: {
-    //						systemType: {
-    //							required: "文件不能为空"
-    //
-    //						},
-    //						v_version_number: {
-    //							required: "版本号不能为空"
-    //						},
-    //						i_equipment: {
-    //							required: "请选择系统类型"
-    //						},
-    //						i_forced_update: {
-    //							required: "请选择是否强制更新"
-    //						},
-    //						i_state: {
-    //							required: "状态不能为空"
-    //						}
-    //					}
-    //				});
-    //			});
-    //			$("#locationSpan").click(function (e) {
-    //				e.stopPropagation();
-    //                $("#location").trigger("click");
-    //                $("#location").blur(function (e) {
-    //                    alert("12")
-    //                    e.stopPropagation();
-    //
-    //                    console.log($(this).val())
-    //                    $("#locationSpan").text($(this).val())
-    //                    //$(this).parents(".individualRight").prepend('<span>'+$(this).val()+'</span>')
-    //                })
-    //            })
+        });
+    });
+	
 
 </script>
 
