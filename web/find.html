@@ -1,654 +1,666 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
-	<title>发现</title>
-	<link rel="stylesheet" type="text/css" href="../css/curr.css" />
-	<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>发现</title>
+		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
 
-</head>
+	</head>
 
-<body style="background: #F4F4F4;">
-<!--<a href="javascript:;" id="openNotes">发布</a>-->
-<ul id="new">
+	<body style="background: #F4F4F4;">
+		<!--<a href="javascript:;" id="openNotes">发布</a>-->
+		<ul id="new">
 
-</ul>
+		</ul>
 
-<ul class="notes" style="padding-bottom: 60px;">
+		<ul class="notes" style="padding-bottom: 60px;">
 
-</ul>
+		</ul>
 
-<div class="selectionType">
-	<ul class="selectionTypeUl">
-		<li>
-			<a href="javascript:;" id="0">
-				<span></span> 图文
-			</a>
-		</li>
-		<li>
-			<a href="javascript:;" id="1">
-				<span></span> 手记
-			</a>
-		</li>
-		<li>
-			<a href="javascript:;" id="2">
-				<span></span> 视频
-			</a>
-		</li>
-		<p>分享是每个人天生的能力</p>
-		<p>善用你的生产力，让分享创造无限价值</p>
-	</ul>
-</div>
-<nav></nav>
-<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
-<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-	sessionStorage.removeItem('top');
-    $("head").load("../html/mate.html", function() {
-        $("title").html("发现");
-        $("head").append('<link rel="stylesheet" type="text/css" href="../css/share.css" />')
-        $("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
-    });
+		<div class="selectionType">
+			<ul class="selectionTypeUl">
+				<li>
+					<a href="javascript:;" id="0">
+						<span></span> 图文
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" id="1">
+						<span></span> 手记
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" id="2">
+						<span></span> 视频
+					</a>
+				</li>
+				<p>分享是每个人天生的能力</p>
+				<p>善用你的生产力，让分享创造无限价值</p>
+			</ul>
+		</div>
+		<nav></nav>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			sessionStorage.removeItem('top');
+			$("head").load("../html/mate.html", function() {
+				$("title").html("发现");
+				$("head").append('<link rel="stylesheet" type="text/css" href="../css/share.css" />')
+				$("head").append('<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">')
+			});
 
-    subjectList();
+			subjectList();
 
-
-    $.ajax({
-        type: "POST",
-        url: testurl + "/api/find/findallnews",
-        data: {
-            platform: "2",
-        },
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        beforeSend: function(XMLHttpRequest) {
-            loadImg();
-            imgNot();
-        },
-        crossDomain: true,
-        async: true,
-        success: function(data) {
-            if(data.code==10000){
-                var data=data.data.news;
-                for(var i=0;i<data.length;i++){//
-                    $("#new").append('<li class="crousel findImg new'+data[i].id+'"  verTime="'+data[i].createTime+'" writer="'+data[i].writer+'" style="margin: 0;overflow: hidden;" id="subjectlist" >\
-                             <span class="content" style="display: none">'+data[i].content+'</span>\
+			$.ajax({
+				type: "POST",
+				url: testurl + "/api/find/findallnews",
+				data: {
+					platform: "2",
+				},
+				dataType: "json",
+				xhrFields: {
+					withCredentials: true
+				},
+				beforeSend: function(XMLHttpRequest) {
+					loadImg();
+					imgNot();
+				},
+				crossDomain: true,
+				async: true,
+				success: function(data) {
+					if(data.code == 10000) {
+						var data = data.data.news;
+						for(var i = 0; i < data.length; i++) { //
+							$("#new").append('<li class="crousel findImg new' + data[i].id + '"  verTime="' + data[i].createTime + '" writer="' + data[i].writer + '" style="margin: 0;overflow: hidden;" id="subjectlist" >\
+                             <span class="content" style="display: none">' + data[i].content + '</span>\
                              <div style="position:absolute;left:0;top:0;width: 100%;height: 35px;padding: 10px;box-sizing: border-box;">\
-                             <p style="width: 100%;height:15px;line-height:15px;font-size: 13px;color: #9B9B9B;border-left: 3px solid red;">'+data[i].title+'</p>\
+                             <p style="width: 100%;height:15px;line-height:15px;font-size: 13px;color: #9B9B9B;border-left: 3px solid red;">' + data[i].title + '</p>\
                             </div>\
                             <div class="imggg" style="width: 80%;height: 100%;margin-left: 10%;padding-top: 35px;box-sizing: border-box;">\
-                                <img src="'+data[i].contentImage+'" class="HeaImg" style="width: 100%;height: 100%;" />\
+                                <img src="' + data[i].contentImage + '" class="HeaImg" style="width: 100%;height: 100%;" />\
                                 </div>\
                                 <div style="width: 100%;height: auto;padding: 20px;box-sizing: border-box;background: rgba(0, 0, 0, 0.2);position: absolute;left: 0;bottom: 0;">\
-                                <p style="color: #FFFFFF;font-size: 14px;line-height: 140%;">'+data[i].intro+'</p>\
+                                <p style="color: #FFFFFF;font-size: 14px;line-height: 140%;">' + data[i].intro + '</p>\
                             </div>\
                                 </li>');
-                    $(".new"+data[i].id).click(function (e) {
-                        e.stopPropagation();
+							$(".new" + data[i].id).click(function(e) {
+								e.stopPropagation();
 
-                        function GetJsonData(img,time,writer,contern) {
-                            var json = {
-                                "img": img,
-                                "time": time,
-                                "writer": writer,
-                                "contern": contern
-                            }
-                            return json;
-                        }
-                        var shop=[];
-                        var mm=GetJsonData($(this).find(".HeaImg").attr("src"),$(this).attr("verTime"),$(this).attr("writer"),$(this).find('.content').html())
-                        shop.push(mm)
-                        shop= JSON.stringify(shop)
-                        sessionStorage.setItem("new",shop)
-                        location.href="../html/newProject/newText.html"
-                    })
-                }
+								function GetJsonData(img, time, writer, contern) {
+									var json = {
+										"img": img,
+										"time": time,
+										"writer": writer,
+										"contern": contern
+									}
+									return json;
+								}
+								var shop = [];
+								var mm = GetJsonData($(this).find(".HeaImg").attr("src"), $(this).attr("verTime"), $(this).attr("writer"), $(this).find('.content').html())
+								shop.push(mm)
+								shop = JSON.stringify(shop)
+								sessionStorage.setItem("new", shop)
+								location.href = "../html/newProject/newText.html"
+							})
+						}
 
-            }
-        },
-        complete: function(XMLHttpRequest, textStatus) {
-            $("#loadImg").remove();
-        },
-        error: function(data) {
-            if(data.status == "404") {
-                alert('请求地址出错！');
-            } else if(data.status == "302") {
-                alert('连接网页出错');
-            } else if(data.status == "timeout") {
-                alert("请求超时!");
-            } else {
-                alert('服务器出差了~！');
-            }
-        }
-    });
+					}
+				},
+				complete: function(XMLHttpRequest, textStatus) {
+					$("#loadImg").remove();
+				},
+				error: function(data) {
+					if(data.status == "404") {
+						alert('请求地址出错！');
+					} else if(data.status == "302") {
+						alert('连接网页出错');
+					} else if(data.status == "timeout") {
+						alert("请求超时!");
+					} else {
+						alert('服务器出差了~！');
+					}
+				}
+			});
 
+			function subjectList() {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/banner/subjectlist",
+					data: {
+						platform: "2",
+						position: "PAGE_FIND_HOME_001"
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+						imgNot();
+					},
+					crossDomain: true,
+					async: true,
+					success: function(data) {
+						var subjectlist = data.data.subjectlist;
+						//  $("#subjectlist").empty();
+						for(var i = 0; i < subjectlist.length; i++) {
+							if(subjectlist[i].templet == "0") {
+								/* 模板 1B */
+								$("#subjectlist").append('<div class="special1" style="margin: 0" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="crousel" style="margin: 0;">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + ' />' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
+										'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
+										'<div class="classifyListContent">' +
+										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
+										'<div class="classifyListDetails">' +
+										'<span class="Number" style="position: relative;">¥' + subjectlist[i].choiceWare[j].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返5.8</span></span>' +
+										'<div style="display: block;">库存：' + subjectlist[i].choiceWare[j].sales + '</div>' +
+										'<div class="imgDiv">' +
+										'<img src="img/shareImg.png" width="30" height="24" alt="" />' +
+										'<img src="img/share.png" width="30" id="share' + subjectlist[i].choiceWare[j].wareId + '" height="24" alt="" />' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</li>');
+									var wid = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width();
+									var wids = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width() - 15;
+									var widc = wid - 15;
+									$("#" + subjectlist[i].bannerId + ">li>div").css({
+										"float": "right",
+										"width": widc,
+										"height": $("#" + subjectlist[i].bannerId + ">li>img").height(),
+										"padding-left": "12px"
+									})
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										sessionStorage.setItem("TowareId", '')
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									})
+								}
+							} else if(subjectlist[i].templet == "1") {
+								/* 模板 1B+nP */
+								$("#subjectlist").append('<div class="special1 banner' + subjectlist[i].bannerId + '" id=' + subjectlist[i].templet + '>' +
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
+									'</div>' +
+									'<ul class="commodityList">' +
+									'</ul>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									})
+								}
+							} else if(subjectlist[i].templet == "2") {
+								/* 模板 T+1B */
+								$("#subjectlist").append('<div class="special3" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="hot">' +
+									'<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + ' >' + subjectlist[i].bannerName + '</div>' +
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
+									'</div>' +
+									'</div>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
+										'<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
+										'<div class="classifyListContent">' +
+										'<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
+										'<div class="classifyListDetails">' +
+										'<span class="Number" style="position: relative;">¥' + subjectlist[i].choiceWare[j].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返5.8</span></span>' +
+										'<div style="display: block;">库存：' + subjectlist[i].choiceWare[j].sales + '</div>' +
+										'<div class="imgDiv">' +
+										'<img src="img/shareImg.png" width="30" height="24" alt="" />' +
+										'<img src="img/share.png" width="30" height="24" alt="" />' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</li>');
+									var wid = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width();
+									var wids = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width() - 15;
+									var widc = wid - 15;
+									$("#" + subjectlist[i].bannerId + ">li>div").css({
+										"float": "right",
+										"width": widc,
+										"height": $("#" + subjectlist[i].bannerId + ">li>img").height(),
+										"padding-left": "12px"
+									})
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										sessionStorage.setItem("TowareId", '')
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									})
+								}
+							} else if(subjectlist[i].templet == "3") {
+								/* 模板 T+1B+nA */
+								$("#subjectlist").append('<div class="special2 banner' + subjectlist[i].bannerId + '" id=' + subjectlist[i].bannerId + '>' +
+									'<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + '>'
+									//	+'<!-- 旗舰店logo -->'
+									+
+									'<div class="shopImg">' +
+									'</div>'
+									//	+'<!-- 旗舰店名字 -->'
+									+
+									'<div class="shopName">' +
+									'<a href="javascript:;">' + subjectlist[i].bannerName + '</a>' +
 
-    function subjectList() {
-        $.ajax({
-            type: "GET",
-            url: testurl + "/api/banner/subjectlist",
-            data: {
-                platform: "2",
-                position: "PAGE_FIND_HOME_001"
-            },
-            dataType: "json",
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function(XMLHttpRequest) {
-                loadImg();
-                imgNot();
-            },
-            crossDomain: true,
-            async: true,
-            success: function(data) {
-                var subjectlist = data.data.subjectlist;
-                //  $("#subjectlist").empty();
-                for(var i = 0; i < subjectlist.length; i++) {
-                    if(subjectlist[i].templet == "0") {
-						/* 模板 1B */
-                        $("#subjectlist").append('<div class="special1" style="margin: 0" id=' + subjectlist[i].bannerId + '>' +
-                            '<div class="crousel" style="margin: 0;">' +
-                            '<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + ' />' +
-                            '</div>');
-                        for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-                            $("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-                                '<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
-                                '<div class="classifyListContent">' +
-                                '<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
-                                '<div class="classifyListDetails">' +
-                                '<span class="Number" style="position: relative;">¥' + subjectlist[i].choiceWare[j].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返5.8</span></span>' +
-                                '<div style="display: block;">库存：' + subjectlist[i].choiceWare[j].sales + '</div>' +
-                                '<div class="imgDiv">' +
-                                '<img src="img/shareImg.png" width="30" height="24" alt="" />' +
-                                '<img src="img/share.png" width="30" id="share' + subjectlist[i].choiceWare[j].wareId + '" height="24" alt="" />' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</li>');
-                            var wid = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width();
-                            var wids = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width() - 15;
-                            var widc = wid - 15;
-                            $("#" + subjectlist[i].bannerId + ">li>div").css({
-                                "float": "right",
-                                "width": widc,
-                                "height": $("#" + subjectlist[i].bannerId + ">li>img").height(),
-                                "padding-left": "12px"
-                            })
-                            $("." + subjectlist[i].choiceWare[j].wareId).click(function() {
-                                sessionStorage.setItem("TowareId", '')
-                                var TowareId = $(this).attr("class");
-                                sessionStorage.setItem("TowareId", TowareId);
-                                window.location.href = "./detailsdemo.html?wareId="+$(this).attr("id");
-                            })
-                        }
-                    } else if(subjectlist[i].templet == "1") {
-						/* 模板 1B+nP */
-                        $("#subjectlist").append('<div class="special1 banner' + subjectlist[i].bannerId + '" id=' + subjectlist[i].templet + '>' +
-                            '<div class="crousel">' +
-                            '<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
-                            '</div>' +
-                            '<ul class="commodityList">' +
-                            '</ul>' +
-                            '</div>');
-                        for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-                            $(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
-                            $("." + subjectlist[i].choiceWare[j].wareId).click(function() {
-                                var TowareId = $(this).attr("class");
-                                sessionStorage.setItem("TowareId", TowareId);
-                                window.location.href = "./detailsdemo.html?wareId="+$(this).attr("id");
-                            })
-                        }
-                    } else if(subjectlist[i].templet == "2") {
-						/* 模板 T+1B */
-                        $("#subjectlist").append('<div class="special3" id=' + subjectlist[i].bannerId + '>' +
-                            '<div class="hot">' +
-                            '<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + ' >' + subjectlist[i].bannerName + '</div>' +
-                            '<div class="crousel">' +
-                            '<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>');
-                        for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-                            $("#" + subjectlist[i].bannerId).append('<li class=' + subjectlist[i].choiceWare[j].wareId + ' style="border-bottom:1px solid #EAEAEA;padding: 10px 2%;">' +
-                                '<img src=' + subjectlist[i].choiceWare[j].image1file + ' width="90" height="90" alt="" />' +
-                                '<div class="classifyListContent">' +
-                                '<p class="classifyListText left support' + subjectlist[i].support + '"><span style="width:25px;color:#B14CAD;border:1px solid #B14CAD;padding: 3px 6px;margin-right: 6px;">自营</span>' + subjectlist[i].choiceWare[j].wareName + '</p>' +
-                                '<div class="classifyListDetails">' +
-                                '<span class="Number" style="position: relative;">¥' + subjectlist[i].choiceWare[j].warePrice + ' <span style="position: absolute;right: -5px;top:-2px;color:#DC210D;right:-40px;">+返5.8</span></span>' +
-                                '<div style="display: block;">库存：' + subjectlist[i].choiceWare[j].sales + '</div>' +
-                                '<div class="imgDiv">' +
-                                '<img src="img/shareImg.png" width="30" height="24" alt="" />' +
-                                '<img src="img/share.png" width="30" height="24" alt="" />' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</li>');
-                            var wid = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width();
-                            var wids = $("#" + subjectlist[i].bannerId + ">li").width() - $("#" + subjectlist[i].bannerId + ">li>img").width() - 15;
-                            var widc = wid - 15;
-                            $("#" + subjectlist[i].bannerId + ">li>div").css({
-                                "float": "right",
-                                "width": widc,
-                                "height": $("#" + subjectlist[i].bannerId + ">li>img").height(),
-                                "padding-left": "12px"
-                            })
-                            $("." + subjectlist[i].choiceWare[j].wareId).click(function() {
-                                sessionStorage.setItem("TowareId", '')
-                                var TowareId = $(this).attr("class");
-                                sessionStorage.setItem("TowareId", TowareId);
-                                window.location.href = "./detailsdemo.html?wareId="+$(this).attr("id");
-                            })
-                        }
-                    } else if(subjectlist[i].templet == "3") {
-						/* 模板 T+1B+nA */
-                        $("#subjectlist").append('<div class="special2 banner' + subjectlist[i].bannerId + '" id=' + subjectlist[i].bannerId + '>' +
-                            '<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + '>'
-                            //	+'<!-- 旗舰店logo -->'
-                            +
-                            '<div class="shopImg">' +
-                            '</div>'
-                            //	+'<!-- 旗舰店名字 -->'
-                            +
-                            '<div class="shopName">' +
-                            '<a href="javascript:;">' + subjectlist[i].bannerName + '</a>' +
+									'</div>' +
+									'</div>' +
+									//+'<!-- 旗舰店轮播 -->'
+									'<div class="crousel">' +
+									'<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
+									'</div>' +
+									'<ul class="commodityList">' +
+									'</ul>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									})
+								}
+							} else if(subjectlist[i].templet == "4") {
+								/* 模板 T+nA */
+								$("#subjectlist").append('<div class="special3 banner' + subjectlist[i].bannerId + '" >' +
+									'<div class="hot">' +
+									'<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + ' >' + subjectlist[i].bannerName + '</div>' +
+									'<ul class="commodityList">' +
+									'</ul>' +
+									'</div>' +
+									'</div>');
+								for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
+									$(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
+									$("." + subjectlist[i].choiceWare[j].wareId).click(function() {
+										var TowareId = $(this).attr("class");
+										sessionStorage.setItem("TowareId", TowareId);
+										window.location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									})
+								}
+							}
+							/*  专题跳转      */
+							$("#subjectlist .crousel").find("img").click(function() {
+								if($(this).attr("type") != "" && $(this).attr("type") != "/") {
+									if($(this).attr("type") == 2) {
+										sessionStorage.setItem("TowareId", "")
+										location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									} else if($(this).attr("type") == 1) {
+										sessionStorage.setItem("wareListId", $(this).attr("id"));
+										location.href = "./fourStage.html"
+									} else if($(this).attr("type") == 0) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
+									} else if($(this).attr("type") == 4) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
+									}
+								}
+							})
+							/* 标题名字跳转   */
+							$("#subjectlist .hotTitle").click(function() {
+								if($(this).attr("type") != "" && $(this).attr("type") != "/") {
+									if($(this).attr("type") == 2) {
+										sessionStorage.setItem("TowareId", "")
+										location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
+									} else if($(this).attr("type") == 1) {
+										sessionStorage.setItem("wareListId", $(this).attr("id"));
+										location.href = "./fourStage.html"
+									} else if($(this).attr("type") == 0) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
+									} else if($(this).attr("type") == 4) {
+										location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
+									}
+								}
+							})
+						}
 
-                            '</div>' +
-                            '</div>' +
-                            //+'<!-- 旗舰店轮播 -->'
-                            '<div class="crousel">' +
-                            '<img src=' + subjectlist[i].banPic + ' id="' + subjectlist[i].skipId + '" style="width:100%;height:100%;" type=' + subjectlist[i].type + '  />' +
-                            '</div>' +
-                            '<ul class="commodityList">' +
-                            '</ul>' +
-                            '</div>');
-                        for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-                            $(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
-                            $("." + subjectlist[i].choiceWare[j].wareId).click(function() {
-                                var TowareId = $(this).attr("class");
-                                sessionStorage.setItem("TowareId", TowareId);
-                                window.location.href = "./detailsdemo.html?wareId="+$(this).attr("id");
-                            })
-                        }
-                    } else if(subjectlist[i].templet == "4") {
-						/* 模板 T+nA */
-                        $("#subjectlist").append('<div class="special3 banner' + subjectlist[i].bannerId + '" >' +
-                            '<div class="hot">' +
-                            '<div class="hotTitle" type=' + subjectlist[i].type + ' id=' + subjectlist[i].skipId + ' >' + subjectlist[i].bannerName + '</div>' +
-                            '<ul class="commodityList">' +
-                            '</ul>' +
-                            '</div>' +
-                            '</div>');
-                        for(var j = 0; j < subjectlist[i].choiceWare.length; j++) {
-                            $(".banner" + subjectlist[i].bannerId).find(".commodityList").append('<li class=' + subjectlist[i].choiceWare[j].wareId + '><img src=' + subjectlist[i].choiceWare[j].image1file + ' alt="" /><div>' + subjectlist[i].choiceWare[j].wareName + '</div><p> ¥' + subjectlist[i].choiceWare[j].warePrice + '</p></li>')
-                            $("." + subjectlist[i].choiceWare[j].wareId).click(function() {
-                                var TowareId = $(this).attr("class");
-                                sessionStorage.setItem("TowareId", TowareId);
-                                window.location.href = "./detailsdemo.html?wareId="+$(this).attr("id");
-                            })
-                        }
-                    }
-					/*  专题跳转      */
-                    $("#subjectlist .crousel").find("img").click(function() {
-                        if($(this).attr("type") != "" && $(this).attr("type") != "/") {
-                            if($(this).attr("type") == 2) {
-                                sessionStorage.setItem("TowareId", "")
-                                location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
-                            } else if($(this).attr("type") == 1) {
-                                sessionStorage.setItem("wareListId", $(this).attr("id"));
-                                location.href = "./fourStage.html"
-                            } else if($(this).attr("type") == 0) {
-                                location.href = "./Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
-                            } else if($(this).attr("type") == 4) {
-                                location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-                            }
-                        }
-                    })
-					/* 标题名字跳转   */
-                    $("#subjectlist .hotTitle").click(function() {
-                        if($(this).attr("type") != "" && $(this).attr("type") != "/") {
-                            if($(this).attr("type") == 2) {
-                                sessionStorage.setItem("TowareId", "")
-                                location.href = "./detailsdemo.html?wareId=" + $(this).attr("id");
-                            } else if($(this).attr("type") == 1) {
-                                sessionStorage.setItem("wareListId", $(this).attr("id"));
-                                location.href = "./fourStage.html"
-                            } else if($(this).attr("type") == 0) {
-                                location.href = "./Area.html?id=" + $(this).attr("id") + "&name=供应商" + "&supplierId=" + null;
-                            } else if($(this).attr("type") == 4) {
-                                location.href = "./Area.html?id=" + $(this).attr("id") + "&name=活动" + "&supplierId=" + null;
-                            }
-                        }
-                    })
-                }
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				});
+			}
 
-            },
-            complete: function(XMLHttpRequest, textStatus) {
-                $("#loadImg").remove();
-            },
-            error: function(data) {
-                if(data.status == "404") {
-                    alert('请求地址出错！');
-                } else if(data.status == "302") {
-                    alert('连接网页出错');
-                } else if(data.status == "timeout") {
-                    alert("请求超时!");
-                } else {
-                    alert('服务器出差了~！');
-                }
-            }
-        });
-    }
+			$("nav").load("../html/nav.html", function() {
+				$("#nav").css("width", $("body").width())
+				$("#homePage").css("padding-bottom", "60px");
+				$("#twoStage").css("padding-bottom", "60px");
+				$("#find a").css({
+					"color": "#DA251D"
+				});
+				$("#find img").attr("src", "../img/navImg/find_click.png")
+			});
+			$("#openNotes").click(function() {
+				location.href = "notes.html?id=0"
+			});
 
-    $("nav").load("../html/nav.html", function() {
-        $("#nav").css("width", $("body").width())
-        $("#homePage").css("padding-bottom", "60px");
-        $("#twoStage").css("padding-bottom", "60px");
-        $("#find a").css({
-            "color": "#DA251D"
-        });
-        $("#find img").attr("src", "../img/navImg/find_click.png")
-    });
-    $("#openNotes").click(function() {
-        location.href = "notes.html?id=0"
-    });
+			$(window).scroll(function() {
+				// 当滚动到最底部以上100像素时， 加载新内容
+				if($(document).height() - $(this).scrollTop() - $(this).height() == 0) {
+					loadMore();
+				}
+			});
+			loadMore();
+			var dataCount = 0;
 
-    $(window).scroll(function() {
-        // 当滚动到最底部以上100像素时， 加载新内容
-        if($(document).height() - $(this).scrollTop() - $(this).height() == 0) {
-            loadMore();
-        }
-    });
-    loadMore();
-    var dataCount = 0;
-    function loadMore() {
-        $.ajax({
-            type: "GET",
-            url: testurl + "/api/find/getimagetext",
-            dataType: "json",
-            data: {
-                platform: "2",
-                pageId: dataCount,
-                pageSize: "10"
-            },
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            async: true,
-            beforeSend: function(XMLHttpRequest) {
-                loadImg();
-            },
-            success: function(data) {
-                if(data.code == 2001) {
-                    localStorage.setItem("loginStatus", "0");
-                    localStorage.setItem("cutomerId", " ")
-                    location.href = "login.html"
-                } else if(data.code == 10000) {
-                    var data = data.data.selfnotesList;
-                    if(typeof data == 'object') {
-                        var oProduct, $row, iHeight, iTempHeight;
-                        for(var i = 0, l = data.length; i < l; i++) {
-                            oProduct = data[i];
+			function loadMore() {
+				$.ajax({
+					type: "GET",
+					url: testurl + "/api/find/getimagetext",
+					dataType: "json",
+					data: {
+						platform: "2",
+						pageId: dataCount,
+						pageSize: "10"
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					async: true,
+					beforeSend: function(XMLHttpRequest) {
+						loadImg();
+					},
+					success: function(data) {
+						if(data.code == 2001) {
+							localStorage.setItem("loginStatus", "0");
+							localStorage.setItem("cutomerId", " ")
+							location.href = "login.html"
+						} else if(data.code == 10000) {
+							var data = data.data.selfnotesList;
+							if(typeof data == 'object') {
+								var oProduct, $row, iHeight, iTempHeight;
+								for(var i = 0, l = data.length; i < l; i++) {
+									oProduct = data[i];
 
-                            // 找出当前高度最小的列, 新内容添加到该列
-                            iHeight = -1;
-                            $(".notes li").each(function() {
-                                iTempHeight = Number($(this).height());
-                                if(iHeight == -1 || iHeight > iTempHeight) {
-                                    iHeight = iTempHeight;
-                                    $row = $(this);
-                                }
-                            });
-                            if(data.length != 0) {
-                                dataCount++;
-                                var timese = "",
-                                    customerName = "";
+									// 找出当前高度最小的列, 新内容添加到该列
+									iHeight = -1;
+									$(".notes li").each(function() {
+										iTempHeight = Number($(this).height());
+										if(iHeight == -1 || iHeight > iTempHeight) {
+											iHeight = iTempHeight;
+											$row = $(this);
+										}
+									});
+									if(data.length != 0) {
+										dataCount++;
+										var timese = "",
+											customerName = "";
 
-                                for(var i = 0; i < data.length; i++) {
-                                    function days(_date) {
-                                        var date1 = new Date().getTime(),
-                                            date2 = new Date(_date).getTime();
-                                        return Math.floor((date1 - date2) / (24 * 3600 * 1000));
-                                    }
-                                    var endTime='',piTime='';
-                                    function getStr(string,str){
-                                        var str_before = string.split(str)[0];
-                                        var str_after = string.split(str)[1];
-                                        endTime=str_after;
-                                        piTime=str_before;
-                                    }
-                                    getStr(data[i].createTime," ");
-                                    var endTim=endTime.substr(0, endTime.length - 3);
-                                    if(days(data[i].createTime) == 0) {
-                                        timese = "今天"+endTim
-                                    } else if(days(data[i].createTime) == 1) {
-                                        timese = "昨天"+endTim
-                                    } else if(days(data[i].createTime) == 2) {
-                                        timese = "前天"+endTim
-                                    } else {
-                                        timese = piTime
-                                    }
+										for(var i = 0; i < data.length; i++) {
+											function days(_date) {
+												var date1 = new Date().getTime(),
+													date2 = new Date(_date).getTime();
+												return Math.floor((date1 - date2) / (24 * 3600 * 1000));
+											}
+											var endTime = '',
+												piTime = '';
 
-                                    if(data[i].customerName == "") {
-                                        customerName = "呔棒啦"
-                                    } else {
-                                        customerName = data[i].customerName
-                                    }
-                                    if(data[i].shareNum==""){
-                                        data[i].shareNum=0
-                                    }
-                                    $(".notes").append('<li id=' + data[i].selfnotesId + '>' +
-                                        '<div class="notesOperation">' +
-                                        '<img src=' + data[i].customerHeadImage + ' />' +
-                                        '<div>' +
-                                        '<div class="notesCon">' +
-                                        '<a href="javascript:;">' + customerName + '</a>' +
-                                        '</div>' +
-                                        '<span>' + timese + '</span>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '<div class="notesText">' +
-                                        '<p class="notesTitle" style="font-weight: 600;color:#333;">' + data[i].title + '</p>' +
-                                        '<p class="notesP">' + data[i].content + '</p>' +
-                                        '<ul class="notesImgArr" id="notes' + data[i].selfnotesId + '">' +
-                                        '</ul>' +
-                                        '</div>' +
-                                        '<ul id="wareVos'+ data[i].selfnotesId+'">' +
-                                        '</ul>'+
-                                        '<ul class="ul" style="width: 100%;height: 35px;background: #FFFFFF;border-top: 1px solid #F1F1F1;margin-bottom: 10px;">' +
-                                        '<li  class="' + data[i].selfnotesId + '" style="line-height: 35px;width: 50%;float: left;text-align: center;">\
+											function getStr(string, str) {
+												var str_before = string.split(str)[0];
+												var str_after = string.split(str)[1];
+												endTime = str_after;
+												piTime = str_before;
+											}
+											getStr(data[i].createTime, " ");
+											var endTim = endTime.substr(0, endTime.length - 3);
+											if(days(data[i].createTime) == 0) {
+												timese = "今天" + endTim
+											} else if(days(data[i].createTime) == 1) {
+												timese = "昨天" + endTim
+											} else if(days(data[i].createTime) == 2) {
+												timese = "前天" + endTim
+											} else {
+												timese = piTime
+											}
+
+											if(data[i].customerName == "") {
+												customerName = "呔棒啦"
+											} else {
+												customerName = data[i].customerName
+											}
+											if(data[i].shareNum == "") {
+												data[i].shareNum = 0
+											}
+											$(".notes").append('<li id=' + data[i].selfnotesId + '>' +
+												'<div class="notesOperation">' +
+												'<img src=' + data[i].customerHeadImage + ' />' +
+												'<div>' +
+												'<div class="notesCon">' +
+												'<a href="javascript:;">' + customerName + '</a>' +
+												'</div>' +
+												'<span>' + timese + '</span>' +
+												'</div>' +
+												'</div>' +
+												'<div class="notesText">' +
+												'<p class="notesTitle" style="font-weight: 600;color:#333;">' + data[i].title + '</p>' +
+												'<p class="notesP">' + data[i].content + '</p>' +
+												'<ul class="notesImgArr" id="notes' + data[i].selfnotesId + '">' +
+												'</ul>' +
+												'</div>' +
+												'<ul id="wareVos' + data[i].selfnotesId + '">' +
+												'</ul>' +
+												'<ul class="ul" style="width: 100%;height: 35px;background: #FFFFFF;border-top: 1px solid #F1F1F1;margin-bottom: 10px;">' +
+												'<li  class="' + data[i].selfnotesId + '" style="line-height: 35px;width: 50%;float: left;text-align: center;">\
                                         <span class="' + data[i].selfnotesId + '">\
 												<img src="../img/praise.png" style="width: 20px;height: 15px;"/></span>\
 												<span id="' + data[i].praiseNum + '" class="' + data[i].isPraise + '">' + data[i].praiseNum + '</span></li>' +
-                                        '<li class="share' + data[i].selfnotesId + '" style="line-height: 35px;width: 49%;float:left;text-align: center;border-left: 1px solid #F1F1F1;">\
-                                        <span class="share' + data[i].selfnotesId + '" id="'+ data[i].selfnotesId +'">\
+												'<li class="share' + data[i].selfnotesId + '" style="line-height: 35px;width: 49%;float:left;text-align: center;border-left: 1px solid #F1F1F1;">\
+                                        <span class="share' + data[i].selfnotesId + '" id="' + data[i].selfnotesId + '">\
 												<img src="../img/share.png" style="width: 20px;height: 15px;"/></span>\
 												<span id="' + data[i].shareNum + '" >' + data[i].shareNum + '</span></li>' +
-                                        '</ul>'+
-                                        '</li>'
+												'</ul>' +
+												'</li>'
 
-                                    );
-                                    
-                                   $("#wareVos"+ data[i].selfnotesId).append( '<div id="'+data[i].wareVos[0].wareId+'"  style="width:100%;height:55px;padding:10px 20px;box-sizing:border-box;background:#e5e5e5;position:relative;margin-bottom: 10px;">'+
-                                            '<img src="'+data[i].wareVos[0].image1file+'" style="width:35px;height:35px;position:absolute;left:20px;top:10px;" />'+
-                                            '<p style="text-overflow: ellipsis; overflow:hidden;white-space:nowrap;font-size:12px;color:#9b9b9b;padding-left:40px;width:100%;height:35px;box-sizing:border-box;line-height: 35px;">'+data[i].wareVos[0].wareName+'</p>'+
-                                            '</div>');
-                                        $("#"+data[i].wareVos[0].wareId).click(function (e) {
-											e.stopPropagation();
-											location.href="detailsdemo.html?wareId="+$(this).attr('id')
-                                        })
-                                    if(data[i].imageArray.length > 3) {
-                                        data[i].imageArray.length = 3
-                                        for(var j = 0; j < data[i].imageArray.length; j++) {
-                                            $("#notes" + data[i].selfnotesId).append('<li>' +
-                                                '<img src=' + data[i].imageArray[j] + ' class="notesImg" alt="" />' +
-                                                '</li>')
-                                        }
-                                    } else {
-                                        for(var j = 0; j < data[i].imageArray.length; j++) {
-                                            $("#notes" + data[i].selfnotesId).append('<li>' +
-                                                '<img src=' + data[i].imageArray[j] + ' class="notesImg" alt="" />' +
-                                                '</li>')
-                                        }
-                                    }
-                                    $("#" + data[i].selfnotesId).click(function(event) {
-                                        event.stopPropagation();
-                                        location.href = "findDetails.html?id=" + $(this).attr("id")
-                                    });
-                                    if($("." + data[i].selfnotesId).siblings("span").attr("class") == 1) {
-                                        $("." + data[i].selfnotesId).find("img").attr("src", "../img/praise_click.png")
-                                    }
+											);
+											if(data[i].wareVos.length > 0) {
+												if(data[i].wareVos.length > 1) {
+													data[i].wareVos.length = 1
+												} else {
+													data[i].wareVos.length = data[i].wareVos.length
+												}
+												for(var j = 0; j < data[i].wareVos.length; j++) {
 
+													$("#wareVos" + data[i].selfnotesId).append('<div id="' + data[i].wareVos[0].wareId + '"  style="width:100%;height:55px;padding:10px 20px;box-sizing:border-box;background:#e5e5e5;position:relative;margin-bottom: 10px;">' +
+														'<img src="' + data[i].wareVos[0].image1file + '" style="width:35px;height:35px;position:absolute;left:20px;top:10px;" />' +
+														'<p style="text-overflow: ellipsis; overflow:hidden;white-space:nowrap;font-size:12px;color:#9b9b9b;padding-left:40px;width:100%;height:35px;box-sizing:border-box;line-height: 35px;">' + data[i].wareVos[0].wareName + '</p>' +
+														'</div>');
+													$("#" + data[i].wareVos[0].wareId).click(function(e) {
+														e.stopPropagation();
+														location.href = "detailsdemo.html?wareId=" + $(this).attr('id')
+													})
+												}
 
-                                    $("." + data[i].selfnotesId).click(function(event) {
-                                        event.stopPropagation();
-                                        var num;
-                                        if($(this).siblings("span").attr("class") == 0) {
-                                            $(this).siblings("span").attr("class", "1")
-                                            num = Number($(this).siblings("span").text()) + 1
-                                            $(this).find("img").attr("src", "../img/praise_click.png")
-                                        } else if($(this).siblings("span").attr("class") == 1) {
-                                            $(this).siblings("span").attr("class", "0")
-                                            num = Number($(this).siblings("span").text()) - 1
-                                            $(this).find("img").attr("src", "../img/praise.png")
-                                        }
-                                        $(this).siblings("span").text(num);
+											}
 
-                                        if(localStorage.getItem("cutomerId")!="") {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: testurl + "/api/find/imagetextlike",
-                                                dataType: "json",
-                                                data: {
-                                                    platform: "2",
-                                                    cutomerId: localStorage.getItem("cutomerId"),
-                                                    selfnotesId: $(this).attr("class")
-                                                },
-                                                xhrFields: {
-                                                    withCredentials: true
-                                                },
-                                                crossDomain: true,
-                                                async: true,
-                                                beforeSend: function(XMLHttpRequest) {
-                                                    loadImg();
-                                                },
-                                                success: function(data) {
+											if(data[i].imageArray.length > 3) {
+												data[i].imageArray.length = 3
+												for(var j = 0; j < data[i].imageArray.length; j++) {
+													$("#notes" + data[i].selfnotesId).append('<li>' +
+														'<img src=' + data[i].imageArray[j] + ' class="notesImg" alt="" />' +
+														'</li>')
+												}
+											} else {
+												for(var j = 0; j < data[i].imageArray.length; j++) {
+													$("#notes" + data[i].selfnotesId).append('<li>' +
+														'<img src=' + data[i].imageArray[j] + ' class="notesImg" alt="" />' +
+														'</li>')
+												}
+											}
+											$("#" + data[i].selfnotesId).click(function(event) {
+												event.stopPropagation();
+												location.href = "findDetails.html?id=" + $(this).attr("id")
+											});
+											if($("." + data[i].selfnotesId).siblings("span").attr("class") == 1) {
+												$("." + data[i].selfnotesId).find("img").attr("src", "../img/praise_click.png")
+											}
 
-                                                },
-                                                complete: function(XMLHttpRequest, textStatus) {
-                                                    $("#loadImg").remove();
-                                                },
-                                                error: function(data) {
-                                                    if(data.status == "404") {
-                                                        alert('请求地址出错！');
-                                                    } else if(data.status == "302") {
-                                                        alert('连接网页出错');
-                                                    } else if(data.status == "timeout") {
-                                                        alert("请求超时!");
-                                                    } else if(data.status == "400") {
-                                                        alert("未登录!请先登录");
-                                                        location.href = "./login.html"
-                                                    } else {
-                                                        alert('服务器出差了~！');
-                                                    }
-                                                }
-                                            });
-                                        } else {
-                                            show_confirm()
-                                        }
-                                    });
-                                    $(".share"+ data[i].selfnotesId).click(function (event) {
-                                        event.stopPropagation();
-                                        shares($(this).attr("id"),$(this).parents(".ul").siblings(".notesText").find(".notesImgArr").eq(0).find("li").find("img").attr("src"),$(this).parents(".ul").siblings(".notesText").find(".notesTitle").text())
-                                        $(".laye").show()
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
-                $(".notesOperation>img").error(function() {
-                    $(this).attr("src", "../img/imgNoload.png")
-                })
-                $("p img").css({
-                    "max-width": "100%",
-                    "max-height": "200px"
-                })
-            },
-            complete: function(XMLHttpRequest, textStatus) {
-                $("#loadImg").remove();
-            },
-            error: function(data) {
-                if(data.status == "404") {
-                    alert('请求地址出错！');
-                } else if(data.status == "302") {
-                    alert('连接网页出错');
-                } else if(data.status == "timeout") {
-                    alert("请求超时!");
-                } else {
-                    alert('服务器出差了~！');
-                }
-            }
-        })
-    }
-    $("img").error(function() {
-        $(this).attr("src", "../img/imgNoload.png")
-    });
-    function show_confirm() {
+											$("." + data[i].selfnotesId).click(function(event) {
+												event.stopPropagation();
+												var num;
+												if($(this).siblings("span").attr("class") == 0) {
+													$(this).siblings("span").attr("class", "1")
+													num = Number($(this).siblings("span").text()) + 1
+													$(this).find("img").attr("src", "../img/praise_click.png")
+												} else if($(this).siblings("span").attr("class") == 1) {
+													$(this).siblings("span").attr("class", "0")
+													num = Number($(this).siblings("span").text()) - 1
+													$(this).find("img").attr("src", "../img/praise.png")
+												}
+												$(this).siblings("span").text(num);
 
-        var r = confirm("请先登录");
-        if(r == true) {
-            location.href = "login.html";
-        } else {
-            location.reload()
-        }
-    }
-    function shares(wareid, img, title) {
-        var laye = '<div class="laye" style="z-index:9999;">';
-        laye += '<div class="layeTitle">分享到</div>'
-        laye += '<div class="layeContent"><a href="javascript:;" class="ToQzone" ><img src="../img/share_qqspace.png"/></a><a href="javascript:void(0)" class="Sina"><img src="../img/share_weibo.png"/></a></div>'
-        laye += '<div class="layeFont"><a href="javascript:;" class="closeLaye">取消</a></div>'
-        laye += '</div>'
-        $("body").append(laye);
-        var share_url = encodeURIComponent('http://www.tblmall.com:81/web/web/findDetails.html?id=' + wareid+"&route=share");
-        var share_title = "分享一个手记:" + title;
-        var share_summipt = "我在呔棒啦商城发现了一个好东西，赶紧看看吧！";
-        var share_pic = img; //榛樿鐨勫垎浜浘鐗�
-        var share_from = encodeURIComponent("jQuery鎻掍欢搴�");
-        //Qzone
-        $(".ToQzone").click(function(e) {
-            window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + share_url + "&title=" + share_title + "&pics=" + share_pic + "&site=" + share_from + "&summary=" + share_summipt + "", "newwindow");
-        });
+												if(localStorage.getItem("cutomerId") != "") {
+													$.ajax({
+														type: "POST",
+														url: testurl + "/api/find/imagetextlike",
+														dataType: "json",
+														data: {
+															platform: "2",
+															cutomerId: localStorage.getItem("cutomerId"),
+															selfnotesId: $(this).attr("class")
+														},
+														xhrFields: {
+															withCredentials: true
+														},
+														crossDomain: true,
+														async: true,
+														beforeSend: function(XMLHttpRequest) {
+															loadImg();
+														},
+														success: function(data) {
 
-        //Sina Weibo
-        $('.Sina').click(function(e) {
-            var param = {
-                url: share_url,
-                appkey: '201abfdd50b70',
-                title: share_title,
-                pic: share_pic,
-                ralateUid: '527881777',
-                rnd: new Date().valueOf()
-            }
-            var temp = [];
-            for(var p in param) {
-                temp.push(p + '=' + encodeURIComponent(param[p] || ''))
-            }
-            window.open('http://v.t.sina.com.cn/share/share.php?' + temp.join('&'));
-        });
-        $(".closeLaye").click(function() {
-            $(".laye").hide()
-        })
-    }
+														},
+														complete: function(XMLHttpRequest, textStatus) {
+															$("#loadImg").remove();
+														},
+														error: function(data) {
+															if(data.status == "404") {
+																alert('请求地址出错！');
+															} else if(data.status == "302") {
+																alert('连接网页出错');
+															} else if(data.status == "timeout") {
+																alert("请求超时!");
+															} else if(data.status == "400") {
+																alert("未登录!请先登录");
+																location.href = "./login.html"
+															} else {
+																alert('服务器出差了~！');
+															}
+														}
+													});
+												} else {
+													show_confirm()
+												}
+											});
+											$(".share" + data[i].selfnotesId).click(function(event) {
+												event.stopPropagation();
+												shares($(this).attr("id"), $(this).parents(".ul").siblings(".notesText").find(".notesImgArr").eq(0).find("li").find("img").attr("src"), $(this).parents(".ul").siblings(".notesText").find(".notesTitle").text())
+												$(".laye").show()
+											});
+										}
+									}
+								}
+							}
+						}
+						$(".notesOperation>img").error(function() {
+							$(this).attr("src", "../img/imgNoload.png")
+						})
+						$("p img").css({
+							"max-width": "100%",
+							"max-height": "200px"
+						})
+					},
+					complete: function(XMLHttpRequest, textStatus) {
+						$("#loadImg").remove();
+					},
+					error: function(data) {
+						if(data.status == "404") {
+							alert('请求地址出错！');
+						} else if(data.status == "302") {
+							alert('连接网页出错');
+						} else if(data.status == "timeout") {
+							alert("请求超时!");
+						} else {
+							alert('服务器出差了~！');
+						}
+					}
+				})
+			}
+			$("img").error(function() {
+				$(this).attr("src", "../img/imgNoload.png")
+			});
 
-</script>
+			function show_confirm() {
 
-</body>
+				var r = confirm("请先登录");
+				if(r == true) {
+					location.href = "login.html";
+				} else {
+					location.reload()
+				}
+			}
+
+			function shares(wareid, img, title) {
+				var laye = '<div class="laye" style="z-index:9999;">';
+				laye += '<div class="layeTitle">分享到</div>'
+				laye += '<div class="layeContent"><a href="javascript:;" class="ToQzone" ><img src="../img/share_qqspace.png"/></a><a href="javascript:void(0)" class="Sina"><img src="../img/share_weibo.png"/></a></div>'
+				laye += '<div class="layeFont"><a href="javascript:;" class="closeLaye">取消</a></div>'
+				laye += '</div>'
+				$("body").append(laye);
+				var share_url = encodeURIComponent('http://www.tblmall.com:81/web/web/findDetails.html?id=' + wareid + "&route=share");
+				var share_title = "分享一个手记:" + title;
+				var share_summipt = "我在呔棒啦商城发现了一个好东西，赶紧看看吧！";
+				var share_pic = img; //榛樿鐨勫垎浜浘鐗�
+				var share_from = encodeURIComponent("jQuery鎻掍欢搴�");
+				//Qzone
+				$(".ToQzone").click(function(e) {
+					window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + share_url + "&title=" + share_title + "&pics=" + share_pic + "&site=" + share_from + "&summary=" + share_summipt + "", "newwindow");
+				});
+
+				//Sina Weibo
+				$('.Sina').click(function(e) {
+					var param = {
+						url: share_url,
+						appkey: '201abfdd50b70',
+						title: share_title,
+						pic: share_pic,
+						ralateUid: '527881777',
+						rnd: new Date().valueOf()
+					}
+					var temp = [];
+					for(var p in param) {
+						temp.push(p + '=' + encodeURIComponent(param[p] || ''))
+					}
+					window.open('http://v.t.sina.com.cn/share/share.php?' + temp.join('&'));
+				});
+				$(".closeLaye").click(function() {
+					$(".laye").hide()
+				})
+			}
+		</script>
+
+	</body>
 
 </html>
