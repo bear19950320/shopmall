@@ -22,7 +22,7 @@
 			<div class="individualLeft tx">
 				<img style="width: 80px;height: 80px;" src="../img/LOGO.png" id="headimg" alt="" />
 			</div>
-			<input type="file" class="imgfile" id="headImage" name="file" onchange="PreviewImage(this)" style="display: none;" />
+			<input type="file" class="imgfile" id="headImageres" name="file" onchange="PreviewImage(this)" style="display: none;" />
 		</div>
 	</li>
 
@@ -181,7 +181,7 @@
                         user.headImage = '../img/LOGO.png'
                     }
                     $("#headimg").attr("src", user.headImage);
-                    $("#headImage").value = data.data.user.headImage;
+                   // $("#headImage").value = data.data.user.headImage;
                     //$("#headImage").val(headImage)
                     //$("#headImage").val(user.headImage);
                     //$("#Backimg").val(user.backgroundImage);
@@ -429,7 +429,7 @@
             }
         }
         var formData = new FormData();
-        formData.append('file', $('#headImage')[0].files[0]);
+        formData.append('file', $('#headImageres')[0].files[0]);
         formData.append('backgroundImagefile', $('#backImage')[0].files[0]);
         formData.append('name', $('#name').val());
         formData.append('sex', ids);
@@ -457,7 +457,7 @@
                 location.href="login.html";
             }
         }).fail(function(res) {
-              alert("错误"+res);
+              alert("错误"+JSON.stringify(res));
         });
     });
 
