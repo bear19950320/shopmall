@@ -446,17 +446,18 @@
             processData: false,
             contentType: false
         }).done(function(res) {
+        	alert("正确"+res);
             var jsons=res;
             jsons=JSON.parse(jsons);
             if (jsons.code==10000){
                 location.href='individual.html';
-                console.log("成功！")
+                alert("成功！")
             }else if(jsons.code==2001){
                 alert(jsons.msg);
                 location.href="login.html";
             }
         }).fail(function(res) {
-
+              alert("错误"+res);
         });
     });
 
