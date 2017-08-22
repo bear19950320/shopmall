@@ -62,6 +62,11 @@
 			}
 			var id = GetQueryString("id");
             var route = GetQueryString("route");
+            if(!route) {
+
+            } else {
+                $("body").append('<a href="../index.html" style="width:0.44rem;padding:10px 0;position: fixed;right:0;bottom:100px;background: rgba(0,0,0,.4);text-align: center;vertical-align: middle;"> <img src="../img/gohome.png" style="width:24px;height:20px;" /></a>')
+            }
 			// 精选手记
 			$.ajax({
 				type: "GET",
@@ -172,7 +177,7 @@
                     } else {
                         timese = piTime
                     }
-var customerName='';
+					var customerName='';
                     if(data.customerName == "") {
                         customerName = "呔棒啦"
                     } else {
@@ -186,7 +191,7 @@ var customerName='';
 						'<img src=' + data.customerHeadImage + ' />' +
 						'<div>' +
 						'<div class="notesCon">' +
-						'<a href="javascript:;">' + data.customerName + '</a>' +
+						'<a href="javascript:;">' + customerName + '</a>' +
 						'<ul>' +
 						'<li style="line-height: 20px;">' +
 						'<span class="' + data.selfnotesId + '">\
