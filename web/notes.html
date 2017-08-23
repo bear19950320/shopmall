@@ -173,7 +173,7 @@
 					readFile(t_files[i]);
 
 					if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
-						alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
+						skin("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
 						imgFile.focus();
 					} else {
 						var path;
@@ -254,13 +254,13 @@
 					},
 					error: function(data) {
 						if(data.status == "404") {
-							alert('请求地址出错！');
+							skin('请求地址出错！');
 						} else if(data.status == "302") {
-							alert('连接网页出错');
+							skin('连接网页出错');
 						} else if(data.status == "timeout") {
-							alert("请求超时!");
+							skin("请求超时!");
 						} else {
-							alert('服务器出差了~！');
+							skin('服务器出差了~！');
 						}
 					}
 				});
@@ -331,13 +331,13 @@
 					},
 					error: function(data) {
 						if(data.status == "404") {
-							alert('请求地址出错！');
+							skin('请求地址出错！');
 						} else if(data.status == "302") {
-							alert('连接网页出错');
+							skin('连接网页出错');
 						} else if(data.status == "timeout") {
-							alert("请求超时!");
+							skin("请求超时!");
 						} else {
-							alert('服务器出差了~！');
+							skin('服务器出差了~！');
 						}
 					}
 				});

@@ -13,13 +13,20 @@ $(document).ready(function() {
 		"width": $(window).width(),
 		"height": $(window).height()
 	});
-	console.log($(window).width() + "---" + $(window).height())
 	//----- 判断--微信端
 	isWeiXin();
 	//----- 屏幕大于ipad的竖屏最大宽度 
 	isMax();
 });
-
+function skin(skin){
+            // 提示
+	layer.open({
+		className: 'popuo-login',
+		content: skin,
+		skin: 'msg',
+		time: 2 //2秒后自动关闭
+	});
+  }
 function getcookie(name) {
 	var strcookie = document.cookie;
 	var arrcookie = strcookie.split("; ");
@@ -261,13 +268,13 @@ function classIfy(thisId,dataCount) {
 		},
 		error: function(data) {
 			if(data.status == "404") {
-				alert('请求地址出错！');
+				skin('请求地址出错！');
 			} else if(data.status == "302") {
-				alert('连接网页出错');
+				skin('连接网页出错');
 			} else if(data.status == "timeout") {
-				alert("请求超时!");
+				skin("请求超时!");
 			} else {
-				alert('服务器出差了~！');
+				skin('服务器出差了~！');
 			}
 		}
 	})

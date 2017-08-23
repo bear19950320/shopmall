@@ -96,7 +96,7 @@
 						crossDomain: true,
 						success: function(data) {
 							if(data.code == 2001) {
-								alert(data.msg);
+								skin(data.msg);
 								$(".btmNav").hide();
 								$(".cart").css({
 									"padding": "0"
@@ -350,7 +350,7 @@
 					})
 					$("#settlement").click(function() {
 						if($('.cart dd input[type="checkbox"]:checked').length == 0) {
-							mask("请选择一个商品");
+							skin("请选择一个商品")
 						} else {
 							var shopcart=[]
 							for(var i = 0; i < $('.cart dd input[class="checkbox"]:checked').length; i++) {

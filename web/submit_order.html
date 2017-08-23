@@ -7,6 +7,8 @@
 		<title>订单支付</title>
 		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
 		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../layer_mobile/need/layer.css"/>
+		<script src="../layer_mobile/layer.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			#content {
 				background-color: #F9F9FA;
@@ -522,15 +524,15 @@
 											crossDomain: true,
 											success: function(data) {
 												if(data.code == 8001) {
-													alert(data.msg);
+													skin(data.msg);
                                                     location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 												} else if(data.code == 10000) {
 													$("#orderUl").empty();
 													location.href = "orderstatush.html?Paid=" + $("#Paid").html()
 												}else if(data.code==3003){
-													alert(data.msg);
+													skin(data.msg);
 												}else{
-													alert(data.msg);
+													skin(data.msg);
 												}
 
 												// location.href="order.html?code=200"
@@ -540,7 +542,7 @@
 									} else {
 										$("#passwordinput").val("");
 										$(".ipt-fake-box input").val("")
-										alert(data.msg)
+										skin(data.msg)
 									}
 								}
 							})
@@ -576,7 +578,7 @@
 							var allMoney = Number($("#cashMuch span").text()) + Number($("#TieMuch span").text())
 							sessionStorage.setItem("allMoney", allMoney)
 						} else if(data.code == 2001) {
-							alert(data.msg)
+							skin(data.msg)
 							window.location.href = "login.html"
 						}
 					}
@@ -627,7 +629,7 @@
 								}
 							}
 						} else if(data.code == 2001) {
-							alert(data.msg)
+							skin(data.msg)
 							location.href = "login.html"
 						} else {
 							location.href = "login.html"
@@ -935,7 +937,7 @@
 	                	alert("金额不足无法支付订单,请下载app完成支付");
 						location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
 	                }else{
-	                	alert("至少选择一种支付方式");
+	                	skin("至少选择一种支付方式");
 	                }
 					return false;
 				} else {
@@ -969,7 +971,8 @@
 						},
 						crossDomain: true,
 						success: function(data) {
-							var orderCode = data.data.orderCode;
+						if(data.code==10000){
+								var orderCode = data.data.orderCode;
 							$("#confirmCon").attr("orderid", orderCode);
 							$("#Prict").text("¥"+$("#Paid").text())
                             $.ajax({
@@ -989,14 +992,15 @@
                                    if(data.result==true){
                                        $(".fixed").show();
 								   }else if(data.result==false){
-                                       alert("您还没有支付密码请设置支付密码");
+                                       skin("您还没有支付密码请设置支付密码");
 									   location.href="securityCenter.html"
 								   }
 								}
                             })
 
-
-
+						}else{
+							skin(data.msg)
+						}
 
 							//									$("#name").prepend($(".classifyListText").text());
 							//									$("#num").text($("#Paid").text())
