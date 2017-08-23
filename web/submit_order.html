@@ -527,6 +527,10 @@
 												} else if(data.code == 10000) {
 													$("#orderUl").empty();
 													location.href = "orderstatush.html?Paid=" + $("#Paid").html()
+												}else if(data.code==3003){
+													alert(data.msg);
+												}else{
+													alert(data.msg);
 												}
 
 												// location.href="order.html?code=200"
