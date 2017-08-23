@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/lunbo.css" />
 		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="../css/curr.css" />
+		<link rel="stylesheet" type="text/css" href="../layer_mobile/need/layer.css"/>
 		<style type="text/css">
 			.crousel {
 				text-align: center;
@@ -222,7 +223,9 @@
 			</tbody>
 		</table>
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../layer_mobile/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/curr.js" type="text/javascript" charset="utf-8"></script>
+		
 		<script type="text/javascript">
 			/* 头部的显示    */
 			function GetQueryString(name) {
@@ -311,20 +314,20 @@
 					},
 					error: function(data) {
 						if(data.status == "404") {
-							alert('请求地址出错！');
+							skin('请求地址出错！');
 						} else if(data.status == "302") {
-							alert('连接网页出错');
+							skin('连接网页出错');
 						} else if(data.status == "timeout") {
-							alert("请求超时!");
+							skin("请求超时!");
 						} else {
-							alert('服务器出差了~！');
+							skin('服务器出差了~！');
 						}
 					}
 				});
 			}
 			$("#receiveMoney").click(function() {
 				if(Number($("#canMoney>span").html()) <= 0) {
-					alert("没有可领金额咯~！")
+					skin("没有可领金额咯~！")
 				} else {
 					$.ajax({
 						type: "GET",
@@ -353,13 +356,13 @@
 						},
 						error: function(data) {
 							if(data.status == "404") {
-								alert('请求地址出错！');
+								skin('请求地址出错！');
 							} else if(data.status == "302") {
-								alert('连接网页出错');
+								skin('连接网页出错');
 							} else if(data.status == "timeout") {
-								alert("请求超时!");
+								skin("请求超时!");
 							} else {
-								alert('服务器出差了~！');
+								skin('服务器出差了~！');
 							}
 						}
 					});

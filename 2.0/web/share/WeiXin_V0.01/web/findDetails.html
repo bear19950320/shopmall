@@ -116,16 +116,16 @@
 				},
 				error: function(data) {
 					if(data.status == "404") {
-						alert('请求地址出错！');
+						skin('请求地址出错！');
 					} else if(data.status == "302") {
-						alert('连接网页出错');
+						skin('连接网页出错');
 					} else if(data.status == "timeout") {
-						alert("请求超时!");
+						skin("请求超时!");
 					}else if(data.status == "400"){
-						alert("未登录!请先登录");
+						skin("未登录!请先登录");
 						location.href="./login.html"
 					} else {
-						alert('服务器出差了~！');
+						skin('服务器出差了~！');
 					}
 				}
 			})
@@ -247,16 +247,16 @@
 							},
 							error: function(data) {
 								if(data.status == "404") {
-									alert('请求地址出错！');
+									skin('请求地址出错！');
 								} else if(data.status == "302") {
-									alert('连接网页出错');
+									skin('连接网页出错');
 								} else if(data.status == "timeout") {
-									alert("请求超时!");
+									skin("请求超时!");
 								}else if(data.status == "400"){
-									alert("未登录!请先登录");
+									skin("未登录!请先登录");
 									location.href="./login.html"
 								} else {
-									alert('服务器出差了~！');
+									skin('服务器出差了~！');
 								}
 							}
 						});
@@ -289,16 +289,16 @@
 				},
 				error: function(data) {
 					if(data.status == "404") {
-						alert('请求地址出错！');
+						skin('请求地址出错！');
 					} else if(data.status == "302") {
-						alert('连接网页出错');
+						skin('连接网页出错');
 					} else if(data.status == "timeout") {
-						alert("请求超时!");
+						skin("请求超时!");
 					}else if(data.status == "400"){
-						alert("未登录!请先登录");
+						skin("未登录!请先登录");
 						location.href="./login.html"
 					} else {
-						alert('服务器出差了~！');
+						skin('服务器出差了~！');
 					}
 				}
 			})

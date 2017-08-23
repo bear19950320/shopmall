@@ -7,6 +7,8 @@
 		<title>订单支付</title>
 		<link rel="stylesheet" type="text/css" href="../css/curr.css" />
 		<link rel="stylesheet" type="text/css" href="../fontic/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../layer_mobile/need/layer.css"/>
+		<script src="../layer_mobile/layer.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			#content {
 				background-color: #F9F9FA;
@@ -592,7 +594,7 @@
                                                 var allMoney = data.data.user.replaceMoney + data.data.user.cashMoney
                                                 sessionStorage.setItem("allMoney", allMoney)
                                             } else if(data.code == 2001) {
-                                                alert(data.msg);
+                                                skin(data.msg);
                                                 location.href = "login.html"
                                             }
 
@@ -614,7 +616,7 @@
                                         crossDomain: true,
                                         success: function (data) {
                                             if (data.data.result == false) {
-                                                alert("您还没有支付密码请设置支付密码");
+                                                skin("您还没有支付密码请设置支付密码");
                                                 location.href = "securityCenter.html"
                                             } else if (data.data.result == true) {
                                                 $(".fixed").show();
@@ -644,7 +646,7 @@
                                                         });
                                                         if (len == 6) {
                                                             if (sessionStorage.getItem("allMoney") < Number($("#Paid").html())) {
-                                                                alert("金额不足支付订单,请下载app完成支付")
+                                                                skin("金额不足支付订单,请下载app完成支付")
                                                                 location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
                                                             } else {
                                                                 $.ajax({
@@ -691,7 +693,7 @@
                                                                                 },
                                                                                 crossDomain: true,
                                                                                 success: function (data) {
-                                                                                    if (data.code == 10000) {
+                                                                                	if(data.code==10000){
                                                                                         var orderCode = data.data.orderCode;
                                                                                         $("#confirmCon").attr("orderid", orderCode);
 
@@ -715,7 +717,7 @@
                                                                                             crossDomain: true,
                                                                                             success: function (data) {
                                                                                                 if (data.code == 8001) {
-                                                                                                    alert(data.msg);
+                                                                                                    skin(data.msg);
                                                                                                     location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
                                                                                                 } else if (data.code == 10000) {
 
@@ -732,19 +734,17 @@
                                                                                     } else if (data.code == 2001) {
                                                                                         localStorage.setItem("cutomerId", " ")
                                                                                         localStorage.setItem("loginStatus", "0")
-                                                                                        alert(data.msg)
+                                                                                        skin(data.msg)
                                                                                     } else {
-                                                                                        alert(data.msg)
+                                                                                        skin(data.msg)
                                                                                     }
 
                                                                                 }
                                                                             });
-
-
                                                                         } else {
                                                                             $("#passwordinput").val("");
                                                                             $(".ipt-fake-box input").val("")
-                                                                            alert(data.msg)
+                                                                            skin(data.msg)
                                                                         }
                                                                     }
                                                                 })
@@ -956,7 +956,7 @@
                                         var allMoney = data.data.user.replaceMoney + data.data.user.cashMoney
                                         sessionStorage.setItem("allMoney", allMoney)
                                     } else if(data.code == 2001) {
-                                        alert(data.msg);
+                                        skin(data.msg);
                                         location.href = "login.html"
                                     }
 
@@ -1102,7 +1102,7 @@
                             $("#div4").attr("class", "close2");
                             $("#TieBack").css({"background":"url(../img/icon/Pay_TaiJinNormal@2x.png)no-repeat","background-size":"contain"})
                             $("#div2,#div1,#div4,#div3").click(function() {
-                                alert("云仓提货请支付运费");
+                                skin("云仓提货请支付运费");
                                 return false;
                             })
                         }
@@ -1156,7 +1156,7 @@
                                     alert("金额不足无法支付订单,请下载app完成支付");
                                     location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
                                 }else{
-                                    alert("至少选择一种支付方式");
+                                    skin("至少选择一种支付方式");
                                 }
                                 return false;
                             } else {
@@ -1173,7 +1173,7 @@
                                 }
                             }
                             if($("#map").html()==""){
-                                alert("没有收货地址,请设置收货地址");
+                                skin("没有收货地址,请设置收货地址");
                                 location.href="addresslist.html"
                             }else if($("#map").html()!=""){
                                 if(localStorage.getItem("loginStatus") == "0" || localStorage.getItem("loginStatus") == "") {
@@ -1194,7 +1194,7 @@
                                         crossDomain: true,
                                         success: function(data) {
                                             if(data.data.result == false) {
-                                                alert("您还没有支付密码请设置支付密码");
+                                                skin("您还没有支付密码请设置支付密码");
                                                 location.href = "securityCenter.html"
                                             } else if(data.data.result == true) {
                                                 $.ajax({
@@ -1222,9 +1222,9 @@
                                                         } else if(data.code == 2001) {
                                                             localStorage.setItem("cutomerId", " ")
                                                             localStorage.setItem("loginStatus", "0")
-                                                            alert(data.msg)
+                                                            skin(data.msg)
                                                         } else {
-                                                            alert(data.msg)
+                                                            skin(data.msg)
                                                         }
 
                                                     }
@@ -1337,7 +1337,7 @@
                                                         crossDomain: true,
                                                         success: function(data) {
                                                             if(data.code == 8001) {
-                                                                alert(data.msg);
+                                                                skin(data.msg);
                                                                 location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yvis.taibangle"
                                                             } else if(data.code == 10000) {
                                                                 $("#orderUl").empty();
@@ -1350,7 +1350,7 @@
                                                 } else {
                                                     $("#passwordinput").val("");
                                                     $(".ipt-fake-box input").val("")
-                                                    alert(data.msg)
+                                                    skin(data.msg)
                                                 }
                                             }
                                         })

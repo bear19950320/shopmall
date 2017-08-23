@@ -77,6 +77,9 @@
 	font-size: 12px;
 	font-family: "-apple-system,Helvetica,sans-serif";
 }
+.popuo-login>div{
+	color:#fff;
+}
 red{
 	color:#FF0000;
 }

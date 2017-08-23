@@ -171,7 +171,7 @@
             },
             success: function(data) {
                 if(data.code == 2001) {
-                    alert(data.msg)
+                    skin(data.msg)
                 } else if(data.code == 10000) {
                     $("#cutomerId").val(localStorage.getItem("cutomerId"));
                     var user = data.data.user;
@@ -207,13 +207,13 @@
             },
             error: function(data) {
                 if(data.status == "404") {
-                    alert('请求地址出错！');
+                    skin('请求地址出错！');
                 } else if(data.status == "302") {
-                    alert('连接网页出错');
+                    skin('连接网页出错');
                 } else if(data.status == "timeout") {
-                    alert("请求超时!");
+                    skin("请求超时!");
                 } else {
-                    alert('服务器出差了~！');
+                    skin('服务器出差了~！');
                 }
             }
         });
@@ -253,7 +253,7 @@
             readFile(t_files[i]);
 
             if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
-                alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
+                skin("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
                 imgFile.focus();
             } else {
                 var path;
@@ -283,7 +283,7 @@
             readFile(t_files[i]);
 
             if((filextension != '.jpg') && (filextension != '.gif') && (filextension != '.jpeg') && (filextension != '.png') && (filextension != '.bmp')) {
-                alert("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
+                skin("对不起，系统仅支持标准格式的照片，请您调整格式后重新上传，谢谢 !");
                 imgFile.focus();
             } else {
                 var path;
@@ -450,13 +450,13 @@
             jsons=JSON.parse(jsons);
             if (jsons.code==10000){
                 location.href='individual.html';
-                alert("修改成功")
+                skin("修改成功")
             }else if(jsons.code==2001){
-                alert(jsons.msg);
+                skin(jsons.msg);
                 location.href="login.html";
             }
         }).fail(function(res) {
-              alert("修改错误");
+              skin("修改错误");
         });
     });
 
